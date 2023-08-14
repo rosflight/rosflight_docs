@@ -1229,7 +1229,7 @@ You're not viewing the latest version.
 <p>The following guide will show you how to get the in-circuit debugger running with either the Visual Studio Code or QtCreator IDE. Start with the steps in the <a href="#general-setup">General Setup</a> section, then move on to either the <a href="#vs-code">VS Code</a> or <a href="#qtcreator">QtCreator</a> sections depending on your choice of IDE.</p>
 <p>This guide assumes you are running Ubuntu 18.04, which is the currently supported development environment.</p>
 <h2 id="general-setup">General Setup<a class="headerlink" href="#general-setup" title="Permanent link">&para;</a></h2>
-<p>Follow the guide in <a href="building-flashing.md">Building and Flashing</a> to install the compiler toolchain.</p>
+<p>Follow the guide in <a href="../building-and-flashing/">Building and Flashing</a> to install the compiler toolchain.</p>
 <p>Also make sure you have configured your computer as described in the <a href="../../user-guide/flight-controller-setup/#serial-port-configuration">Serial Port Configuration</a> section of the user guide.</p>
 <h3 id="connect-debugger-to-flight-controller">Connect debugger to flight controller<a class="headerlink" href="#connect-debugger-to-flight-controller" title="Permanent link">&para;</a></h3>
 <p>The ST-LINK/V2 connects to the microcontroller using the Serial Wire Debug (SWD) interface. You will need to connect the <code>GND</code>, <code>NRST</code>, <code>SWDIO</code>, and <code>SWCLK</code> lines of the ST-LINK/V2 to your flight controller. On many F4 boards, these lines are pinned out through a 4-position JST SH connector, although that connector is not always populated. Refer to the documentation for your specific board for details.</p>
