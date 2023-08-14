@@ -12,21 +12,27 @@
         <meta name="author" content="James Jackson, Daniel Koch">
       
       
+        <link rel="canonical" href="http://rosflight.org/ROS2/rosflight/user-guide/rc-configuration/">
       
       
-      <link rel="icon" href="/ROS2/assets/favicon.ico">
+        <link rel="prev" href="../flight-controller-setup/">
+      
+      
+        <link rel="next" href="../ros-setup/">
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
-        <title>ROSflight</title>
+        <title>RC Configuration - ROSflight</title>
       
     
     
-      <link rel="stylesheet" href="/ROS2/assets/stylesheets/main.eebd395e.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
       
         
-        <link rel="stylesheet" href="/ROS2/assets/stylesheets/palette.ecc896b0.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
       
       
 
@@ -42,7 +48,7 @@
       
     
     
-    <script>__md_scope=new URL("/ROS2",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -66,6 +72,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#rc-configuration" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -77,7 +88,7 @@
             <div class="md-banner__inner md-grid md-typeset">
               
 You're not viewing the latest version.
-<a href="..//ROS2">
+<a href="../../../..">
   <strong>Click here to go to latest.</strong>
 </a>
 
@@ -92,9 +103,9 @@ You're not viewing the latest version.
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/ROS2/." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="/ROS2/assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -110,7 +121,7 @@ You're not viewing the latest version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              RC Configuration
             
           </span>
         </div>
@@ -178,7 +189,7 @@ You're not viewing the latest version.
   
   
     <li class="md-tabs__item">
-      <a href="/ROS2/home/" class="md-tabs__link">
+      <a href="../../../home/" class="md-tabs__link">
         Home
       </a>
     </li>
@@ -188,13 +199,15 @@ You're not viewing the latest version.
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="/ROS2/rosflight/overview/" class="md-tabs__link">
+      <a href="../../overview/" class="md-tabs__link md-tabs__link--active">
         ROSflight
       </a>
     </li>
@@ -210,7 +223,7 @@ You're not viewing the latest version.
   
   
     <li class="md-tabs__item">
-      <a href="/ROS2/rosplane/overview/" class="md-tabs__link">
+      <a href="../../../rosplane/overview/" class="md-tabs__link">
         ROSplane
       </a>
     </li>
@@ -226,7 +239,7 @@ You're not viewing the latest version.
   
   
     <li class="md-tabs__item">
-      <a href="/ROS2/roscopter/overview/" class="md-tabs__link">
+      <a href="../../../roscopter/overview/" class="md-tabs__link">
         ROScopter
       </a>
     </li>
@@ -254,9 +267,9 @@ You're not viewing the latest version.
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/ROS2/." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="/ROS2/assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     ROSflight
@@ -299,7 +312,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/home/" class="md-nav__link">
+      <a href="../../../home/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -313,7 +326,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/home/contribution-guidelines/" class="md-nav__link">
+      <a href="../../../home/contribution-guidelines/" class="md-nav__link">
         Contribution Guidelines
       </a>
     </li>
@@ -327,7 +340,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/home/style-guide/" class="md-nav__link">
+      <a href="../../../home/style-guide/" class="md-nav__link">
         Style Guide
       </a>
     </li>
@@ -347,14 +360,16 @@ You're not viewing the latest version.
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
       
@@ -363,7 +378,7 @@ You're not viewing the latest version.
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           ROSflight
@@ -376,7 +391,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -388,14 +403,16 @@ You're not viewing the latest version.
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
       
       
       
@@ -404,7 +421,7 @@ You're not viewing the latest version.
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2_2">
           <span class="md-nav__icon md-icon"></span>
           User Guide
@@ -417,7 +434,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -431,7 +448,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/hardware-setup/" class="md-nav__link">
+      <a href="../hardware-setup/" class="md-nav__link">
         Hardware Setup
       </a>
     </li>
@@ -445,7 +462,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/flight-controller-setup/" class="md-nav__link">
+      <a href="../flight-controller-setup/" class="md-nav__link">
         Flight Controller Setup
       </a>
     </li>
@@ -457,11 +474,113 @@ You're not viewing the latest version.
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/rc-configuration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          RC Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         RC Configuration
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#binding-your-transmitter-to-your-receiver" class="md-nav__link">
+    Binding your Transmitter to your Receiver
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rc-transmitter-calibration" class="md-nav__link">
+    RC Transmitter Calibration
+  </a>
+  
+    <nav class="md-nav" aria-label="RC Transmitter Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-full-stick-output-for-each-channel" class="md-nav__link">
+    Configure the full stick output for each channel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" class="md-nav__link">
+    Configure stick directions for roll, pitch, and yaw channels.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switch-configuration" class="md-nav__link">
+    Switch Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Switch Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safety-pilot-configuration" class="md-nav__link">
+    Safety Pilot Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arming" class="md-nav__link">
+    Arming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flight-mode" class="md-nav__link">
+    Flight Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -473,7 +592,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/ros-setup/" class="md-nav__link">
+      <a href="../ros-setup/" class="md-nav__link">
         ROS Setup
       </a>
     </li>
@@ -487,7 +606,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/parameter-configuration/" class="md-nav__link">
+      <a href="../parameter-configuration/" class="md-nav__link">
         Parameter Configuration
       </a>
     </li>
@@ -501,7 +620,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/preflight-checks/" class="md-nav__link">
+      <a href="../preflight-checks/" class="md-nav__link">
         Pre-Flight Checks
       </a>
     </li>
@@ -515,7 +634,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/improving-performance/" class="md-nav__link">
+      <a href="../improving-performance/" class="md-nav__link">
         Improving Performance
       </a>
     </li>
@@ -529,7 +648,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/running-gazebo-simulation/" class="md-nav__link">
+      <a href="../running-gazebo-simulation/" class="md-nav__link">
         Running Gazebo Simulation
       </a>
     </li>
@@ -543,7 +662,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/user-guide/autonomous-flight/" class="md-nav__link">
+      <a href="../autonomous-flight/" class="md-nav__link">
         Autonomous Flight
       </a>
     </li>
@@ -591,7 +710,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/developer-guide/code-architecture/" class="md-nav__link">
+      <a href="../../developer-guide/code-architecture/" class="md-nav__link">
         Code Architecture
       </a>
     </li>
@@ -605,7 +724,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/developer-guide/estimator-algorithm/" class="md-nav__link">
+      <a href="../../developer-guide/estimator-algorithm/" class="md-nav__link">
         Estimator Algorithm
       </a>
     </li>
@@ -619,7 +738,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/developer-guide/building-and-flashing/" class="md-nav__link">
+      <a href="../../developer-guide/building-and-flashing/" class="md-nav__link">
         Building and Flashing
       </a>
     </li>
@@ -633,7 +752,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/developer-guide/unit-tests/" class="md-nav__link">
+      <a href="../../developer-guide/unit-tests/" class="md-nav__link">
         Unit Tests
       </a>
     </li>
@@ -647,7 +766,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosflight/developer-guide/debugging/" class="md-nav__link">
+      <a href="../../developer-guide/debugging/" class="md-nav__link">
         Debugging
       </a>
     </li>
@@ -703,7 +822,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/rosplane/overview/" class="md-nav__link">
+      <a href="../../../rosplane/overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -752,7 +871,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="/ROS2/roscopter/overview/" class="md-nav__link">
+      <a href="../../../roscopter/overview/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -783,6 +902,84 @@ You're not viewing the latest version.
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#binding-your-transmitter-to-your-receiver" class="md-nav__link">
+    Binding your Transmitter to your Receiver
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rc-transmitter-calibration" class="md-nav__link">
+    RC Transmitter Calibration
+  </a>
+  
+    <nav class="md-nav" aria-label="RC Transmitter Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-full-stick-output-for-each-channel" class="md-nav__link">
+    Configure the full stick output for each channel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" class="md-nav__link">
+    Configure stick directions for roll, pitch, and yaw channels.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switch-configuration" class="md-nav__link">
+    Switch Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Switch Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safety-pilot-configuration" class="md-nav__link">
+    Safety Pilot Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arming" class="md-nav__link">
+    Arming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flight-mode" class="md-nav__link">
+    Flight Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -794,8 +991,60 @@ You're not viewing the latest version.
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+    <a href="https://github.com/rosflight/rosflight_documentation/edit/ROS2/docs/rosflight/user-guide/rc-configuration.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="rc-configuration">RC Configuration<a class="headerlink" href="#rc-configuration" title="Permanent link">&para;</a></h1>
+<h2 id="binding-your-transmitter-to-your-receiver">Binding your Transmitter to your Receiver<a class="headerlink" href="#binding-your-transmitter-to-your-receiver" title="Permanent link">&para;</a></h2>
+<p>As of version 1.0, ROSflight only supports PPM receivers on F1 controllers, while F4 controllers support SBUS and PPM. If your transmitter/receiver setup only supports PWM output, we recommend using a PPM encoder such as the one <a href="https://www.getfpv.com/holybro-ppm-encoder-module.html">here</a>. Be sure to set the <code>RC_TYPE</code> parameter to <code>0</code> for PPM, or <code>1</code> for SBUS.</p>
+<p>Follow the instructions in your user manual to bind your transmitter to your RC receiver. You may also be able to find a guide on YouTube with instructions; just search for your particular transmitter and receiver model.</p>
+<h2 id="rc-transmitter-calibration">RC Transmitter Calibration<a class="headerlink" href="#rc-transmitter-calibration" title="Permanent link">&para;</a></h2>
+<p>To avoid confusion and to reduce code complexity in the firmware source code, ROSflight does not perform software calibration of RC transmitters. This means that RC calibration must be done on the transmitter itself, as opposed to in software. This is pretty straight-forward for most modern transmitters.</p>
+<h3 id="configure-the-full-stick-output-for-each-channel">Configure the full stick output for each channel<a class="headerlink" href="#configure-the-full-stick-output-for-each-channel" title="Permanent link">&para;</a></h3>
+<p>The easiest way to do this is to enter the "Servo Setup" Menu (for Spektrum transmitters) and change the servo travel variable. You can watch the raw RC readings from the flight controller by echoing the rc_raw topic from <code>rosflight_io</code></p>
+<div class="highlight"><pre><span></span><code>rostopic echo /rc_raw
+</code></pre></div>
+<ul>
+<li>center both sticks on your transmitter</li>
+<li>Apply subtrim until the first four channels all read 1500 exactly (or as close as possible--some RC receivers are worse than others and cannot exactly output 1500 us)</li>
+<li>Set the channel endpoints so that maximum stick deflections result in readings of 1000 and 2000 us.</li>
+</ul>
+<p>You may want to follow this YouTube guide for channel calibration in betaflight: <a href="https://www.youtube.com/watch?v=nDsNWZgxmw4&amp;t=186s">Calibrating RC endpoints with Taranis X9D</a>.</p>
+<h3 id="configure-stick-directions-for-roll-pitch-and-yaw-channels">Configure stick directions for roll, pitch, and yaw channels.<a class="headerlink" href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" title="Permanent link">&para;</a></h3>
+<p>You now have to make sure your RC transmitter is sending commands consistent with the north-east-down (NED) frame assumed by ROSflight.</p>
+<p>You may find this graphic helpful. It shows all the basic stick positions, and the associated output from the first four channels when looking at a raw AETR (aileron, elevator, throttle, rudder) RC signal from <code>rosflight_io</code>. Make sure that the stick output is in the correct direction.</p>
+<p><img alt="stick_image" src="../images/sticks.png" /></p>
+<p>It should be noted that channel assignment can be modified via the <code>RC_*_CHN</code> parameters. So, if you are using something other than AETR assignment, the channel index for each stick may be different, but the direction should be the same.</p>
+<h2 id="switch-configuration">Switch Configuration<a class="headerlink" href="#switch-configuration" title="Permanent link">&para;</a></h2>
+<p>Switches can be configured for the following functions.
+To disable a switch for a specific, default function, set the corresponding parameter to <code>-1</code>.
+Be sure to check that the switch directions operate as you intend, and reverse them in your transmitter if necessary.</p>
+<h3 id="safety-pilot-configuration">Safety Pilot Configuration<a class="headerlink" href="#safety-pilot-configuration" title="Permanent link">&para;</a></h3>
+<p>The <code>RC_ATT_OVRD_CHN</code> parameter maps a switch to override attitude commands with RC control.
+The <code>RC_THR_OVRD_CHN</code> parameter maps a switch to override throttle commands with RC control.
+To override both with a single switch, set both parameters to the same value (this is the default behavior).</p>
+<h3 id="arming">Arming<a class="headerlink" href="#arming" title="Permanent link">&para;</a></h3>
+<p>By default, arming is done with the sticks (left stick down and right to arm, down and left to disarm).
+To use a switch instead, set the <code>ARM_CHANNEL</code> parameter to the desired channel.
+Setting an arming switch disables arming with the sticks.</p>
+<h3 id="flight-mode">Flight Mode<a class="headerlink" href="#flight-mode" title="Permanent link">&para;</a></h3>
+<p>If desired, you can map a switch to select between attitude control types (angle and rate) in flight by setting the <code>RC_ATT_CTRL_CHN</code> parameter to the desired channel.
+This can be useful if, for example, you are learning rate mode but want to be able to switch back to attitude mode to help stabilize the vehicle.
+This feature is disabled by default.</p>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -831,10 +1080,10 @@ You're not viewing the latest version.
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "/ROS2", "features": ["content.action.edit", "navigation.tabs"], "search": "/ROS2/assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="/ROS2/assets/javascripts/bundle.220ee61c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
