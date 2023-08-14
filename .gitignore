@@ -1,0 +1,6 @@
+# Build files for mkdocs
+/site
+
+# IDE files
+.idea/
+.vscode/
