@@ -8,7 +8,7 @@ Reading through the pages in this user guide in order should provide you with th
   4. [Set up ROS on your companion computer](ros-setup.md)
   5. [Configure the flight controller for your setup](parameter-configuration.md): the configuration checklists below should help guide you through this process
   6. [Run through your preflight checks](preflight-checks.md)
-  7. [Tune the attitude controller gains](performance.md) (multirotors only)
+  7. [Tune the attitude controller gains](../performance.md) (multirotors only)
   8. [Set up autonomous flight via offboard control](autonomous-flight.md) (optional)
 
 ## Configuration Checklist
@@ -53,8 +53,8 @@ The following checklists should help you get a new vehicle set up for the first 
   1. The `ARM_SPIN_MOTORS` parameter should be set to `1` so the motors spin slowly when armed. The idle throttle setting can be adjusted with the `MOTOR_IDLE_THR` parameter.
   1. You'll most likely want to set the `CAL_GYRO_ARM` param to `1` to enable calibrating gyros before arming
   1. Set the `RC_ATT_MODE` parameter to set RC control mode (`0` for rate mode, `1` for angle mode [default])
-  2. Set torque offsets as described in the [RC trim calculation](performance.md#rc-trim) section of the Improving Performance page
-  3. Tune the controller gains as described in the [Multirotor gain tuning](performance.md#gain-tuning) section of the Improving Performance page
+  2. Set torque offsets as described in the [RC trim calculation](../performance.md#rc-trim) section of the Improving Performance page
+  3. Tune the controller gains as described in the [Multirotor gain tuning](../performance.md#gain-tuning) section of the Improving Performance page
 
 ### Fixed-Wing-Specific Setup
 
