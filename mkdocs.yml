@@ -4,9 +4,7 @@ site_url: http://rosflight.org
 site_author: 'James Jackson, Daniel Koch'
 copyright: 'Copyright &copy; 2019, James Jackson and Daniel Koch, BYU MAGICC Lab'
 
-repo_name: 'rosflight/firmware'
-repo_url: 'https://github.com/rosflight/firmware'
-edit_uri: 'blob/master/docs/'
+edit_uri: 'blob/main/docs/'
 
 theme:
   name: material
