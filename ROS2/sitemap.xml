@@ -6,11 +6,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://rosflight.org/ROS2/algorithms/estimator/</loc>
-         <lastmod>2023-08-14</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>http://rosflight.org/ROS2/developer-guide/building-flashing/</loc>
          <lastmod>2023-08-14</lastmod>
          <changefreq>daily</changefreq>
@@ -31,17 +26,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>http://rosflight.org/ROS2/developer-guide/estimator-algorithm/</loc>
+         <lastmod>2023-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>http://rosflight.org/ROS2/developer-guide/style-guide/</loc>
          <lastmod>2023-08-14</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/developer-guide/unit-tests/</loc>
-         <lastmod>2023-08-14</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>http://rosflight.org/ROS2/developer-guide/writing-documentation/</loc>
          <lastmod>2023-08-14</lastmod>
          <changefreq>daily</changefreq>
     </url>
