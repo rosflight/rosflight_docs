@@ -8,6 +8,7 @@ edit_uri: 'https://github.com/rosflight/rosflight_documentation/edit/ROS1/docs/'
 
 theme:
   name: material
+  custom_dir: overrides
   language: en
   features:
     - content.action.edit
