@@ -7,7 +7,7 @@ This repository contains the source files for the documentation portion of the R
 This is easy:
 
 ``` bash
-pip install mkdocs mkdocs-material pygments pymdown-extensions
+pip install mkdocs mkdocs-material pygments pymdown-extensions mike
 ```
 
 (You don't have use to the global pip if you have python environments working, but for beginners, this is the simplest way to do it.)
@@ -40,10 +40,6 @@ erver by
 
 ## Publishing changes onto the docs.rosflight.org website
 
-To publish changes back onto the website, use the command:
+To publish changes back onto the website, use the command `mike deploy --push [version]`, replacing `[version]` with the version of the documentation you want to push to. This will then update the build file on the `gh-pages` branch with the changes. Note that the gh-pages branch is protected, and this step needs to be done by someone in the ROSflight organization.
 
-```bash
-mkdocs gh-deploy
-```
-
-This will generate the source files for the webpage and push them onto the gh-pages branch of this repository. Note that the gh-pages branch is protected, and this step needs to be done by someone in the ROSflight organization.
+See https://github.com/jimporter/mike for more information on using mike.
