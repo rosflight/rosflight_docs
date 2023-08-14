@@ -40,6 +40,6 @@ erver by
 
 ## Publishing changes onto the docs.rosflight.org website
 
-To publish changes back onto the website, use the command `mike deploy --push [version]`, replacing `[version]` with the version of the documentation you want to push to. This will then update the build file on the `gh-pages` branch with the changes. Note that the gh-pages branch is protected, and this step needs to be done by someone in the ROSflight organization.
+To publish changes back onto the website, use the command `mike deploy --push [version]`, replacing `[version]` with the version of the documentation you want to push to. This will then update the build file on the `gh-pages` branch with the changes.
 
 See https://github.com/jimporter/mike for more information on using mike.
