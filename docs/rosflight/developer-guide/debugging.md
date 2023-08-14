@@ -12,7 +12,7 @@ This guide assumes you are running Ubuntu 18.04, which is the currently supporte
 
 ## General Setup
 
-Follow the guide in [Building and Flashing](building-flashing.md) to install the compiler toolchain.
+Follow the guide in [Building and Flashing](building-and-flashing.md) to install the compiler toolchain.
 
 Also make sure you have configured your computer as described in the [Serial Port Configuration](../user-guide/flight-controller-setup.md#serial-port-configuration) section of the user guide.
 
