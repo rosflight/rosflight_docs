@@ -46,4 +46,4 @@ To publish changes back onto the website, use the command:
 mkdocs gh-deploy
 ```
 
-This will generate the source files for the webpage and push them onto the gh-pages branch of this repository, which will then be deployed by github pages. Note that the gh-pages branch is protected, and this step needs to be done by someone in the ROSflight organization.
+This will generate the source files for the webpage and push them onto the gh-pages branch of this repository. Note that the gh-pages branch is protected, and this step needs to be done by someone in the ROSflight organization.
