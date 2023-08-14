@@ -63,9 +63,8 @@ nav:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
     - Style Guide: developer-guide/style-guide.md
     - Code Architecture: developer-guide/code-architecture.md
+    - Estimator Algorithm: developer-guide/estimator-algorithm.md
     - Building and Flashing: developer-guide/building-flashing.md
     - Unit Tests: developer-guide/unit-tests.md
     - Using a Debugger: developer-guide/debugging.md
     - Writing Documentation: developer-guide/writing-documentation.md
-  - Algorithms:
-    - Estimator: algorithms/estimator.md
