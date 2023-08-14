@@ -1,4 +1,4 @@
-# Estimator
+# Estimator Algorithm
 
 ## Introduction
 
