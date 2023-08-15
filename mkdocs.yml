@@ -46,10 +46,7 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home:
-    - Overview: index.md
-    - Contribution Guidelines: home/contribution-guidelines.md
-    - Style Guide: home/style-guide.md
+  - Home: index.md
   - ROSflight:
     - Overview: rosflight/overview.md
     - User Guide:
@@ -73,3 +70,6 @@ nav:
     - Overview: rosplane/overview.md
   - ROScopter:
     - Overview: roscopter/overview.md
+  - Contributing:
+    - Contribution Guidelines: contributing/contribution-guidelines.md
+    - Style Guide: contributing/style-guide.md
