@@ -772,8 +772,6 @@ You're not viewing the latest version.
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Contribution Guidelines
@@ -790,14 +788,19 @@ You're not viewing the latest version.
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-to-the-firmware" class="md-nav__link">
+    Contributing to the Firmware
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#communication" class="md-nav__link">
@@ -852,14 +855,19 @@ You're not viewing the latest version.
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-to-the-firmware" class="md-nav__link">
+    Contributing to the Firmware
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#communication" class="md-nav__link">
@@ -891,17 +899,15 @@ You're not viewing the latest version.
   
 
 
-<h1 id="contributing-to-the-firmware">Contributing to the Firmware<a class="headerlink" href="#contributing-to-the-firmware" title="Permanent link">&para;</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>These documents are designed to help developers get up and running on developing new features by explaining firmware internals. Development is currently supported only on Ubuntu Linux 18.04.</p>
-</div>
+  <h1>Contribution Guidelines</h1>
+
+<h2 id="contributing-to-the-firmware">Contributing to the Firmware<a class="headerlink" href="#contributing-to-the-firmware" title="Permanent link">&para;</a></h2>
 <p>Per our vision stated in the <a href="../../">introduction</a>, ROSflight is intended to be a streamlined, bare-bones autopilot. We welcome any bug fixes, cleanup, or other contributions which do not add complexity or detract from the readability and simplified nature of the firmware. We hope that the firmware is useful, but in an attempt to avoid "feature creep," we will be very discriminatory in merging pull requests whose purpose is to simply add features. Forking the repository in order to add features is totally acceptable and encouraged, just stay in contact with us, and recognize us as the original authors of the autopilot (per the agreement in the BSD-3 license).</p>
 <p>In addition, we strive to maintain a very high standard of quality in terms of code style, variable naming, and the like. We will likely be nit-picky and perhaps a little harsh about this in pull requests. Please do not be offended. By maintaining a high standard, we hope that the code will continue to be useful, understandable, and cohesive in nature.</p>
 <p>Pull requests are also required to pass the automated unit tests. You can test your changes against these unit tests before pushing by executing the <code>run_tests.sh</code> script in the <code>scripts</code> directory of the firmware repo.</p>
 <p>Although we strive for complete in-code documentation, in practice this often gets left behind for the sake of rapid development. If you, as a potential developer, find some portion of documentation unsatisfactory, we welcome questions on the <a href="https://github.com/rosflight/firmware/issues">GitHub issues page</a> or <a href="https://discuss.rosflight.org/">forum</a>, and pull requests which improve documentation. Several new developers have started with first improving the documentation to get a handle on how things work.</p>
 <h2 id="communication">Communication<a class="headerlink" href="#communication" title="Permanent link">&para;</a></h2>
-<p>There are two channels to communicate with the developer team. For bug reports, feature requests, and anything to do with code, please open an issue on the appropriate <a href="https://github.com/rosflight/firmware/issues">firmware</a> or <a href="https://github.com/rosflight/rosflight/issues">ROS stack</a> GitHub issue page. For questions and other discussions, please use the <a href="https://discuss.rosflight.org/">forum</a>.</p>
+<p>There are two channels to communicate with the developer team. For bug reports, feature requests, and anything to do with code, please open an issue on the appropriate <a href="https://github.com/rosflight/firmware/issues">firmware</a> or <a href="https://github.com/rosflight/rosflight2/issues">ROS stack</a> GitHub issue page. For questions and other discussions, please use the <a href="https://discuss.rosflight.org/">forum</a>.</p>
 
 
 

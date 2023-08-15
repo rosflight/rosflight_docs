@@ -201,13 +201,8 @@
              sodipodi:role="line"
              id="tspan835"
              x="127.78902"
-             y="178.24547"
-             style="stroke-width:0.26458332">Flight Stack</tspan><tspan
-             sodipodi:role="line"
-             x="127.78902"
-             y="182.47881"
-             style="stroke-width:0.26458332"
-             id="tspan839">(estimator, controller, etc.</tspan></text>
+             y="181.0"
+             style="stroke-width:0.26458332">Firmware Flight Stack</tspan></text>
         <rect
            style="fill:none;stroke:#000000;stroke-width:0.3175;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
            id="rect855"

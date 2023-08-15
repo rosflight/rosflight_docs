@@ -1075,7 +1075,7 @@ You're not viewing the latest version.
 
 <h1 id="code-architecture">Code Architecture<a class="headerlink" href="#code-architecture" title="Permanent link">&para;</a></h1>
 <p>The firmware is divided into two main components: the <em>ROSflight library</em>, and a collection of <em>board implementations</em>.
-This division is intended to allow the same core flight code to run on any processor or platform, either an embedded flight controller (such as the Naze32 or Revo) or a desktop environment for a software-in-the-loop (SIL) simulation. The interface between these two components is called the <em>hardware abstraction layer</em> (HAL).
+This division is intended to allow the same core flight code to run on any processor or platform, either an embedded flight controller or a desktop environment for a software-in-the-loop (SIL) simulation. The interface between these two components is called the <em>hardware abstraction layer</em> (HAL).
 This architecture is illustrated in the following diagram:</p>
 <p><img alt="hardware abstraction layer" src="../images/HAL.svg" /></p>
 <h2 id="rosflight-core-library">ROSflight Core Library<a class="headerlink" href="#rosflight-core-library" title="Permanent link">&para;</a></h2>
@@ -1085,11 +1085,15 @@ It also includes the interface definition for the hardware abstraction layer, wh
 The communications link (MAVLink) is also abstracted, with the interface defined by the <code>CommLink</code> class in <code>include/comm_link.h</code>.
 External libraries are contained in the <code>lib</code> folder.</p>
 <h2 id="board-abstraction">Board Abstraction<a class="headerlink" href="#board-abstraction" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">TODO</p>
+<p>Updated examples with new board implementations once hardware support has been finalized and completed.</p>
+</div>
 <p>The hardware abstraction implementations are contained in the <code>board</code> directory, organized in subdirectories according to the hardware driver layer.
 The <code>boards/airbourne</code> directory uses drivers for boards using the STM32F4 processor, while the <code>boards/breezy</code> directory uses drivers for STM32F1 processors.
 Each board implementation is required to provide an implementation of the hardware abstraction layer interface, which is passed by reference to the flight stack.
 The Revo implementation in the <code>boards/airbourne</code> shows how this is done for an embedded flight controller.
-Examples of board implementations for SIL simulation are found in the <code>rosflight_firmware</code> and <code>rosflight_sim</code> ROS packages available <a href="https://github.com/rosflight/rosflight">here</a>.</p>
+Examples of board implementations for SIL simulation are found in the <code>rosflight_firmware</code> and <code>rosflight_sim</code> ROS2 packages available <a href="https://github.com/rosflight/rosflight2">here</a>.</p>
 <p>The flight stack is encapsulated in the <code>ROSflight</code> class defined at <code>include/rosflight.h</code>.
 This class contains two public functions: <code>init()</code> and <code>run()</code>.
 Its constructor requires two arguments: an implementation of the <code>Board</code> interface, and an implementation of the <code>CommLink</code> interface.</p>
@@ -1149,7 +1153,7 @@ While no other data flow lines are shown on the diagram, all of the other module
 <p>This module handles all serial communication between the flight controller and companion computer.
 This includes streaming data and receiving offboard control setpoints and other commands from the computer.
 This module primarily collects data from the sensors, estimator, state manager, and parameters modules, and sends offboard control setpoints to the command manager and parameter requests to the parameter server.</p>
-<p>The actual communication protocol used is abstracted by the interface in <a href="https://github.com/rosflight/firmware/blob/master/include/comm_link.h">include/comm_link.h</a>.
+<p>The actual communication protocol used is abstracted by the interface in <a href="https://github.com/rosflight/firmware/blob/master/include/interface/comm_link.h">include/comm_link.h</a>.
 A new protocol can be used by implementing a wrapper around the protocol that inherits from this interface.
 Currently, only MAVLink has been implmented.
 The implementation is found in <a href="https://github.com/rosflight/firmware/blob/master/comms/mavlink/mavlink.h">comms/mavlink/mavlink.h</a> and <a href="https://github.com/rosflight/firmware/blob/master/comms/mavlink/mavlink.cpp">comms/mavlink/mavlink.cpp</a>.</p>
