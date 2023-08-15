@@ -1,7 +1,7 @@
 # Code Architecture
 
 The firmware is divided into two main components: the _ROSflight library_, and a collection of _board implementations_.
-This division is intended to allow the same core flight code to run on any processor or platform, either an embedded flight controller (such as the Naze32 or Revo) or a desktop environment for a software-in-the-loop (SIL) simulation. The interface between these two components is called the _hardware abstraction layer_ (HAL).
+This division is intended to allow the same core flight code to run on any processor or platform, either an embedded flight controller or a desktop environment for a software-in-the-loop (SIL) simulation. The interface between these two components is called the _hardware abstraction layer_ (HAL).
 This architecture is illustrated in the following diagram:
 
 ![hardware abstraction layer](images/HAL.svg)
@@ -16,11 +16,14 @@ External libraries are contained in the `lib` folder.
 
 ## Board Abstraction
 
+!!! warning "TODO"
+    Updated examples with new board implementations once hardware support has been finalized and completed.
+
 The hardware abstraction implementations are contained in the `board` directory, organized in subdirectories according to the hardware driver layer.
 The `boards/airbourne` directory uses drivers for boards using the STM32F4 processor, while the `boards/breezy` directory uses drivers for STM32F1 processors.
 Each board implementation is required to provide an implementation of the hardware abstraction layer interface, which is passed by reference to the flight stack.
 The Revo implementation in the `boards/airbourne` shows how this is done for an embedded flight controller.
-Examples of board implementations for SIL simulation are found in the `rosflight_firmware` and `rosflight_sim` ROS packages available [here](https://github.com/rosflight/rosflight).
+Examples of board implementations for SIL simulation are found in the `rosflight_firmware` and `rosflight_sim` ROS2 packages available [here](https://github.com/rosflight/rosflight2).
 
 The flight stack is encapsulated in the `ROSflight` class defined at `include/rosflight.h`.
 This class contains two public functions: `init()` and `run()`.
@@ -97,7 +100,7 @@ This module handles all serial communication between the flight controller and c
 This includes streaming data and receiving offboard control setpoints and other commands from the computer.
 This module primarily collects data from the sensors, estimator, state manager, and parameters modules, and sends offboard control setpoints to the command manager and parameter requests to the parameter server.
 
-The actual communication protocol used is abstracted by the interface in [include/comm_link.h](https://github.com/rosflight/firmware/blob/master/include/comm_link.h).
+The actual communication protocol used is abstracted by the interface in [include/comm_link.h](https://github.com/rosflight/firmware/blob/master/include/interface/comm_link.h).
 A new protocol can be used by implementing a wrapper around the protocol that inherits from this interface.
 Currently, only MAVLink has been implmented.
 The implementation is found in [comms/mavlink/mavlink.h](https://github.com/rosflight/firmware/blob/master/comms/mavlink/mavlink.h) and [comms/mavlink/mavlink.cpp](https://github.com/rosflight/firmware/blob/master/comms/mavlink/mavlink.cpp).
