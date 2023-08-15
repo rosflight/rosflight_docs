@@ -1,7 +1,7 @@
 # Building and Flashing the Firmware
 
-!!! warning "Deprecation Notice"
-    As of June 2019, plans are to deprecate support for the F1 in the near future. If you need to use an F1, you will need to retrieve an older version of the code that supports the F1. However, if there are issues, we will not be able to help you fix them.
+!!! warning "TODO"
+    Update this when hardware support is finalized.
 
 This guide assumes you are running Ubuntu 18.04, which is the currently supported development environment.
 

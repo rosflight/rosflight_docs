@@ -1,9 +1,9 @@
 # Using an In-Circuit Debugger
 
-Debugging an STM32-based board is accomplished with an ST-LINK/V2 in-circuit debugger and programmer. We have had the best luck with the official version from STMicroelectronics. These devices are reasonably priced, and are available [directly from STMicroelectronics](https://www.st.com/en/development-tools/st-link-v2.html) or from vendors such as [Digi-Key](https://www.digikey.com/product-detail/en/stmicroelectronics/ST-LINK-V2/497-10484-ND/2214535), [Mouser](https://www.mouser.com/ProductDetail/STMicroelectronics/ST-LINK-V2?qs=H4BOwPtf9MC1sDQ8j3cy4w%3D%3D), and [Newark](https://www.newark.com/stmicroelectronics/st-link-v2/icd-programmer-usb-2-0-jtag-for/dp/46T6935).
+!!! warning "TODO"
+    Update this when hardware support is finalized.
 
-!!! note
-    There are also cheaper clones of the ST-LINK/V2 available. We have had fairly good luck with these, but have also run into some issues. These are a decent alternative, but we recommend the official version if you can afford it.
+Debugging an STM32-based board is accomplished with an ST-LINK/V2 in-circuit debugger and programmer. We have had the best luck with the official version from STMicroelectronics. These devices are reasonably priced, and are available [directly from STMicroelectronics](https://www.st.com/en/development-tools/st-link-v2.html) or from vendors such as [Digi-Key](https://www.digikey.com/product-detail/en/stmicroelectronics/ST-LINK-V2/497-10484-ND/2214535), [Mouser](https://www.mouser.com/ProductDetail/STMicroelectronics/ST-LINK-V2?qs=H4BOwPtf9MC1sDQ8j3cy4w%3D%3D), and [Newark](https://www.newark.com/stmicroelectronics/st-link-v2/icd-programmer-usb-2-0-jtag-for/dp/46T6935).
 
 The following guide will show you how to get the in-circuit debugger running with either the Visual Studio Code or QtCreator IDE. Start with the steps in the [General Setup](#general-setup) section, then move on to either the [VS Code](#vs-code) or [QtCreator](#qtcreator) sections depending on your choice of IDE.
 
