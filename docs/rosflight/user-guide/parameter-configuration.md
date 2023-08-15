@@ -8,7 +8,7 @@ The ROSflight firmware has several dozen parameters which it uses to customize p
 * IMU low-pass filter constant
 * RC receiver type (PPM or SBUS)
 
-and so on. Access to all parameters is enabled via ROS services advertised by `rosflight_io` while the flight controller is connected.
+and so on. Access to all parameters is enabled via ROS2 services advertised by `rosflight_io` while the flight controller is connected.
 
 ## Parameter Interface
 
@@ -17,7 +17,7 @@ and so on. Access to all parameters is enabled via ROS services advertised by `r
 Sometimes it is handy to ask the flight controller what the current value of a parameter is. This is accomplished using the `param_get` service. As an example, let's retrieve the roll angle controller proportional (P) gain.
 
 ```
-rosservice call /param_get PID_ROLL_ANG_P
+ros2 service call /param_get rosflight_msgs/srv/ParamGet "{name: "PID_ROLL_ANG_P"}"
 ```
 
 You should get a response similar to the following (this happens to be the default value with floating-point error):
@@ -32,7 +32,7 @@ value: 0.15000000596
 Parameters are changed via the `param_set` service. As an example, let's change the roll angle controller P gain. (I will assume that the flight controller is connected and `rosflight_io` is running in the root namespace.)
 
 ```
-rosservice call /param_set PID_ROLL_ANG_P 0.08
+ros2 service call /param_set rosflight_msgs/srv/ParamSet "{name: "PID_ROLL_ANG_P", value: 0.08}"
 ```
 
 You should get a prompt from `rosflight_io` saying
@@ -48,7 +48,7 @@ Notice that the parameters have been set, but not saved. Parameter changes take 
 To ensure that parameter values persist between reboots, you must write the parameters to the non-volatile memory. This is done by calling `param_write`
 
 ```
-rosservice call /param_write
+ros2 service call /param_write std_srvs/srv/Trigger
 ```
 
 `rosflight_io` should then respond with
@@ -57,7 +57,7 @@ rosservice call /param_write
 [ INFO] [1491672597.123452908]: Onboard parameters have been saved
 ```
 
-!!! important
+!!! warning
     It is highly recommended that you write parameters before arming and flying the vehicle. Among other things, this will ensure that in the rare case that a hard fault is encountered and the flight controller must reboot during flight, the correct configuration will be loaded on reboot.
 
 !!! error
@@ -65,19 +65,19 @@ rosservice call /param_write
 
 ### Backing Up and Loading Parameters from File
 
-It is good practice to backup your parameter configuration in case you have to re-flash your firmware or you want to share configurations between vehicles. We can do this via the `param_save_to_file` and `param_load_from_file` services.
+It is good practice to back up your parameter configuration in case you have to re-flash your firmware or you want to share configurations between vehicles. We can do this via the `param_save_to_file` and `param_load_from_file` services.
 
 First, let's back up our current parameter configuration:
 
 ```
-rosservice call /param_save_to_file ~/parameters.yml
+ros2 service call /param_save_to_file rosflight_msgs/srv/ParamFile "{filename: "~/parameters.yaml"}"
 ```
 
 Parameters are saved in YAML format. You must also specify the absolute file name of where you would like your parameters to be saved. The current active set of parameters will be saved, regardless of what is saved in non-volatile memory on the flight controller.
 
 Now, let's say we want to re-load this parameter file
 ```
-rosservice call /param_load_from_file ~/parameters.yml
+ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: "~/parameters.yml"}"
 ```
 Again, you must specify the absolute file name of the file to be loaded.
 

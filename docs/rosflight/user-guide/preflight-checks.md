@@ -3,11 +3,11 @@
 This is an example of a ROSflight pre-flight checklist. You will likely need to augment this with checks specific to both (a) your hardware and (b) the code running on your companion computer.
 
 ## Before powering up motors
-- [ ] ROS is running on the companion computer, communicating with the base station
+- [ ] ROS2 is running on the companion computer, communicating with the base station
 - [ ] `rosflight_io` reports no errors
 - [ ] Sensors are calibrated and publishing
-    + [ ] IMU (re-calibrate every flight): `rosservice call /calibrate_imu`
-    + [ ] Barometer: `rosservice call /calibrate_baro`
+    + [ ] IMU (re-calibrate every flight): `ros2 service call /calibrate_imu std_srvs/srv/Trigger`
+    + [ ] Barometer: `ros2 service call /calibrate_baro std_srvs/srv/Trigger`
     + [ ] Sonar (if attached)
     + [ ] Airspeed (if attached)
 - [ ] Estimated attitude is being published and looks accurate
@@ -19,7 +19,7 @@ This is an example of a ROSflight pre-flight checklist. You will likely need to 
 - [ ] RC override behavior
 - [ ] RC range test
 - [ ] Wire-wiggle test (wiggle all wires to look for bad connections)
-- [ ] If desired, logging is turned on (e.g. recording a rosbag)
+- [ ] If desired, logging is turned on (e.g. recording a ros2 bag)
 
 ## After Powering Up Motors
 

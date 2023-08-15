@@ -2,6 +2,9 @@
 
 ## Binding your Transmitter to your Receiver
 
+!!! warning "TODO"
+    Update when supported hardware is finalized.
+
 As of version 1.0, ROSflight only supports PPM receivers on F1 controllers, while F4 controllers support SBUS and PPM. If your transmitter/receiver setup only supports PWM output, we recommend using a PPM encoder such as the one [here](https://www.getfpv.com/holybro-ppm-encoder-module.html). Be sure to set the `RC_TYPE` parameter to `0` for PPM, or `1` for SBUS.
 
 Follow the instructions in your user manual to bind your transmitter to your RC receiver. You may also be able to find a guide on YouTube with instructions; just search for your particular transmitter and receiver model.
@@ -15,14 +18,12 @@ To avoid confusion and to reduce code complexity in the firmware source code, RO
 The easiest way to do this is to enter the "Servo Setup" Menu (for Spektrum transmitters) and change the servo travel variable. You can watch the raw RC readings from the flight controller by echoing the rc_raw topic from `rosflight_io`
 
 ```
-rostopic echo /rc_raw
+ros2 topic echo /rc_raw
 ```
 
 * center both sticks on your transmitter
 * Apply subtrim until the first four channels all read 1500 exactly (or as close as possible--some RC receivers are worse than others and cannot exactly output 1500 us)
 * Set the channel endpoints so that maximum stick deflections result in readings of 1000 and 2000 us.
-
-You may want to follow this YouTube guide for channel calibration in betaflight: [Calibrating RC endpoints with Taranis X9D](https://www.youtube.com/watch?v=nDsNWZgxmw4&t=186s).
 
 ### Configure stick directions for roll, pitch, and yaw channels.
 

@@ -8,12 +8,12 @@ ROSflight is a lean and adaptable autopilot system designed from the ground up w
 
 - Well documented, highly adaptable, amd lean code base making understanding and modifying any portion of ROSflight relatively easy.
 - Seamless switching between simulation and hardware. No portion of ROSflight knows if it is running in a simulation or not, the only difference is where the sensor data is coming from.
-- Built on a ROS framework, allowing easy integration with ROS.
+- Built on a ROS2 framework, allowing easy integration with ROS2.
 
 A ROSflight setup typically consists of two main components:
 
 1. The ROSflight [firmware](https://github.com/rosflight/firmware), running on a typical flight controller, like a Pixhawk. This communicates with sensors and actuators and serves as the bridge between hardware and higher level software. The firmware itself is designed to do as little as possible, offloading most of the control systems to companion computer.
-2. The ROSflight [rosflight_io node](https://github.com/rosflight/rosflight2), running on a Linux companion computer that communicates directly with the firmware over serial or ethernet. This serves as the bridge between the firmware and the rest of ROS network and contains no control systems.
+2. The ROSflight [rosflight_io node](https://github.com/rosflight/rosflight2), running on a Linux companion computer that communicates directly with the firmware over serial or ethernet. This serves as the bridge between the firmware and the rest of ROS2 network and contains no control systems.
 
 ## Why ROSflight?
 
@@ -23,7 +23,7 @@ The other options that we tried were limited in bandwidth for streaming sensor d
 
 ## What are ROScopter and ROSplane?
 
-One of the primary goals of ROSflight was to have the firmware do as little as is necessary, keeping it simple and allowing other higher-level software running on the companion computer to do most of the work. ROScopter and ROSplane are two examples of that higher-level software, and have been developed to work seamlessly with ROSflight. Both are built on the ROS framework and are designed to be very easy to understand and modify, serving as a base library for higher-level autonomy that can be easily built on. They are also useful if you need higher-level autonomy but aren't interested in developing it yourself.
+One of the primary goals of ROSflight was to have the firmware do as little as is necessary, keeping it simple and allowing other higher-level software running on the companion computer to do most of the work. ROScopter and ROSplane are two examples of that higher-level software, and have been developed to work seamlessly with ROSflight. Both are built on the ROS2 framework and are designed to be very easy to understand and modify, serving as a base library for higher-level autonomy that can be easily built on. They are also useful if you need higher-level autonomy but aren't interested in developing it yourself.
 
 Although we provide these libraries for those who want them, ROSflight is fully independent and can be used with different autonomy stacks or no autonomy stack at all.
 
