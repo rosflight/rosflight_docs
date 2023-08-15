@@ -168,7 +168,7 @@
        y="220.80127"
        id="text42"><tspan
          sodipodi:role="line"
-         x="143.61516"
+         x="142.0"
          y="220.80127"
          style="stroke-width:0.26458332"
          id="tspan44">USB / UART</tspan></text>
@@ -181,10 +181,15 @@
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:4.93888855px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:'Roboto Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
          xml:space="preserve"><tspan
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-           y="149.53369"
+           y="146.0"
            x="158.80908"
            id="tspan10"
-           sodipodi:role="line">Application Code</tspan></text>
+           sodipodi:role="line">Application Code</tspan><tspan
+           style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+           y="153.0"
+           x="158.80908"
+           id="tspan10"
+           sodipodi:role="line">(ROScopter, ROSplane, etc.)</tspan></text>
       <rect
          rx="3.175"
          y="127.01654"

@@ -4,17 +4,17 @@ This page provides an overview of the basic operation of the ROSflight firmware 
 
 ## Companion Computer
 
-ROSflight is primarily intended to be used with a companion computer running ROS.
-The ROS interface is provided by the [rosflight_io](http://wiki.ros.org/rosflight) node.
-All configuration of the flight controller is done through the ROS service API provided by `rosflight_io` (see the [parameter configuration](user-guide/parameter-configuration.md) documentation page).
-Sensor data such as IMU measurements are streamed from the flight controller to the companion computer and published as ROS topics.
-Control setpoints can also be sent to the flight controller by publishing to the appropriate ROS topic (see the [autonomous flight](user-guide/autonomous-flight.md) documentation page).
+ROSflight is primarily intended to be used with a companion computer running ROS2.
+The ROS2 interface is provided by the [rosflight_io](https://github.com/rosflight/rosflight2) node.
+All configuration of the flight controller is done through the ROS2 service API provided by `rosflight_io` (see the [parameter configuration](user-guide/parameter-configuration.md) documentation page).
+Sensor data such as IMU measurements are streamed from the flight controller to the companion computer and published as ROS2 topics.
+Control setpoints can also be sent to the flight controller by publishing to the appropriate ROS2 topic (see the [autonomous flight](user-guide/autonomous-flight.md) documentation page).
 
 !!! note
     To avoid confusion, we try to consistently use the following terminology:
 
-      - **Flight controller:** The embedded board (such as a Revo or Naze32) that runs the ROSflight firmware and performs I/O with sensors and ESCs
-      - **Companion computer:** A Linux computer, running ROS, that is mounted on the vehicle and has a physical, serial connection with the flight controller
+      - **Flight controller:** The embedded board that runs the ROSflight firmware and performs I/O with sensors and ESCs
+      - **Companion computer:** A Linux computer, running ROS2, that is mounted on the vehicle and has a physical, serial connection with the flight controller
       - **Offboard control (setpoints):** The control setpoints passed from the companion computer to the flight controller. The control is "offboard" from the perspective of the flight controller, even though the computer providing those commands is mounted onboard the vehicle. Perhaps this is not the greatest terminology, but hopefully this helps clear up potential confusion.
 
 The following figure illustrates the interactions between the major components of the system:

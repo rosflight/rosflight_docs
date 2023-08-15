@@ -1,6 +1,6 @@
 # Autonomous Flight
 
-One of the core functionalities of the ROSflight autopilot is to allow the companion computer to send control setpoints to the embedded flight controller. These setpoints would typically be computed by a controller running as a ROS node, normally on the companion computer.
+One of the core functionalities of the ROSflight autopilot is to allow the companion computer to send control setpoints to the embedded flight controller. These setpoints would typically be computed by a controller running as a ROS2 node, normally on the companion computer.
 
 ## Provide Control from a Companion Computer
 
@@ -13,7 +13,7 @@ uint8 ignore
 float32 x
 float32 y
 float32 z
-float32 F
+float32 f
 ```
 
 The `header` field is a standard ROS message header. The `x`, `y`, `z`, and `F` fields are the control setpoint values, which are interpreted according to the `mode` and `ignore` fields.
@@ -45,38 +45,38 @@ ignore = IGNORE_X | IGNORE_Y | IGNORE_Z
 
 The best practice is to use enum names rather than the actual numeric values for the `mode` and `ignore` fields. For example, to specify a multirotor attitude angle command in C++ I might have:
 ```cpp
-#include <ros/ros.h>
-#include <rosflight_msgs/Command.h>
+#include <rclcpp/rclcpp.hpp>
+#include <rosflight_msgs/msg/command.hpp>
 
-rosflight_msgs::Command msg;
-msg.header.stamp = ros::Time::now();
-msg.mode = rosflight_msgs::Command::MODE_ROLL_PITCH_YAWRATE_THROTTLE;
-msg.ignore = rosflight_msgs::Command::IGNORE_NONE;
+rosflight_msgs::msg::Command msg;
+msg.header.stamp = node->get_clock()->now();
+msg.mode = rosflight_msgs::msg::Command::MODE_ROLL_PITCH_YAWRATE_THROTTLE;
+msg.ignore = rosflight_msgs::msg::Command::IGNORE_NONE;
 msg.x = 0.0;
 msg.y = 0.0;
 msg.z = 0.0;
-msg.F = 0.6;
+msg.f = 0.6;
 ```
 
 In Python I might have:
 ```python
-import rospy
+import rclpy
 from rosflight_msgs.msg import Command
 
 msg = Command()
-msg.header.stamp = rospy.Time.now()
+msg.header.stamp = node.get_clock().now().to_msg()
 msg.mode = Command.MODE_ROLL_PITCH_YAWRATE_THROTTLE
 msg.ignore = Command.IGNORE_NONE
 msg.x = 0.0
 msg.y = 0.0
 msg.z = 0.0
-msg.F = 0.6
+msg.f = 0.6
 ```
 I would then publish this message to the `/command` topic to forward it to the embedded flight controller.
 
 !!! note
     If the flight controller does not receive a new command for a defined period of time, it will ignore the old commands and revert to RC control. The length of this timeout period is set by the `OFFBOARD_TIMEOUT` parameter.
 
-## Fly Waypoints with ROSplane or ROScopter
+## Fly Waypoints with ROScopter or ROSplane
 
-Waypoint following is not supported natively by the ROSflight stack. However, the [ROSplane](https://github.com/byu-magicc/ros_plane) and [ROScopter](https://github.com/byu-magicc/ros_copter) projects are good, example implementations of how to achieve this using ROSflight. They also provide good examples of how you might go about integrating your own guidance or control algorithms with the ROSflight stack.
+Waypoint following is not supported natively by the ROSflight stack. However, the [ROScopter](../../roscopter/overview.md) and [ROSplane](../../rosplane/overview.md) projects are good, example implementations of how to achieve this using ROSflight. They also provide good examples of how you might go about integrating your own guidance or control algorithms with the ROSflight stack.
