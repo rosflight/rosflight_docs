@@ -2,107 +2,107 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://rosflight.org/ROS2/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://rosflight.org/ROS2/home/contribution-guidelines/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <loc>http://rosflight.org/ROS2/contributing/contribution-guidelines/</loc>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://rosflight.org/ROS2/home/style-guide/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <loc>http://rosflight.org/ROS2/contributing/style-guide/</loc>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/roscopter/overview/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/overview/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/developer-guide/building-and-flashing/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/developer-guide/code-architecture/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/developer-guide/debugging/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/developer-guide/estimator-algorithm/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/developer-guide/unit-tests/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/autonomous-flight/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/flight-controller-setup/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/getting-started/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/hardware-setup/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/improving-performance/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/parameter-configuration/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/preflight-checks/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/rc-configuration/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/ros-setup/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosflight/user-guide/running-gazebo-simulation/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/ROS2/rosplane/overview/</loc>
-         <lastmod>2023-08-14</lastmod>
+         <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
