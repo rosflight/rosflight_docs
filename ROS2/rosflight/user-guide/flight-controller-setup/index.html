@@ -481,13 +481,6 @@ You're not viewing the latest version.
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#f1-boards" class="md-nav__link">
-    F1 Boards
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -940,13 +933,6 @@ You're not viewing the latest version.
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#f1-boards" class="md-nav__link">
-    F1 Boards
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -983,10 +969,9 @@ For instructions on building and flashing from source, see <a href="../../develo
 </div>
 <h2 id="compatible-hardware">Compatible Hardware<a class="headerlink" href="#compatible-hardware" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
-<p class="admonition-title">Deprecation Notice</p>
-<p>As of June 2019, plans are to deprecate support for the F1 in the near future. If you need to use an F1, you will need to retrieve an older version of the code that supports the F1. However, if there are issues, we will not be able to help you fix them.</p>
+<p class="admonition-title">TODO</p>
+<p>Updated compatible hardware when supported hardware is finalized.</p>
 </div>
-<p>As of January 2018, ROSflight is only supported on flight controllers with STM32F103 and STM32F405 processors, specifically, the Revo, Naze32, and Flip32. Both the 6-DOF and 10-DOF versions of each board are fully supported. We have had the most success with Revo boards purchased from <a href="https://hobbyking.com/en_us/openpilot-cc3d-revolution-revo-32bit-flight-controller-w-integrated-433mhz-oplink.html?___store=en_us">HobbyKing</a>. We have had weird issues with knock-off boards from Chinese vendors. An acro version (IMU-Only) can be found at <a href="https://www.readytoflyquads.com/openpilot-cc3d-revolution-acro">readytoflyquads</a>.</p>
 <h2 id="serial-port-configuration">Serial Port Configuration<a class="headerlink" href="#serial-port-configuration" title="Permanent link">&para;</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1023,6 +1008,10 @@ Or you can uninstall it entirely from your system:
 </code></pre></div></p>
 </div>
 <h2 id="flashing-firmware-using-the-cleanflight-configurator">Flashing Firmware using the Cleanflight Configurator<a class="headerlink" href="#flashing-firmware-using-the-cleanflight-configurator" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">TODO</p>
+<p>Update flashing instructions when supported hardware is finalized. Consider switching to the Betaflight configurator since Cleanflight development has stalled.</p>
+</div>
 <ul>
 <li>Download the latest version of ROSflight for your board <a href="https://github.com/rosflight/firmware/releases">here</a>.</li>
 <li>
@@ -1050,6 +1039,10 @@ Or you can uninstall it entirely from your system:
 <li>You're done! Great job.</li>
 </ul>
 <h2 id="flashing-firmware-from-the-command-line">Flashing Firmware from the Command Line<a class="headerlink" href="#flashing-firmware-from-the-command-line" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">TODO</p>
+<p>Update flashing instructions when supported hardware is finalized.</p>
+</div>
 <h3 id="f4-boards">F4 Boards<a class="headerlink" href="#f4-boards" title="Permanent link">&para;</a></h3>
 <p>You can use dfu-util to flash the firmware. This is helpful if you need (or prefer) a command-line interface.</p>
 <ul>
@@ -1069,22 +1062,6 @@ Or you can uninstall it entirely from your system:
 <li>Flash the firmware to the device
 <div class="highlight"><pre><span></span><code><span class="w">    </span>dfu-util<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-s<span class="w"> </span>0x08000000<span class="w"> </span>-D<span class="w"> </span>rosflight-F4.bin
 </code></pre></div></li>
-</ul>
-<h3 id="f1-boards">F1 Boards<a class="headerlink" href="#f1-boards" title="Permanent link">&para;</a></h3>
-<p>You can use stm32flash to flash the firmware to F1-based boards.</p>
-<ul>
-<li>Install the stm32flash utility
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>stm32flash
-</code></pre></div></li>
-<li>Download the latest rosflight.hex file, <a href="https://github.com/rosflight/firmware/releases">found here</a>, to the current directory</li>
-<li>
-<p>Put the board in bootloader mode (short boot pins while restarting the Naze by cycling power)</p>
-</li>
-<li>
-<p>Flash the firmware to the proper device (replace <code>/dev/ttyUSB0</code>)
-<div class="highlight"><pre><span></span><code><span class="w">    </span>stm32flash<span class="w"> </span>-w<span class="w"> </span>rosflight.hex<span class="w"> </span>-v<span class="w"> </span>-g<span class="w"> </span>0x0<span class="w"> </span>-b<span class="w"> </span><span class="m">921600</span><span class="w"> </span>/dev/ttyUSB0
-</code></pre></div></p>
-</li>
 </ul>
 
 

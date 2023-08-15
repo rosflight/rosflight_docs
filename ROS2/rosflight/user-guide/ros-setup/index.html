@@ -482,13 +482,6 @@ You're not viewing the latest version.
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-the-apt-repository" class="md-nav__link">
-    From the apt Repository
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#from-source" class="md-nav__link">
     From Source
   </a>
@@ -503,13 +496,6 @@ You're not viewing the latest version.
         <li class="md-nav__item">
   <a href="#running-rosflight_io" class="md-nav__link">
     Running rosflight_io
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#jetson-tx2" class="md-nav__link">
-    Jetson TX2
   </a>
   
 </li>
@@ -906,13 +892,6 @@ You're not viewing the latest version.
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-the-apt-repository" class="md-nav__link">
-    From the apt Repository
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#from-source" class="md-nav__link">
     From Source
   </a>
@@ -927,13 +906,6 @@ You're not viewing the latest version.
         <li class="md-nav__item">
   <a href="#running-rosflight_io" class="md-nav__link">
     Running rosflight_io
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#jetson-tx2" class="md-nav__link">
-    Jetson TX2
   </a>
   
 </li>
@@ -962,66 +934,36 @@ You're not viewing the latest version.
 
 
 <h1 id="installingsetting-up-ros">Installing/Setting up ROS<a class="headerlink" href="#installingsetting-up-ros" title="Permanent link">&para;</a></h1>
-<p>You will need to install ROS on both the companion computer and the base station laptop. Check out the official <a href="http://wiki.ros.org/ROS/Installation">ROS Installation</a> page for details on how to do this.</p>
-<p>Currently only the long-term support <a href="http://wiki.ros.org/kinetic/Installation">ROS Kinetic</a> and <a href="http://wiki.ros.org/melodic/Installation">ROS Melodic</a> releases are supported, with the recommended operating system being Ubuntu 16.04 and 18.04 respectively. If storage and/or hardware resources are limited on your companion computer, you can install the bare-bones ROS package (e.g. <code>ros-kinetic-ros-base</code>) instead of the full desktop version.</p>
+<p>You will need to install ROS2 on both the companion computer and the base station laptop. Check out the official <a href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">ROS2 Installation</a> page for details on how to do this. Make sure to install both the <code>ros-humble-desktop</code> (<code>ros-humble-ros-base</code> can be used instead of <code>ros-humble-desktop</code> if you don't need GUI tools or the simulation) and <code>ros-dev-tools</code> packages, or the equivalent packages for your version of ROS2.</p>
+<p>We support all fixed-release ROS2 versions that are not EOL, which currently includes <a href="https://docs.ros.org/en/humble/Installation.html">ROS2 Humble</a> and <a href="https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html">ROS2 Iron</a>. <a href="https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html">ROS2 Rolling</a> is not fixed-release and is therefore not officially supported. </p>
 <h2 id="installing-rosflight">Installing ROSflight<a class="headerlink" href="#installing-rosflight" title="Permanent link">&para;</a></h2>
 <p>You will need to install the ROSflight packages on both the companion computer and the base station computer. The companion computer will run the node that actually communicates with the flight controller over a serial connection, while the base station needs the message and service definitions to be able to call services or subscribe and publish to topics.</p>
-<h3 id="from-the-apt-repository">From the apt Repository<a class="headerlink" href="#from-the-apt-repository" title="Permanent link">&para;</a></h3>
-<p>The recommended installation method for Ubuntu or Debian systems is to use the ROSflight packages in the official ROS apt repositories. If you have configured your system to use these repositories, as described in the ROS installation guide, you can install rosflight using the following, inserting the name of the ROS release you are using (e.g. "kinetic" or "melodic"):</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-&lt;ros_release&gt;-rosflight-pkgs
-</code></pre></div>
-<p>The previous command will install all of the rosflight packages, including the Gazebo simulation packages. If installing on a companion computer with limited resources, you can instead install only <code>rosflight_io</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-&lt;ros_release&gt;-rosflight
-</code></pre></div>
 <h3 id="from-source">From Source<a class="headerlink" href="#from-source" title="Permanent link">&para;</a></h3>
-<p>If you prefer, or if binary packages are not available for your distribution or system architecture, you can install the ROSflight packages from source instead. First, set up a <code>catkin</code> workspace by following the directions <a href="http://wiki.ros.org/catkin/Tutorials/create_a_workspace">here</a>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>In order to ensure that new terminal windows are configured to use this workspace, you can add the line <code>source ~/catkin_ws/devel/setup.bash</code> to your <code>~/.bashrc</code> file or its equivalent on other systems. (Change the path if your workspace is located somewhere other than  <code>~/catkin_ws</code>.)</p>
-</div>
-<p>Next, download the source code into your workspace. Assuming that your workspace is located at <code>~/catkin_ws</code>:
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/catkin_ws/src
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/rosflight/rosflight.git
+<p>First, set up a ROS2 workspace:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/rosflight_ws/src
+<span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src
 </code></pre></div>
-Pull down the submodules (there is a triple-layer submodule setup in the <code>rosflight</code> metapackage, so you have to remember the <code>--recursive</code> argument):
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>rosflight
-git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+<p>Next, download the source code into your workspace (include the <code>--recursive</code> argument to download the necessary submodules):
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/rosflight/rosflight2.git
 </code></pre></div>
 Install dependencies:
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/catkin_ws/src
-rosdep<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>--ignore-src<span class="w"> </span>--from-path<span class="w"> </span>rosflight
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rosdep<span class="w"> </span>init
+rosdep<span class="w"> </span>update
+rosdep<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>--from-path<span class="w"> </span>./<span class="w"> </span>-y<span class="w"> </span>--ignore-src
 </code></pre></div>
 Finally, build the packages:
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/catkin_ws
-catkin_make
-</code></pre></div></p>
-<h2 id="running-rosflight_io">Running rosflight_io<a class="headerlink" href="#running-rosflight_io" title="Permanent link">&para;</a></h2>
-<p>The <code>rosflight_io</code> node is the bridge between ROS and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command (after starting a <code>roscore</code>):
-<div class="highlight"><pre><span></span><code>rosrun<span class="w"> </span>rosflight<span class="w"> </span>rosflight_io<span class="w"> </span>_port:<span class="o">=</span>/dev/ttyACM0
-</code></pre></div>
-Replace <code>/dev/ttyACM0</code> with the port your flight controller is connected to. The <code>rosflight_io</code> node could also be started from within a launch file with something like
-<div class="highlight"><pre><span></span><code><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;rosflight&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;rosflight_io&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;rosflight_io&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-<span class="w">  </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;/dev/ttyACM0&quot;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/node&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
+colcon<span class="w"> </span>build
 </code></pre></div></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The optional (but recommended) <code>output="screen"</code> option ensures that status messages from <code>rosflight_io</code> will be forwarded to the console from which you call <code>roslaunch</code>.</p>
+<p>In order to ensure that new terminal windows are configured to use this workspace, you can add the line <code>source ~/rosflight_ws/install/setup.bash</code> to your <code>~/.bashrc</code> file or its equivalent on other systems. Change the path if your workspace is located somewhere other than  <code>~/rosflight_ws</code>. You'll also need to add <code>source /usr/share/gazebo/setup.sh</code> if you plan to use the Gazebo simulator.</p>
 </div>
-<p>For details on all parameters, topics, and services related to the <code>rosflight_io</code> node, refer to the documentation on the <a href="http://wiki.ros.org/rosflight">ROS wiki</a>.</p>
-<h2 id="jetson-tx2">Jetson TX2<a class="headerlink" href="#jetson-tx2" title="Permanent link">&para;</a></h2>
-<div class="admonition update">
-<p class="admonition-title">Update</p>
-<p>As of Jetpack 4.2, with the CTI-L4T patch installed to use the TX2 mounted on a CTI Orbitty carrier board, the three drivers mentioned here are installed out of the box.</p>
-</div>
-<p>It is likely that your Flip32/Naze32 board doesn't work correctly out of the box with the TX2. To fix this, you need to build some drivers in with the kernel. This process is pretty straight-forward.</p>
-<p>To build the kernel with additional USB drivers, follow the instructions and video found <a href="https://www.jetsonhacks.com/2018/03/22/build-kernel-modules-nvidia-jetson-tx2-2/">here</a>. This video shows the CH341 module being added. However, there are a few additional drivers you will likely require. These include:</p>
-<ul>
-<li>USB Winchiphead CH341 Single Port Serial Driver</li>
-<li>USB Modem (CDC ACM) support</li>
-<li>USB CP210x family of UART Bridge Controllers</li>
-</ul>
-<p>After following the instructions to add these drivers, reboot your TX2 and your USB devices should show up in /dev/ttyUSB<X> or /dev/ttyACM<X> as you would expect.</p>
+<h2 id="running-rosflight_io">Running rosflight_io<a class="headerlink" href="#running-rosflight_io" title="Permanent link">&para;</a></h2>
+<p>The <code>rosflight_io</code> node is the bridge between ROS2 and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>port:<span class="o">=</span>/dev/ttyUSB0
+</code></pre></div>
+Replace <code>/dev/ttyUSB0</code> with the port your flight controller is connected to.</p>
 
 
 

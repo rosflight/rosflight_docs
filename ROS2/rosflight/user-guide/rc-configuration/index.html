@@ -1017,20 +1017,23 @@ You're not viewing the latest version.
 
 <h1 id="rc-configuration">RC Configuration<a class="headerlink" href="#rc-configuration" title="Permanent link">&para;</a></h1>
 <h2 id="binding-your-transmitter-to-your-receiver">Binding your Transmitter to your Receiver<a class="headerlink" href="#binding-your-transmitter-to-your-receiver" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">TODO</p>
+<p>Update when supported hardware is finalized.</p>
+</div>
 <p>As of version 1.0, ROSflight only supports PPM receivers on F1 controllers, while F4 controllers support SBUS and PPM. If your transmitter/receiver setup only supports PWM output, we recommend using a PPM encoder such as the one <a href="https://www.getfpv.com/holybro-ppm-encoder-module.html">here</a>. Be sure to set the <code>RC_TYPE</code> parameter to <code>0</code> for PPM, or <code>1</code> for SBUS.</p>
 <p>Follow the instructions in your user manual to bind your transmitter to your RC receiver. You may also be able to find a guide on YouTube with instructions; just search for your particular transmitter and receiver model.</p>
 <h2 id="rc-transmitter-calibration">RC Transmitter Calibration<a class="headerlink" href="#rc-transmitter-calibration" title="Permanent link">&para;</a></h2>
 <p>To avoid confusion and to reduce code complexity in the firmware source code, ROSflight does not perform software calibration of RC transmitters. This means that RC calibration must be done on the transmitter itself, as opposed to in software. This is pretty straight-forward for most modern transmitters.</p>
 <h3 id="configure-the-full-stick-output-for-each-channel">Configure the full stick output for each channel<a class="headerlink" href="#configure-the-full-stick-output-for-each-channel" title="Permanent link">&para;</a></h3>
 <p>The easiest way to do this is to enter the "Servo Setup" Menu (for Spektrum transmitters) and change the servo travel variable. You can watch the raw RC readings from the flight controller by echoing the rc_raw topic from <code>rosflight_io</code></p>
-<div class="highlight"><pre><span></span><code>rostopic echo /rc_raw
+<div class="highlight"><pre><span></span><code>ros2 topic echo /rc_raw
 </code></pre></div>
 <ul>
 <li>center both sticks on your transmitter</li>
 <li>Apply subtrim until the first four channels all read 1500 exactly (or as close as possible--some RC receivers are worse than others and cannot exactly output 1500 us)</li>
 <li>Set the channel endpoints so that maximum stick deflections result in readings of 1000 and 2000 us.</li>
 </ul>
-<p>You may want to follow this YouTube guide for channel calibration in betaflight: <a href="https://www.youtube.com/watch?v=nDsNWZgxmw4&amp;t=186s">Calibrating RC endpoints with Taranis X9D</a>.</p>
 <h3 id="configure-stick-directions-for-roll-pitch-and-yaw-channels">Configure stick directions for roll, pitch, and yaw channels.<a class="headerlink" href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" title="Permanent link">&para;</a></h3>
 <p>You now have to make sure your RC transmitter is sending commands consistent with the north-east-down (NED) frame assumed by ROSflight.</p>
 <p>You may find this graphic helpful. It shows all the basic stick positions, and the associated output from the first four channels when looking at a raw AETR (aileron, elevator, throttle, rudder) RC signal from <code>rosflight_io</code>. Make sure that the stick output is in the correct direction.</p>

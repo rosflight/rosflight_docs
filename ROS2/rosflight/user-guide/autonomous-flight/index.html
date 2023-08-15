@@ -551,8 +551,8 @@ You're not viewing the latest version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#fly-waypoints-with-rosplane-or-roscopter" class="md-nav__link">
-    Fly Waypoints with ROSplane or ROScopter
+  <a href="#fly-waypoints-with-roscopter-or-rosplane" class="md-nav__link">
+    Fly Waypoints with ROScopter or ROSplane
   </a>
   
 </li>
@@ -878,8 +878,8 @@ You're not viewing the latest version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#fly-waypoints-with-rosplane-or-roscopter" class="md-nav__link">
-    Fly Waypoints with ROSplane or ROScopter
+  <a href="#fly-waypoints-with-roscopter-or-rosplane" class="md-nav__link">
+    Fly Waypoints with ROScopter or ROSplane
   </a>
   
 </li>
@@ -908,7 +908,7 @@ You're not viewing the latest version.
 
 
 <h1 id="autonomous-flight">Autonomous Flight<a class="headerlink" href="#autonomous-flight" title="Permanent link">&para;</a></h1>
-<p>One of the core functionalities of the ROSflight autopilot is to allow the companion computer to send control setpoints to the embedded flight controller. These setpoints would typically be computed by a controller running as a ROS node, normally on the companion computer.</p>
+<p>One of the core functionalities of the ROSflight autopilot is to allow the companion computer to send control setpoints to the embedded flight controller. These setpoints would typically be computed by a controller running as a ROS2 node, normally on the companion computer.</p>
 <h2 id="provide-control-from-a-companion-computer">Provide Control from a Companion Computer<a class="headerlink" href="#provide-control-from-a-companion-computer" title="Permanent link">&para;</a></h2>
 <p>Control setpoints are sent to the flight controller by publishing to the <code>/command</code> topic that is advertised by the <code>rosflight_io</code> node. This topic accepts messages of type <code>rosflight_msgs/Command</code>, which have the following structure:</p>
 <div class="highlight"><pre><span></span><code>std_msgs/Header header
@@ -917,7 +917,7 @@ uint8 ignore
 float32 x
 float32 y
 float32 z
-float32 F
+float32 f
 </code></pre></div>
 <p>The <code>header</code> field is a standard ROS message header. The <code>x</code>, <code>y</code>, <code>z</code>, and <code>F</code> fields are the control setpoint values, which are interpreted according to the <code>mode</code> and <code>ignore</code> fields.</p>
 <p>The following table describes the different values the <code>mode</code> field can take, as well as how the setpoint values are interpreted for each of these modes:</p>
@@ -1001,38 +1001,38 @@ float32 F
 <div class="highlight"><pre><span></span><code>ignore = IGNORE_X | IGNORE_Y | IGNORE_Z
 </code></pre></div></p>
 <p>The best practice is to use enum names rather than the actual numeric values for the <code>mode</code> and <code>ignore</code> fields. For example, to specify a multirotor attitude angle command in C++ I might have:
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ros/ros.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rosflight_msgs/Command.h&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rclcpp/rclcpp.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rosflight_msgs/msg/command.hpp&gt;</span>
 
-<span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">Command</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
-<span class="n">msg</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">stamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ros</span><span class="o">::</span><span class="n">Time</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<span class="n">msg</span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">MODE_ROLL_PITCH_YAWRATE_THROTTLE</span><span class="p">;</span>
-<span class="n">msg</span><span class="p">.</span><span class="n">ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">IGNORE_NONE</span><span class="p">;</span>
+<span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Command</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">stamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_clock</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">now</span><span class="p">();</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">MODE_ROLL_PITCH_YAWRATE_THROTTLE</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">IGNORE_NONE</span><span class="p">;</span>
 <span class="n">msg</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="n">msg</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
 <span class="n">msg</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="n">msg</span><span class="p">.</span><span class="n">F</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span><span class="p">;</span>
 </code></pre></div></p>
 <p>In Python I might have:
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">rospy</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="kn">from</span> <span class="nn">rosflight_msgs.msg</span> <span class="kn">import</span> <span class="n">Command</span>
 
 <span class="n">msg</span> <span class="o">=</span> <span class="n">Command</span><span class="p">()</span>
-<span class="n">msg</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
 <span class="n">msg</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Command</span><span class="o">.</span><span class="n">MODE_ROLL_PITCH_YAWRATE_THROTTLE</span>
 <span class="n">msg</span><span class="o">.</span><span class="n">ignore</span> <span class="o">=</span> <span class="n">Command</span><span class="o">.</span><span class="n">IGNORE_NONE</span>
 <span class="n">msg</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">msg</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">msg</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">msg</span><span class="o">.</span><span class="n">F</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="mf">0.6</span>
 </code></pre></div>
 I would then publish this message to the <code>/command</code> topic to forward it to the embedded flight controller.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If the flight controller does not receive a new command for a defined period of time, it will ignore the old commands and revert to RC control. The length of this timeout period is set by the <code>OFFBOARD_TIMEOUT</code> parameter.</p>
 </div>
-<h2 id="fly-waypoints-with-rosplane-or-roscopter">Fly Waypoints with ROSplane or ROScopter<a class="headerlink" href="#fly-waypoints-with-rosplane-or-roscopter" title="Permanent link">&para;</a></h2>
-<p>Waypoint following is not supported natively by the ROSflight stack. However, the <a href="https://github.com/byu-magicc/ros_plane">ROSplane</a> and <a href="https://github.com/byu-magicc/ros_copter">ROScopter</a> projects are good, example implementations of how to achieve this using ROSflight. They also provide good examples of how you might go about integrating your own guidance or control algorithms with the ROSflight stack.</p>
+<h2 id="fly-waypoints-with-roscopter-or-rosplane">Fly Waypoints with ROScopter or ROSplane<a class="headerlink" href="#fly-waypoints-with-roscopter-or-rosplane" title="Permanent link">&para;</a></h2>
+<p>Waypoint following is not supported natively by the ROSflight stack. However, the <a href="../../../roscopter/overview/">ROScopter</a> and <a href="../../../rosplane/overview/">ROSplane</a> projects are good, example implementations of how to achieve this using ROSflight. They also provide good examples of how you might go about integrating your own guidance or control algorithms with the ROSflight stack.</p>
 
 
 

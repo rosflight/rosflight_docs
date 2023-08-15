@@ -911,11 +911,11 @@ You're not viewing the latest version.
 <p>This is an example of a ROSflight pre-flight checklist. You will likely need to augment this with checks specific to both (a) your hardware and (b) the code running on your companion computer.</p>
 <h2 id="before-powering-up-motors">Before powering up motors<a class="headerlink" href="#before-powering-up-motors" title="Permanent link">&para;</a></h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled/> ROS is running on the companion computer, communicating with the base station</li>
+<li class="task-list-item"><input type="checkbox" disabled/> ROS2 is running on the companion computer, communicating with the base station</li>
 <li class="task-list-item"><input type="checkbox" disabled/> <code>rosflight_io</code> reports no errors</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Sensors are calibrated and publishing<ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled/> IMU (re-calibrate every flight): <code>rosservice call /calibrate_imu</code></li>
-<li class="task-list-item"><input type="checkbox" disabled/> Barometer: <code>rosservice call /calibrate_baro</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> IMU (re-calibrate every flight): <code>ros2 service call /calibrate_imu std_srvs/srv/Trigger</code></li>
+<li class="task-list-item"><input type="checkbox" disabled/> Barometer: <code>ros2 service call /calibrate_baro std_srvs/srv/Trigger</code></li>
 <li class="task-list-item"><input type="checkbox" disabled/> Sonar (if attached)</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Airspeed (if attached)</li>
 </ul>
@@ -929,7 +929,7 @@ You're not viewing the latest version.
 <li class="task-list-item"><input type="checkbox" disabled/> RC override behavior</li>
 <li class="task-list-item"><input type="checkbox" disabled/> RC range test</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Wire-wiggle test (wiggle all wires to look for bad connections)</li>
-<li class="task-list-item"><input type="checkbox" disabled/> If desired, logging is turned on (e.g. recording a rosbag)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> If desired, logging is turned on (e.g. recording a ros2 bag)</li>
 </ul>
 <h2 id="after-powering-up-motors">After Powering Up Motors<a class="headerlink" href="#after-powering-up-motors" title="Permanent link">&para;</a></h2>
 <div class="admonition danger">

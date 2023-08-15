@@ -953,7 +953,7 @@ You're not viewing the latest version.
 <li><a href="../hardware-setup/">Set up your hardware</a> (fixed-wing or multirotor platform, flight controller, and companion computer)</li>
 <li><a href="../flight-controller-setup/">Flash your flight controller with the latest ROSflight firmware</a></li>
 <li><a href="../rc-configuration/">Set up your RC transmitter</a></li>
-<li><a href="../ros-setup/">Set up ROS on your companion computer</a></li>
+<li><a href="../ros-setup/">Set up ROS2 on your companion computer</a></li>
 <li><a href="../parameter-configuration/">Configure the flight controller for your setup</a>: the configuration checklists below should help guide you through this process</li>
 <li><a href="../preflight-checks/">Run through your preflight checks</a></li>
 <li><a href="../improving-performance/">Tune the attitude controller gains</a> (multirotors only)</li>
@@ -973,10 +973,10 @@ You're not viewing the latest version.
 <li>If you want to use a switch to enable RC override, set the <code>RC_ATT_OVRD_CHN</code> and <code>RC_THR_OVRD_CHN</code> parameters to the appropriate channel(s) (0-indexed). If you want complete control (attitude and throttle) when you flip the switch, set both these parameters to the same channel.</li>
 </ul>
 </li>
-<li>Calibrate your IMU: start <code>rosflight_io</code>, then run <code>rosservice call /calibrate_imu</code></li>
+<li>Calibrate your IMU: start <code>rosflight_io</code>, then run <code>ros2 service call /calibrate_imu std_srvs/srv/Trigger</code></li>
 <li>Complete the multirotor-specific or fixed-wing-specific checklist below</li>
-<li>Save the parameters (<code>rosservice call /param_write</code>)</li>
-<li>You'll probably want to save a backup of your parameters (call <code>rosservice call /param_save_to_file /path/to/file.yml</code>)</li>
+<li>Save the parameters (<code>ros2 service call /param_write std_srvs/srv/Trigger</code>)</li>
+<li>You'll probably want to save a backup of your parameters (call <code>ros2 service call /param_save_to_file rosflight_msgs/srv/ParamFile "{filename: "params.yml"}"</code>)</li>
 <li>Make sure you run through the <a href="../preflight-checks/">Preflight Checklist</a> before flying</li>
 </ol>
 <h3 id="multirotor-specific-setup">Multirotor-specific Setup<a class="headerlink" href="#multirotor-specific-setup" title="Permanent link">&para;</a></h3>

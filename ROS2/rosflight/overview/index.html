@@ -936,17 +936,17 @@ You're not viewing the latest version.
 <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
 <p>This page provides an overview of the basic operation of the ROSflight firmware and the concepts behind the behaviors.</p>
 <h2 id="companion-computer">Companion Computer<a class="headerlink" href="#companion-computer" title="Permanent link">&para;</a></h2>
-<p>ROSflight is primarily intended to be used with a companion computer running ROS.
-The ROS interface is provided by the <a href="http://wiki.ros.org/rosflight">rosflight_io</a> node.
-All configuration of the flight controller is done through the ROS service API provided by <code>rosflight_io</code> (see the <a href="../user-guide/parameter-configuration/">parameter configuration</a> documentation page).
-Sensor data such as IMU measurements are streamed from the flight controller to the companion computer and published as ROS topics.
-Control setpoints can also be sent to the flight controller by publishing to the appropriate ROS topic (see the <a href="../user-guide/autonomous-flight/">autonomous flight</a> documentation page).</p>
+<p>ROSflight is primarily intended to be used with a companion computer running ROS2.
+The ROS2 interface is provided by the <a href="https://github.com/rosflight/rosflight2">rosflight_io</a> node.
+All configuration of the flight controller is done through the ROS2 service API provided by <code>rosflight_io</code> (see the <a href="../user-guide/parameter-configuration/">parameter configuration</a> documentation page).
+Sensor data such as IMU measurements are streamed from the flight controller to the companion computer and published as ROS2 topics.
+Control setpoints can also be sent to the flight controller by publishing to the appropriate ROS2 topic (see the <a href="../user-guide/autonomous-flight/">autonomous flight</a> documentation page).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To avoid confusion, we try to consistently use the following terminology:</p>
 <ul>
-<li><strong>Flight controller:</strong> The embedded board (such as a Revo or Naze32) that runs the ROSflight firmware and performs I/O with sensors and ESCs</li>
-<li><strong>Companion computer:</strong> A Linux computer, running ROS, that is mounted on the vehicle and has a physical, serial connection with the flight controller</li>
+<li><strong>Flight controller:</strong> The embedded board that runs the ROSflight firmware and performs I/O with sensors and ESCs</li>
+<li><strong>Companion computer:</strong> A Linux computer, running ROS2, that is mounted on the vehicle and has a physical, serial connection with the flight controller</li>
 <li><strong>Offboard control (setpoints):</strong> The control setpoints passed from the companion computer to the flight controller. The control is "offboard" from the perspective of the flight controller, even though the computer providing those commands is mounted onboard the vehicle. Perhaps this is not the greatest terminology, but hopefully this helps clear up potential confusion.</li>
 </ul>
 </div>

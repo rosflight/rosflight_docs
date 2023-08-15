@@ -998,11 +998,11 @@ You're not viewing the latest version.
 <li>IMU low-pass filter constant</li>
 <li>RC receiver type (PPM or SBUS)</li>
 </ul>
-<p>and so on. Access to all parameters is enabled via ROS services advertised by <code>rosflight_io</code> while the flight controller is connected.</p>
+<p>and so on. Access to all parameters is enabled via ROS2 services advertised by <code>rosflight_io</code> while the flight controller is connected.</p>
 <h2 id="parameter-interface">Parameter Interface<a class="headerlink" href="#parameter-interface" title="Permanent link">&para;</a></h2>
 <h3 id="getting-parameter-values">Getting Parameter Values<a class="headerlink" href="#getting-parameter-values" title="Permanent link">&para;</a></h3>
 <p>Sometimes it is handy to ask the flight controller what the current value of a parameter is. This is accomplished using the <code>param_get</code> service. As an example, let's retrieve the roll angle controller proportional (P) gain.</p>
-<div class="highlight"><pre><span></span><code>rosservice call /param_get PID_ROLL_ANG_P
+<div class="highlight"><pre><span></span><code>ros2 service call /param_get rosflight_msgs/srv/ParamGet &quot;{name: &quot;PID_ROLL_ANG_P&quot;}&quot;
 </code></pre></div>
 <p>You should get a response similar to the following (this happens to be the default value with floating-point error):</p>
 <div class="highlight"><pre><span></span><code>exists: True
@@ -1010,7 +1010,7 @@ value: 0.15000000596
 </code></pre></div>
 <h3 id="changing-parameters">Changing Parameters<a class="headerlink" href="#changing-parameters" title="Permanent link">&para;</a></h3>
 <p>Parameters are changed via the <code>param_set</code> service. As an example, let's change the roll angle controller P gain. (I will assume that the flight controller is connected and <code>rosflight_io</code> is running in the root namespace.)</p>
-<div class="highlight"><pre><span></span><code>rosservice call /param_set PID_ROLL_ANG_P 0.08
+<div class="highlight"><pre><span></span><code>ros2 service call /param_set rosflight_msgs/srv/ParamSet &quot;{name: &quot;PID_ROLL_ANG_P&quot;, value: 0.08}&quot;
 </code></pre></div>
 <p>You should get a prompt from <code>rosflight_io</code> saying
 <div class="highlight"><pre><span></span><code>[ INFO] [1491672408.585339558]: Parameter PID_ROLL_ANG_P has new value 0.08
@@ -1019,14 +1019,14 @@ value: 0.15000000596
 <p>Notice that the parameters have been set, but not saved. Parameter changes take effect immediately, however they will not persist over a reboot unless you <em>write</em> them to the non-volatile memory. This brings us to the next task.</p>
 <h3 id="writing-parameters">Writing Parameters<a class="headerlink" href="#writing-parameters" title="Permanent link">&para;</a></h3>
 <p>To ensure that parameter values persist between reboots, you must write the parameters to the non-volatile memory. This is done by calling <code>param_write</code></p>
-<div class="highlight"><pre><span></span><code>rosservice call /param_write
+<div class="highlight"><pre><span></span><code>ros2 service call /param_write std_srvs/srv/Trigger
 </code></pre></div>
 <p><code>rosflight_io</code> should then respond with
 <div class="highlight"><pre><span></span><code>[ INFO] [1491672597.123201952]: Param write succeeded
 [ INFO] [1491672597.123452908]: Onboard parameters have been saved
 </code></pre></div></p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>It is highly recommended that you write parameters before arming and flying the vehicle. Among other things, this will ensure that in the rare case that a hard fault is encountered and the flight controller must reboot during flight, the correct configuration will be loaded on reboot.</p>
 </div>
 <div class="admonition error">
@@ -1034,13 +1034,13 @@ value: 0.15000000596
 <p>Parameter writing can only happen if the flight controller is disarmed. If the param write failed for some reason, you may want to make sure your FC is disarmed and try again.</p>
 </div>
 <h3 id="backing-up-and-loading-parameters-from-file">Backing Up and Loading Parameters from File<a class="headerlink" href="#backing-up-and-loading-parameters-from-file" title="Permanent link">&para;</a></h3>
-<p>It is good practice to backup your parameter configuration in case you have to re-flash your firmware or you want to share configurations between vehicles. We can do this via the <code>param_save_to_file</code> and <code>param_load_from_file</code> services.</p>
+<p>It is good practice to back up your parameter configuration in case you have to re-flash your firmware or you want to share configurations between vehicles. We can do this via the <code>param_save_to_file</code> and <code>param_load_from_file</code> services.</p>
 <p>First, let's back up our current parameter configuration:</p>
-<div class="highlight"><pre><span></span><code>rosservice call /param_save_to_file ~/parameters.yml
+<div class="highlight"><pre><span></span><code>ros2 service call /param_save_to_file rosflight_msgs/srv/ParamFile &quot;{filename: &quot;~/parameters.yaml&quot;}&quot;
 </code></pre></div>
 <p>Parameters are saved in YAML format. You must also specify the absolute file name of where you would like your parameters to be saved. The current active set of parameters will be saved, regardless of what is saved in non-volatile memory on the flight controller.</p>
 <p>Now, let's say we want to re-load this parameter file
-<div class="highlight"><pre><span></span><code>rosservice call /param_load_from_file ~/parameters.yml
+<div class="highlight"><pre><span></span><code>ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile &quot;{filename: &quot;~/parameters.yml&quot;}&quot;
 </code></pre></div>
 Again, you must specify the absolute file name of the file to be loaded.</p>
 <h2 id="fixed-wing-parameter-configuration">Fixed-Wing Parameter Configuration<a class="headerlink" href="#fixed-wing-parameter-configuration" title="Permanent link">&para;</a></h2>
