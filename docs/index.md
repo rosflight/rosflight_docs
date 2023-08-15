@@ -1,14 +1,19 @@
 # Welcome to ROSflight
 
-ROSflight is an autopilot system designed from the ground up with researchers in mind, and for easy integration with [ROS](http://www.ros.org/). Its purpose is to accomplish two main tasks:
+***The ROS2 updates for ROSflight/ROScopter/ROSplane are still under development. Please use with discretion.***
 
-  1. Stream high-rate sensor data from the embedded flight controller to ROS
-  2. Provide a simple API for sending control setpoints to the embedded flight controller
+## What is ROSflight?
 
-A ROSflight setup consists of two main components:
+ROSflight is a lean and adaptable autopilot system designed from the ground up with researchers in mind. Its purpose is to enable researchers to quickly and easily try out new ideas with minimal effort. Some of ROSflight's key feature are:
 
-  1. **The embedded flight controller:** Typically an OpenPilot Revo or one of its variants, running the ROSflight [firmware](https://github.com/rosflight/firmware)
-  2. **The companion computer:** Any computer that runs ROS, is located on the vehicle, and has a physical serial connection to the embedded flight controller
+- Well documented, highly adaptable, amd lean code base making understanding and modifying any portion of ROSflight relatively easy.
+- Seamless switching between simulation and hardware. No portion of ROSflight knows if it is running in a simulation or not, the only difference is where the sensor data is coming from.
+- Built on a ROS framework, allowing easy integration with ROS.
+
+A ROSflight setup typically consists of two main components:
+
+1. The ROSflight [firmware](https://github.com/rosflight/firmware), running on a typical flight controller, like a Pixhawk. This communicates with sensors and actuators and serves as the bridge between hardware and higher level software. The firmware itself is designed to do as little as possible, offloading most of the control systems to companion computer.
+2. The ROSflight [rosflight_io node](https://github.com/rosflight/rosflight2), running on a Linux companion computer that communicates directly with the firmware over serial or ethernet. This serves as the bridge between the firmware and the rest of ROS network and contains no control systems.
 
 ## Why ROSflight?
 
@@ -16,8 +21,17 @@ There are a lot of excellent autopilots out there with a lot of great firmware o
 
 The other options that we tried were limited in bandwidth for streaming sensor data, and the APIs for sending control setpoints were confusing and difficult to implement. Perhaps most importantly, the code was sometimes so complex (feature-rich, but complicated) that it was difficult to figure out what the autopilot was actually doing. In talking to other researchers and industry members, we found that many people shared similar frustrations. So we decided to create and share the autopilot we wanted, hoping it will be useful to other people as well.
 
+## What are ROScopter and ROSplane?
+
+One of the primary goals of ROSflight was to have the firmware do as little as is necessary, keeping it simple and allowing other higher-level software running on the companion computer to do most of the work. ROScopter and ROSplane are two examples of that higher-level software, and have been developed to work seamlessly with ROSflight. Both are built on the ROS framework and are designed to be very easy to understand and modify, serving as a base library for higher-level autonomy that can be easily built on. They are also useful if you need higher-level autonomy but aren't interested in developing it yourself.
+
+Although we provide these libraries for those who want them, ROSflight is fully independent and can be used with different autonomy stacks or no autonomy stack at all.
+
+!!!Note
+    When we refer to ROSflight in our documentation, we are referring to the firmware and the rosflight_io node, not ROScopter or ROSplane. These are treated as separate packages.
+
 ## Our Vision
 
-Perhaps more important than what we are trying to accomplish with ROSflight is what we are _not_ trying to accomplish. This is not intended to be, out-of-the-box, a fully-featured autopilot for high-level tasks such as autonomous GPS waypoint following. There are many good autopilots out there that already do this. Instead, ROSflight is intended to provide the minimal functionality required to keep a multirotor or fixed-wing vehicle in the air, and to serve as a building block for writing new code to perform these higher-level tasks. (The [ROSplane](https://github.com/byu-magicc/ros_plane) and [ROScopter](https://github.com/byu-magicc/ros_copter) projects are excellent examples of what can be accomplished by building on top of the ROSflight architecture.)
+Perhaps more important than what we are trying to accomplish is what we are *not* trying to accomplish. ROSflight is not intended to be a fully-featured autopilot with all the same functions of other autopilots, but instead provide the minimal functionality required to keep a multirotor or fixed-wing vehicle in the air, and to serve as the foundation for writing new code to perform these higher-level tasks. 
 
-Therefore, one of the primary objectives of the ROSflight autopilot is to avoid feature creep and remain _lean_. We hope that others will extend our code and build on top of it, and would love to hear about your successes. But for the most part, we will not be incorporating these new features back into the main project. Instead, we hope that ROSflight will remain a lean, core code base that will continue to serve as a launch pad for exciting new projects and applications.
+Therefore, one of our primary objectives is to avoid feature creep and remain *lean*. We hope that others will extend our code and build on top of it, and would love to hear about your successes. But for the most part, we will not be incorporating these new features back into the main project. Instead, we hope that ROSflight will remain a lean, core code base that will continue to serve as a launch pad for exciting new projects and applications.
