@@ -21,7 +21,7 @@ There are a lot of excellent autopilots out there with a lot of great firmware o
 
 The other options that we tried were limited in bandwidth for streaming sensor data, and the APIs for sending control setpoints were confusing and difficult to implement. Perhaps most importantly, the code was sometimes so complex (feature-rich, but complicated) that it was difficult to figure out what the autopilot was actually doing. In talking to other researchers and industry members, we found that many people shared similar frustrations. So we decided to create and share the autopilot we wanted, hoping it will be useful to other people as well.
 
-## What are ROScopter and ROSplane?
+## What is ROScopter and ROSplane?
 
 One of the primary goals of ROSflight was to have the firmware do as little as is necessary, keeping it simple and allowing other higher-level software running on the companion computer to do most of the work. ROScopter and ROSplane are two examples of that higher-level software, and have been developed to work seamlessly with ROSflight. Both are built on the ROS2 framework and are designed to be very easy to understand and modify, serving as a base library for higher-level autonomy that can be easily built on. They are also useful if you need higher-level autonomy but aren't interested in developing it yourself.
 
