@@ -20,7 +20,7 @@ The following table summarizes the correlation between connections in hardware a
 !!! note
     To simulate a fixed-wing mav, just change all instances of `multirotor` in the steps below to `fixedwing`.
 
-* Setup ROSflight with the [ROS2 Setup](ros-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
+* Setup ROSflight with the [ROS2 Setup](ros2-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
 
 * Run `source /usr/share/gazebo/setup.sh` if you haven't added this to `~/.bashrc` already.
 
