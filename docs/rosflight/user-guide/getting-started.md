@@ -5,7 +5,7 @@ Reading through the pages in this user guide in order should provide you with th
   1. [Set up your hardware](hardware-setup.md) (fixed-wing or multirotor platform, flight controller, and companion computer)
   2. [Flash your flight controller with the latest ROSflight firmware](flight-controller-setup.md)
   3. [Set up your RC transmitter](rc-configuration.md)
-  4. [Set up ROS2 on your companion computer](ros-setup.md)
+  4. [Set up ROS2 on your companion computer](ros2-setup.md)
   5. [Configure the flight controller for your setup](parameter-configuration.md): the configuration checklists below should help guide you through this process
   6. [Run through your preflight checks](preflight-checks.md)
   7. [Tune the attitude controller gains](improving-performance.md) (multirotors only)
