@@ -27,14 +27,19 @@ sudo rosdep init
 rosdep update
 rosdep install -i --from-path ./ -y --ignore-src
 ```
-Finally, build the packages:
+Build the packages:
 ```bash
 cd ~/rosflight_ws
 colcon build
 ```
+Source the setup file and set it to be sourced automatically:
+```bash
+source ~/rosflight_ws/install/setup.bash
+echo "source ~/rosflight_ws/install/setup.bash" >> ~/.bashrc
+```
 
-!!! tip
-    In order to ensure that new terminal windows are configured to use this workspace, you can add the line `source ~/rosflight_ws/install/setup.bash` to your `~/.bashrc` file or its equivalent on other systems. Change the path if your workspace is located somewhere other than  `~/rosflight_ws`. You'll also need to add `source /usr/share/gazebo/setup.sh` if you plan to use the Gazebo simulator.
+!!! note
+    You'll also need to source the file at `/usr/share/gazebo/setup.sh` if you plan to use the Gazebo simulator.
 
 ## Running rosflight_io
 
@@ -47,7 +52,7 @@ Replace `/dev/ttyUSB0` with the port your flight controller is connected to.
 ## Using a Docker Container to run ROS2
 
 !!! note
-    This guide was written for using Linux as the host machine, but theoretically you should be able to use Docker to do the same thing on Mac or Windows. However, the specifics of the commands may be different. Please refer to the [Docker documentation](https://docs.docker.com/) for information on how to use Docker on your system.
+    This guide was written for using Linux as the host machine, but theoretically you should be able to use Docker to do the same thing on Mac or Windows. However, the specifics of the commands may be different. Please refer to the [Docker documentation](https://docs.docker.com/) for information on how to use Docker on a non-Linux system.
 !!! tip
     This guide was written using ROS2 Humble Docker images, but any distribution of ROS can be used. Just replace `humble` with the name of the distribution you want to use.
 
@@ -96,6 +101,9 @@ docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-un
 ```bash
 docker run --name rosflight -it -v /dev:/dev --privileged --network host -v ~/rosflight_ws:/rosflight_ws --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
 ```
+
+!!! warning
+    During testing, we found some strange behavior with ROS when running a GUI enabled container on a system with ROS already installed. If you need a GUI enabled system, try to do so on a system without ROS installed (or at the very least avoid sourcing/using ROS on your system). Also avoid having multiple GUI enabled containers running at once.
 
 Some other useful Docker commands:
 
