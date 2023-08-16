@@ -434,8 +434,8 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../rosflight/user-guide/ros-setup/" class="md-nav__link">
-        ROS Setup
+      <a href="../../rosflight/user-guide/ros2-setup/" class="md-nav__link">
+        ROS2 Setup
       </a>
     </li>
   
@@ -834,13 +834,6 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#braces" class="md-nav__link">
-    Braces
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#spaces" class="md-nav__link">
     Spaces
   </a>
@@ -972,13 +965,6 @@ You're not viewing the latest version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#braces" class="md-nav__link">
-    Braces
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#spaces" class="md-nav__link">
     Spaces
   </a>
@@ -1074,8 +1060,8 @@ You're not viewing the latest version.
 <h2 id="white-space-and-line-endings">White Space and Line Endings<a class="headerlink" href="#white-space-and-line-endings" title="Permanent link">&para;</a></h2>
 <p>Please try not to commit anything that only changes white space or line endings. To check if that's going to happen, run <code>git diff --check</code> before you stage your files. Git will warn you about obnoxious changes. Please fix them.</p>
 <h2 id="code-style">Code Style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h2>
-<p>The following ROSflight code style is based on the <a href="https://docs.ros.org/en/humble/The-ROS2-Project/Contributing/Code-Style-Language-Versions.html">ROS2 C++ style guide</a>. Please follow first the style guidelines below, and then the ROS2 guidelines.</p>
-<p>ROSflight uses the C++11 standard.</p>
+<p>ROSflight follows the <a href="https://docs.ros.org/en/humble/The-ROS2-Project/Contributing/Code-Style-Language-Versions.html">ROS2 C++ style guide</a>, with some more specific guidelines below. Please follow first the style guidelines below, and then the ROS2 guidelines.</p>
+<p>ROSflight uses the C++17 standard.</p>
 <h3 id="indentation">Indentation<a class="headerlink" href="#indentation" title="Permanent link">&para;</a></h3>
 <p>Indentation should be <strong>2 spaces</strong> (no tabs). Case statements in switch blocks should not be indented, e.g.</p>
 <div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
@@ -1087,21 +1073,6 @@ You're not viewing the latest version.
 <span class="w">  </span><span class="k">break</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="braces">Braces<a class="headerlink" href="#braces" title="Permanent link">&para;</a></h3>
-<p>Braces should be placed on the next line, e.g.</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">  </span><span class="c1">// do stuff</span>
-<span class="p">}</span>
-<span class="k">else</span>
-<span class="p">{</span>
-<span class="w">  </span><span class="c1">// do something else</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>For a conditional with only one statement, the braces can be omitted but the statement should be indented:</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-<span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-</code></pre></div>
 <h3 id="spaces">Spaces<a class="headerlink" href="#spaces" title="Permanent link">&para;</a></h3>
 <p>There should be a space between <code>if</code>, <code>for</code>, or <code>while</code> and the condition, e.g. <code>while (true)</code>, not <code>while(true)</code>.</p>
 <h3 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">&para;</a></h3>
@@ -1109,7 +1080,6 @@ You're not viewing the latest version.
 <li>Class names should be capitalized with no spaces (i.e. <code>StateManager</code>).</li>
 <li>Member variables should contain a post-pended underscore (i.e. <code>data_</code>).</li>
 <li>Member functions should be all lower case with underscores (i.e. <code>set_error()</code>).</li>
-<li>Integer types should be defined using the <code>cstdint</code> convention (i.e. <code>uint8_t</code>, <code>int64_t</code>, <code>float</code>, ...).</li>
 <li>Boolean values should be assigned <code>true</code> or <code>false</code>, not <code>0</code> or <code>1</code>.</li>
 </ul>
 <h3 id="function-arguments">Function Arguments<a class="headerlink" href="#function-arguments" title="Permanent link">&para;</a></h3>
@@ -1210,7 +1180,7 @@ Struct type names should be in CamelCase.</p>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;sensors.h&quot;</span>
 </code></pre></div></p>
 <h3 id="namespacing">Namespacing<a class="headerlink" href="#namespacing" title="Permanent link">&para;</a></h3>
-<p>All modules in the firmware should be encapsulated in the <code>rosflight_firmware</code> namespace. This prevents name-clashing in SIL compilation.</p>
+<p>All modules should be encapsulated in a package namespace that is unique to the package but consistent within the package (like <code>rosflight_firmware</code> for anything in the firmware package).</p>
 
 
 

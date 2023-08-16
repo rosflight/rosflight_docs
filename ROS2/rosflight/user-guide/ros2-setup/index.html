@@ -12,7 +12,7 @@
         <meta name="author" content="James Jackson, Daniel Koch">
       
       
-        <link rel="canonical" href="http://rosflight.org/ROS2/rosflight/user-guide/ros-setup/">
+        <link rel="canonical" href="http://rosflight.org/ROS2/rosflight/user-guide/ros2-setup/">
       
       
         <link rel="prev" href="../rc-configuration/">
@@ -25,7 +25,7 @@
     
     
       
-        <title>ROS Setup - ROSflight</title>
+        <title>ROS2 Setup - ROSflight</title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installingsetting-up-ros" class="md-skip">
+        <a href="#installingsetting-up-ros2" class="md-skip">
           Skip to content
         </a>
       
@@ -121,7 +121,7 @@ You're not viewing the latest version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ROS Setup
+              ROS2 Setup
             
           </span>
         </div>
@@ -450,12 +450,12 @@ You're not viewing the latest version.
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          ROS Setup
+          ROS2 Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        ROS Setup
+        ROS2 Setup
       </a>
       
         
@@ -496,6 +496,13 @@ You're not viewing the latest version.
         <li class="md-nav__item">
   <a href="#running-rosflight_io" class="md-nav__link">
     Running rosflight_io
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-docker-container-to-run-ros2" class="md-nav__link">
+    Using a Docker Container to run ROS2
   </a>
   
 </li>
@@ -910,6 +917,13 @@ You're not viewing the latest version.
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-a-docker-container-to-run-ros2" class="md-nav__link">
+    Using a Docker Container to run ROS2
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -925,7 +939,7 @@ You're not viewing the latest version.
                   
 
   
-    <a href="https://github.com/rosflight/rosflight_documentation/edit/ROS2/docs/rosflight/user-guide/ros-setup.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/rosflight/rosflight_documentation/edit/ROS2/docs/rosflight/user-guide/ros2-setup.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -933,8 +947,8 @@ You're not viewing the latest version.
   
 
 
-<h1 id="installingsetting-up-ros">Installing/Setting up ROS<a class="headerlink" href="#installingsetting-up-ros" title="Permanent link">&para;</a></h1>
-<p>You will need to install ROS2 on both the companion computer and the base station laptop. Check out the official <a href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">ROS2 Installation</a> page for details on how to do this. Make sure to install both the <code>ros-humble-desktop</code> (<code>ros-humble-ros-base</code> can be used instead of <code>ros-humble-desktop</code> if you don't need GUI tools or the simulation) and <code>ros-dev-tools</code> packages, or the equivalent packages for your version of ROS2.</p>
+<h1 id="installingsetting-up-ros2">Installing/Setting up ROS2<a class="headerlink" href="#installingsetting-up-ros2" title="Permanent link">&para;</a></h1>
+<p>You will need to install ROS2 on both the companion computer and the base station laptop. Check out the official <a href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">ROS2 Installation</a> page for details on how to do this. Make sure to install both the <code>ros-humble-desktop</code> and <code>ros-dev-tools</code> packages, or the equivalent packages for your version of ROS2. <code>ros-humble-ros-base</code> can be used instead of <code>ros-humble-desktop</code> if you don't need GUI tools or the simulation.</p>
 <p>We support all fixed-release ROS2 versions that are not EOL, which currently includes <a href="https://docs.ros.org/en/humble/Installation.html">ROS2 Humble</a> and <a href="https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html">ROS2 Iron</a>. <a href="https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html">ROS2 Rolling</a> is not fixed-release and is therefore not officially supported. </p>
 <h2 id="installing-rosflight">Installing ROSflight<a class="headerlink" href="#installing-rosflight" title="Permanent link">&para;</a></h2>
 <p>You will need to install the ROSflight packages on both the companion computer and the base station computer. The companion computer will run the node that actually communicates with the flight controller over a serial connection, while the base station needs the message and service definitions to be able to call services or subscribe and publish to topics.</p>
@@ -964,6 +978,84 @@ colcon<span class="w"> </span>build
 <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>port:<span class="o">=</span>/dev/ttyUSB0
 </code></pre></div>
 Replace <code>/dev/ttyUSB0</code> with the port your flight controller is connected to.</p>
+<h2 id="using-a-docker-container-to-run-ros2">Using a Docker Container to run ROS2<a class="headerlink" href="#using-a-docker-container-to-run-ros2" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This guide was written for using Linux as the host machine, but theoretically you should be able to use Docker to do the same thing on Mac or Windows. However, the specifics of the commands may be different. Please refer to the <a href="https://docs.docker.com/">Docker documentation</a> for information on how to use Docker on your system.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This guide was written using ROS2 Humble Docker images, but any distribution of ROS can be used. Just replace <code>humble</code> with the name of the distribution you want to use.</p>
+</div>
+<p>If you aren't running a compatible version of Ubuntu for ROS2, don't want to make changes to your system, want to be able to easily switch between ROS verions, or just want to containerize your applications then you can use Docker containers. To get started, install <a href="https://docs.docker.com/engine/install/">Docker Engine</a>, sometimes referred to as Docker server.</p>
+<p>Docker works by running self-contained systems called containers, which act kind of like a separate computer system but without all the overhead of a full virtual machine. Docker containers are based off of Docker images, which provides the initial operating system, files, and programs for the Docker container. Fortunately the developers of ROS provide Docker images for nearly all versions of ROS, which makes is very easy to get any version of ROS running on your system very quickly.</p>
+<ul>
+<li>To start a Docker container with ROS run this command:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>ros:humble
+</code></pre></div></li>
+</ul>
+<p>Once completed, you should enter a bash terminal in a fresh installation of Ubuntu and ROS! However, the container does not have access to any USB devices, source files on your system, or your network to be able to communicate with different computers. To do these things we'll need to add more arguments to the <code>docker run</code> command.</p>
+<ul>
+<li>
+<p>To give access to source file on your system, mount a folder on your system to the docker container with the <code>-v</code> argument:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/folder_to_mount_from_host:/location_to_mount_folder_in_container<span class="w"> </span>ros:humble
+</code></pre></div></p>
+</li>
+<li>
+<p>To give access to a USB device, you need to mount the location of the USB device and give the container sudo access to your host system with <code>--privileged</code>:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/usb_to_mount:/dev/USB<span class="w"> </span>--privileged<span class="w"> </span>ros:humble
+</code></pre></div></p>
+</li>
+<li>
+<p>To give access to your network, specify the network to use as the host's network with <code>--network host</code>.
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>ros:humble
+</code></pre></div></p>
+</li>
+</ul>
+<p>It is worth noting that every time you use the <code>docker run</code> command, a new container with those specific arguments are created. So, if you want a container with access to all those things, you need to use all the arguments at once.</p>
+<ul>
+<li>As an example, if I wanted to make a ROS2 Humble container with access to a USB device at <code>/dev/ttyUSB0</code>, access to my host network, access to the source files at <code>~/rosflight_ws</code>, and give the container a convenient name of <code>rosflight</code> with the <code>--name</code> argument, I would use this command:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/ttyUSB0:/dev/USB<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>ros:humble
+</code></pre></div></li>
+</ul>
+<p>Something the previous commands don't include is the ability to render GUI tools (like rqt_graph and Gazebo). Being able to render GUI tools can be done a number of ways, but an easy way is to give the container access to your system's X11 windowing system. Note that this isn't the most secure method and doesn't include GPU acceleration. (For more information about including GPU acceleration, refer to the guide found <a href="https://roboticseabass.com/2021/04/21/docker-and-ros/">here</a>.)</p>
+<ul>
+<li>
+<p>To give access to the host's windowing system, use the following commands. Note that the base Docker image is <code>osrf/ros:humble-desktop-full</code>, as <code>ros:humble</code> doesn't include GUI tools in the image. Also, <code>xhost +</code> needs to be run once per login session and is not persistent.
+<div class="highlight"><pre><span></span><code>xhost<span class="w"> </span>+
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
+</code></pre></div></p>
+</li>
+<li>
+<p>To create a GUI enabled ROS container named <code>rosflight</code> with access to the host network, source files found at <code>~/rosflight_ws</code>, and all USB devices, use this command:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev:/dev<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
+</code></pre></div></p>
+</li>
+</ul>
+<p>Some other useful Docker commands:</p>
+<ul>
+<li>
+<p>To see all containers that exist on your system and their names:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps<span class="w"> </span>-a
+</code></pre></div></p>
+</li>
+<li>
+<p>To start a container named <code>rosflight</code> that was previously created with the <code>docker run</code> command:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>start<span class="w"> </span>-i<span class="w"> </span>rosflight
+</code></pre></div></p>
+</li>
+<li>
+<p>To open another bash terminal in a container named <code>rosflight</code> that is already running:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>rosflight<span class="w"> </span>bash
+</code></pre></div></p>
+</li>
+<li>
+<p>To delete a container named <code>rosflight</code>:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>rosflight
+</code></pre></div></p>
+</li>
+</ul>
+<p>You should now be able to create Docker containers with everything you need to run ROSflight! Docker is a very powerful tool and there is much more you can do with Docker to improve your development workflow. However, we're not interested in making an exhaustive Docker guide so please refer to the <a href="https://docs.docker.com/">Docker documentation</a> or other <a href="https://roboticseabass.com/2023/07/09/updated-guide-docker-and-ros2/">online guides</a> to learn more.</p>
 
 
 
