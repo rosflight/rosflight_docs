@@ -953,15 +953,26 @@ You're not viewing the latest version.
 <p>Setup ROSflight with the <a href="../ros2-setup/">ROS2 Setup</a> guide, making sure to install the <code>-desktop</code> package of ROS2, not the <code>-ros-base</code>.</p>
 </li>
 <li>
-<p>Run <code>source /usr/share/gazebo/setup.sh</code> if you haven't added this to <code>~/.bashrc</code> already.</p>
+<p>Source the Gazebo setup file if you haven't added it to <code>~/.bashrc</code>:
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
+</code></pre></div></p>
 </li>
 <li>
-<p>Run <code>ros2 launch rosflight_sim multirotor.launch.py</code>. This will open up a Gazebo simulation, and you should have the following <code>rqt_graph</code>.</p>
+<p>Launch Gazebo with the ROSflight SIL:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor.launch.py
+</code></pre></div></p>
+</li>
+<li>
+<p>Gazebo should now be running, and you should have the following <code>rqt_graph</code>.</p>
 </li>
 </ul>
 <p><img alt="multirotor_launch_rqt_graph" src="../images/rqt_graph_multirotor_launch.png" /></p>
 <ul>
-<li>At this point, you can't actually do anything because there is no RC connection and no <code>rosflight_io</code> to talk to the firmware. Let's start by running a <code>rosflight_io</code> node. In a separate terminal, run <code>ros2 run rosflight rosflight_io --ros-args -p udp:=true</code>.<ul>
+<li>
+<p>At this point, you can't actually do anything because there is no RC connection and no <code>rosflight_io</code> to talk to the firmware. Let's start by running a <code>rosflight_io</code> node. In a separate terminal, run:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>udp:<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></p>
+<ul>
 <li>The <code>udp</code> parameter tells <code>rosflight_io</code> to simulate a serial connection over UDP rather than using the USB connection to hardware</li>
 </ul>
 </li>
@@ -969,17 +980,25 @@ You're not viewing the latest version.
 <p>Your <code>rqt_graph</code> should look something like the following image. This looks funny because ROS2 doesn't actually know that there is a UDP connection between <code>rosflight_io</code> and gazebo. There is one, though, and you can test it by echoing any of the topics published by <code>rosflight_io</code>.</p>
 <p><img alt="rqt_graph_multirotor_launch_with_rosflight_io" src="../images/rqt_graph_multirotor_launch_with_rosflight_io.png" /></p>
 <ul>
-<li>Start up a simulated RC connection. The easiest way to do this is with the ROSflight utility <code>rc_joy.py</code>. Connect a joystick to the computer (or transmitter) and run <code>ros2 run rosflight_utils rc_joy.py --ros-args --remap /RC:=/multirotor/RC</code>. This simulates the RC connection in hardware. If everything is mapped correctly, you should now be able to arm, disarm and fly the aircraft in simulation!</li>
+<li>Start up a simulated RC connection. The easiest way to do this is with the ROSflight utility <code>rc_joy.py</code>. Connect a joystick to the computer (or transmitter) and run: 
+    <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_utils<span class="w"> </span>rc_joy.py<span class="w"> </span>--ros-args<span class="w"> </span>--remap<span class="w"> </span>/RC:<span class="o">=</span>/multirotor/RC
+</code></pre></div>
+    This simulates the RC connection in hardware. If everything is mapped correctly, you should now be able to arm, disarm and fly the aircraft in simulation!</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To start the Gazebo sim, rosflight_io node, and rc_joy.py utility all at once, run <code>ros2 launch rosflight_utils fixedwing_sim_io_joy.launch.py</code> instead of the three commands individually.</p>
+<p>To start the Gazebo sim, rosflight_io node, and rc_joy.py utility all at once, run this command instead of the three commands individually:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_utils<span class="w"> </span>multirotor_sim_io_joy.launch.py<span class="w">    </span>
+</code></pre></div></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is much easier to fly with a real transmitter than with an Xbox-type controller. FrSky Taranis QX7 transmitters, Radiomaster TX16s transmitters, and RealFlight controllers are also supported. Non-Xbox joysticks may have incorrect mappings. If your joystick does not work, and you write your own mapping, please contribute back your new joystick mapping!</p>
 </div>
-<p>Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the <a href="../hardware-setup/">Hardware Setup</a> and <a href="../parameter-configuration/">Parameter Configuration</a> pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also update the parameters found under the <code>rosflight2/rosflight_utils/params/multirotor_firmware.yaml</code> and run <code>ros2 launch rosflight_utils multirotor_init_firmware.launch.py</code> to load all required parameters and perform initial calibrations for a quick simulation setup.</p>
+<p>Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the <a href="../hardware-setup/">Hardware Setup</a> and <a href="../parameter-configuration/">Parameter Configuration</a> pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also run 
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_utils<span class="w"> </span>multirotor_init_firmware.launch.py
+</code></pre></div>
+to load all required parameters and perform initial calibrations for a quick simulation setup.</p>
 
 
 

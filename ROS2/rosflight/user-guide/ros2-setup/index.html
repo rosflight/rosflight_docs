@@ -965,13 +965,17 @@ Install dependencies:
 rosdep<span class="w"> </span>update
 rosdep<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>--from-path<span class="w"> </span>./<span class="w"> </span>-y<span class="w"> </span>--ignore-src
 </code></pre></div>
-Finally, build the packages:
+Build the packages:
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
 colcon<span class="w"> </span>build
+</code></pre></div>
+Source the setup file and set it to be sourced automatically:
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/rosflight_ws/install/setup.bash
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source ~/rosflight_ws/install/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </code></pre></div></p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>In order to ensure that new terminal windows are configured to use this workspace, you can add the line <code>source ~/rosflight_ws/install/setup.bash</code> to your <code>~/.bashrc</code> file or its equivalent on other systems. Change the path if your workspace is located somewhere other than  <code>~/rosflight_ws</code>. You'll also need to add <code>source /usr/share/gazebo/setup.sh</code> if you plan to use the Gazebo simulator.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll also need to source the file at <code>/usr/share/gazebo/setup.sh</code> if you plan to use the Gazebo simulator.</p>
 </div>
 <h2 id="running-rosflight_io">Running rosflight_io<a class="headerlink" href="#running-rosflight_io" title="Permanent link">&para;</a></h2>
 <p>The <code>rosflight_io</code> node is the bridge between ROS2 and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command:
@@ -981,7 +985,7 @@ Replace <code>/dev/ttyUSB0</code> with the port your flight controller is connec
 <h2 id="using-a-docker-container-to-run-ros2">Using a Docker Container to run ROS2<a class="headerlink" href="#using-a-docker-container-to-run-ros2" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This guide was written for using Linux as the host machine, but theoretically you should be able to use Docker to do the same thing on Mac or Windows. However, the specifics of the commands may be different. Please refer to the <a href="https://docs.docker.com/">Docker documentation</a> for information on how to use Docker on your system.</p>
+<p>This guide was written for using Linux as the host machine, but theoretically you should be able to use Docker to do the same thing on Mac or Windows. However, the specifics of the commands may be different. Please refer to the <a href="https://docs.docker.com/">Docker documentation</a> for information on how to use Docker on a non-Linux system.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1032,6 +1036,10 @@ docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </s
 </code></pre></div></p>
 </li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>During testing, we found some strange behavior with ROS when running a GUI enabled container on a system with ROS already installed. If you need a GUI enabled system, try to do so on a system without ROS installed (or at the very least avoid sourcing/using ROS on your system). Also avoid having multiple GUI enabled containers running at once.</p>
+</div>
 <p>Some other useful Docker commands:</p>
 <ul>
 <li>
