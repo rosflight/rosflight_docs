@@ -58,7 +58,7 @@ Replace `/dev/ttyUSB0` with the port your flight controller is connected to.
 
 If you aren't running a compatible version of Ubuntu for ROS2, don't want to make changes to your system, want to be able to easily switch between ROS verions, or just want to containerize your applications then you can use Docker containers. To get started, install [Docker Engine](https://docs.docker.com/engine/install/), sometimes referred to as Docker server.
 
-Docker works by running self-contained systems called containers, which act kind of like a separate computer system but without all the overhead of a full virtual machine. Docker containers are based off of Docker images, which provides the initial operating system, files, and programs for the Docker container. Fortunately the developers of ROS provide Docker images for nearly all versions of ROS, which makes is very easy to get any version of ROS running on your system very quickly.
+Docker works by running self-contained systems called containers, which act kind of like a separate computer system but without all the overhead of a full virtual machine. Docker containers are based on Docker images, which provide the initial operating system, files, and programs for the Docker container. Fortunately, the developers of ROS provide Docker images for nearly all versions of ROS, which makes it very easy to get any version of ROS up and running on your system very quickly.
 
 * To start a Docker container with ROS run this command:
 ```bash
