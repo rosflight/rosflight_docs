@@ -54,7 +54,7 @@ nav:
       - Hardware Setup: rosflight/user-guide/hardware-setup.md
       - Flight Controller Setup: rosflight/user-guide/flight-controller-setup.md
       - RC Configuration: rosflight/user-guide/rc-configuration.md
-      - ROS Setup: rosflight/user-guide/ros-setup.md
+      - ROS2 Setup: rosflight/user-guide/ros2-setup.md
       - Parameter Configuration: rosflight/user-guide/parameter-configuration.md
       - Pre-Flight Checks: rosflight/user-guide/preflight-checks.md
       - Improving Performance: rosflight/user-guide/improving-performance.md

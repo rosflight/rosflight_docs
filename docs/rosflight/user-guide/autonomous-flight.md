@@ -16,7 +16,7 @@ float32 z
 float32 f
 ```
 
-The `header` field is a standard ROS message header. The `x`, `y`, `z`, and `F` fields are the control setpoint values, which are interpreted according to the `mode` and `ignore` fields.
+The `header` field is a standard ROS2 message header. The `x`, `y`, `z`, and `f` fields are the control setpoint values, which are interpreted according to the `mode` and `ignore` fields.
 
 The following table describes the different values the `mode` field can take, as well as how the setpoint values are interpreted for each of these modes:
 

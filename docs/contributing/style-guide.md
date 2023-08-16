@@ -1,14 +1,15 @@
 # Style Guide
 
-Any contributions to the firmware should adhere to the following style guidelines.
+Any contributions to ROSflight/ROScopter/ROSplane should adhere to the following style guidelines.
 
 ## White Space and Line Endings
 
 Please try not to commit anything that only changes white space or line endings. To check if that's going to happen, run `git diff --check` before you stage your files. Git will warn you about obnoxious changes. Please fix them.
 
 ## Code Style
-The following ROSflight code style is based on the [ROS C++ style guide](http://wiki.ros.org/CppStyleGuide).
-ROSflight uses the C++11 standard.
+ROSflight follows the [ROS2 C++ style guide](https://docs.ros.org/en/humble/The-ROS2-Project/Contributing/Code-Style-Language-Versions.html), with some more specific guidelines below. Please follow first the style guidelines below, and then the ROS2 guidelines.
+
+ROSflight uses the C++17 standard.
 
 ### Indentation
 
@@ -24,27 +25,6 @@ default:
   break;
 }
 ```
-### Braces
-
-Braces should be placed on the next line, e.g.
-
-``` C++
-if (i > 2)
-{
-  // do stuff
-}
-else
-{
-  // do something else
-}
-```
-
-For a conditional with only one statement, the braces can be omitted but the statement should be indented:
-
-``` C++
-if (i > 2)
-  x = 3;
-```
 
 ### Spaces
 
@@ -55,7 +35,6 @@ There should be a space between `if`, `for`, or `while` and the condition, e.g. 
 * Class names should be capitalized with no spaces (i.e. `StateManager`).
 * Member variables should contain a post-pended underscore (i.e. `data_`).
 * Member functions should be all lower case with underscores (i.e. `set_error()`).
-* Integer types should be defined using the `cstdint` convention (i.e. `uint8_t`, `int64_t`, `float`, ...).
 * Boolean values should be assigned `true` or `false`, not `0` or `1`.
 
 ### Function Arguments
@@ -159,9 +138,9 @@ The use of global variables should be limited to when absolutely necessary (such
 Include files at the top of your file in the following order:
 
 1. Standard library (e.g. `<cstdint>`)
-1. Files from external libraries included in the project (e.g. `<breezystm32/breezystm32.h>`, `<mavlink/v1.0/common/mavlink.h>`)
-1. Other header files from this project (e.g. `"rosflight.h"`)
-1. The header file for this specific source file
+2. Files from external libraries included in the project (e.g. `<breezystm32/breezystm32.h>`, `<mavlink/v1.0/common/mavlink.h>`)
+3. Other header files from this project (e.g. `"rosflight.h"`)
+4. The header file for this specific source file
 
 Group the includes according to the above list with an empty line between each group. (For external libraries, you may subdivide group 2 into a group for each library.) The first two groups should use angle brackets (`<>`), and the last two groups should use quotation marks (`""`). Files from external libraries should be namespaced by the library name (e.g. `<breezystm32/breezystm32.h>`, not `<breezystm32.h>`).
 
@@ -184,4 +163,4 @@ For example, in `sensors.c` I might have:
 
 ### Namespacing
 
-All modules in the firmware should be encapsulated in the `rosflight_firmware` namespace. This prevents name-clashing in SIL compilation.
+All modules should be encapsulated in a package namespace that is unique to the package but consistent within the package (like `rosflight_firmware` for anything in the firmware package).
