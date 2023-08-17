@@ -1,5 +1,7 @@
 # ROSflight Documentation
 
+[![Documentation](https://github.com/rosflight/rosflight_documentation/actions/workflows/docs.yml/badge.svg)](https://github.com/rosflight/rosflight_documentation/actions/workflows/docs.yml)
+
 This repository contains the source files for the documentation portion of the ROSflight website.
 
 ## Install mkdocs and LaTeX Support
