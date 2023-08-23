@@ -968,9 +968,7 @@ You're not viewing the latest version.
 </div>
 <p>This guide assumes you are running Ubuntu 18.04, which is the currently supported development environment.</p>
 <h2 id="installing-the-arm-embedded-toolchain">Installing the ARM Embedded Toolchain<a class="headerlink" href="#installing-the-arm-embedded-toolchain" title="Permanent link">&para;</a></h2>
-<p>Currently (as of March 2020) we are targeting version 7.3.1 of the ARM embedded toolchain. This toolchain can be installed from the GNU Arm Embedded Toolchain PPA:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:team-gcc-arm-embedded/ppa
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-arm-embedded
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-arm-none-eabi
 </code></pre></div>
 <p>You can test the installation and check which version is installed by running <code>arm-none-eabi-gcc --version</code>.</p>
 <h2 id="building-the-firmware-from-source">Building the Firmware from Source<a class="headerlink" href="#building-the-firmware-from-source" title="Permanent link">&para;</a></h2>

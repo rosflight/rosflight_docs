@@ -933,7 +933,7 @@ sudo<span class="w"> </span>cmake<span class="w"> </span>CMakeLists.txt
 sudo<span class="w"> </span>make
 </code></pre></div>
 <p>Copy the archive files you just built to the <code>/usr/lib</code> directory so CMake can find them later:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>*.a<span class="w"> </span>/usr/lib
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>./lib/libgtest*.a<span class="w"> </span>/usr/lib
 </code></pre></div>
 <h2 id="run-the-test-script">Run the Test Script<a class="headerlink" href="#run-the-test-script" title="Permanent link">&para;</a></h2>
 <p>The simplest way to run the unit tests is to use the testing script.
