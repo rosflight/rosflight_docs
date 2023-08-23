@@ -19,7 +19,7 @@ sudo make
 Copy the archive files you just built to the `/usr/lib` directory so CMake can find them later:
 
 ``` bash
-sudo cp *.a /usr/lib
+sudo cp ./lib/libgtest*.a /usr/lib
 ```
 
 ## Run the Test Script

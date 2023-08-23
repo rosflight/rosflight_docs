@@ -7,11 +7,8 @@ This guide assumes you are running Ubuntu 18.04, which is the currently supporte
 
 ## Installing the ARM Embedded Toolchain
 
-Currently (as of March 2020) we are targeting version 7.3.1 of the ARM embedded toolchain. This toolchain can be installed from the GNU Arm Embedded Toolchain PPA:
-
 ``` bash
-sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
-sudo apt install gcc-arm-embedded
+sudo apt install gcc-arm-none-eabi
 ```
 
 You can test the installation and check which version is installed by running `arm-none-eabi-gcc --version`.
