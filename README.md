@@ -9,7 +9,7 @@ This repository contains the source files for the documentation portion of the R
 This is easy:
 
 ``` bash
-pip install mkdocs mkdocs-material pygments pymdown-extensions mike
+pip install -r requirements.txt
 ```
 
 (You don't have use to the global pip if you have python environments working, but for beginners, this is the simplest way to do it.)
@@ -38,7 +38,6 @@ $$ E = mc^2 $$
 ```
 which renders as
 $$ E = mc^2 $$
-erver by 
 
 ## Publishing changes onto the docs.rosflight.org website
 
