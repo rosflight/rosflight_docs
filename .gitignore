@@ -1,6 +1,9 @@
 # Build files for mkdocs
-/site
+site/
 
 # IDE files
 .idea/
 .vscode/
+
+# Python files
+venv/
