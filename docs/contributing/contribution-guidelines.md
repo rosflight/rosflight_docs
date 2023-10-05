@@ -2,7 +2,7 @@ Per our vision stated in the [introduction](../index.md), ROSflight is intended 
 
 In addition, we strive to maintain a very high standard of quality in terms of code style, variable naming, and the like. We will likely be nit-picky and perhaps a little harsh about this in pull requests. Please do not be offended. By maintaining a high standard, we hope that the code will continue to be useful, understandable, and cohesive in nature.
 
-Although we strive for complete in-code documentation, in practice this sometimes gets left behind for the sake of rapid development. If you, as a potential developer, find some portion of documentation unsatisfactory, we welcome questions on the [GitHub issues page](https://github.com/rosflight/rosflight_firmware/issues) or [forum](https://discuss.rosflight.org/), and submit pull requests which improve documentation. Several new developers have started with first improving the documentation to get a handle on how things work.
+Although we strive for complete in-code documentation, in practice this sometimes gets left behind for the sake of rapid development. If you, as a potential developer, find some portion of documentation unsatisfactory, we welcome questions on the appropriate GitHub issues page or [forum](https://discuss.rosflight.org/), and submit pull requests which improve documentation. Several new developers have started with first improving the documentation to get a handle on how things work.
 
 ## Communication
 
