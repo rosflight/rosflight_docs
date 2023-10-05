@@ -50,7 +50,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0664"
 !!! warning "TODO"
     Update flashing instructions when supported hardware is finalized. Consider switching to the Betaflight configurator since Cleanflight development has stalled.
 
-* Download the latest version of ROSflight for your board [here](https://github.com/rosflight/firmware/releases).
+* Download the latest version of ROSflight for your board [here](https://github.com/rosflight/rosflight_firmware/releases).
 * Install the Cleanflight configurator - It is an extension to Google Chrome - [link](https://chrome.google.com/webstore/detail/cleanflight-configurator/enacoimjcgeinfnnnpajinjgmkahmfgb?hl=en)
 
 * Load the firmware, and flash using cleanflight configurator
@@ -85,7 +85,7 @@ You can use dfu-util to flash the firmware. This is helpful if you need (or pref
 sudo apt install dfu-util
 ```
 
-* Download the latest rosflight-F4.bin file, [found here](https://github.com/rosflight/firmware/releases)
+* Download the latest rosflight-F4.bin file, [found here](https://github.com/rosflight/rosflight_firmware/releases)
 * Put the board in bootloader mode (short the boot pins while restarting the board by cycling power)
 
 !!! tip

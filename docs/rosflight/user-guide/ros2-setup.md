@@ -19,7 +19,7 @@ cd ~/rosflight_ws/src
 
 Next, download the source code into your workspace (include the `--recursive` argument to download the necessary submodules):
 ```bash
-git clone --recursive https://github.com/rosflight/rosflight2.git
+git clone --recursive https://github.com/rosflight/rosflight_ros_pkgs.git
 ```
 Install dependencies:
 ```bash

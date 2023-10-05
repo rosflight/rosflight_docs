@@ -12,8 +12,8 @@ ROSflight is a lean and adaptable autopilot system designed from the ground up w
 
 A ROSflight setup typically consists of two main components:
 
-1. The ROSflight [firmware](https://github.com/rosflight/firmware), running on a typical flight controller, like a Pixhawk. This communicates with sensors and actuators and serves as the bridge between hardware and higher level software. The firmware itself is designed to do as little as possible, offloading most of the control systems to companion computer.
-2. The ROSflight [rosflight_io node](https://github.com/rosflight/rosflight2), running on a Linux companion computer that communicates directly with the firmware over serial or ethernet. This serves as the bridge between the firmware and the rest of ROS2 network and contains no control systems.
+1. The ROSflight [firmware](https://github.com/rosflight/rosflight_firmware), running on a typical flight controller, like a Pixhawk. This communicates with sensors and actuators and serves as the bridge between hardware and higher level software. The firmware itself is designed to do as little as possible, offloading most of the control systems to companion computer.
+2. The ROSflight [rosflight_io node](https://github.com/rosflight/rosflight_ros_pkgs), running on a Linux companion computer that communicates directly with the firmware over serial or ethernet. This serves as the bridge between the firmware and the rest of ROS2 network and contains no control systems.
 
 ## Why ROSflight?
 

@@ -18,7 +18,7 @@ You can test the installation and check which version is installed by running `a
 Now that we have the compiler installed, simply clone the ROSflight firmware repository, pull down the submodules, and build:
 
 ``` bash
-git clone https://github.com/rosflight/firmware
+git clone https://github.com/rosflight/rosflight_firmware
 cd firmware
 git submodule update --init --recursive
 make

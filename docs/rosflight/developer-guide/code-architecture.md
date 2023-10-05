@@ -23,7 +23,7 @@ The hardware abstraction implementations are contained in the `board` directory,
 The `boards/airbourne` directory uses drivers for boards using the STM32F4 processor, while the `boards/breezy` directory uses drivers for STM32F1 processors.
 Each board implementation is required to provide an implementation of the hardware abstraction layer interface, which is passed by reference to the flight stack.
 The Revo implementation in the `boards/airbourne` shows how this is done for an embedded flight controller.
-Examples of board implementations for SIL simulation are found in the `rosflight_firmware` and `rosflight_sim` ROS2 packages available [here](https://github.com/rosflight/rosflight2).
+Examples of board implementations for SIL simulation are found in the `rosflight_sim` ROS2 package available [here](https://github.com/rosflight/rosflight_ros_pkgs).
 
 The flight stack is encapsulated in the `ROSflight` class defined at `include/rosflight.h`.
 This class contains two public functions: `init()` and `run()`.
@@ -100,10 +100,10 @@ This module handles all serial communication between the flight controller and c
 This includes streaming data and receiving offboard control setpoints and other commands from the computer.
 This module primarily collects data from the sensors, estimator, state manager, and parameters modules, and sends offboard control setpoints to the command manager and parameter requests to the parameter server.
 
-The actual communication protocol used is abstracted by the interface in [include/comm_link.h](https://github.com/rosflight/firmware/blob/master/include/interface/comm_link.h).
+The actual communication protocol used is abstracted by the interface in [include/comm_link.h](https://github.com/rosflight/rosflight_firmware/blob/master/include/interface/comm_link.h).
 A new protocol can be used by implementing a wrapper around the protocol that inherits from this interface.
 Currently, only MAVLink has been implmented.
-The implementation is found in [comms/mavlink/mavlink.h](https://github.com/rosflight/firmware/blob/master/comms/mavlink/mavlink.h) and [comms/mavlink/mavlink.cpp](https://github.com/rosflight/firmware/blob/master/comms/mavlink/mavlink.cpp).
+The implementation is found in [comms/mavlink/mavlink.h](https://github.com/rosflight/rosflight_firmware/blob/master/comms/mavlink/mavlink.h) and [comms/mavlink/mavlink.cpp](https://github.com/rosflight/rosflight_firmware/blob/master/comms/mavlink/mavlink.cpp).
 
 ### Sensors
 This module is in charge of managing the various sensors (IMU, magnetometer, barometer, differential pressure sensor, sonar altimeter, etc.).
