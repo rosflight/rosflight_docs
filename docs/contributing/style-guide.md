@@ -1,15 +1,28 @@
 # Style Guide
 
-Any contributions to ROSflight/ROScopter/ROSplane should adhere to the following style guidelines.
+The focus of anyone contributing to this project should be to write code that is easily understood by anyone, including people who have little experience with ROSflight or coding in general. So, we ask that contributions to ROSflight/ROScopter/ROSplane adhere to the following style guidelines.
+
+## Comments
+
+Well written and clear code should be easy to understand even without comments. However, since this project is intended to be as accessible as possible, we ask that you write both clear code and clear comments. Don't use comments to explain code that would be difficult to understand without comments, but instead use them to make clear code even more understandable.
+
+Also keep in mind that "comments are the first things to rot" in actively developed code, so try to avoid referencing code that isn't immediately next to what you're commenting on. Meaning, if you're writing comments for a certain class header file, avoid referencing specific details about other classes in different files, as someone who edits those other classes in the future probably won't know to go back and update your comments. Essentially, write comments that will age well.
+
+### Doxygen
+
+Doxygen comments should be added to header files for all classes, structs, enums, files, class methods & objects (public, private, and protected), constructors, destructors, functions, and anywhere else that makes sense. Please include at least a brief for all of these things. For methods, functions, also include explanations of all arguments and the return value. More details explanations are encouraged for non-trivial methods and objects.
+
+### Internal Method and Function Comments
+
+Use comments inside your methods and functions to explain lines or blocks of code that may be difficult to understand at first glance. Also consider using them to group blocks of code together and show the general flow of your function.
 
 ## White Space and Line Endings
 
-Please try not to commit anything that only changes white space or line endings. To check if that's going to happen, run `git diff --check` before you stage your files. Git will warn you about obnoxious changes. Please fix them.
+Please try not to commit anything that only changes white space or line endings. To check if that's going to happen, run `git diff --check` before you stage your files.
 
 ## Code Style
-ROSflight follows the [ROS2 C++ style guide](https://docs.ros.org/en/humble/The-ROS2-Project/Contributing/Code-Style-Language-Versions.html), with some more specific guidelines below. Please follow first the style guidelines below, and then the ROS2 guidelines.
 
-ROSflight uses the C++17 standard.
+ROSflight follows the [ROS2 C++ style guide](https://docs.ros.org/en/humble/The-ROS2-Project/Contributing/Code-Style-Language-Versions.html), with some more specific guidelines below. Please follow first the style guidelines below and then the ROS2 guidelines. A .clang-format file and format-correcting script is provided in most ROSflight repositories that can be used to auto-format your code to help you find things you might have missed. Format checks on pull requests using this .clang-format file may also exist.
 
 ### Indentation
 
@@ -41,7 +54,7 @@ There should be a space between `if`, `for`, or `while` and the condition, e.g. 
 Primitive data types (`int`, `float`, etc.) should always be passed by value. Other types (e.g. classes) should be passed by reference and should maintain proper const-correctness. Arguments that are modified by the function should be passed by pointer instead of reference, to make the fact that the argument will be changed clearer in the calling code. For example:
 
 ``` C++
-void do_something(float dt, const MyClass& data, int* output);
+void do_something(float dt, const MyClass& data, int * output);
 ```
 
 This function would be called as
@@ -163,4 +176,4 @@ For example, in `sensors.c` I might have:
 
 ### Namespacing
 
-All modules should be encapsulated in a package namespace that is unique to the package but consistent within the package (like `rosflight_firmware` for anything in the firmware package).
+All modules should be encapsulated in a package namespace that is unique and consistent within the package (like `rosflight_firmware` for anything in the firmware package).

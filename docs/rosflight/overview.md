@@ -5,7 +5,7 @@ This page provides an overview of the basic operation of the ROSflight firmware 
 ## Companion Computer
 
 ROSflight is primarily intended to be used with a companion computer running ROS2.
-The ROS2 interface is provided by the [rosflight_io](https://github.com/rosflight/rosflight2) node.
+The ROS2 interface is provided by the [rosflight_io](https://github.com/rosflight/rosflight_ros_pkgs) node.
 All configuration of the flight controller is done through the ROS2 service API provided by `rosflight_io` (see the [parameter configuration](user-guide/parameter-configuration.md) documentation page).
 Sensor data such as IMU measurements are streamed from the flight controller to the companion computer and published as ROS2 topics.
 Control setpoints can also be sent to the flight controller by publishing to the appropriate ROS2 topic (see the [autonomous flight](user-guide/autonomous-flight.md) documentation page).

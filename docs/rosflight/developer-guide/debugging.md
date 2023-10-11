@@ -26,7 +26,7 @@ The official ST-LINK/V2 also needs a target voltage reference on pin 1 or 2, whi
 
 You can install Visual Studio Code by downloading the latest version from [their website](https://code.visualstudio.com). Follow the steps below to configure debugging with the in-circuit debugger.
 
-You should open the root firmware directory for editing and debugging, e.g. `code /path/to/firmware`.
+You should open the root firmware directory for editing and debugging, e.g. `code /path/to/rosflight_firmware`.
 
 ### Install OpenOCD
 
