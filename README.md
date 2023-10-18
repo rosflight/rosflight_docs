@@ -1,6 +1,6 @@
 # ROSflight Documentation
 
-[![Documentation](https://github.com/rosflight/rosflight_documentation/actions/workflows/docs.yml/badge.svg)](https://github.com/rosflight/rosflight_documentation/actions/workflows/docs.yml)
+[![Documentation](https://github.com/rosflight/rosflight_documentation/actions/workflows/docs.yml/badge.svg)](https://github.com/rosflight/rosflight_documentation/actions/workflows/docs.yml) [![Mike build and deploy](https://github.com/rosflight/rosflight_docs/actions/workflows/mike-deploy.yml/badge.svg)](https://github.com/rosflight/rosflight_docs/actions/workflows/mike-deploy.yml)
 
 This repository contains the source files for the documentation portion of the ROSflight website.
 
@@ -41,6 +41,6 @@ $$ E = mc^2 $$
 
 ## Publishing changes onto the docs.rosflight.org website
 
-To publish changes back onto the website, use the command `mike deploy --push [version]`, replacing `[version]` with the version of the documentation you want to push to. This will then update the build file on the `gh-pages` branch with the changes.
+Versioning is handled with the Python utility mike. See https://github.com/jimporter/mike for more information on using mike.
 
-See https://github.com/jimporter/mike for more information on using mike.
+New versions of documentation will need to be deployed and pushed manually for changes to be reflected on the webpage. git-main and other git documentation versions will update automatically when their respective branches are updated.
