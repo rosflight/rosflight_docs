@@ -66,10 +66,10 @@ nav:
       - Building and Flashing: rosflight/developer-guide/building-and-flashing.md
       - Unit Tests: rosflight/developer-guide/unit-tests.md
       - Debugging: rosflight/developer-guide/debugging.md
-  - ROScopter:
-    - Overview: roscopter/overview.md
   - ROSplane:
     - Overview: rosplane/overview.md
+  - ROScopter:
+    - Overview: roscopter/overview.md
   - Contributing:
     - Contribution Guidelines: contributing/contribution-guidelines.md
     - Style Guide: contributing/style-guide.md

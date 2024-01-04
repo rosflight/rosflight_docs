@@ -6,17 +6,13 @@ This repository contains the source files for the documentation portion of the R
 
 ## Install mkdocs and LaTeX Support
 
-This is easy:
-
 ``` bash
 pip install -r requirements.txt
 ```
 
-(You don't have use to the global pip if you have python environments working, but for beginners, this is the simplest way to do it.)
-
 ## Run the mkdocs Server
 
-Just type `mkdocs serve` in the root directory of the firmware repository. It should report to you something like:
+Type `mkdocs serve` in the root directory of the firmware repository. It should report to you something like:
 
 ``` bash
 [I 170728 07:49:47 server:271] Serving on http://127.0.0.1:8000
@@ -31,13 +27,11 @@ Now, as you make changes to the documentation, you should be able to see it on y
 To add a new page to the documentation, just take a look at the mkdocs.yml file in the root of the firmware directory. You should be able to figure it out from there.
 
 ## Adding LaTeX
-The syntax for adding LaTeX math inline is `\( x \)`, which renders as \(x \). For adding a block, it's
+The syntax for adding LaTeX math inline is `\( x \)`, which renders as x. For adding a block, it's
 
 ``` latex
 $$ E = mc^2 $$
 ```
-which renders as
-$$ E = mc^2 $$
 
 ## Publishing changes onto the docs.rosflight.org website
 
