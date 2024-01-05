@@ -38,7 +38,7 @@ ros2 launch rosflight_sim multirotor.launch.py
 
 * At this point, you can't actually do anything because there is no RC connection and no `rosflight_io` to talk to the firmware. Let's start by running a `rosflight_io` node. In a separate terminal, run:
 ```bash
-ros2 run rosflight rosflight_io --ros-args -p udp:=true
+ros2 run rosflight_io rosflight_io --ros-args -p udp:=true
 ```
 
     * The `udp` parameter tells `rosflight_io` to simulate a serial connection over UDP rather than using the USB connection to hardware
