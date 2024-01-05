@@ -1,6 +1,6 @@
 # Installing/Setting up ROS2
 
-You will need to install ROS2 on both the companion computer and the base station laptop. Check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details on how to do this. Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2. `ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
+You will need to get ROS2 on both the companion computer and the base station laptop. This can be done with a native installation or with [Docker](ros2-setup.md#using-a-docker-container-to-run-ros2). To install ROS2 natively, Check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details. Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2. `ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
 
 We support all fixed-release ROS2 versions that are not EOL, which currently includes [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html) and [ROS2 Iron](https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html). [ROS2 Rolling](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html) is not fixed-release and is therefore not officially supported. 
 
@@ -45,7 +45,7 @@ echo "source ~/rosflight_ws/install/setup.bash" >> ~/.bashrc
 
 The `rosflight_io` node is the bridge between ROS2 and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command:
 ```bash
-ros2 run rosflight rosflight_io --ros-args -p port:=/dev/ttyUSB0
+ros2 run rosflight_io rosflight_io --ros-args -p port:=/dev/ttyUSB0
 ```
 Replace `/dev/ttyUSB0` with the port your flight controller is connected to.
 

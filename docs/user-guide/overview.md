@@ -1,25 +1,35 @@
 # Overview
 
-This page provides an overview of the basic operation of the ROSflight firmware and the concepts behind the behaviors.
+## Main Components of ROSflight
 
-## Companion Computer
-
-ROSflight is primarily intended to be used with a companion computer running ROS2.
-The ROS2 interface is provided by the [rosflight_io](https://github.com/rosflight/rosflight_ros_pkgs) node.
-All configuration of the flight controller is done through the ROS2 service API provided by `rosflight_io` (see the [parameter configuration](parameter-configuration.md) documentation page).
-Sensor data such as IMU measurements are streamed from the flight controller to the companion computer and published as ROS2 topics.
-Control setpoints can also be sent to the flight controller by publishing to the appropriate ROS2 topic (see the [autonomous flight](autonomous-flight.md) documentation page).
+ROSflight is intended to be used with both a typical flight controller and a companion Linux computer. Although it can be used with just a flight controller, this setup will not offer most of the advantages of ROSflight.
 
 !!! note
     To avoid confusion, we try to consistently use the following terminology:
 
       - **Flight controller:** The embedded board that runs the ROSflight firmware and performs I/O with sensors and ESCs
       - **Companion computer:** A Linux computer, running ROS2, that is mounted on the vehicle and has a physical, serial connection with the flight controller
-      - **Offboard control (setpoints):** The control setpoints passed from the companion computer to the flight controller. The control is "offboard" from the perspective of the flight controller, even though the computer providing those commands is mounted onboard the vehicle. Perhaps this is not the greatest terminology, but hopefully this helps clear up potential confusion.
+      - **Offboard control (setpoints):** The control setpoints passed from the companion computer to the flight controller. The control is "offboard" from the perspective of the flight controller, even though the computer providing those commands is mounted onboard the vehicle.
 
 The following figure illustrates the interactions between the major components of the system:
 
 ![System Components](images/components.svg)
+
+### Firmware
+
+The ROSflight [firmware](https://github.com/rosflight/rosflight_firmware) is the low level microcontroller code that runs on the flight controller. This communicates directly with sensors and actuators and serves as the bridge between hardware and higher level software. The firmware itself is designed to do as little as possible, offloading most of the work to the companion computer.
+
+Although higher level control is offloaded to the companion computer, enough control and functionality is included in the firmware to enable a safety pilot to fly the UAV through any portion of the flight with or without an operating companion computer.
+
+### ROSflight IO
+
+[ROSflight IO](https://github.com/rosflight/rosflight_ros_pkgs) is a ROS2 node that runs on the companion computer that communicates directly with the firmware over a serial connection. This serves as the bridge between the firmware and the rest of ROS2 network.
+
+### ROSplane and ROScopter
+
+[ROSplane](https://github.com/rosflight/rosplane) and [ROScopter](https://github.com/rosflight/roscopter) are ROS2 based autonomy stacks that run on the companion computer and do most of the heavy computation of the autopilot. Each portion of their autonomy stacks are organized into highly modular ROS nodes that can be easily swapped out with custom nodes.
+
+ROSplane and ROScopter are not required for using ROSflight and you could choose to use an entirely different autonomy stack if you so desired.
 
 ## RC Safety Pilot
 

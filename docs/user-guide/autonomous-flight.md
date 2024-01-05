@@ -1,6 +1,8 @@
 # Autonomous Flight
 
-One of the core functionalities of the ROSflight autopilot is to allow the companion computer to send control setpoints to the embedded flight controller. These setpoints would typically be computed by a controller running as a ROS2 node, normally on the companion computer.
+To perform autonomous flight with ROSflight, we need to send control commands from our companion computer to the firmware. This can be done with ROSplane or ROScopter, which already have completed autonomy stacks developed specifically for ROSflight. We recommend starting with one of these autonomy stacks and building on them to suit your needs. If using a multirotor, follow the [ROScopter setup guide](roscopter-setup.md) to get started. If using a fixed-wing, follow the [ROSplane setup guide](rosplane-setup.md).
+
+However, ROSplane and ROScopter are optional and an entirely different autonomy stack can be used if desired. To use a different autonomy stack, follow this guide.
 
 ## Provide Control from a Companion Computer
 
@@ -76,7 +78,3 @@ I would then publish this message to the `/command` topic to forward it to the e
 
 !!! note
     If the flight controller does not receive a new command for a defined period of time, it will ignore the old commands and revert to RC control. The length of this timeout period is set by the `OFFBOARD_TIMEOUT` parameter.
-
-## Fly Waypoints with ROScopter or ROSplane
-
-Waypoint following is not supported natively by the ROSflight stack. However, the [ROScopter](../../roscopter/overview.md) and [ROSplane](../../rosplane/overview.md) projects are good, example implementations of how to achieve this using ROSflight. They also provide good examples of how you might go about integrating your own guidance or control algorithms with the ROSflight stack.

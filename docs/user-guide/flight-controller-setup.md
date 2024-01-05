@@ -6,8 +6,9 @@
 
 ## Compatible Hardware
 
-!!! warning "TODO"
-    Updated compatible hardware when supported hardware is finalized.
+Currently, the ROSflight firmware only supports an in-development board from AeroVironment, the Varmint. This board is not yet commercially available, but plans are for it to start being sold early 2024.
+
+We also plan to add support for the [CubePilot Orange](https://docs.cubepilot.org/user-guides/autopilot/the-cube-module-overview), which uses the same H7 processor as the Varmint.
 
 ## Serial Port Configuration
 
@@ -45,39 +46,12 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0664"
     sudo apt purge modemmanager
     ```
 
-## Flashing Firmware using the Cleanflight Configurator
+## Flashing Firmware
 
 !!! warning "TODO"
-    Update flashing instructions when supported hardware is finalized. Consider switching to the Betaflight configurator since Cleanflight development has stalled.
-
-* Download the latest version of ROSflight for your board [here](https://github.com/rosflight/rosflight_firmware/releases).
-* Install the Cleanflight configurator - It is an extension to Google Chrome - [link](https://chrome.google.com/webstore/detail/cleanflight-configurator/enacoimjcgeinfnnnpajinjgmkahmfgb?hl=en)
-
-* Load the firmware, and flash using cleanflight configurator
-    * Open the configurator
-    * Open firmware flasher
-    * Connect your flight controller
-    * Make sure that you have selected the right port (or DFU in the case of F4-based boards)
-    * Select "Load Firmware (Local)"
-    * Select your \*.hex file you downloaded earlier.
-    * Short the boot pins on your flight controller, unplug it, and and plug back in.
-
-![cleanflight_gui_1](images/cleanflight_configurator-1.png)
-
-* If you scroll to the bottom of the screen, you will see the green bar indicate progress as the hex is flashed to the flight controller. You should then see something like the following:
-
-![success](images/sucessful_flash.png)
-
-* You're done! Great job.
-
-## Flashing Firmware from the Command Line
-
-!!! warning "TODO"
-    Update flashing instructions when supported hardware is finalized.
+    Update flashing instructions.
 
 ### F4 Boards
-
-You can use dfu-util to flash the firmware. This is helpful if you need (or prefer) a command-line interface.
 
 * Install the dfu-util utility
 

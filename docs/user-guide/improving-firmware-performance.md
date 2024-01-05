@@ -1,4 +1,4 @@
-# Improving Performance
+# Improving Firmware Performance
 
 ROSflight supplies several methods to improve the performance of your aircraft. Tuning gains, adding feed-forward torques, and tuning the estimator are three ways to get your aircraft flying great!
 

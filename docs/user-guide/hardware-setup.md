@@ -58,12 +58,12 @@ You may need to experiment with the amount of gel you use, how far apart the gel
 
 ### Companion Computer
 
-The only requirement for the companion computer is that it runs Linux (usually an Ubuntu LTS version since these are best supported by ROS, but with Docker containers pretty much any distribution can be used), ROS2, has at least one USB port, and can be carried by the aircraft. We have had success with the following companion computers, but by no means is this a comprehensive list; it is more by way of suggestion.
+The only requirement for the companion computer is that it runs Linux (usually an Ubuntu LTS version, but using Docker on other distributions is also an option), ROS2, has at least one USB port, and can be carried by the aircraft. We have had success with the following companion computers, but by no means is this a comprehensive list; it is more by way of suggestion.
 
+* [NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/)
 * [MSI CUBI](https://www.msi.com/Business-Productivity-PCs/Products#?tag=Cubi-Series)
 * [Intel NUC](https://www.intel.com/content/www/us/en/products/details/nuc.html)
 * [Rasberry Pi 3](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/)
-* [NVIDIA Jetson](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/)
 
 ### Wi-Fi
 
@@ -133,10 +133,6 @@ The flight controller communicates with the companion computer over a serial lin
 
 ### Using Secondary Serial Links
 
-In the case of an F4 flight controller, which has a USB peripheral, the highest bandwidth connection will be the USB connector. However, UART3 can also be used to communicate with the companion computer if you desire a more secure connection (micro USB connectors have been known to disconnect in high vibrations), or if you would like to use a telemetry radio for remote control.
+In the case of an F4 flight controller, which has a USB peripheral, the highest bandwidth connection will be the USB connector. However, UART3 can also be used to communicate with the companion computer if you desire a more secure connection (micro USB connectors have been known to disconnect in high vibrations).
 
 If a USB connection is detected on the USB peripheral, ROSflight will direct all communication through this port. However, if the `PARAM_SERIAL_DEVICE` parameter is set to `3` and the `PARAM_BAUD_RATE` parameter is set properly, then UART3 will be enabled when the USB connection is absent.
-
-We have had the most sucess with the SiK radios (AKA 3DR telemetry radios). These require a 5V supply and ground and connect directly to the UART3 pins. We like the SiK radios because they can be easily configured using the `AT-commands`, which are used by [MissionPlanner](http://ardupilot.org/planner/) (Windows only), [sikset.py](https://community.emlid.com/t/sikset-py-a-python-script-to-easily-control-your-rfd900-3dr-radio-from-the-command-line/3654) or with the [AT-commands](http://files.rfdesign.com.au/Files/documents/Software%20manual.pdf) directly on the command line. There are a number of configuration options available which should be used to optimize the radios for their intended usage.
-
-This is just an example; any UART-based communication interface should be supported through this interface.

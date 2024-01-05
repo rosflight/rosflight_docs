@@ -3,14 +3,13 @@
 Contributions will need to pass our continuous integration unit tests before merging. To test your contributions against these tests, you'll first need to install Eigen and gtest:
 
 ``` bash
-sudo apt install libgtest-dev libeigen3-dev cmake
+sudo apt install build-essential libgtest-dev libeigen3-dev cmake
 ```
 
 ## Compile gtest
 You just downloaded a bunch of source files, which you now have to go build
 
 ``` bash
-sudo apt install cmake
 cd /usr/src/gtest
 sudo cmake CMakeLists.txt
 sudo make
@@ -39,15 +38,15 @@ cd <firmware_directory>
 If you want to manually build and run the unit tests, first build them with the following commands:
 
 ``` bash
-cd <firmware_directory>/test
+cd <firmware_directory>
 mkdir build
 cd build
-cmake ..
+cmake .. -DBUILD_TEST=TRUE
 make
 ```
 
 Then run them with:
 
 ``` bash
-./unit_tests
+./test/unit_tests
 ```
