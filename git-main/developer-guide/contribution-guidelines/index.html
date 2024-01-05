@@ -12,22 +12,28 @@
         <meta name="author" content="James Jackson, Daniel Koch">
       
       
+        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/contribution-guidelines/">
       
       
+        <link rel="prev" href="../../user-guide/running-gazebo-simulation/">
       
-      <link rel="icon" href="/git-main/assets/favicon.ico">
+      
+        <link rel="next" href="../style-guide/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>ROSflight</title>
+        <title>Contribution Guidelines - ROSflight</title>
       
     
     
-      <link rel="stylesheet" href="/git-main/assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="/git-main/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,7 +52,7 @@
       
     
     
-    <script>__md_scope=new URL("/git-main",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#key-goals-of-rosflight" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -80,7 +91,7 @@
             <div class="md-banner__inner md-grid md-typeset">
               
 You're not viewing the latest stable version.
-<a href="..//git-main">
+<a href="../../..">
   <strong>Click here to go to latest.</strong>
 </a>
 
@@ -95,9 +106,9 @@ You're not viewing the latest stable version.
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/git-main/." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="/git-main/assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -114,7 +125,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Contribution Guidelines
             
           </span>
         </div>
@@ -183,7 +194,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-tabs__item">
-      <a href="/git-main/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -202,7 +213,7 @@ You're not viewing the latest stable version.
     
     
       <li class="md-tabs__item">
-        <a href="/git-main/user-guide/overview/" class="md-tabs__link">
+        <a href="../../user-guide/overview/" class="md-tabs__link">
           
   
   User Guide
@@ -216,11 +227,13 @@ You're not viewing the latest stable version.
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/git-main/developer-guide/contribution-guidelines/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   Developer Guide
@@ -253,9 +266,9 @@ You're not viewing the latest stable version.
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/git-main/." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="/git-main/assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     ROSflight
@@ -270,7 +283,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -330,7 +343,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/overview/" class="md-nav__link">
+      <a href="../../user-guide/overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -351,7 +364,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/getting-started/" class="md-nav__link">
+      <a href="../../user-guide/getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -372,7 +385,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/hardware-setup/" class="md-nav__link">
+      <a href="../../user-guide/hardware-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -393,7 +406,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/flight-controller-setup/" class="md-nav__link">
+      <a href="../../user-guide/flight-controller-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -414,7 +427,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/rc-configuration/" class="md-nav__link">
+      <a href="../../user-guide/rc-configuration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -435,7 +448,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/ros2-setup/" class="md-nav__link">
+      <a href="../../user-guide/ros2-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -456,7 +469,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/parameter-configuration/" class="md-nav__link">
+      <a href="../../user-guide/parameter-configuration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -477,7 +490,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/preflight-checks/" class="md-nav__link">
+      <a href="../../user-guide/preflight-checks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -498,7 +511,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/improving-firmware-performance/" class="md-nav__link">
+      <a href="../../user-guide/improving-firmware-performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -519,7 +532,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/autonomous-flight/" class="md-nav__link">
+      <a href="../../user-guide/autonomous-flight/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -540,7 +553,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/rosplane-setup/" class="md-nav__link">
+      <a href="../../user-guide/rosplane-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -561,7 +574,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/roscopter-setup/" class="md-nav__link">
+      <a href="../../user-guide/roscopter-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -582,7 +595,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/user-guide/running-gazebo-simulation/" class="md-nav__link">
+      <a href="../../user-guide/running-gazebo-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,8 +620,10 @@ You're not viewing the latest stable version.
       
   
   
+    
   
   
+  
     
     
     
@@ -617,12 +632,12 @@ You're not viewing the latest stable version.
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -636,7 +651,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Developer Guide
@@ -647,10 +662,28 @@ You're not viewing the latest stable version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/git-main/developer-guide/contribution-guidelines/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Contribution Guidelines
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -659,6 +692,42 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-goals-of-rosflight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Goals of ROSflight
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Communication
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -671,7 +740,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/developer-guide/style-guide/" class="md-nav__link">
+      <a href="../style-guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -729,7 +798,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/developer-guide/firmware/code-architecture/" class="md-nav__link">
+      <a href="../firmware/code-architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -750,7 +819,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+      <a href="../firmware/building-and-flashing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -771,7 +840,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/developer-guide/firmware/unit-tests/" class="md-nav__link">
+      <a href="../firmware/unit-tests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -792,7 +861,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="/git-main/developer-guide/firmware/debugging/" class="md-nav__link">
+      <a href="../firmware/debugging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -839,6 +908,32 @@ You're not viewing the latest stable version.
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-goals-of-rosflight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Goals of ROSflight
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Communication
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -849,8 +944,50 @@ You're not viewing the latest stable version.
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/contribution-guidelines.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>Contribution Guidelines</h1>
+
+<p>ROSflight is intended to be a streamlined, bare-bones autopilot. We welcome any bug fixes, cleanup, or other contributions which do not add complexity or detract from the readability and simplified nature of the project. In an attempt to avoid "feature creep," we will be very discriminatory in merging pull requests whose purpose is to simply add features. Forking the repository in order to add features is totally acceptable and encouraged, just recognize us as the original authors of the autopilot (per the agreement in the BSD-3 license).</p>
+<p>In addition, we strive to maintain a very high standard of quality in terms of code style, variable naming, and the like. By maintaining a high standard, we hope that the code will continue to be useful, understandable, and cohesive in nature. Please don't be offended if we ask you to modify the formatting of your code before approving a pull request.</p>
+<p>Although we strive for complete in-code documentation, in practice this sometimes gets left behind for the sake of rapid development. If you, as a potential developer, find some portion of documentation unsatisfactory, we welcome questions on the appropriate GitHub issues page or <a href="https://discuss.rosflight.org/">forum</a>, and encourage you to submit pull requests which improve documentation. Several new developers have started with first improving the documentation to get a handle on how things work.</p>
+<h2 id="key-goals-of-rosflight">Key Goals of ROSflight<a class="headerlink" href="#key-goals-of-rosflight" title="Permanent link">&para;</a></h2>
+<p>Here is a summary of the key goals and philosophies behind ROSflight. As you look to make contributions to the project, keep these in mind.</p>
+<ul>
+<li>
+<p>Only include the things that most people will need. The goal of this would be to do most of the work so people can get a MAV in the air quickly and easily, but not overcomplicate the code with features that only a small portion of users would need.</p>
+</li>
+<li>
+<p>Be modular and adaptable for many research-centric use cases. This will be accomplished by putting the majority of the autopilot in a well-designed ROS2 framework. That which needs to be on the microcontroller will need to be done so carefully with good coding practices. Additionally, microcontroller code that is the most likely to be expanded upon should include clear interfaces and instructions for doing so.</p>
+</li>
+<li>
+<p>Keep everything simple and well documented. The key goal here is to minimize the amount of time and effort it takes someone to go from knowing nothing about ROSflight to being able to implement their own features and making meaningful progress with their research.</p>
+</li>
+</ul>
+<h2 id="communication">Communication<a class="headerlink" href="#communication" title="Permanent link">&para;</a></h2>
+<p>There are two channels to communicate with the developer team. For bug reports, feature requests, and anything to do with code, please open an issue on the appropriate <a href="https://github.com/rosflight">GitHub</a> issue page. For questions and other discussions, please use the <a href="https://discuss.rosflight.org/">forum</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -888,10 +1025,10 @@ You're not viewing the latest stable version.
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/git-main", "features": ["content.action.edit", "navigation.tabs"], "search": "/git-main/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="/git-main/assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

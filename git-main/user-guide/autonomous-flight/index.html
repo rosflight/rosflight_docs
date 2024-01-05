@@ -12,26 +12,28 @@
         <meta name="author" content="James Jackson, Daniel Koch">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/">
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/autonomous-flight/">
       
       
+        <link rel="prev" href="../improving-firmware-performance/">
       
-        <link rel="next" href="user-guide/overview/">
+      
+        <link rel="next" href="../rosplane-setup/">
       
       
-      <link rel="icon" href="assets/favicon.ico">
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>ROSflight</title>
+        <title>Autonomous Flight - ROSflight</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +52,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-rosflight" class="md-skip">
+        <a href="#autonomous-flight" class="md-skip">
           Skip to content
         </a>
       
@@ -89,7 +91,7 @@
             <div class="md-banner__inner md-grid md-typeset">
               
 You're not viewing the latest stable version.
-<a href="../.">
+<a href="../../..">
   <strong>Click here to go to latest.</strong>
 </a>
 
@@ -104,9 +106,9 @@ You're not viewing the latest stable version.
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -123,7 +125,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Autonomous Flight
             
           </span>
         </div>
@@ -190,11 +192,9 @@ You're not viewing the latest stable version.
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -209,11 +209,13 @@ You're not viewing the latest stable version.
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="user-guide/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   User Guide
@@ -231,7 +233,7 @@ You're not viewing the latest stable version.
     
     
       <li class="md-tabs__item">
-        <a href="developer-guide/contribution-guidelines/" class="md-tabs__link">
+        <a href="../../developer-guide/contribution-guidelines/" class="md-tabs__link">
           
   
   Developer Guide
@@ -264,9 +266,9 @@ You're not viewing the latest stable version.
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     ROSflight
@@ -276,6 +278,257 @@ You're not viewing the latest stable version.
     
       
       
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flight-controller-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flight Controller Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rc-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RC Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ros2-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preflight-checks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pre-Flight Checks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../improving-firmware-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improving Firmware Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
   
   
     
@@ -294,18 +547,18 @@ You're not viewing the latest stable version.
           
   
   <span class="md-ellipsis">
-    Home
+    Autonomous Flight
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Home
+    Autonomous Flight
   </span>
   
 
@@ -327,27 +580,9 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-rosflight" class="md-nav__link">
+  <a href="#provide-control-from-a-companion-computer" class="md-nav__link">
     <span class="md-ellipsis">
-      What is ROSflight?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-rosflight" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why ROSflight?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#our-vision" class="md-nav__link">
-    <span class="md-ellipsis">
-      Our Vision
+      Provide Control from a Companion Computer
     </span>
   </a>
   
@@ -360,66 +595,6 @@ You're not viewing the latest stable version.
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-      
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    User Guide
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            User Guide
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/overview/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Overview
-  </span>
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -429,196 +604,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="user-guide/getting-started/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/hardware-setup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Hardware Setup
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/flight-controller-setup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Flight Controller Setup
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/rc-configuration/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    RC Configuration
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/ros2-setup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ROS2 Setup
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/parameter-configuration/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Parameter Configuration
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/preflight-checks/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Pre-Flight Checks
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/improving-firmware-performance/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Improving Firmware Performance
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/autonomous-flight/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Autonomous Flight
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="user-guide/rosplane-setup/" class="md-nav__link">
+      <a href="../rosplane-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -639,7 +625,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="user-guide/roscopter-setup/" class="md-nav__link">
+      <a href="../roscopter-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -660,7 +646,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="user-guide/running-gazebo-simulation/" class="md-nav__link">
+      <a href="../running-gazebo-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -728,7 +714,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/contribution-guidelines/" class="md-nav__link">
+      <a href="../../developer-guide/contribution-guidelines/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -749,7 +735,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/style-guide/" class="md-nav__link">
+      <a href="../../developer-guide/style-guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -807,7 +793,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/firmware/code-architecture/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/code-architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -828,7 +814,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -849,7 +835,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/firmware/unit-tests/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/unit-tests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -870,7 +856,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/firmware/debugging/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/debugging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -926,27 +912,9 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-rosflight" class="md-nav__link">
+  <a href="#provide-control-from-a-companion-computer" class="md-nav__link">
     <span class="md-ellipsis">
-      What is ROSflight?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-rosflight" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why ROSflight?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#our-vision" class="md-nav__link">
-    <span class="md-ellipsis">
-      Our Vision
+      Provide Control from a Companion Computer
     </span>
   </a>
   
@@ -967,7 +935,7 @@ You're not viewing the latest stable version.
                   
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/autonomous-flight.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -975,24 +943,131 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="welcome-to-rosflight">Welcome to ROSflight<a class="headerlink" href="#welcome-to-rosflight" title="Permanent link">&para;</a></h1>
-<p><strong><em>The ROS2 updates for ROSflight are still under development. Please use with discretion.</em></strong></p>
-<h2 id="what-is-rosflight">What is ROSflight?<a class="headerlink" href="#what-is-rosflight" title="Permanent link">&para;</a></h2>
-<p>ROSflight is a lean and adaptable autopilot system designed from the ground up with researchers in mind. Its purpose is to enable researchers to quickly and easily try out new ideas with minimal effort. Some of ROSflight's key feature are:</p>
-<ul>
-<li>Lightweight, modular, and well documented code that is easy to understand and modify.</li>
-<li>Most of the autopilot exists on a Linux computer rather than a microcontroller, enabling easier development with increased capabilities.</li>
-<li>Seamless switching between simulation and hardware: no part of the autopilot knows if it is running in simulation or not.</li>
-<li>Built on a <a href="https://docs.ros.org/en/rolling/index.html">ROS2</a> framework, allowing easy integration with ROS2 based projects.</li>
-</ul>
-<p>See the <a href="user-guide/overview/">user guide</a> for more details on ROSflight.</p>
-<h2 id="why-rosflight">Why ROSflight?<a class="headerlink" href="#why-rosflight" title="Permanent link">&para;</a></h2>
-<p>There are a lot of excellent autopilots out there with a lot of great firmware options. Why did we feel like the world needed ROSflight? Because in our experience none of the other available options satisfied our research needs. Existing autopilots commonly used by researchers tend to have massive codebases under constant development that run primarily on microcontrollers.</p>
-<p>This presents a number of problems. First, we are limited in our ability to understand and control everything occurring within the autonomy stack, making much of the autopilot an untouchable black box. Second, we are limited to the abilities of microcontrollers and can't take advantage of the more powerful hardware and software that can be found on Linux computers. Third, maintaining up-to-date support for software or hardware projects becomes a lot of work as things are frequently changing.</p>
-<p>ROSflight is intended to fix these problems by being a lightweight, modular, and well documented codebase that offloads as much as possible to a ROS2 based framework running on a Linux computer.</p>
-<h2 id="our-vision">Our Vision<a class="headerlink" href="#our-vision" title="Permanent link">&para;</a></h2>
-<p>Perhaps more important than what we are trying to accomplish is what we are <em>not</em> trying to accomplish. ROSflight is not intended to be a fully-featured autopilot with all the same functions of other autopilots, but instead serve as a core foundation that can easily be adapted to any use case.</p>
-<p>Therefore, one of our primary objectives is to avoid feature creep and remain <em>lean</em>. We hope that others will extend our code and build on top of it, and would love to hear about your successes. But for the most part, we will not be incorporating these new features back into the main project. Instead, we hope that ROSflight will remain a lean, core code base that will continue to serve as a launch pad for exciting new projects and applications.</p>
+<h1 id="autonomous-flight">Autonomous Flight<a class="headerlink" href="#autonomous-flight" title="Permanent link">&para;</a></h1>
+<p>To perform autonomous flight with ROSflight, we need to send control commands from our companion computer to the firmware. This can be done with ROSplane or ROScopter, which already have completed autonomy stacks developed specifically for ROSflight. We recommend starting with one of these autonomy stacks and building on them to suit your needs. If using a multirotor, follow the <a href="../roscopter-setup/">ROScopter setup guide</a> to get started. If using a fixed-wing, follow the <a href="../rosplane-setup/">ROSplane setup guide</a>.</p>
+<p>However, ROSplane and ROScopter are optional and an entirely different autonomy stack can be used if desired. To use a different autonomy stack, follow this guide.</p>
+<h2 id="provide-control-from-a-companion-computer">Provide Control from a Companion Computer<a class="headerlink" href="#provide-control-from-a-companion-computer" title="Permanent link">&para;</a></h2>
+<p>Control setpoints are sent to the flight controller by publishing to the <code>/command</code> topic that is advertised by the <code>rosflight_io</code> node. This topic accepts messages of type <code>rosflight_msgs/Command</code>, which have the following structure:</p>
+<div class="highlight"><pre><span></span><code>std_msgs/Header header
+uint8 mode
+uint8 ignore
+float32 x
+float32 y
+float32 z
+float32 f
+</code></pre></div>
+<p>The <code>header</code> field is a standard ROS2 message header. The <code>x</code>, <code>y</code>, <code>z</code>, and <code>f</code> fields are the control setpoint values, which are interpreted according to the <code>mode</code> and <code>ignore</code> fields.</p>
+<p>The following table describes the different values the <code>mode</code> field can take, as well as how the setpoint values are interpreted for each of these modes:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Enum</th>
+<th>x</th>
+<th>y</th>
+<th>z</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>MODE_PASS_THROUGH</code></td>
+<td>aileron deflection (-1 to 1)</td>
+<td>elevator deflection (-1 to 1)</td>
+<td>rudder deflection (-1 to 1)</td>
+<td>throttle (0 to 1)</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>MODE_ROLLRATE_PITCHRATE_YAWRATE_THROTTLE</code></td>
+<td>roll rate (rad/s)</td>
+<td>pitch rate (rad/s)</td>
+<td>yaw rate (rad/s)</td>
+<td>throttle (0 to 1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>MODE_ROLL_PITCH_YAWRATE_THROTTLE</code></td>
+<td>roll angle (rad)</td>
+<td>pitch angle (rad)</td>
+<td>yaw rate (rad/s)</td>
+<td>throttle (0 to 1)</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>MODE_PASS_THROUGH</code> mode is used for fixed-wing vehicles to directly specify the control surface deflections and throttle, while the <code>MODE_ROLLRATE_PITCHRATE_YAWRATE_THROTTLE</code> and <code>MODE_ROLL_PITCH_YAWRATE_THROTTLE</code> modes are used for multirotor vehicles to specify the attitude rates or angles, respectively.</p>
+<p>The <code>ignore</code> field is used if you want to specify control setpoints for some, but not all, of the axes. For example, I may want to specify throttle setpoints to perform altitude hold, while still letting the RC pilot specify the attitude setpoints. The <code>ignore</code> field is a bitmask that can be populated by combining the following values:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Enum</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>IGNORE_NONE</code></td>
+<td>Ignore none of the fields (default)</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>IGNORE_X</code></td>
+<td>Ignore the <code>x</code> field</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>IGNORE_Y</code></td>
+<td>Ignore the <code>y</code> field</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>IGNORE_Z</code></td>
+<td>Ignore the <code>z</code> field</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>IGNORE_F</code></td>
+<td>Ignore the <code>F</code> field</td>
+</tr>
+</tbody>
+</table>
+<p>For the previous example, I would set the <code>ignore</code> field to a value of
+<div class="highlight"><pre><span></span><code>ignore = IGNORE_X | IGNORE_Y | IGNORE_Z
+</code></pre></div></p>
+<p>The best practice is to use enum names rather than the actual numeric values for the <code>mode</code> and <code>ignore</code> fields. For example, to specify a multirotor attitude angle command in C++ I might have:
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rclcpp/rclcpp.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rosflight_msgs/msg/command.hpp&gt;</span>
+
+<span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Command</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">stamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">get_clock</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">now</span><span class="p">();</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">MODE_ROLL_PITCH_YAWRATE_THROTTLE</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosflight_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Command</span><span class="o">::</span><span class="n">IGNORE_NONE</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span><span class="p">;</span>
+</code></pre></div></p>
+<p>In Python I might have:
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rosflight_msgs.msg</span> <span class="kn">import</span> <span class="n">Command</span>
+
+<span class="n">msg</span> <span class="o">=</span> <span class="n">Command</span><span class="p">()</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Command</span><span class="o">.</span><span class="n">MODE_ROLL_PITCH_YAWRATE_THROTTLE</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">ignore</span> <span class="o">=</span> <span class="n">Command</span><span class="o">.</span><span class="n">IGNORE_NONE</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="mf">0.6</span>
+</code></pre></div>
+I would then publish this message to the <code>/command</code> topic to forward it to the embedded flight controller.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the flight controller does not receive a new command for a defined period of time, it will ignore the old commands and revert to RC control. The length of this timeout period is set by the <code>OFFBOARD_TIMEOUT</code> parameter.</p>
+</div>
 
 
 
@@ -1043,10 +1118,10 @@ You're not viewing the latest stable version.
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["content.action.edit", "navigation.tabs"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
