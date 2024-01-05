@@ -47,29 +47,29 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - ROSflight:
-    - Overview: rosflight/overview.md
-    - User Guide:
-      - Getting Started: rosflight/user-guide/getting-started.md
-      - Hardware Setup: rosflight/user-guide/hardware-setup.md
-      - Flight Controller Setup: rosflight/user-guide/flight-controller-setup.md
-      - RC Configuration: rosflight/user-guide/rc-configuration.md
-      - ROS2 Setup: rosflight/user-guide/ros2-setup.md
-      - Parameter Configuration: rosflight/user-guide/parameter-configuration.md
-      - Pre-Flight Checks: rosflight/user-guide/preflight-checks.md
-      - Improving Performance: rosflight/user-guide/improving-performance.md
-      - Running Gazebo Simulation: rosflight/user-guide/running-gazebo-simulation.md
-      - Autonomous Flight: rosflight/user-guide/autonomous-flight.md
-    - Developer Guide:
-      - Code Architecture: rosflight/developer-guide/code-architecture.md
-      - Estimator Algorithm: rosflight/developer-guide/estimator-algorithm.md
-      - Building and Flashing: rosflight/developer-guide/building-and-flashing.md
-      - Unit Tests: rosflight/developer-guide/unit-tests.md
-      - Debugging: rosflight/developer-guide/debugging.md
-  - ROSplane:
-    - Overview: rosplane/overview.md
-  - ROScopter:
-    - Overview: roscopter/overview.md
-  - Contributing:
-    - Contribution Guidelines: contributing/contribution-guidelines.md
-    - Style Guide: contributing/style-guide.md
+  - User Guide:
+    - Overview: user-guide/overview.md
+    - Getting Started: user-guide/getting-started.md
+    - Hardware Setup: user-guide/hardware-setup.md
+    - Flight Controller Setup: user-guide/flight-controller-setup.md
+    - RC Configuration: user-guide/rc-configuration.md
+    - ROS2 Setup: user-guide/ros2-setup.md
+    - Parameter Configuration: user-guide/parameter-configuration.md
+    - Running Gazebo Simulation: user-guide/running-gazebo-simulation.md
+    - Tuning Firmware: user-guide/tuning-firmware.md
+    - Pre-Flight Checks: user-guide/preflight-checks.md
+    - Autonomous Flight: user-guide/autonomous-flight.md
+    - ROSplane: user-guide/rosplane.md
+    - ROScopter: user-guide/roscopter.md
+  - Developer Guide:
+    - Contribution Guidelines: developer-guide/contribution-guidelines.md
+    - Style Guide: developer-guide/style-guide.md
+    - Firmware:
+      - Code Architecture: developer-guide/firmware/code-architecture.md
+      - Estimator Algorithm: developer-guide/firmware/estimator-algorithm.md
+      - Building and Flashing: developer-guide/firmware/building-and-flashing.md
+      - Unit Tests: developer-guide/firmware/unit-tests.md
+      - Debugging: developer-guide/firmware/debugging.md
+#    - ROS Packages:
+#    - ROSplane:
+#    - ROScopter:
