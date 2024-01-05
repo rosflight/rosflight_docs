@@ -1024,7 +1024,7 @@ You're not viewing the latest stable version.
 <ul>
 <li>
 <p>At this point, you can't actually do anything because there is no RC connection and no <code>rosflight_io</code> to talk to the firmware. Let's start by running a <code>rosflight_io</code> node. In a separate terminal, run:
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>udp:<span class="o">=</span><span class="nb">true</span>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_io<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>udp:<span class="o">=</span><span class="nb">true</span>
 </code></pre></div></p>
 <ul>
 <li>The <code>udp</code> parameter tells <code>rosflight_io</code> to simulate a serial connection over UDP rather than using the USB connection to hardware</li>
