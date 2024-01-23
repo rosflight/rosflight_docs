@@ -97,9 +97,9 @@ xhost +
 docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
 ```
 
-* To create a GUI enabled ROS container named `rosflight` with access to the host network, source files found at `~/rosflight_ws`, and all USB devices, use this command:
+* To create a GUI enabled ROS container named `rosflight` with access to the host network, source files found at `~/rosflight_ws`, and a USB device, use this command:
 ```bash
-docker run --name rosflight -it -v /dev:/dev --privileged --network host -v ~/rosflight_ws:/rosflight_ws --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
+docker run --name rosflight -it -v /dev/ttyUSB0:/dev/USB --privileged --network host -v ~/rosflight_ws:/rosflight_ws --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
 ```
 
 !!! warning
