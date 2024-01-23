@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
     
     
       
@@ -1093,8 +1093,8 @@ docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </s
 </code></pre></div></p>
 </li>
 <li>
-<p>To create a GUI enabled ROS container named <code>rosflight</code> with access to the host network, source files found at <code>~/rosflight_ws</code>, and all USB devices, use this command:
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev:/dev<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
+<p>To create a GUI enabled ROS container named <code>rosflight</code> with access to the host network, source files found at <code>~/rosflight_ws</code>, and a USB device, use this command:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/ttyUSB0:/dev/USB<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
 </code></pre></div></p>
 </li>
 </ul>
@@ -1176,10 +1176,10 @@ docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </s
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.7389ff0e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
