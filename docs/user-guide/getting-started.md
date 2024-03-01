@@ -54,6 +54,7 @@ The following checklists should help you get a new vehicle set up for the first 
   3. You'll most likely want to set the `CAL_GYRO_ARM` param to `1` to enable calibrating gyros before arming
   4. Set the `RC_ATT_MODE` parameter to set RC control mode (`0` for rate mode, `1` for angle mode [default])
   5. Set torque offsets as described in the [RC trim calculation](improving-firmware-performance.md#rc-trim) section of the Improving Firmware Performance page
+  6. Set the `FAILSAFE_THR` parameter to specify the throttle level the MAV will hold if the transimtter disconnects. Set the parameter to `0` if you just want the MAV to drop, otherwise determine the amount of throttle required to hover the MAV and set the parameter comfortably below that. DO NOT set it above, as this will result in a runaway MAV. We recommended that you test the throttle level in an enclosed space by powering off the transmitter while hovering, if you set this parameter above 0.
   6. Tune the controller gains as described in the [Multirotor gain tuning](improving-firmware-performance.md#gain-tuning) section of the Improving Firmware Performance page
 
 ### Fixed-Wing-Specific Setup
