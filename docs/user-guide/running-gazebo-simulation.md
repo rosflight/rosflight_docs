@@ -49,14 +49,14 @@ Your `rqt_graph` should look something like the following image. This looks funn
 
 * Start up a simulated RC connection. The easiest way to do this is with the ROSflight utility `rc_joy.py`. Connect a joystick to the computer (or transmitter) and run: 
     ```bash
-    ros2 run rosflight_utils rc_joy.py --ros-args --remap /RC:=/multirotor/RC
+    ros2 run rosflight_sim rc_joy.py --ros-args --remap /RC:=/multirotor/RC
     ```
     This simulates the RC connection in hardware. If everything is mapped correctly, you should now be able to arm, disarm and fly the aircraft in simulation!
 
 !!! tip
     To start the Gazebo sim, rosflight_io node, and rc_joy.py utility all at once, run this command instead of the three commands individually:
     ```bash
-    ros2 launch rosflight_utils multirotor_sim_io_joy.launch.py    
+    ros2 launch rosflight_sim multirotor_sim_io_joy.launch.py    
     ```
 
 !!! note
@@ -64,6 +64,6 @@ Your `rqt_graph` should look something like the following image. This looks funn
 
 Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the [Hardware Setup](hardware-setup.md) and [Parameter Configuration](parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also run 
 ```bash
-ros2 launch rosflight_utils multirotor_init_firmware.launch.py
+ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 ```
 to load all required parameters and perform initial calibrations for a quick simulation setup.
