@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
     
     
       
@@ -1035,14 +1035,14 @@ You're not viewing the latest stable version.
 <p><img alt="rqt_graph_multirotor_launch_with_rosflight_io" src="../images/rqt_graph_multirotor_launch_with_rosflight_io.png" /></p>
 <ul>
 <li>Start up a simulated RC connection. The easiest way to do this is with the ROSflight utility <code>rc_joy.py</code>. Connect a joystick to the computer (or transmitter) and run: 
-    <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_utils<span class="w"> </span>rc_joy.py<span class="w"> </span>--ros-args<span class="w"> </span>--remap<span class="w"> </span>/RC:<span class="o">=</span>/multirotor/RC
+    <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_sim<span class="w"> </span>rc_joy.py<span class="w"> </span>--ros-args<span class="w"> </span>--remap<span class="w"> </span>/RC:<span class="o">=</span>/multirotor/RC
 </code></pre></div>
     This simulates the RC connection in hardware. If everything is mapped correctly, you should now be able to arm, disarm and fly the aircraft in simulation!</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To start the Gazebo sim, rosflight_io node, and rc_joy.py utility all at once, run this command instead of the three commands individually:
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_utils<span class="w"> </span>multirotor_sim_io_joy.launch.py<span class="w">    </span>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_sim_io_joy.launch.py<span class="w">    </span>
 </code></pre></div></p>
 </div>
 <div class="admonition note">
@@ -1050,7 +1050,7 @@ You're not viewing the latest stable version.
 <p>It is much easier to fly with a real transmitter than with an Xbox-type controller. FrSky Taranis QX7 transmitters, Radiomaster TX16s transmitters, and RealFlight controllers are also supported. Non-Xbox joysticks may have incorrect mappings. If your joystick does not work, and you write your own mapping, please contribute back your new joystick mapping!</p>
 </div>
 <p>Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the <a href="../hardware-setup/">Hardware Setup</a> and <a href="../parameter-configuration/">Parameter Configuration</a> pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also run 
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_utils<span class="w"> </span>multirotor_init_firmware.launch.py
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_init_firmware.launch.py
 </code></pre></div>
 to load all required parameters and perform initial calibrations for a quick simulation setup.</p>
 
