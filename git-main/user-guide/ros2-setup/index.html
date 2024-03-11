@@ -1039,6 +1039,13 @@ Source the setup file and set it to be sourced automatically:
 <p class="admonition-title">Note</p>
 <p>You'll also need to source the file at <code>/usr/share/gazebo/setup.sh</code> if you plan to use the Gazebo simulator.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, run this command instead of the <code>rosdep install</code> command above:</p>
+<div class="highlight"><pre><span></span><code>rosdep install -i --from-path ./ -y --ignore-src --skip-keys=&quot;gazebo_dev gazebo_plugins gazebo_ros gazebo&quot; -r
+</code></pre></div>
+<p>Also note that Gazebo is currently used only in the <code>rosflight_sim</code> package, in the <code>rosflight_ros_pkgs</code> directory. A CMakeLists command in this package will skip compilation of <code>rosflight_sim</code> if arm64 architecture is detected. If using a companion computer that uses arm64 architecture and you want rosflight_sim, you will need to remove the CMakeLists command and Gazebo.</p>
+</div>
 <h2 id="running-rosflight_io">Running rosflight_io<a class="headerlink" href="#running-rosflight_io" title="Permanent link">&para;</a></h2>
 <p>The <code>rosflight_io</code> node is the bridge between ROS2 and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command:
 <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_io<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>port:<span class="o">=</span>/dev/ttyUSB0
