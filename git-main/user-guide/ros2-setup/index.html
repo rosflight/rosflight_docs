@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -1019,32 +1019,32 @@ You're not viewing the latest stable version.
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/rosflight_ws/src
 <span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src
 </code></pre></div>
-<p>Next, download the source code into your workspace (include the <code>--recursive</code> argument to download the necessary submodules):
+<p>Next, download the source code into your workspace (include the <code>--recursive</code> argument to download the necessary submodules):</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/rosflight/rosflight_ros_pkgs.git
 </code></pre></div>
-Install dependencies:
+<p>Install dependencies:
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rosdep<span class="w"> </span>init
 rosdep<span class="w"> </span>update
 rosdep<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>--from-path<span class="w"> </span>./<span class="w"> </span>-y<span class="w"> </span>--ignore-src
-</code></pre></div>
-Build the packages:
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
-colcon<span class="w"> </span>build
-</code></pre></div>
-Source the setup file and set it to be sourced automatically:
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/rosflight_ws/install/setup.bash
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source ~/rosflight_ws/install/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You'll also need to source the file at <code>/usr/share/gazebo/setup.sh</code> if you plan to use the Gazebo simulator.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, run this command instead of the <code>rosdep install</code> command above:</p>
 <div class="highlight"><pre><span></span><code>rosdep install -i --from-path ./ -y --ignore-src --skip-keys=&quot;gazebo_dev gazebo_plugins gazebo_ros gazebo&quot; -r
 </code></pre></div>
 <p>Also note that Gazebo is currently used only in the <code>rosflight_sim</code> package, in the <code>rosflight_ros_pkgs</code> directory. A CMakeLists command in this package will skip compilation of <code>rosflight_sim</code> if arm64 architecture is detected. If using a companion computer that uses arm64 architecture and you want rosflight_sim, you will need to remove the CMakeLists command and Gazebo.</p>
+</div>
+<p>Build the packages:
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
+colcon<span class="w"> </span>build
+</code></pre></div></p>
+<p>Source the setup file and set it to be sourced automatically:
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/rosflight_ws/install/setup.bash
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source ~/rosflight_ws/install/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll also need to source the file at <code>/usr/share/gazebo/setup.sh</code> if you plan to use the Gazebo simulator.</p>
 </div>
 <h2 id="running-rosflight_io">Running rosflight_io<a class="headerlink" href="#running-rosflight_io" title="Permanent link">&para;</a></h2>
 <p>The <code>rosflight_io</code> node is the bridge between ROS2 and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command:
@@ -1060,7 +1060,7 @@ Replace <code>/dev/ttyUSB0</code> with the port your flight controller is connec
 <p class="admonition-title">Tip</p>
 <p>This guide was written using ROS2 Humble Docker images, but any distribution of ROS can be used. Just replace <code>humble</code> with the name of the distribution you want to use.</p>
 </div>
-<p>If you aren't running a compatible version of Ubuntu for ROS2, don't want to make changes to your system, want to be able to easily switch between ROS verions, or just want to containerize your applications then you can use Docker containers. To get started, install <a href="https://docs.docker.com/engine/install/">Docker Engine</a>, sometimes referred to as Docker server.</p>
+<p>If you aren't running a compatible version of Linux for ROS2, don't want to make changes to your system, want to be able to easily switch between ROS verions, or just want to containerize your applications, then you can use Docker containers. To get started, install <a href="https://docs.docker.com/engine/install/">Docker Engine</a>, sometimes referred to as Docker server.</p>
 <p>Docker works by running self-contained systems called containers, which act kind of like a separate computer system but without all the overhead of a full virtual machine. Docker containers are based on Docker images, which provide the initial operating system, files, and programs for the Docker container. Fortunately, the developers of ROS provide Docker images for nearly all versions of ROS, which makes it very easy to get any version of ROS up and running on your system very quickly.</p>
 <ul>
 <li>To start a Docker container with ROS run this command:
@@ -1080,6 +1080,11 @@ Replace <code>/dev/ttyUSB0</code> with the port your flight controller is connec
 </code></pre></div></p>
 </li>
 <li>
+<p>You can also mount the entire <code>/dev</code> folder to the container if you want to simplify the process of giving access to USB devices by not needing to know the address of the USB device beforehand. However, the more resources you give to the container, the less secure it is:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev:/dev<span class="w"> </span>--privileged<span class="w"> </span>ros:humble
+</code></pre></div></p>
+</li>
+<li>
 <p>To give access to your network, specify the network to use as the host's network with <code>--network host</code>.
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>ros:humble
 </code></pre></div></p>
@@ -1088,20 +1093,21 @@ Replace <code>/dev/ttyUSB0</code> with the port your flight controller is connec
 <p>It is worth noting that every time you use the <code>docker run</code> command, a new container with those specific arguments are created. So, if you want a container with access to all those things, you need to use all the arguments at once.</p>
 <ul>
 <li>As an example, if I wanted to make a ROS2 Humble container with access to a USB device at <code>/dev/ttyUSB0</code>, access to my host network, access to the source files at <code>~/rosflight_ws</code>, and give the container a convenient name of <code>rosflight</code> with the <code>--name</code> argument, I would use this command:
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/ttyUSB0:/dev/USB<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>ros:humble
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/ttyUSB0:/dev/ttyUSB0<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/root/rosflight_ws<span class="w"> </span>ros:humble
 </code></pre></div></li>
 </ul>
 <p>Something the previous commands don't include is the ability to render GUI tools (like rqt_graph and Gazebo). Being able to render GUI tools can be done a number of ways, but an easy way is to give the container access to your system's X11 windowing system. Note that this isn't the most secure method and doesn't include GPU acceleration. (For more information about including GPU acceleration, refer to the guide found <a href="https://roboticseabass.com/2021/04/21/docker-and-ros/">here</a>.)</p>
 <ul>
 <li>
-<p>To give access to the host's windowing system, use the following commands. Note that the base Docker image is <code>osrf/ros:humble-desktop-full</code>, as <code>ros:humble</code> doesn't include GUI tools in the image. Also, <code>xhost +</code> needs to be run once per login session and is not persistent.
-<div class="highlight"><pre><span></span><code>xhost<span class="w"> </span>+
+<p>To give access to the host's windowing system, use the following commands. Note that the base Docker image is <code>osrf/ros:humble-desktop-full</code>, as <code>ros:humble</code> doesn't include GUI tools in the image. Also, <code>xhost +local:root</code> needs to be run once per login session and is not persistent.
+<div class="highlight"><pre><span></span><code>xhost<span class="w"> </span>+local:root
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
 </code></pre></div></p>
 </li>
 <li>
 <p>To create a GUI enabled ROS container named <code>rosflight</code> with access to the host network, source files found at <code>~/rosflight_ws</code>, and a USB device, use this command:
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/ttyUSB0:/dev/USB<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
+<div class="highlight"><pre><span></span><code>xhost<span class="w"> </span>+local:root
+docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>rosflight<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>/dev/ttyUSB0:/dev/ttyUSB0<span class="w"> </span>--privileged<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>-v<span class="w"> </span>~/rosflight_ws:/rosflight_ws<span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;DISPLAY&quot;</span><span class="w"> </span>--env<span class="o">=</span><span class="s2">&quot;QT_X11_NO_MITSHM=1&quot;</span><span class="w"> </span>--volume<span class="o">=</span><span class="s2">&quot;/tmp/.X11-unix:/tmp/.X11-unix:rw&quot;</span><span class="w"> </span>osrf/ros:humble-desktop-full
 </code></pre></div></p>
 </li>
 </ul>
@@ -1186,7 +1192,7 @@ docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </s
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
