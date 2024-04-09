@@ -18,20 +18,33 @@ cd ~/rosflight_ws/src
 ```
 
 Next, download the source code into your workspace (include the `--recursive` argument to download the necessary submodules):
+
 ```bash
 git clone --recursive https://github.com/rosflight/rosflight_ros_pkgs.git
 ```
+
 Install dependencies:
 ```bash
 sudo rosdep init
 rosdep update
 rosdep install -i --from-path ./ -y --ignore-src
 ```
+
+!!! note
+    Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, run this command instead of the `rosdep install` command above:
+
+    ```
+    rosdep install -i --from-path ./ -y --ignore-src --skip-keys="gazebo_dev gazebo_plugins gazebo_ros gazebo" -r
+    ```
+
+    Also note that Gazebo is currently used only in the `rosflight_sim` package, in the `rosflight_ros_pkgs` directory. A CMakeLists command in this package will skip compilation of `rosflight_sim` if arm64 architecture is detected. If using a companion computer that uses arm64 architecture and you want rosflight_sim, you will need to remove the CMakeLists command and Gazebo.
+
 Build the packages:
 ```bash
 cd ~/rosflight_ws
 colcon build
 ```
+
 Source the setup file and set it to be sourced automatically:
 ```bash
 source ~/rosflight_ws/install/setup.bash
@@ -40,15 +53,6 @@ echo "source ~/rosflight_ws/install/setup.bash" >> ~/.bashrc
 
 !!! note
     You'll also need to source the file at `/usr/share/gazebo/setup.sh` if you plan to use the Gazebo simulator.
-
-!!! note
-    Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, run this command instead of the `rosdep install` command above:
-    
-    ```
-    rosdep install -i --from-path ./ -y --ignore-src --skip-keys="gazebo_dev gazebo_plugins gazebo_ros gazebo" -r
-    ```
-
-    Also note that Gazebo is currently used only in the `rosflight_sim` package, in the `rosflight_ros_pkgs` directory. A CMakeLists command in this package will skip compilation of `rosflight_sim` if arm64 architecture is detected. If using a companion computer that uses arm64 architecture and you want rosflight_sim, you will need to remove the CMakeLists command and Gazebo.
 
 
 ## Running rosflight_io
@@ -66,7 +70,7 @@ Replace `/dev/ttyUSB0` with the port your flight controller is connected to.
 !!! tip
     This guide was written using ROS2 Humble Docker images, but any distribution of ROS can be used. Just replace `humble` with the name of the distribution you want to use.
 
-If you aren't running a compatible version of Ubuntu for ROS2, don't want to make changes to your system, want to be able to easily switch between ROS verions, or just want to containerize your applications then you can use Docker containers. To get started, install [Docker Engine](https://docs.docker.com/engine/install/), sometimes referred to as Docker server.
+If you aren't running a compatible version of Linux for ROS2, don't want to make changes to your system, want to be able to easily switch between ROS verions, or just want to containerize your applications, then you can use Docker containers. To get started, install [Docker Engine](https://docs.docker.com/engine/install/), sometimes referred to as Docker server.
 
 Docker works by running self-contained systems called containers, which act kind of like a separate computer system but without all the overhead of a full virtual machine. Docker containers are based on Docker images, which provide the initial operating system, files, and programs for the Docker container. Fortunately, the developers of ROS provide Docker images for nearly all versions of ROS, which makes it very easy to get any version of ROS up and running on your system very quickly.
 
@@ -87,6 +91,11 @@ docker run -it -v /folder_to_mount_from_host:/location_to_mount_folder_in_contai
 docker run -it -v /dev/usb_to_mount:/dev/USB --privileged ros:humble
 ```
 
+* You can also mount the entire `/dev` folder to the container if you want to simplify the process of giving access to USB devices by not needing to know the address of the USB device beforehand. However, the more resources you give to the container, the less secure it is:
+```bash
+docker run -it -v /dev:/dev --privileged ros:humble
+```
+
 * To give access to your network, specify the network to use as the host's network with `--network host`.
 ```bash
 docker run -it --network host ros:humble
@@ -96,20 +105,21 @@ It is worth noting that every time you use the `docker run` command, a new conta
 
 * As an example, if I wanted to make a ROS2 Humble container with access to a USB device at `/dev/ttyUSB0`, access to my host network, access to the source files at `~/rosflight_ws`, and give the container a convenient name of `rosflight` with the `--name` argument, I would use this command:
 ```bash
-docker run --name rosflight -it -v /dev/ttyUSB0:/dev/USB --privileged --network host -v ~/rosflight_ws:/rosflight_ws ros:humble
+docker run --name rosflight -it -v /dev/ttyUSB0:/dev/ttyUSB0 --privileged --network host -v ~/rosflight_ws:/root/rosflight_ws ros:humble
 ```
 
 Something the previous commands don't include is the ability to render GUI tools (like rqt_graph and Gazebo). Being able to render GUI tools can be done a number of ways, but an easy way is to give the container access to your system's X11 windowing system. Note that this isn't the most secure method and doesn't include GPU acceleration. (For more information about including GPU acceleration, refer to the guide found [here](https://roboticseabass.com/2021/04/21/docker-and-ros/).)
 
-* To give access to the host's windowing system, use the following commands. Note that the base Docker image is `osrf/ros:humble-desktop-full`, as `ros:humble` doesn't include GUI tools in the image. Also, `xhost +` needs to be run once per login session and is not persistent.
+* To give access to the host's windowing system, use the following commands. Note that the base Docker image is `osrf/ros:humble-desktop-full`, as `ros:humble` doesn't include GUI tools in the image. Also, `xhost +local:root` needs to be run once per login session and is not persistent.
 ```bash
-xhost +
+xhost +local:root
 docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
 ```
 
 * To create a GUI enabled ROS container named `rosflight` with access to the host network, source files found at `~/rosflight_ws`, and a USB device, use this command:
 ```bash
-docker run --name rosflight -it -v /dev/ttyUSB0:/dev/USB --privileged --network host -v ~/rosflight_ws:/rosflight_ws --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
+xhost +local:root
+docker run --name rosflight -it -v /dev/ttyUSB0:/dev/ttyUSB0 --privileged --network host -v ~/rosflight_ws:/rosflight_ws --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
 ```
 
 !!! warning
