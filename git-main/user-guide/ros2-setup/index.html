@@ -1025,14 +1025,11 @@ You're not viewing the latest stable version.
 <p>Install dependencies:
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rosdep<span class="w"> </span>init
 rosdep<span class="w"> </span>update
-rosdep<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>--from-path<span class="w"> </span>./<span class="w"> </span>-y<span class="w"> </span>--ignore-src
+rosdep<span class="w"> </span>install<span class="w"> </span>--from-path<span class="w"> </span>.<span class="w"> </span>-y<span class="w"> </span>--ignore-src
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, run this command instead of the <code>rosdep install</code> command above:</p>
-<div class="highlight"><pre><span></span><code>rosdep install -i --from-path ./ -y --ignore-src --skip-keys=&quot;gazebo_dev gazebo_plugins gazebo_ros gazebo&quot; -r
-</code></pre></div>
-<p>Also note that Gazebo is currently used only in the <code>rosflight_sim</code> package, in the <code>rosflight_ros_pkgs</code> directory. A CMakeLists command in this package will skip compilation of <code>rosflight_sim</code> if arm64 architecture is detected. If using a companion computer that uses arm64 architecture and you want rosflight_sim, you will need to remove the CMakeLists command and Gazebo.</p>
+<p>Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, append <code>--skip-keys="gazebo_dev gazebo_plugins gazebo_ros gazebo"</code> to the <code>rosdep install</code> command above. This will skip installing Gazebo and the compilation of rosflight_sim, which currently requires Gazebo.</p>
 </div>
 <p>Build the packages:
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
