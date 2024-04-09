@@ -27,17 +27,11 @@ Install dependencies:
 ```bash
 sudo rosdep init
 rosdep update
-rosdep install -i --from-path ./ -y --ignore-src
+rosdep install --from-path . -y --ignore-src
 ```
 
 !!! note
-    Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, run this command instead of the `rosdep install` command above:
-
-    ```
-    rosdep install -i --from-path ./ -y --ignore-src --skip-keys="gazebo_dev gazebo_plugins gazebo_ros gazebo" -r
-    ```
-
-    Also note that Gazebo is currently used only in the `rosflight_sim` package, in the `rosflight_ros_pkgs` directory. A CMakeLists command in this package will skip compilation of `rosflight_sim` if arm64 architecture is detected. If using a companion computer that uses arm64 architecture and you want rosflight_sim, you will need to remove the CMakeLists command and Gazebo.
+    Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, append `--skip-keys="gazebo_dev gazebo_plugins gazebo_ros gazebo"` to the `rosdep install` command above. This will skip installing Gazebo and the compilation of rosflight_sim, which currently requires Gazebo.
 
 Build the packages:
 ```bash
