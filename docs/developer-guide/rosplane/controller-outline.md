@@ -30,6 +30,7 @@ Starting from the inner loops, tune the response and then tune the outer loop.
 |:------:|:-------:| :---: |
 |$\large{\boldsymbol{\chi}}$| Course/Heading | $[-\pi,\pi)$ |
 |$\large{\boldsymbol{\phi}}$| Roll | $[-\pi,\pi)$ |
+|$\large{p}$| Roll Rate |  |
 |$\large{\boldsymbol{\delta_i}}$| Command percent defelection of control surface $i$ | $[-1.0,1.0]$ |
 |$\large{\boldsymbol{e_a}}$| Error in state variable $a$ |
 |$\large{\boldsymbol{a^c}}$| Commanded value of state variable $a$ |
@@ -59,9 +60,16 @@ Since the inner loop is tuned first and influences the outer loop tune, we will 
 #### Inner Loop
 
 The inner loop calculates the required percent deflection in the ailerons, $\boldsymbol{\delta_a}$, to acheive the commanded roll angle.
-
+This loop is a PD loop, meaning that it uses only a proportional and derivative control.
+Note that the derivative gain does not act on the rate of change of the error but of the direct roll rate, $p$.
+The proportional gain acts on the error given by the estimated roll and the commanded roll.
+This loop does not use integral contol to ensure that it closes much faster than the outer loop.
+This bandwidth seperation helps the controller perform smoothly.
+See the specific page on the Course Inner Loop for details on tuning and common pitfalls.
+For more details on how the roll rate and the roll angle are calculated see the Estimator page.
 
 #### Outer Loop
 
 The outer loop calculates the commanded roll angle, $\boldsymbol{\phi}$, based on the error in the course, $\boldsymbol{\chi}$.
+This is a PI loop, meaning that it uses only proportional and integral control.
 
