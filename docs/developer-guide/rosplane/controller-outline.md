@@ -30,7 +30,9 @@ Starting from the inner loops, tune the response and then tune the outer loop.
 |:------:|:-------:| :---: |
 |$\large{\boldsymbol{\chi}}$| Course/Heading | $[-\pi,\pi)$ |
 |$\large{\boldsymbol{\phi}}$| Roll | $[-\pi,\pi)$ |
+|$\large{\boldsymbol{\psi}}$| Yaw | $[-\pi,\pi)$ |
 |$\large{p}$| Roll Rate |  |
+|$\large{r}$| Yaw Rate |  |
 |$\large{\boldsymbol{\delta_i}}$| Command percent defelection of control surface $i$ | $[-1.0,1.0]$ |
 |$\large{\boldsymbol{e_a}}$| Error in state variable $a$ |
 |$\large{\boldsymbol{a^c}}$| Commanded value of state variable $a$ |
@@ -80,3 +82,12 @@ Note that the PI loop allows for only constant error in ramp inputs (orbits) and
 See the specific page on the Course Loop for details on tuning and common pitfalls.
 For more details on how course is estimated and measured, see the Estimator page.
 These loops combine to give complete control of the course of the aircraft.
+
+### Yaw Damper
+
+The yaw damper allows for effective damping of undesirable yaw modes induced by rolling.
+This is done by using the rudder to control the yaw rate, $r$, to zero.
+Not all yaw rates should be controlled to zero since this would disallow turning.
+A washout filter is used to only damp high frequency yaw rates.
+In effect, this control only 'turns on' if the frequency of the yaw rate is high enough.
+For mor information see the Yaw Damper page.
