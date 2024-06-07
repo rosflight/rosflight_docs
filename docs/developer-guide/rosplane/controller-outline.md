@@ -52,6 +52,7 @@ This loop allows for tracking of ramp and step commands in course.
 Since the inner loop is tuned first and influences the outer loop tune, we will discuss it first.
 
 <!-- TODO Add phi_ff to the mix -->
+<!-- TODO Fix typo in /chi on the left, should be /chi^c -->
 
 | ![Diagram of Lateral-directional Autopilot control loop](../../assets/figure_6_5.png "Lateral-directional Autopilot Control Loop") |
 |:--:|
@@ -65,11 +66,15 @@ Note that the derivative gain does not act on the rate of change of the error bu
 The proportional gain acts on the error given by the estimated roll and the commanded roll.
 This loop does not use integral contol to ensure that it closes much faster than the outer loop.
 This bandwidth seperation helps the controller perform smoothly.
-See the specific page on the Course Inner Loop for details on tuning and common pitfalls.
-For more details on how the roll rate and the roll angle are calculated see the Estimator page.
+See the specific page on the Course Loop for details on tuning and common pitfalls.
+For more details on how the roll rate and the roll angle are calculated, see the Estimator page.
 
 #### Outer Loop
 
 The outer loop calculates the commanded roll angle, $\boldsymbol{\phi}$, based on the error in the course, $\boldsymbol{\chi}$.
 This is a PI loop, meaning that it uses only proportional and integral control.
-
+The proportional gain acts on the error between the estimated course $\boldsymbol{\chi}$ and the commanded course $\boldsymbol{\chi}$.
+The integral gain acts on the same error, ensuring that errors in course are driven to zero.
+Note that the PI loop allows for only constant error in ramp inputs (orbits) and for no error to step inputs (path following commands).
+See the specific page on the Course Loop for details on tuning and common pitfalls.
+For more details on how course is estimated and measured, see the Estimator page.
