@@ -91,3 +91,7 @@ Not all yaw rates should be controlled to zero since this would disallow turning
 A washout filter is used to only damp high frequency yaw rates.
 In effect, this control only 'turns on' if the frequency of the yaw rate is high enough.
 For mor information see the Yaw Damper page.
+
+| ![Diagram of Yaw Damper loop](../../assets/yaw_damper_diag.png "Yaw damper control loop diagram.") |
+|:--:|
+|*Figure 2: Yaw Damper Control Loop*|
