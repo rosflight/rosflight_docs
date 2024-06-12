@@ -39,6 +39,7 @@ Starting from the inner loops, tune the response and then tune the outer loop.
 |$\large{\boldsymbol{k_{p_{a}}}}$| Proportional gain for state variable $a$ |
 |$\large{\boldsymbol{k_{d_{a}}}}$| Derivative gain for state variable $a$ |
 |$\large{\boldsymbol{k_{i_{a}}}}$| Integral gain for state variable $a$ |
+|$\large{\boldsymbol{p_{wo}}}$| Washout filter bandwidth |
 |$\large{\boldsymbol{P}}$| Plant transfer function |
 |$\large{\boldsymbol{s}}$| Laplace operator | 
 
