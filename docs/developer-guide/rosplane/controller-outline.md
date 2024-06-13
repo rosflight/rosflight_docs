@@ -32,10 +32,11 @@ Starting from the inner loops, tune the response and then tune the outer loop.
 |$\large{\boldsymbol{\phi}}$| Roll | $[-\pi,\pi)$ |
 |$\large{\boldsymbol{\theta}}$| Theta | $[-\pi,\pi)$ |
 |$\large{\boldsymbol{\psi}}$| Yaw | $[-\pi,\pi)$ |
-|$\large{h}$| Altitde |  |
+|$\large{\boldsymbol{h}}$| Altitude |  |
 |$\large{p}$| Roll Rate |  |
 |$\large{q}$| Pitch Rate |  |
 |$\large{r}$| Yaw Rate |  |
+|$\large{V_a}$| Airspeed |  |
 |$\large{\boldsymbol{\delta_i}}$| Command percent defelection of control surface $i$ | $[-1.0,1.0]$ |
 |$\large{\boldsymbol{e_a}}$| Error in state variable $a$ |
 |$\large{\boldsymbol{a^c}}$| Commanded value of state variable $a$ |
@@ -105,13 +106,15 @@ For mor information see the Yaw Damper page.
 The longitudinal autopilot controls the longitudinal dynamics of the aircraft.
 This means that the loop controls altitude, pitch and airspeed.
 
-### Altitde Loop
+### Altitude Loop
 
 The altitude loop utilizes successive loop closure to control altitude.
 It uses the elevator to control the pitch of the aircraft, and then controls using commanded pitch the altitude.
 This loop can track step and ramp commands.
 
-<!-- TODO Add diagram -->
+| ![Diagram of Altitude loop](../../assets/Altitude_control_loop.png "Altitude control loop diagram.") |
+|:--:|
+|*Figure 3: Altitude Control Loop*|
 
 #### Inner Loop
 
@@ -125,7 +128,7 @@ Like the inner loop of the course control, the derivative gain acts on the measu
 
 The outer loop is a PI loop.
 It uses the error in the altitude, $h$, and integral of the error of altitude to drive the error to zero for steps and for ramps.
-The commanded altitude is capped using a scheme described in the Altitde Loop page.
+The commanded altitude is capped using a scheme described in the Altitude Loop page.
 In practice, the altitude loop is often slower when the commanded altitude is descending and faster when ascending.
 This is because the airspeed is coupled to the altitude.
 While descending the controller will attempt to maintain airspeed.
@@ -139,7 +142,7 @@ It generates the required throttle, $\delta_t$, to acheive the commanded airspee
 This is suffecient because of the natural damping of the drag on the aircraft.
 In practice, the loop performs well, but is prone to small fluctuations (on the order of $\pm 1 \frac{m}{s}$) due to the differential pressure sensor fluctuating because of wind and other disturbances.
 
-| ![Diagram of Yaw Damper loop](../../assets/Airspeed_loop.png "Airspeed control loop.") |
+| ![Diagram of Airspeed loop](../../assets/Airspeed_loop.png "Airspeed control loop.") |
 |:--:|
 |*Figure 4: Airspeed using throttle control loop*|
 
