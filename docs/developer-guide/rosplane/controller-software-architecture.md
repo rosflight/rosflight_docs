@@ -20,11 +20,19 @@ Following the state machine is the actual control scheme.
 By default we use a successive loop closure scheme, `controller_successive_loop`.
 This layer calculates the control errors and necessary actuator deflections to track commands.
 
-<!-- TODO: add diagram for inheritance -->
+<center>
+
+| ![Diagram of Controller Inheritance](../../assets/Controller_classes.png "Controller Class Inheritance") |
+|:--:|
+|*Figure 1: Controller class inheritance structure.*|
+
+</center>
 
 ## Implementing A New Controller 
 
-<!-- TODO: add diagram for inheriting a new controller. -->
+| ![Diagram of Controller Implementation](../../assets/Implementing_new_controller.png "Options for Implementing New Controller") |
+|:--:|
+|*Figure 2: Options for implementing a new controller.*|
 
 The total energy controller in the `rosplane` package, shows in a practical way how to implement a new controller.
 This section is meant to only give a high level overview of how this can be done.
@@ -34,7 +42,7 @@ Consult the class pages for more information on where the best fit for your cont
 The next step is to define a new class that inherits from class you are changing.
 Override the functions of interest.
 Next if the inherited class is not at the bottom of the inheritance chain, you will have to modify (duplicate but only change the inheritance, this is to not break default behavior) the controller classes further down the chain to inherit from your class rather than the original.
-This is to avoid an multiple inheritance problem (inheritance diamond).
+This is to avoid a multiple inheritance problem (inheritance diamond).
 
 <!-- TODO: add screenshots of where to make changes. -->
 
