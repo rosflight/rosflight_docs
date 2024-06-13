@@ -28,6 +28,11 @@ This layer calculates the control errors and necessary actuator deflections to t
 
 </center>
 
+This scheme was chosen to limit code duplication.
+A composition structure would have resulted in code duplication between controllers.
+Guides on how and where to modify each part of this structure can be found on the respective pages in the Developer Guide.
+This page does go over the basics of how to implement a controller changes in terms of overall architecture.
+
 ## Implementing A New Controller 
 
 | ![Diagram of Controller Implementation](../../assets/Implementing_new_controller.png "Options for Implementing New Controller") |
