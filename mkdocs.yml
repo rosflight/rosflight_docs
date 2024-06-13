@@ -70,7 +70,7 @@ nav:
       - Unit Tests: developer-guide/firmware/unit-tests.md
       - Debugging: developer-guide/firmware/debugging.md
     - ROSplane:
-      - Default Controller Outline: developer-guide/rosplane/controller-outline.md
+      - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller-outline.md
       - Controller Software Architecture: developer-guide/rosplane/controller-software-architecture.md
 #    - ROS Packages:
 #    - ROSplane:
