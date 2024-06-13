@@ -30,8 +30,11 @@ Starting from the inner loops, tune the response and then tune the outer loop.
 |:------:|:-------:| :---: |
 |$\large{\boldsymbol{\chi}}$| Course/Heading | $[-\pi,\pi)$ |
 |$\large{\boldsymbol{\phi}}$| Roll | $[-\pi,\pi)$ |
+|$\large{\boldsymbol{\theta}}$| Theta | $[-\pi,\pi)$ |
 |$\large{\boldsymbol{\psi}}$| Yaw | $[-\pi,\pi)$ |
+|$\large{h}$| Altitde |  |
 |$\large{p}$| Roll Rate |  |
+|$\large{q}$| Pitch Rate |  |
 |$\large{r}$| Yaw Rate |  |
 |$\large{\boldsymbol{\delta_i}}$| Command percent defelection of control surface $i$ | $[-1.0,1.0]$ |
 |$\large{\boldsymbol{e_a}}$| Error in state variable $a$ |
@@ -96,3 +99,43 @@ For mor information see the Yaw Damper page.
 | ![Diagram of Yaw Damper loop](../../assets/yaw_damper_diag.png "Yaw damper control loop diagram.") |
 |:--:|
 |*Figure 2: Yaw Damper Control Loop*|
+
+## Longitudinal Autopilot
+
+The longitudinal autopilot controls the longitudinal dynamics of the aircraft.
+This means that the loop controls altitude, pitch and airspeed.
+
+### Altitde Loop
+
+The altitude loop utilizes successive loop closure to control altitude.
+It uses the elevator to control the pitch of the aircraft, and then controls using commanded pitch the altitude.
+This loop can track step and ramp commands.
+
+<!-- TODO Add diagram -->
+
+#### Inner Loop
+
+The inner loop controls the pitch, $\boldsymbol{\theta}$.
+It does so by calculating the necessary $\boldsymbol{\delta_e}$ to acheive the commanded pitch.
+This is a PD loop, this means that there is often a small DC offset to the commanded pitch.
+This does not affect the performance of the overall altitude loop.
+Like the inner loop of the course control, the derivative gain acts on the measured pitch rate rather than the error derivative.
+
+#### Outer Loop
+
+The outer loop is a PI loop.
+It uses the error in the altitude, $h$, and integral of the error of altitude to drive the error to zero for steps and for ramps.
+The commanded altitude is capped using a scheme described in the Altitde Loop page.
+In practice, the altitude loop is often slower when the commanded altitude is descending and faster when ascending.
+This is because the airspeed is coupled to the altitude.
+While descending the controller will attempt to maintain airspeed.
+This can also result in more overshoot while descending.
+
+### Airspeed Loop
+
+The Airspeed loop is a PI loop.
+It reacts to the straight forward error in commanded airspeed $V_a^c$ given by the waypoint mission.
+This is suffecient because of the natural damping of the drag on the aircraft.
+In practice, the loop performs well, but is prone to small fluctuations (on the order of $\pm 1 \frac{m}{s}$) due to the differential pressure sensor fluctuating because of wind and other disturbances.
+
+<!-- TODO Add diagram -->
