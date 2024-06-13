@@ -139,7 +139,9 @@ It generates the required throttle, $\delta_t$, to acheive the commanded airspee
 This is suffecient because of the natural damping of the drag on the aircraft.
 In practice, the loop performs well, but is prone to small fluctuations (on the order of $\pm 1 \frac{m}{s}$) due to the differential pressure sensor fluctuating because of wind and other disturbances.
 
-<!-- TODO Add diagram -->
+| ![Diagram of Yaw Damper loop](../../assets/Airspeed_loop.png "Airspeed control loop.") |
+|:--:|
+|*Figure 4: Airspeed using throttle control loop*|
 
 ## Controller Outputs
 
