@@ -135,7 +135,23 @@ This can also result in more overshoot while descending.
 
 The Airspeed loop is a PI loop.
 It reacts to the straight forward error in commanded airspeed $V_a^c$ given by the waypoint mission.
+It generates the required throttle, $\delta_t$, to acheive the commanded airspeed.
 This is suffecient because of the natural damping of the drag on the aircraft.
 In practice, the loop performs well, but is prone to small fluctuations (on the order of $\pm 1 \frac{m}{s}$) due to the differential pressure sensor fluctuating because of wind and other disturbances.
 
 <!-- TODO Add diagram -->
+
+## Controller Outputs
+
+What the entire controller outputs is a set of 4 control efforts that correspond to the 4 major control surfaces on the aircraft.
+These are the elevator, ailerons, rudder and the throttle.
+The controller can easily be switched to outputing up to 8 outputs, using the aux channels of the Commands Message.
+These outputs are fed directly to rosflight_io and then passed along to the microcontroller and finally actuated on the physical or simulated aircraft.
+The controller is the exposed portion of ROSplane to ROSflight.
+
+## Final Notes
+
+The controller does not directly control the position.
+In the ROSplane overview page, it shows how the Path Follower feeds into the controller.
+The Path Follwer generates commands that result in the position control of the aircraft.
+For a better understanding of this realtionship visit the Path Follower page.
