@@ -75,6 +75,7 @@ nav:
       - Controller Base: developer-guide/rosplane/controller-base.md
       - Controller State Machine: developer-guide/rosplane/controller-state-machine.md
       - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller-outline.md
+      - Parameter Management: developer-guide/rosplane/parameter-management.md
 #    - ROS Packages:
 #    - ROSplane:
 #    - ROScopter:
