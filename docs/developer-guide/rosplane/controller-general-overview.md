@@ -11,6 +11,10 @@ To gain the best understanding of the Controller and its role, read chapter 1 of
 
 ## Interfaces
 
+| ![Diagram of Controller ROS Interactions](../../assets/Controller_ROS.png "Controller ROS Interactions") |
+|:--:|
+|*Figure 1: Controller's ROS interactions.*|
+
 ### Input
 
 The controller receives controller commands using the ControllerCommands message on the `\controller_commands` topic from the `path_follower` node. 

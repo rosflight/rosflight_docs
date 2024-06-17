@@ -154,12 +154,37 @@ The controller can easily be switched to outputing up to 8 outputs, using the au
 These outputs are fed directly to rosflight_io and then passed along to the microcontroller and finally actuated on the physical or simulated aircraft.
 The controller is the exposed portion of ROSplane to ROSflight.
 
-## Final Notes
+## Important Notes
 
 The controller does not directly control the position.
 In the ROSplane overview page, it shows how the Path Follower feeds into the controller.
 The Path Follwer generates commands that result in the position control of the aircraft.
 For a better understanding of this realtionship visit the Path Follower page.
+
+## Software Architecture
+
+The Successive Loop Closure Controller (SLCC) inherits from the state machine class, (see [Software Architecture](./controller-software-architecture.md) for more details) and implements the state function for each of the states.
+This state function is then populated with the desired control during each phase of flight (see [State Machine](./controller-state-machine.md) for more details on control during each state).
+The state functions split control into longitudinal and lateral control, this allows for inheritance of this class an only override longitudinal or lateral control (see [Total Energy Control](./controller-outline.md) for an example of how this is done).
+
+| ![Code Snippet for State Function](../../assets/SLCC_code.png "Code Snippet of State Function") |
+|:--:|
+|*Figure 5: An example of an implementation of a state function, in this case the altitude hold state.*|
+
+The lateral and longitudinal control functions activate particular control loops necessary.
+
+
+| ![Code Snippet for a Control](../../assets/control_loop_example.png "Code Snippet for Lat/Long Control") |
+|:--:|
+|*Figure 6: An example of an implementation of a lateral and longitudinal control, in this case during the altitude hold state.*|
+
+Each control loop gets its own function and it follows a specific format.
+This format is pictured below, but a full outline is given in the .cpp file for the SLCC.
+Note all of the PID is implemented but the gains if not using a particular control (proportional/derivative/integral) are zero.
+
+| ![Code Snippet for a Control Loop](../../assets/control_loop_example.png "Code Snippet for a Control Loop") |
+|:--:|
+|*Figure 7: An example of an implementation of a control loop, in this case the roll loop (inner course loop).*|
 
 ## Parameters
 
