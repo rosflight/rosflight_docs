@@ -37,3 +37,21 @@ If the aircraft dips beneath the takeoff threshold, it will enter the takeoff st
 In altitude hold all control loops are closed normally. 
 The aircraft will fly the waypoint mission as normal.
 If the aircraft dips beneath the takeoff cutoff, the state transitions to takeoff again.
+
+## Code Architecture
+
+The state machine's architecture allows for different aspects of the control to be modified.
+It simply defines a virtual method to be implemented by a child that will control during the particular state the aircraft is in.
+The state method is implemented in the child, only using the controls necessary for that phase of flight (see the Architecture section of the [Successive Loop Closure](./controller-outline.md)).
+
+| ![Code for State Machine](../../assets/State_Machine_code.png "Controller State Machine Code") |
+|:--:|
+|*Figure 2: Code snippet from the state machine.*|
+
+## Parameters
+
+
+| Parameter | Explanation | Range |
+|:--:|:--:|:--:|
+| alt_toz | The altitude of the takeoff zone cutoff. | $\geq 0.0$ (double) |
+| alt_hz | The altitude command saturation limit, and difference required to transition into altitude hold. | $\geq 0.0$ (double) |
