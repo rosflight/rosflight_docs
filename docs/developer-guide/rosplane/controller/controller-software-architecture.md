@@ -22,7 +22,7 @@ This layer calculates the control errors and necessary actuator deflections to t
 
 <center>
 
-| ![Diagram of Controller Inheritance](../../assets/Controller_classes.png "Controller Class Inheritance") |
+| ![Diagram of Controller Inheritance](../../../assets/controller_assets/Controller_classes.png "Controller Class Inheritance") |
 |:--:|
 |*Figure 1: Controller class inheritance structure.*|
 
@@ -35,7 +35,7 @@ This page does go over the basics of how to implement a controller changes in te
 
 ## Implementing A New Controller 
 
-| ![Diagram of Controller Implementation](../../assets/Implementing_new_controller.png "Options for Implementing New Controller") |
+| ![Diagram of Controller Implementation](../../../assets/controller_assets/Implementing_new_controller.png "Options for Implementing New Controller") |
 |:--:|
 |*Figure 2: Options for implementing a new controller.*|
 
@@ -59,7 +59,7 @@ These edits are as follows:
 
 <center>
 
-| ![CMakeLists Controller Exe](../../assets/CMakeLists_controller.png "CMakeLists.txt controller executable location.") |
+| ![CMakeLists Controller Exe](../../../assets/controller_assets/CMakeLists_controller.png "CMakeLists.txt controller executable location.") |
 |:--:|
 |*Figure 3: Location in `CMakeLists.txt` to add the new controller's `.cpp` file(s).*|
 
@@ -69,7 +69,7 @@ These edits are as follows:
 
 <center>
 
-| ![Controller Base Include](../../assets/controller_base_include.png "Include in Controller Base") |
+| ![Controller Base Include](../../../assets/controller_assets/controller_base_include.png "Include in Controller Base") |
 |:--:|
 |*Figure 4: Location in `controller_base.cpp` to import new controller's header file.*|
 
@@ -79,7 +79,7 @@ These edits are as follows:
 
 <center>
 
-| ![Controller Base Main](../../assets/controller_base_main.png "Main in Controller Base") |
+| ![Controller Base Main](../../../assets/controller_assets/controller_base_main.png "Main in Controller Base") |
 |:--:|
 |*Figure 5: Location in `controller_base.cpp` to add option to select control type.*|
 

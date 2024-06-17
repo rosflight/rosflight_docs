@@ -70,11 +70,12 @@ nav:
       - Unit Tests: developer-guide/firmware/unit-tests.md
       - Debugging: developer-guide/firmware/debugging.md
     - ROSplane:
-      - General Controller Overview: developer-guide/rosplane/controller-general-overview.md
-      - Controller Software Architecture: developer-guide/rosplane/controller-software-architecture.md
-      - Controller Base: developer-guide/rosplane/controller-base.md
-      - Controller State Machine: developer-guide/rosplane/controller-state-machine.md
-      - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller-outline.md
+      - Controller:
+        - General Controller Overview: developer-guide/rosplane/controller/controller-general-overview.md
+        - Controller Software Architecture: developer-guide/rosplane/controller/controller-software-architecture.md
+        - Controller Base: developer-guide/rosplane/controller/controller-base.md
+        - Controller State Machine: developer-guide/rosplane/controller/controller-state-machine.md
+        - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller/controller-outline.md
       - Parameter Management: developer-guide/rosplane/parameter-management.md
 #    - ROS Packages:
 #    - ROSplane:

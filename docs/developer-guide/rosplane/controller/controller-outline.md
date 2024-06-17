@@ -61,7 +61,7 @@ Since the inner loop is tuned first and influences the outer loop tune, we will 
 <!-- TODO Add phi_ff to the mix -->
 <!-- TODO Fix typo in /chi on the left, should be /chi^c -->
 
-| ![Diagram of Lateral-directional Autopilot control loop](../../assets/figure_6_5.png "Lateral-directional Autopilot Control Loop") |
+| ![Diagram of Lateral-directional Autopilot control loop](../../../assets/controller_assets/figure_6_5.png "Lateral-directional Autopilot Control Loop") |
 |:--:|
 |*Figure 1: Lateral-directional Autopilot Control Loop*|
 
@@ -97,7 +97,7 @@ A washout filter is used to only damp high frequency yaw rates.
 In effect, this control only 'turns on' if the frequency of the yaw rate is high enough.
 For mor information see the Yaw Damper page.
 
-| ![Diagram of Yaw Damper loop](../../assets/yaw_damper_diag.png "Yaw damper control loop diagram.") |
+| ![Diagram of Yaw Damper loop](../../../assets/controller_assets/yaw_damper_diag.png "Yaw damper control loop diagram.") |
 |:--:|
 |*Figure 2: Yaw Damper Control Loop*|
 
@@ -112,7 +112,7 @@ The altitude loop utilizes successive loop closure to control altitude.
 It uses the elevator to control the pitch of the aircraft, and then controls using commanded pitch the altitude.
 This loop can track step and ramp commands.
 
-| ![Diagram of Altitude loop](../../assets/Altitude_control_loop.png "Altitude control loop diagram.") |
+| ![Diagram of Altitude loop](../../../assets/controller_assets/Altitude_control_loop.png "Altitude control loop diagram.") |
 |:--:|
 |*Figure 3: Altitude Control Loop*|
 
@@ -142,7 +142,7 @@ It generates the required throttle, $\delta_t$, to acheive the commanded airspee
 This is suffecient because of the natural damping of the drag on the aircraft.
 In practice, the loop performs well, but is prone to small fluctuations (on the order of $\pm 1 \frac{m}{s}$) due to the differential pressure sensor fluctuating because of wind and other disturbances.
 
-| ![Diagram of Airspeed loop](../../assets/Airspeed_loop.png "Airspeed control loop.") |
+| ![Diagram of Airspeed loop](../../../assets/controller_assets/Airspeed_loop.png "Airspeed control loop.") |
 |:--:|
 |*Figure 4: Airspeed using throttle control loop*|
 
@@ -167,14 +167,14 @@ The Successive Loop Closure Controller (SLCC) inherits from the state machine cl
 This state function is then populated with the desired control during each phase of flight (see [State Machine](./controller-state-machine.md) for more details on control during each state).
 The state functions split control into longitudinal and lateral control, this allows for inheritance of this class an only override longitudinal or lateral control (see [Total Energy Control](./controller-outline.md) for an example of how this is done).
 
-| ![Code Snippet for State Function](../../assets/SLCC_code.png "Code Snippet of State Function") |
+| ![Code Snippet for State Function](../../../assets/controller_assets/SLCC_code.png "Code Snippet of State Function") |
 |:--:|
 |*Figure 5: An example of an implementation of a state function, in this case the altitude hold state.*|
 
 The lateral and longitudinal control functions activate particular control loops necessary.
 
 
-| ![Code Snippet for a Control](../../assets/control_loop_example.png "Code Snippet for Lat/Long Control") |
+| ![Code Snippet for a Control](../../../assets/controller_assets/control_loop_example.png "Code Snippet for Lat/Long Control") |
 |:--:|
 |*Figure 6: An example of an implementation of a lateral and longitudinal control, in this case during the altitude hold state.*|
 
@@ -182,7 +182,7 @@ Each control loop gets its own function and it follows a specific format.
 This format is pictured below, but a full outline is given in the .cpp file for the SLCC.
 Note all of the PID is implemented but the gains if not using a particular control (proportional/derivative/integral) are zero.
 
-| ![Code Snippet for a Control Loop](../../assets/control_loop_example.png "Code Snippet for a Control Loop") |
+| ![Code Snippet for a Control Loop](../../../assets/controller_assets/control_loop_example.png "Code Snippet for a Control Loop") |
 |:--:|
 |*Figure 7: An example of an implementation of a control loop, in this case the roll loop (inner course loop).*|
 

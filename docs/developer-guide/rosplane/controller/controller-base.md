@@ -10,7 +10,7 @@ The idea of the base class, is that all interfacing with ROS and shared resource
 
 The controller base has the following ROS interactions.
 
-| ![Diagram of Controller ROS Interactions](../../assets/Controller_ROS.png "Controller ROS Interactions") |
+| ![Diagram of Controller ROS Interactions](../../../assets/controller_assets/Controller_ROS.png "Controller ROS Interactions") |
 |:--:|
 |*Figure 1: Controller's ROS interactions.*|
 
@@ -29,8 +29,7 @@ Note, the command message is from the `rosflight_msgs` package.
 
 ## Parameter Management
 
-<!-- TODO: add info about parameter manager. -->
-See the Parameter Management page for more details on how parameter management works.
+See the [Parameter Management](../parameter-management.md) page for more details on how parameter management works.
 
 ### List of Parameters
 

@@ -8,7 +8,7 @@ In the default implementation this is controlled based on the aircraft's altitud
 Though, in practice these states could be effected by any input from a ROS topic.
 The states are pictured below, and the differences in state are explored in the next section.
 
-| ![Diagram of Controller State Machine]( "Controller State Machine") |
+| ![Diagram of Controller State Machine](../../../assets/controller_assets/Controller_state_machine.png "Controller State Machine") |
 |:--:|
 |*Figure 1: Controller state machine.*|
 
@@ -44,7 +44,7 @@ The state machine's architecture allows for different aspects of the control to 
 It simply defines a virtual method to be implemented by a child that will control during the particular state the aircraft is in.
 The state method is implemented in the child, only using the controls necessary for that phase of flight (see the Architecture section of the [Successive Loop Closure](./controller-outline.md)).
 
-| ![Code for State Machine](../../assets/controller_assets/State_Machine_code.png "Controller State Machine Code") |
+| ![Code for State Machine](../../../assets/controller_assets/State_Machine_code.png "Controller State Machine Code") |
 |:--:|
 |*Figure 2: Code snippet from the state machine.*|
 
