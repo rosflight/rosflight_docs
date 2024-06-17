@@ -160,3 +160,39 @@ The controller does not directly control the position.
 In the ROSplane overview page, it shows how the Path Follower feeds into the controller.
 The Path Follwer generates commands that result in the position control of the aircraft.
 For a better understanding of this realtionship visit the Path Follower page.
+
+## Parameters
+
+These values are typically held in a .yaml file.
+For the default values, check the .cpp file.
+
+| Parameter | Explanation | Range |
+|:--:|:--:|:--:|
+| max_takeoff_throttle | Trottle saturation level during the takeoff zone. | $(0.0, 1.0)$ (double) |
+| c_kp | The proportional gain on the outer course loop. | $\geq 0.0$ (double) |
+| c_kd | The derivative gain on the outer course loop. | $\leq 0.0$ (double) |
+| c_ki | The integral gain on the outer course loop. | $\geq 0.0$ (double) |
+| max_roll | Commanded roll saturation limit. | $\geq 0.0$ (double)(degrees) |
+| cmd_takeoff_pitch | Commanded pitch while in takeoff state. | $\geq 0.0$ (double)(degrees) |
+| r_kp | The proportional gain on the inner course loop. | $\geq 0.0$ (double) |
+| r_kd | The derivative gain on the inner course loop. | $\geq 0.0$ (double) |
+| r_ki | The integral gain on the inner course loop. | $\geq 0.0$ (double) |
+| max_a | Saturation limit for the ailerons| $\geq 0.0$ (double) |
+| trim_a | Trim value for the ailerons. | $\geq 0.0$ (double) |
+| a_kp | The proportional gain on the outer altitude loop. | $\geq 0.0$ (double) |
+| a_kd | The derivative gain on the outer altitude loop. | $\geq 0.0$ (double) |
+| a_ki | The integral gain on the outer altitude loop. | $\geq 0.0$ (double) |
+| max_pitch | Commanded pitch saturation limit. | $\geq 0.0$ (double)(degrees) |
+| p_kp | The proportional gain on the inner altitude loop. | $\leq 0.0$ (double) |
+| p_kd | The derivative gain on the inner altitude loop. | $\leq 0.0$ (double) |
+| p_ki | The integral gain on the inner altitude loop. | $\leq 0.0$ (double) |
+| max_e | Saturation limit for the elevator| $\geq 0.0$ (double) |
+| trim_e | Trim value for the elevator. | $\geq 0.0$ (double) |
+| y_pwo | The yaw damper washout filter cutoff frequency. | $\leq 0.0$ (double)(radians/s) |
+| y_kr | Control gain on yaw damper. | $\leq 0.0$ (double) |
+| a_t_kp | The proportional gain on the airspeed loop. | $\geq 0.0$ (double) |
+| a_t_kd | The derivative gain on the airspeed loop. | $\geq 0.0$ (double) |
+| a_t_ki | The integral gain on the airspeed loop. | $\geq 0.0$ (double) |
+| max_t | Saturation limit for the throttle. | $\geq 0.0$ (double) |
+| trim_t | Trim value for the throttle. | $\geq 0.0$ (double) |
+| tau | Dirty derivative low pass filter gain for airspeed. | $\geq 0.0$ (double) |
