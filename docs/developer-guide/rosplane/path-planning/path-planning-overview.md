@@ -4,6 +4,11 @@ The path planning methods used in ROSplane is modeled after the architecture pre
 
 In their work, the path planning functionality of the aircraft is split into three main parts, as shown in Figure 1.
 
+!!! note
+    This is not a full description of the architecture.
+    For example, the state estimator is not shown, and not all of the inputs to each of the blocks is included.
+    These elements were removed from the figure for clarity.
+
 | ![Diagram of Path Planning Architecture](../../../assets/path_planner_assets/path-planning-overview.svg "Path Planning Architecture") |
 | :--: |
 |*Figure 1: Path planning architecture - based on Figure 1.1 in* Small Unmanned Aircraft: Theory and Practice|
@@ -13,7 +18,7 @@ The path planner's job is to manage, create, and publish waypoints.
 Those waypoints are published to the *path manager* node.
 The path manager's job is to determine and calculate the appropriate line segments and orbits needed to complete the waypoints.
 The path manager then publishes these straight lines and waypoints to the *path follower*. 
-The job of the path follower is to control the course of the aircraft to follow these lines and orbits.
+The job of the path follower is to control the course, airspeed, and altitude of the aircraft to follow these lines and orbits.
 
 For more information on each of these nodes, see the related documentation pages for the [path planner](./path-planner.md), the [path manager](./path-manager.md), and the [path follower](./path-follower.md).
 See also chapters 10-13 of the *Small Unmanned Aircraft: Theory and Practice* book.
