@@ -25,7 +25,8 @@ Each of the callbacks for the subscribers are also contained in `controller_base
 | <div style="white-space: nowrap;">`controller_commands_sub_`<div> | `/controller_commands` | Subscribes to the commands for the controller. | ControllerCommands.msg |
 | <div style="white-space: nowrap;">`vehicle_state_sub_`<div> | `/estimated_state` | Subscribes to the estimated state of the aircraft. | State.msg |
 
-Note, the command message is from the `rosflight_msgs` package.
+!!! note 
+    The command message is from the `rosflight_msgs` package not the `rosplane_msgs` package.
 
 ## Parameter Management
 

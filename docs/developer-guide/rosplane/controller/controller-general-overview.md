@@ -32,9 +32,11 @@ This set of commands are outlined below, along with a short explanation of each.
 
 The controller uses these targets to control the aircraft.
 This drives the aircraft to approach and follow the path as the path_follower commands.
-Note, poor path performance may be due to controller or the path follower, see the Tuning Guide in the User Guide section for more details.
 See the Path Follower page for more information.
 See the Successive Loop Closure Controller Outline for more information on how these commands are used specifically.
+
+!!! note 
+    Poor path performance may be due to controller or the path follower, see the Tuning Guide in the User Guide section for more details.
 
 ### Output
 
@@ -54,8 +56,9 @@ A summary of the parts of the command message are as follows.
 | f | Throttle Command | Percent of full throttle [0.0, 1.0] (float) |
 
 These are passed to `rosflight_io`, which formats them into MAVLink messages and forwards them onto the FCU.
-Note, for this to work the parameters on the `rosflight_firmware` must be set to work for an airplane.
-See the User Guide on first time start up or README.md for the repository for more details on firmware setup.
+!!! note 
+    For this to work the parameters on the `rosflight_firmware` must be set to work for an airplane.
+    See the User Guide on first time start up or README.md for the repository for more details on firmware setup.
 
 ## Running the Controller
 
@@ -77,9 +80,11 @@ Putting it all together,
 `ros2 run rosplane rosplane_controller control_type --ros-args --params-file path/to/params.yaml`
 
 A table of arguments and parameter files that work out of the box is given in the following table.
-Note that paths may need to be altered to work.
-Also note that the most common way of running the controller is in through a launch file with the rest of the ROSplane pipeline running as well.
-See the ROSplane Overview in the Developer and User Guides for more details.
+!!! note 
+    Filepaths will need to be altered to work.
+!!! note
+    The most common way of running the controller is in through a launch file with the rest of the ROSplane pipeline running as well.
+    See the ROSplane Overview in the Developer and User Guides for more details.
 
 
 | Argument | Explanation | Values |
