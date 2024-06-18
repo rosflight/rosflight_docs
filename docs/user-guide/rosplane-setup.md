@@ -154,7 +154,7 @@ The waypoints of a mission are controlled by the `path_planner` node.
 These waypoints are sent to the `path_manager` node.
 Low level path-following is done by the `path_follower` node.
 See "Small Unmanned Aircraft: Theory and Practice" by Dr. Randy Beard and Dr. Tim McLain for more information on the architecture.
-See [Path Planning](../developer-guide/rosplane/path-planning.md) for more information on how to use and tune the path planner, manager, and follower.
+See [Path Planning](../developer-guide/rosplane/path-planning/path-planning-overview.md) for more information on how to use and tune the path planner, manager, and follower.
 
 ### Adding waypoints
 
