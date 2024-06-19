@@ -7,7 +7,7 @@ In their work, the path planning functionality of the aircraft is split into thr
 !!! note
     This is not a full description of the architecture.
     For example, the state estimator is not shown, and not all of the inputs to each of the blocks is included.
-    These elements were removed from the figure for clarity.
+    These elements were removed from the figure for simplicity.
 
 | ![Diagram of Path Planning Architecture](../../../assets/path_planner_assets/path-planning-overview.svg "Path Planning Architecture") |
 | :--: |

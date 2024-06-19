@@ -74,4 +74,4 @@ If the aircraft is pointing slightly right as it approaches the waypoint, it wil
 Changes or additions to any ROS2 interfaces should be done in the `path_manager_base` field.
 
 Changes to how `path_manager` "manages" the waypoints should be done by overriding the `path_manager_base::manage` method.
-If you wish to change the way paths are defined, make sure that the `/current_path` topic is rewritten to contain the required information.
+If you wish to change the way paths are defined, make sure that the `/current_path` topic is rewritten to contain the required information, and then make sure the `path_follower` knows how to handle the new definition.
