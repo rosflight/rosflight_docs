@@ -77,6 +77,10 @@ nav:
         - Controller State Machine: developer-guide/rosplane/controller/controller-state-machine.md
         - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller/controller-outline.md
         - Total Energy Controller: developer-guide/rosplane/controller/controller-total-energy.md
+      - Estimator:
+        - Estimator Overview: developer-guide/rosplane/estimator/estimator-overview.md
+        - Estimator Base: developer-guide/rosplane/estimator/estimator-base.md
+        - Estimator Example: developer-guide/rosplane/estimator/estimator-example.md
       - Parameter Management: developer-guide/rosplane/parameter-management.md
       - Path Planning: 
         - Path Planning Overview: developer-guide/rosplane/path-planning/path-planning-overview.md

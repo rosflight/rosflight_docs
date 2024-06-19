@@ -83,7 +83,7 @@ A table of arguments and parameter files that work out of the box is given in th
 !!! note 
     Filepaths will need to be altered to work.
 !!! note
-    The most common way of running the controller is in through a launch file with the rest of the ROSplane pipeline running as well.
+    The most common way of running the controller is through a launch file with the rest of the ROSplane pipeline running as well.
     See the ROSplane Overview in the Developer and User Guides for more details.
 
 
