@@ -26,3 +26,16 @@ They are summarized in the table below:
 | <div style="white-space: nowrap;">`baro_sub_`<div> | `/baro` | Subcribes to the barometer pressure information. | Barometer.msg |
 | <div style="white-space: nowrap;">`airspeed_sub_`<div> | `/airspeed` | Subcribes to the differential pressure information. | Airspeed.msg |
 | <div style="white-space: nowrap;">`status_sub_`<div> | `/status` | Subcribes to the aircraft status information. | Status.msg |
+
+!!! note 
+    The NavSatFix, TwistStamped and Imu messages are from standard ROS message packages. Barometer, Airspeed and Status messages are from `rosflight_msgs`.
+
+## Parameters
+
+Update when all estimator params are implemented.
+
+## Modifying the Estimator
+
+Update when full state estimator and continuous-discrete are both implemented and a swap between them works.
+
+
