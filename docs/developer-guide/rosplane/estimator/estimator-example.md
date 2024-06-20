@@ -339,3 +339,6 @@ Next, replace `estimator_example.cpp` in the `CMakeLists.txt` with the newly cre
 |:--:|
 |*Figure 1: The location to replace the file for the new estimator file.*|
 
+## Parameters
+
+Add Parameters when the estimator param update is complete.
