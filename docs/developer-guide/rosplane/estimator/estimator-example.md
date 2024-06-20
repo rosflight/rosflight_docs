@@ -13,13 +13,16 @@ The other states are then estimated as a all at once.
 This is called the position estimation step, though more than just position is estimated during this step.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
 
-<!-- TODO: add full vector of states and explain them (especially the psuedo measurements) -->
+The estimator makes large use of something called a pseudo-measurements.
+These measures assume that the side slip angle is zero and the corresponding wind triangle solution.
+This allows us to take these measures and then find the wind in the north and east directions along with the yaw of the aircraft.
+They are more fully explored in section 8.11.4 of the UAV book.
 
 ## Nomenclature
 
 | Symbol | Meaning | Range |
 |:------:|:-------:| :---: |
-|$\large{\chi}$| Course/Heading | $[-\pi,\pi)$ |
+|$\large{\chi}$| Course | $[-\pi,\pi)$ |
 |$\large{\phi}$| Roll | $[-\pi,\pi)$ |
 |$\large{\theta}$| Theta | $[-\pi,\pi)$ |
 |$\large{\psi}$| Yaw | $[-\pi,\pi)$ |
@@ -28,6 +31,8 @@ The estimator runs on a set timer with a configurable frequency (see Parameters 
 |$\large{q}$| Pitch Rate | - |
 |$\large{r}$| Yaw Rate | - |
 |$\large{V_a}$| Airspeed | $\geq 0$ |
+|$\large{w_n}$| Wind North | - |
+|$\large{w_e}$| Wind East | - |
 
 ## Sensor Model Inversion
 
@@ -287,9 +292,9 @@ The measurement noise matrix, $R_{position}$, is defined as:
         0 & \sigma_{gps, e}^2 & 0 & 0 & 0 & 0 & 0 \\
         0 & 0 & \sigma_{gps, V_g}^2 & 0 & 0 & 0 & 0 \\
         0 & 0 & 0 & \sigma_{gps, \chi}^2 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 0 & \sigma_{psuedo, w_n}^2 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 0 & \sigma_{psuedo, w_n}^2 & 0 \\
-        0 & 0 & 0 & 0 & 0 & 0 & \sigma_{psuedo, \psi}^2 \\
+        0 & 0 & 0 & 0 & \sigma_{pseudo, w_n}^2 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & \sigma_{pseudo, w_n}^2 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & \sigma_{pseudo, \psi}^2 \\
     \end{bmatrix}
 \end{equation}
 
