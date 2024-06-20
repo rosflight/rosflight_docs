@@ -13,6 +13,8 @@ The other states are then estimated as a all at once.
 This is called the position estimation step, though more than just position is estimated during this step.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
 
+<!-- TODO: add full vector of states and explain them (especially the psuedo measurements) -->
+
 ## Nomenclature
 
 | Symbol | Meaning | Range |
@@ -109,9 +111,20 @@ With this propagated estimate and covariance we are now ready for a measurement 
 A measurement update provides a check on our propagated estimate and we take this new information and fuse it into our estimate.
 The Kalman filter allows us to optimally adjust our estimate, our tuned process noises, and the noise characteristics of our sensor given the measurement.
 These noise characteristics are captured in a diagonal matrix, $R_{sensor}$.
+The entries are the variances and for the attitude step this is defined as:
+
+\begin{equation}
+    R_{accel} = 
+    \begin{bmatrix}
+        \sigma_{accel, x}^2 & 0 & 0 \\
+        0 & \sigma_{accel, y}^2 & 0 \\
+        0 & 0 & \sigma_{accel, z}^2 \\
+    \end{bmatrix}
+\end{equation}
 
 Using our estimate and a model set of equations $h$, we predict the measurements the accelerometer will produce.
 We will then compare the actual and predicted measurements and optimally adjust our estimate with the new information.
+Since measurements come in much faster than the model propagates the measurement step is run every time the propagated estimate is calculated.
 The set of equations, $h$, that predict the 3 measurements of the accelerometer, $y$, is given by:
 
 \begin{equation}
@@ -225,3 +238,84 @@ $$P_a = A_d P A_d^\top + Q \frac{T_s^2}{N^2}$$
 With this propagated estimate and covariance we are now ready for a measurement update.
 
 ### Measurement Update
+
+<!-- TODO: update the documentation when the position step is refactored to happen all at once. -->
+
+Because the GPS measures come in slower than the model propagates, the measurement step is only run when their is new GPS information.
+This process is identical to the measurement update in the attitude step.
+This will likely change before release, but the only difference is that it is done one measurement at a time.
+This has advantages for querying the values while debugging, but is on the whole less clear and is more error prone.
+The math is the same but it is carried through, and expressed as the final sum and each row calculated separately.
+
+The measurement model, $h$ has only 6 entries instead of 7 since heading, $\psi$ is not measured.
+A digital compass could be added and $h$ and $C$ expanded if desired, but control is operated on course, $\chi$, so this proves largely unnecessary.
+
+\begin{equation}
+    h = 
+    \begin{bmatrix}
+        p_n \\
+        p_e \\
+        V_g \\
+        \chi \\
+        V_a \cos{\psi} + w_n - V_g \cos{\chi} \\
+        V_a \sin{\psi} + w_e - V_g \sin{\chi} \\
+    \end{bmatrix}
+\end{equation}
+
+This yields a Jacobian $C$:
+
+\begin{equation}
+    C = 
+    \begin{bmatrix}
+        1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & -\cos{\chi} & V_g\sin{\chi} & 1 & 0 & -V_a\sin{\psi} \\
+        0 & 0 & -\sin{\chi} & -V_g\cos{\chi} & 0 & 1 & V_a\cos{\psi} \\
+    \end{bmatrix}
+\end{equation}
+
+Which is used in finding the Kalman gain $L$.
+
+The measurement noise matrix, $R_{position}$, is defined as:
+
+\begin{equation}
+    R_{position} = 
+    \begin{bmatrix}
+        \sigma_{gps, n}^2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & \sigma_{gps, e}^2 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & \sigma_{gps, V_g}^2 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & \sigma_{gps, \chi}^2 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & \sigma_{psuedo, w_n}^2 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & \sigma_{psuedo, w_n}^2 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & \sigma_{psuedo, \psi}^2 \\
+    \end{bmatrix}
+\end{equation}
+
+An intermediate value is calculated called $S^{-1}$.
+This value is:
+
+\begin{equation}
+    S^{-1} = (R_{position} + CPC^\top)^{-1}
+\end{equation}
+
+This intermediate value is then used to find $L$:
+
+\begin{equation}
+    L = PC^\top S^{-1}
+\end{equation}
+
+The optimal estimate is then found:
+
+\begin{equation}
+    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
+\end{equation}
+
+Finally, we update the covariance from our new estimate:
+
+\begin{equation}
+    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
+\end{equation}
+
+We repeat this cycle until termination of the program.
