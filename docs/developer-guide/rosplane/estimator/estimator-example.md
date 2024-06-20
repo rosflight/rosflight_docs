@@ -324,3 +324,18 @@ Finally, we update the covariance from our new estimate:
 \end{equation}
 
 We repeat this cycle until termination of the program.
+
+## Software Architecture
+
+To replace the estimator all that needs to be done is inherit from the `estimator_base` class and override the `estimate` method, as described in the .hpp file.
+
+| ![Estimator Override Function](../../../assets/estimator_assets/estimator_override_function.png "Estimator Override Function") |
+|:--:|
+|*Figure 1: The member method that must be overriden to use a new estimator.*|
+
+Next, replace `estimator_example.cpp` in the `CMakeLists.txt` with the newly created estimator file.
+
+| ![Estimator CMake Change Location](../../../assets/estimator_assets/estimator_cmake.png "Estimator CMake Change Location") |
+|:--:|
+|*Figure 1: The location to replace the file for the new estimator file.*|
+
