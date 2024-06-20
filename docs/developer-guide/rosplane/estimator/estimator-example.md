@@ -5,6 +5,7 @@
 ## Overview
 
 The `estimator_example` class implements a continuous-discrete Kalman filter as described in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public) or 8.6 and 8.7 of volume one of the same book.
+Specifically this is using algorithm 2 of chapter 8 in Volume 1.
 It utilizes a two stage estimation process along with low pass filtering the inversion of a few sensor models and direct measures.
 The roll and pitch of the aircraft are estimated first, this is called the attitude estimation step though not all of the attitude is estimated here.
 The other states are then estimated as a whole, this is called the position estimation step, though more than position is estimated during this step.
@@ -51,6 +52,10 @@ These values are then used in the first step of the estimator.
 
 ## Attitude Estimation
 
+The first step in estimating the attitude is understanding how we propagate our guess between measurements.
+Our estimates are on roll angle, $\phi$, and on pitch angle, $\theta$.
+These estimates are part of the state $\hat{x}_a$, where the hat over the variable indicates an estimate.
+
 ### Propagation
 
 At each call of the estimation algorithm, the estimate from the previous time step is propagated to the next time step.
@@ -88,5 +93,71 @@ Where `Ts` is the time step between measurement updates.
 With this propagated estimate and covariance we are now ready for a measurement update.
 
 ### Measurement Update
+
+A measurement update provides a check on our estimate and we take this new information and fuse it into our estimate.
+The Kalman filter allows us to optimally adjust our estimate given the measurement, our tuned process noises and the noise characteristics of our sensor.
+These noise characteristics are captured in a diagonal matrix, $R_{sensor}$.
+
+Using our estimate and a model set of equations $h$, we predict the measurements the accelerometer will produce.
+We will then compare the actual and predicted measures and adjust our estimate optimally to the new information.
+The set of equations, $h$, that predict the 3 measurements of the accelerometer, $y$, is given by:
+
+\begin{equation}
+    h = 
+    \begin{bmatrix}
+        q V_a \sin{\theta} + g \sin{\theta} \\
+        r V_a \cos{\theta} - p V_a \sin{\theta} - g \cos{\theta} \sin{\phi} \\
+        -q V_a \cos{\theta} - g \cos{\theta} \cos{\phi} \\
+    \end{bmatrix}
+\end{equation}
+
+This yields a Jacobian $C$:
+
+\begin{equation}
+    C = 
+    \begin{bmatrix}
+        0 & q V_a \cos{\theta} + g \cos{\theta} \\
+        -g \cos{\phi}\cos{\theta} & -r V_a \sin{\theta} - p V_a \cos{\theta} + g \sin{\phi} \sin{theta} \\
+        g \sin{\phi}\cos{\theta} & (q V_a + g \cos{\phi}) \sin{\theta}
+    \end{bmatrix}
+\end{equation}
+
+Which is used in finding the Kalman gain $L$.
+An intermediate value is calculated called d $S^{-1}$.
+This value is:
+
+\begin{equation}
+    S^{-1} = (R_{accel} + CPC^\top)^{-1}
+\end{equation}
+
+This intermediate value is then used to find $L$:
+
+\begin{equation}
+    L = PC^\top S^{-1}
+\end{equation}
+
+The optimum estimate is then found:
+
+\begin{equation}
+    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
+\end{equation}
+
+Finally, we update the covariance from our new estimate:
+
+\begin{equation}
+    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
+\end{equation}
+
+We repeat this cycle until termination of the program.
+This estimation scheme split into two parts allows for a clear set of equations and how the estimates affect one another.
+We will now move on to the next portion of the estimator that estimates the rest of the states.
+
+## Position Estimation
+
+The position estimation step follows the same algorithm as previous.
+Only new values are used for each of the matrices.
+Those new entries are shown here, but reference the previous section for details on implementation.
+
+### Propagation
 
 
