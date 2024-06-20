@@ -61,7 +61,7 @@ These estimates are part of the state $\hat{x}_a$, where the hat over the variab
 ### Propagation
 
 At each call of the estimation algorithm, the estimate from the previous time step is propagated to the next time step.
-The propagation step is broken up into `N_` smaller steps to yield an estimate for the current time step.
+The propagation step is broken up into $N$ smaller steps to yield an estimate for the current time step.
 $N$ is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps instead of a single step to calculate the estimate at the current time step.
 The length of each of the $N$ steps is 1/$N$ the original time step.
 
@@ -172,4 +172,56 @@ Those new entries are shown here, but reference the previous section for details
 
 ### Propagation
 
+The attitude estimation is propagated according to the model $f$:
 
+\begin{equation}
+    f =
+    \begin{bmatrix}
+        V_g \cos{\chi} \\
+        V_g \sin{\chi} \\
+        \dot{V_g} \\
+        0 \\
+        0 \\
+        \dot{\psi} \\
+    \end{bmatrix}
+\end{equation}
+
+Where,
+
+\begin{equation}
+    \dot{\psi} = q \sin{\phi} + r \frac{\cos{\phi}}{\cos{\theta}} \\
+    \dot{V_g} = \frac{V_a}{V_g} \dot{\psi} (w_e \cos{\psi} - w_n \sin{\psi})
+\end{equation}
+
+This propagated estimate is then used in the calculation of the Jacobian $A$.
+
+\begin{equation}
+    A =
+    \begin{bmatrix}
+        0 & 0 & \cos{\chi} & -V_g \sin{\chi} & 0 & 0 & 0 \\
+        0 & 0 & \sin{\chi} & V_g \cos{\chi} & 0 & 0 & 0 \\
+        0 & 0 & -\frac{\dot{V_g}}{V_g} & 0 & -\dot{\psi} V_a \frac{\sin{\psi}}{V_g} & \dot{\psi} V_a \frac{\cos{\psi}}{V_g} & -\dot{\psi} V_a (w_n \cos{\psi} + w_e \sin{\psi}) \\
+        0 & 0 & -\frac{g}{V_g^2} \tan{\phi} & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \end{bmatrix}
+\end{equation}
+
+This Jacobian is then used to find a second-order approximation of the matrix exponential, $A_d$.
+
+\begin{equation}
+    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
+\end{equation}
+
+Where $T_s$ is the length of a time step.
+$A_d$ is then used to propagate the actual covariance of the estimate.
+
+The process noise due to model uncertainty is defined in the matrix $Q$ and is fused into the covariance.
+This is done by the following equation:
+
+$$P_a = A_d P A_d^\top + Q \frac{T_s^2}{N^2}$$
+
+With this propagated estimate and covariance we are now ready for a measurement update.
+
+### Measurement Update
