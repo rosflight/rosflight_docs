@@ -29,7 +29,7 @@ The table with the topic for each of the measures is below.
 | Differential Pressure | The differential pressure sensor, measures the difference in pressure using a pitot tube due to forward velocity. | `/airspeed/differential_pressure` |
 | GNSS Position | GNSS postion gives the position of the aircraft in latitude, longitude and altitude. | `/navsat_compat/fix` |
 | GNSS Velocity | GNSS velocity gives the velocity of the aircraft in meters per second in the global NED frame. | `/navsat_compat/vel` |
-| Status | Indicates whether the aircraft is armed (indicating a need to initialized position and altitude estimates). | `/status` |
+| Status | Indicates whether the aircraft is armed (indicating a need to initialize position and altitude estimates). | `/status` |
 
 These topics provide the measures that are fused to create a state estimate.
 
@@ -39,10 +39,10 @@ These topics provide the measures that are fused to create a state estimate.
 
 ## Output
 
-Their are 20 states estimated by the estimator that are published to the rest of ROSplane.
+There are 20 states estimated by the estimator that are published to the rest of ROSplane.
 These states cover the position, orientation and aerodynamic information for the aircraft.
-There are more than 20 states listed in the following table, but this is because either Euler angles or quaternions can be used to express orientation.
 Below is a table of the `/estimated_state` message and what each of the fields represents.
+Note that there are more than 20 states listed in the following table, but this is because either Euler angles or quaternions can be used to express orientation.
 See the Frames and Derivation page for more information, or chapter 2 of the [UAV book](https://github.com/randybeard/mavsim_public).
 
 | State | Explanation | Range/Type/Units |

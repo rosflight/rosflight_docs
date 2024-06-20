@@ -5,10 +5,13 @@
 ## Overview
 
 The `estimator_example` class implements a continuous-discrete Kalman filter as described in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public) or 8.6 and 8.7 of volume one of the same book.
-Specifically this is using algorithm 2 of chapter 8 in Volume 1.
-It utilizes a two stage estimation process along with low pass filtering the inversion of a few sensor models and direct measures.
-The roll and pitch of the aircraft are estimated first, this is called the attitude estimation step though not all of the attitude is estimated here.
-The other states are then estimated as a whole, this is called the position estimation step, though more than position is estimated during this step.
+Specifically, this estimator uses algorithm 2 of chapter 8 in Volume 1.
+It utilizes a two stage estimation process along with low pass filtering the inversion of a few sensor models and direct measurements.
+The roll and pitch of the aircraft are estimated first.
+This is called the attitude estimation step though not all of the attitude is estimated here.
+<!-- Not sure what "as a whole" exactly means here... "All at once" maybe?  -->
+The other states are then estimated as a whole.
+This is called the position estimation step, though more than just position is estimated during this step.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
 
 ## Nomenclature
@@ -59,8 +62,10 @@ These estimates are part of the state $\hat{x}_a$, where the hat over the variab
 ### Propagation
 
 At each call of the estimation algorithm, the estimate from the previous time step is propagated to the next time step.
-It is propagated a number of times, `N_`, to yield and estimate for the current time step.
-`N_` is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps to get what the estimate at the current time step.
+The propagation step is broken up into `N_` smaller steps to yield an estimate for the current time step.
+`N_` is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps instead of a single step to calculate the estimate at the current time step.
+The length of each of the `N_` steps is 1/`N_` the original time step.
+
 The attitude estimation is propagated according to the equations:
 
 $$
@@ -81,9 +86,9 @@ The Jacobian matrix, `A_a_` is:
 This Jacobian is then used to find a second-order approximation of the matrix exponential, `A_d_`.
 `A_d_` is then used to propagate the actual covariance of the estimate.
 
-The process noise due to model uncertainty is defined in the matrix `Q_a_`, but the process uncertainty due to the use of the rate gyro measures has not been adjusted for yet.
-This is done with the use of the matrix `G` which takes into account the Coriolis effects of the measures.
-The measurement variance is transformed into process noise due to gyro measures.
+The process noise due to model uncertainty is defined in the matrix `Q_a_`, but the process uncertainty due to the use of the rate gyro measurements has not been adjusted for yet.
+This is done with the use of the matrix `G` which takes into account the Coriolis effects of the measurements.
+The measurement variance is transformed into process noise due to gyro measurements.
 All of these contribute into finding the current covariance of our estimate, `P_a_`.
 This is done by the following equation:
 
@@ -94,12 +99,12 @@ With this propagated estimate and covariance we are now ready for a measurement 
 
 ### Measurement Update
 
-A measurement update provides a check on our estimate and we take this new information and fuse it into our estimate.
-The Kalman filter allows us to optimally adjust our estimate given the measurement, our tuned process noises and the noise characteristics of our sensor.
+A measurement update provides a check on our propagated estimate and we take this new information and fuse it into our estimate.
+The Kalman filter allows us to optimally adjust our estimate, our tuned process noises, and the noise characteristics of our sensor given the measurement.
 These noise characteristics are captured in a diagonal matrix, $R_{sensor}$.
 
 Using our estimate and a model set of equations $h$, we predict the measurements the accelerometer will produce.
-We will then compare the actual and predicted measures and adjust our estimate optimally to the new information.
+We will then compare the actual and predicted measurements and optimally adjust our estimate with the new information.
 The set of equations, $h$, that predict the 3 measurements of the accelerometer, $y$, is given by:
 
 \begin{equation}
@@ -123,7 +128,7 @@ This yields a Jacobian $C$:
 \end{equation}
 
 Which is used in finding the Kalman gain $L$.
-An intermediate value is calculated called d $S^{-1}$.
+An intermediate value is calculated called $S^{-1}$.
 This value is:
 
 \begin{equation}
@@ -136,7 +141,7 @@ This intermediate value is then used to find $L$:
     L = PC^\top S^{-1}
 \end{equation}
 
-The optimum estimate is then found:
+The optimal estimate is then found:
 
 \begin{equation}
     \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
