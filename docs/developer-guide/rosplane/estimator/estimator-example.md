@@ -9,8 +9,7 @@ Specifically, this estimator uses algorithm 2 of chapter 8 in Volume 1.
 It utilizes a two stage estimation process along with low pass filtering the inversion of a few sensor models and direct measurements.
 The roll and pitch of the aircraft are estimated first.
 This is called the attitude estimation step though not all of the attitude is estimated here.
-<!-- Not sure what "as a whole" exactly means here... "All at once" maybe?  -->
-The other states are then estimated as a whole.
+The other states are then estimated as a all at once.
 This is called the position estimation step, though more than just position is estimated during this step.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
 
@@ -63,38 +62,46 @@ These estimates are part of the state $\hat{x}_a$, where the hat over the variab
 
 At each call of the estimation algorithm, the estimate from the previous time step is propagated to the next time step.
 The propagation step is broken up into `N_` smaller steps to yield an estimate for the current time step.
-`N_` is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps instead of a single step to calculate the estimate at the current time step.
-The length of each of the `N_` steps is 1/`N_` the original time step.
+$N$ is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps instead of a single step to calculate the estimate at the current time step.
+The length of each of the $N$ steps is 1/$N$ the original time step.
 
-The attitude estimation is propagated according to the equations:
+The attitude estimation is propagated according to the model $f$:
 
-$$
-    \dot{\phi} = p + (q \sin{\phi} + r \cos{\phi}) \tan{\theta} \\
-    \dot{\theta} = q \cos{\phi} + r \sin{\phi})
-$$
+\begin{equation}
+    f =
+    \begin{bmatrix}
+        \dot{\phi} = p + (q \sin{\phi} + r \cos{\phi}) \tan{\theta} \\
+        \dot{\theta} = q \cos{\phi} + r \sin{\phi})
+    \end{bmatrix}
+\end{equation}
 
-This is called `f_a_` in the code.
+This propagated estimate is then used in the calculation of the Jacobian $A$.
 
-This propagated estimate is then used in the calculation of the Jacobian.
-The Jacobian matrix, `A_a_` is:
+\begin{equation}
+    A =
+    \begin{bmatrix}
+        (q \cos{\phi} - r \sin{\phi})\tan{\theta} & \frac{q\sin{\phi} + r\cos{phi}}{\cos^2{\theta}} \\
+        0 & -q \sin{\phi} - r \cos{\phi} \\
+    \end{bmatrix}
+\end{equation}
 
-\begin{bmatrix}
-    (q \cos{\phi} - r \sin{\phi})\tan{\theta} & \frac{q\sin{\phi} + r\cos{phi}}{\cos^2{\theta}} \\
-    0 & -q \sin{\phi} - r \cos{\phi} \\
-\end{bmatrix}
+This Jacobian is then used to find a second-order approximation of the matrix exponential, $A_d$.
 
-This Jacobian is then used to find a second-order approximation of the matrix exponential, `A_d_`.
-`A_d_` is then used to propagate the actual covariance of the estimate.
+\begin{equation}
+    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
+\end{equation}
 
-The process noise due to model uncertainty is defined in the matrix `Q_a_`, but the process uncertainty due to the use of the rate gyro measurements has not been adjusted for yet.
-This is done with the use of the matrix `G` which takes into account the Coriolis effects of the measurements.
+Where $T_s$ is the length of a time step.
+$A_d$ is then used to propagate the actual covariance of the estimate.
+
+The process noise due to model uncertainty is defined in the matrix $Q$, but the process uncertainty due to the use of the rate gyro measurements $Q_g$, has not been adjusted for yet.
+This is done with the use of the matrix $G$ which takes into account the Coriolis effects of the gyro measurements.
 The measurement variance is transformed into process noise due to gyro measurements.
-All of these contribute into finding the current covariance of our estimate, `P_a_`.
+All of these contribute into finding the current covariance of our estimate, $P$.
 This is done by the following equation:
 
-`P_a_ = A_d_ * P_a_ * A_d_.transpose() + (Q_a_ + G * Q_g_ * G.transpose()) * pow(Ts/N_,2)`
+$$P_a = A_d P A_d^\top + (Q + G Q_g G^\top) \frac{T_s^2}{N^2}$$
 
-Where `Ts` is the time step between measurement updates.
 With this propagated estimate and covariance we are now ready for a measurement update.
 
 ### Measurement Update
