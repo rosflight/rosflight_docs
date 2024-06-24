@@ -12,11 +12,13 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/path-planning/path-follower/">
+        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/navigation/path-manager/">
       
       
-        <link rel="prev" href="../path-manager/">
+        <link rel="prev" href="../path-planner/">
       
+      
+        <link rel="next" href="../path-follower/">
       
       
       <link rel="icon" href="../../../../assets/favicon.ico">
@@ -24,7 +26,7 @@
     
     
       
-        <title>Path Follower - ROSflight</title>
+        <title>Path Manager - ROSflight</title>
       
     
     
@@ -73,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#path-manager" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -118,7 +125,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Path Follower
+              Path Manager
             
           </span>
         </div>
@@ -1081,7 +1088,7 @@ You're not viewing the latest stable version.
             
   
   <span class="md-ellipsis">
-    Path Planning
+    Navigation
   </span>
   
 
@@ -1091,7 +1098,7 @@ You're not viewing the latest stable version.
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4_3">
             <span class="md-nav__icon md-icon"></span>
-            Path Planning
+            Navigation
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1102,11 +1109,11 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../path-planning-overview/" class="md-nav__link">
+      <a href="../navigation-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Path Planning Overview
+    Navigation Overview
   </span>
   
 
@@ -1141,27 +1148,6 @@ You're not viewing the latest stable version.
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../path-manager/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Path Manager
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1171,8 +1157,155 @@ You're not viewing the latest stable version.
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Path Manager
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Path Manager
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-manager-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path Manager Base
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Manager Base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-of-ros2-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      List of ROS2 Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-the-path-follower" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface with the Path Follower
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-manager-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path Manager Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-of-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      List of Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-orbit_last-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      The orbit_last Parameter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-path-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying the Path Manager
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../path-follower/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1181,7 +1314,6 @@ You're not viewing the latest stable version.
   
 
       </a>
-      
     </li>
   
 
@@ -1227,6 +1359,109 @@ You're not viewing the latest stable version.
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-manager-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path Manager Base
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Manager Base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-of-ros2-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      List of ROS2 Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-the-path-follower" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface with the Path Follower
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-manager-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path Manager Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-of-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      List of Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-orbit_last-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      The orbit_last Parameter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-path-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying the Path Manager
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1241,7 +1476,7 @@ You're not viewing the latest stable version.
                   
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/path-planning/path-follower.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/navigation/path-manager.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1249,9 +1484,124 @@ You're not viewing the latest stable version.
   
 
 
-  <h1>Path Follower</h1>
-
-
+<h1 id="path-manager">Path Manager<a class="headerlink" href="#path-manager" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The path manager is responsible for calculating and publishing the current path to the path follower. 
+It is split into a base class and an inherited class.
+The base class handles the ROS2 interfaces (publishing and subscribing) while the inherited class manages the path, i.e., calculates the parameters for the current path.</p>
+<p>The path manager is designed this way so that the inherited class (how the paths are managed) can be replaced or rewritten without affecting the overlying ROS2 interface.</p>
+<p>Both the <code>path_manager_base</code> and the <code>path_manager_example</code> are included in the same ROS2 node when compiled, called <code>path_manager</code>.
+Parameters associated with the <code>path_manager_base</code> or the <code>path_manager_example</code> will therefore be visible under the <code>path_manager</code> ROS2 node.</p>
+<p>More details about the path manager can be found in <em>Small Unmanned Aircraft: Theory and Practice</em> by Dr. Randal Beard and Dr. Tim McLain.</p>
+<h2 id="path-manager-base">Path Manager Base<a class="headerlink" href="#path-manager-base" title="Permanent link">&para;</a></h2>
+<p>The path manager base contains all the ROS2 interfaces required for the path manager.
+A list of these interfaces is below.</p>
+<h3 id="list-of-ros2-interfaces">List of ROS2 Interfaces<a class="headerlink" href="#list-of-ros2-interfaces" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>ROS2 Interface</strong></th>
+<th style="text-align: center;"><strong>Topic or Service</strong></th>
+<th style="text-align: center;"><strong>Explanation</strong></th>
+<th style="text-align: center;"><strong>Message or Service Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>vehicle_state_sub_</code></td>
+<td style="text-align: center;"><code>/estimated_state</code></td>
+<td style="text-align: center;">Subscribes to the estimated aircraft state</td>
+<td style="text-align: center;"><code>rosplane_msgs::msg::State</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>new_waypoint_sub_</code></td>
+<td style="text-align: center;"><code>/waypoint_path</code></td>
+<td style="text-align: center;">Subscribes to the waypoint messages published by <code>path_planner</code></td>
+<td style="text-align: center;"><code>rosplane_msgs::msg::State</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>current_path_pub_</code></td>
+<td style="text-align: center;"><code>/current_path</code></td>
+<td style="text-align: center;">Publishes the parameters of the current path</td>
+<td style="text-align: center;"><code>rosplane_msgs::msg::CurrentPath</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>update_timer_</code></td>
+<td style="text-align: center;">--</td>
+<td style="text-align: center;">ROS2 timer that controls how frequently <code>current_path_pub_</code> publishes</td>
+<td style="text-align: center;">--</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interface-with-the-path-follower">Interface with the Path Follower<a class="headerlink" href="#interface-with-the-path-follower" title="Permanent link">&para;</a></h3>
+<p>The <code>path_manager</code> node interfaces with the path follower by publishing to the <code>/current_path</code> topic.
+These messages contain information about the current trajectory, which are either straight lines or circles. </p>
+<p>Note that the only supported path types are straight lines and circles.
+Depending on how the <code>path_manager</code> is set up to manage the waypoints, this may not be suitable for your application.
+See "Modifying the Path Manager" for more information.
+For more information on the path follower, see the <a href="../path-follower/">Path Follwer</a> documentation.</p>
+<h2 id="path-manager-example">Path Manager Example<a class="headerlink" href="#path-manager-example" title="Permanent link">&para;</a></h2>
+<p>The <code>path_manager_example</code> class inherits from the <code>path_manager_base</code> class.
+Specifically, the <code>path_manager_example</code> overrides the <code>path_manager_base::manage</code> method to determine how the path is managed.</p>
+<p>In the current implementation, <code>path_manager_example</code> decides to manage a waypoint using straight lines and fillets, orbits, or Dubins paths based on the current state of the aircraft, the values of the current ROS2 parameters, and the waypoints given.
+For example, if the <code>use_chi</code> field on a Waypoint object (see <a href="../path-planner/">Path Planner</a> for more information) is set to <code>true</code>, then <code>path_manager_example</code> will use a Dubins path to navigate to the next waypoint.
+If <code>use_chi</code> is set to <code>false</code>, then <code>path_manager_example</code> will use straight lines when navigating in between waypoints and a fillet to manage the corners.
+See Figure 1 for an example of a real flight path flown using ROSplane with <code>chi_d</code> set to <code>false</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Example of flight path with straight lines and fillets" src="../../../../assets/path_planner_assets/Big_hourglass.png" title="Example of flight path with straight lines and fillets" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="Example of flight path with straight lines and fillets" src="../../../../assets/path_planner_assets/Big_hourglass_fillet.png" title="Example of flight path with straight lines and fillets" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Example flight path from an actual flight test showing the straight lines and fillets path type</em></td>
+</tr>
+</tbody>
+</table>
+<p>Note that using fillets to manage the corners often means that the aircraft does not actually achieve the waypoint.
+If this is undesireable in your application, use Dubins paths or another method for the <code>path_manager</code>. </p>
+<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
+<p>See the <a href="../../parameter-management/">Parameter Management</a> page for more details on how parameter management works.</p>
+<h3 id="list-of-parameters">List of Parameters<a class="headerlink" href="#list-of-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Parameter</strong></th>
+<th style="text-align: center;"><strong>Explanation</strong></th>
+<th style="text-align: center;"><strong>Type</strong></th>
+<th style="text-align: center;"><strong>Range</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>R_min</code></td>
+<td style="text-align: center;">Minimum radius for orbit, fillet, and Dubins paths</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq</span><script type="math/tex">\geq</script></span> 0.0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>orbit_last</code></td>
+<td style="text-align: center;">Specifies whether or not to orbit the last waypoint. If false, <code>param_manager</code> will fly a circuit</td>
+<td style="text-align: center;">bool</td>
+<td style="text-align: center;"><code>true</code> or <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-orbit_last-parameter">The <code>orbit_last</code> Parameter<a class="headerlink" href="#the-orbit_last-parameter" title="Permanent link">&para;</a></h3>
+<p>The <code>path_manager</code> node has a parameter named <code>orbit_last</code>.
+This parameter controls what happens as the aircraft is approaching the last waypoint in the set of waypoints published to the <code>path_manager</code>.
+If <code>orbit_last</code> is set to <code>true</code>, then <code>path_manager</code> will follow an orbit around the last waypoint.</p>
+<p>The direction of this waypoint (clockwise or counterclockwise) will be chosen based on which direction requires the least amount of turning.
+In other words, if the aircraft is angled slightly left as it approaches the waypoint, <code>path_manager</code> will choose to orbit the last waypoint counterclockwise (from a top-down perspective).
+If the aircraft is pointing slightly right as it approaches the waypoint, it will orbit the waypoint clockwise (from a top-down perspective).</p>
+<h2 id="modifying-the-path-manager">Modifying the Path Manager<a class="headerlink" href="#modifying-the-path-manager" title="Permanent link">&para;</a></h2>
+<p>Changes or additions to any ROS2 interfaces should be done in the <code>path_manager_base</code> field.</p>
+<p>Changes to how <code>path_manager</code> "manages" the waypoints should be done by overriding the <code>path_manager_base::manage</code> method.
+If you wish to change the way paths are defined, make sure that the <code>/current_path</code> topic is rewritten to contain the required information, and then make sure the <code>path_follower</code> knows how to handle the new definition.</p>
 
 
 

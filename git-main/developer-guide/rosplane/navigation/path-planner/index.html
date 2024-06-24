@@ -12,10 +12,10 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/path-planning/path-planner/">
+        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/navigation/path-planner/">
       
       
-        <link rel="prev" href="../path-planning-overview/">
+        <link rel="prev" href="../navigation-overview/">
       
       
         <link rel="next" href="../path-manager/">
@@ -1088,7 +1088,7 @@ You're not viewing the latest stable version.
             
   
   <span class="md-ellipsis">
-    Path Planning
+    Navigation
   </span>
   
 
@@ -1098,7 +1098,7 @@ You're not viewing the latest stable version.
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4_3">
             <span class="md-nav__icon md-icon"></span>
-            Path Planning
+            Navigation
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1109,11 +1109,11 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../path-planning-overview/" class="md-nav__link">
+      <a href="../navigation-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Path Planning Overview
+    Navigation Overview
   </span>
   
 
@@ -1193,6 +1193,30 @@ You're not viewing the latest stable version.
   
     <nav class="md-nav" aria-label="Interfaces">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      About Waypoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="About Waypoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notes-on-the-waypoint-object-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes on the Waypoint object fields
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#list-of-ros2-interfaces" class="md-nav__link">
@@ -1361,6 +1385,30 @@ You're not viewing the latest stable version.
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#about-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      About Waypoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="About Waypoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notes-on-the-waypoint-object-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes on the Waypoint object fields
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#list-of-ros2-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
       List of ROS2 Interfaces
@@ -1422,7 +1470,7 @@ You're not viewing the latest stable version.
                   
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/path-planning/path-planner.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/navigation/path-planner.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1430,12 +1478,12 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="path-planner">Path planner<a class="headerlink" href="#path-planner" title="Permanent link">&para;</a></h1>
+<h1 id="path-planner">Path Planner<a class="headerlink" href="#path-planner" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The path planner is responsible for creating, managing, and publishing waypoints.
 In the current implementation, the path planner simply maintains a list of user-defined waypoints that the user can add to or clear.
 The path planner then controls when waypoints are published to the path manager.</p>
-<p>Another implementation of the path planner (as described in <a href="../path-planning-overview/">the overview</a>) could include a visual-based path planner.
+<p>Another implementation of the path planner (as described in <a href="../navigation-overview/">the overview</a>) could include a visual-based path planner.
 In this case, the path planner would receive sensor input and create and manage its own waypoints instead of a user-defined list of waypoints.
 However, this new path planner would still be responsible for creating and publishing waypoints.
 This ensures that the interface between the path planner and the path manager would stay the same, allowing for modularity in the path planner architecture.</p>
@@ -1444,9 +1492,83 @@ This ensures that the interface between the path planner and the path manager wo
 This node subscribes to the topics it needs, provides services available to the user and other nodes, and publishes waypoints to the path manager, called <code>path_manager</code>.</p>
 <p>The interface between <code>path_planner</code> and <code>path_manager</code> is the <code>/waypoint_path</code> topic,  which publishes messages with the <code>rosplane_msgs::msg::Waypoint</code> type.
 This message contains information about the waypoint's location in NED (from the origin) or GNSS (LLA) coordinates, the desired airspeed at the waypoint, and the desired heading of the aircraft at the waypoint.</p>
+<h3 id="about-waypoints">About Waypoints<a class="headerlink" href="#about-waypoints" title="Permanent link">&para;</a></h3>
+<p>The following table contains the data members of the <code>rosplane_msgs::msg::Waypoint</code> objects and a brief description.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Member</strong></th>
+<th style="text-align: center;"><strong>Description</strong></th>
+<th style="text-align: center;"><strong>Type</strong></th>
+<th style="text-align: center;"><strong>Required</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>header</code></td>
+<td style="text-align: center;">Standard message header that contains a valid timestamp</td>
+<td style="text-align: center;"><code>std_msgs::msg::Header</code></td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>w</code></td>
+<td style="text-align: center;">Waypoint coordinates in NED or GNSS (LLA)</td>
+<td style="text-align: center;"><code>std::array&lt;float32, 3&gt;</code></td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>lla</code></td>
+<td style="text-align: center;">Flag to determine if the coordinates are passed in as NED or GNSS</td>
+<td style="text-align: center;"><code>bool</code></td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>chi_d</code></td>
+<td style="text-align: center;">Desired course at the waypoint</td>
+<td style="text-align: center;"><code>double</code></td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>use_chi</code></td>
+<td style="text-align: center;">Flag to use the <code>chi_d</code> value at the waypoint or not</td>
+<td style="text-align: center;"><code>bool</code></td>
+<td style="text-align: center;">No - defaults to <code>false</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>va_d</code></td>
+<td style="text-align: center;">Desired airspeed at the waypoint</td>
+<td style="text-align: center;"><code>double</code></td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>clear_wp_list</code></td>
+<td style="text-align: center;">Clears all waypoints from <code>path_planner</code> and <code>path_manager</code></td>
+<td style="text-align: center;"><code>bool</code></td>
+<td style="text-align: center;">No</td>
+</tr>
+</tbody>
+</table>
+<h4 id="notes-on-the-waypoint-object-fields">Notes on the Waypoint object fields<a class="headerlink" href="#notes-on-the-waypoint-object-fields" title="Permanent link">&para;</a></h4>
+<p>The <code>w</code> field contains the coordinates of the waypoint in either NED coordinates (from the origin, defined as the place where ROSplane initialized) or GNSS coordinates given in LLA (latitude, longitude, and altitude).
+The GNSS coordinates are converted to NED coordinates by <code>path_planner</code> before sending them to <code>path_manager</code>.</p>
+<p>The <code>lla</code> field is a flag that tells <code>path_planner</code> if the coordinates provided are in the NED or world (GNSS) frame.
+Set it to <code>true</code> if the coordinates for the waypoint are given in GNSS coordinates.
+Note that GNSS and relative waypoints can be used together, meaning that one waypoint could be in the NED frame while the next one is in the global frame, since ROSplane converts global coordinates to the NED frame before publishing them to <code>path_manager</code>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that the <code>lla</code> field is set correctly if you decide to use GNSS coordinates, or your waypoints will be incorrect.</p>
+</div>
+<p>The <code>chi_d</code> field controls the desired course at the waypoint.
+Note that this is only used if the <code>use_chi</code> flag is set to <code>true</code>. </p>
+<p>The <code>use_chi</code> field determines whether or not the <code>path_manager</code> should pay attention to the desired course (<code>chi_d</code>). 
+If <code>use_chi</code> is set to <code>true</code> then <code>path_manager</code> will use a Dubins path framework to manage the waypoint.
+If <code>use_chi</code> is set to <code>false</code>, then <code>path_manager</code> will ignore the desired course and will intead use straight lines and fillets to manage the transitions between waypoints.
+See the <a href="../path-manager/">Path Manager</a> documentation for more information on this behavior.</p>
+<p>The <code>clear_wp_list</code> is used internally by <code>path_planner</code> when the <code>/clear_waypoints</code> service is called.
+It is recommended to use the service call instead of using this field manually.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code>w</code>, <code>va_d</code>, and <code>lla</code> fields must be valid for every waypoint message sent.
+<p>The <code>header</code>, <code>w</code>, <code>va_d</code>, and <code>lla</code> fields must be valid for every waypoint message sent.
 Failure to add these fields might crash the path planner or your aircraft.</p>
 </div>
 <h3 id="list-of-ros2-interfaces">List of ROS2 Interfaces<a class="headerlink" href="#list-of-ros2-interfaces" title="Permanent link">&para;</a></h3>
@@ -1526,8 +1648,12 @@ Failure to add these fields might crash the path planner or your aircraft.</p>
 </tbody>
 </table>
 <h2 id="recommended-usage">Recommended Usage<a class="headerlink" href="#recommended-usage" title="Permanent link">&para;</a></h2>
-<p>We recommend using a YAML file and the <code>/load_mission_from_file</code> service to load and fly waypoints.
+<p>We recommend using a YAML file and the <code>/load_mission_from_file</code> service from the command line to load and fly waypoints.
 See the example mission YAML file located at <code>/path/to/rosplane/rosplane/params/fixedwing_mission.yaml</code>.</p>
+<p>To call the service, run
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/load_mission_from_file<span class="w"> </span>rosflight_msgs::srv::ParamFile<span class="w"> </span><span class="s2">&quot;{filename: &lt;FILENAME&gt;}&quot;</span>
+</code></pre></div>
+where <code>&lt;FILENAME&gt;</code> is the path to the mission YAML file.</p>
 
 
 
