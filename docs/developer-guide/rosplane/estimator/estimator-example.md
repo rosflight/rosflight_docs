@@ -341,4 +341,33 @@ Next, replace `estimator_example.cpp` in the `CMakeLists.txt` with the newly cre
 
 ## Parameters
 
-Add Parameters when the estimator param update is complete.
+| **Parameter** | **Explanation** | **Type** | **Range** |
+| :---: | :---: | :---: | :---: |
+| `sigma_n_gps` | The standard deviation of gps measurements in the north axis. | double | ~0.01 meters |
+| `sigma_e_gps` | The standard deviation of gps measurements in the east axis. | double | ~0.01 meters |
+| `sigma_Vg_gps` | The standard deviation of gps ground speed measurements. | double | ~0.005 $\frac{m}{s}$ |
+| `sigma_course_gps` | The standard deviation of gps ground course measurements. | double | ~0.00025 radians |
+| `sigma_accel` | The standard deviation of accelerometer measurements. | double | ~0.025 $\frac{m}{s^2}$ |
+| `sigma_pseudo_wind_n` | The standard deviation of pseudo-measurement along the north axis. | double | ~0.01 |
+| `sigma_pseudo_wind_e` | The standard deviation of pseudo-measurement along the east axis. | double | ~0.01 |
+| `sigma_heading` | The standard deviation of heading measurement. | double | ~0.01 radians |
+| `lpf_a` | The lowpass filter cutoff frequency for the gyro and accelerometers. | double | ~50.0 Hz |
+| `lpf_a1` | The lowpass filter cutoff frequency for the pressure sensors. | double | ~8.0 Hz |
+| `gps_n_lim` | The limit of GPS measurements in the north direction. | double | $\geq 10000$ meters |
+| `gps_e_lim` | The limit of GPS measurements in the east direction. | double | $\geq 10000$ meters |
+| `roll_process_noise` | The process noise on the roll propagation. | double | ~0.0001 |
+| `pitch_process_noise` | The process noise on the pitch propagation. | double | ~0.0000001 |
+| `gyro_process_noise` | The process noise on the gyro inversion. | double |  ~0.13 |
+| `pos_process_noise` | The process noise on the position propagation. | double | 0.1 |
+| `attitude_initial_cov` | Initial covariance entry for attitude. | double | 5.0 |
+| `pos_n_initial_cov` | Initial covariance entry for position north. | double | 0.03 |
+| `pos_e_initial_cov` | Initial covariance entry for position east. | double | 0.03 |
+| `vg_initial_cov` | Initial covariance entry for groundspeed. | double | 0.01 |
+| `chi_initial_cov` | Initial covariance entry for course. | double | 5.0 Degrees |
+| `wind_n_initial_cov` | Initial covariance entry for wind north. | double | 0.04 |
+| `wind_e_initial_cov` | Initial covariance entry for wind east. | double | 0.04 |
+| `psi_initial_cov` | Initial covariance entry for heading. | double | 5.0 |
+| `num_propagation_steps` | Number of propagation steps to run between measurements. | int | 10 |
+| `max_estimated_phi` | The maximum roll estimate, over this and the estimator saturates. | double | ~90.0 degrees |
+| `max_estimated_theta` | The maximum pitch estimate, over this and the estimator saturates. | double | ~80.0 degrees |
+| `estimator_max_buffer` | The buffer that the esimator returns the estimate to after saturation. | double | ~3.0 degrees |
