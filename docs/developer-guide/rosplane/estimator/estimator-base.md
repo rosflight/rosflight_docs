@@ -32,7 +32,15 @@ They are summarized in the table below:
 
 ## Parameters
 
-Update when all estimator params are implemented.
+| **Parameter** | **Explanation** | **Type** | **Range** |
+| :---: | :---: | :---: | :---: |
+| `rho` | The density of the air. | double | ~1.225 $\frac{kg}{m^3}$ |
+| `gravity` | The acceleration due to gravity. | double | ~9.81 $\frac{m}{s^2}$ |
+| `estimator_update_frequency` | The frequency that the estimator will run estimations. | double | $\geq 100$ Hz |
+| `gps_ground_speed_threshold` | This determines when the aircraft is moving fast enough to get a course estimate. | double | $\geq$ 0.3 $\frac{m}{s}$ |
+| `baro_measurement_gate` | The maximum allowable instantaneous change in barometer pressure measurement. | double | ~1 meter |
+| `airspeed_measurement_gate` | The maximum allowable instantaneous change in differential pressure measurement. | double | ~5 $\frac{m}{s}$ |
+| `baro_calibration_count` | The number of barometer measurements used to do calibration. | int | $\geq 100$ |
 
 ## Modifying the Estimator
 
