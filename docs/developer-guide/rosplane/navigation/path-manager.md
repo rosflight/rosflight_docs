@@ -44,8 +44,9 @@ If `use_chi` is set to `false`, then `path_manager_example` will use straight li
 See Figure 1 for an example of a real flight path flown using ROSplane with `chi_d` set to `false`.
 
 
-| ![Example of flight path with straight lines and fillets](../../../assets/path_planner_assets/path-planning-overview.svg "Example of flight path with straight lines and fillets") |
+| ![Example of flight path with straight lines and fillets](../../../assets/path_planner_assets/Big_hourglass.png "Example of flight path with straight lines and fillets") |
 | :--: |
+| ![Example of flight path with straight lines and fillets](../../../assets/path_planner_assets/Big_hourglass_fillet.png "Example of flight path with straight lines and fillets") |
 |*Example flight path from an actual flight test showing the straight lines and fillets path type*|
 
 Note that using fillets to manage the corners often means that the aircraft does not actually achieve the waypoint.
