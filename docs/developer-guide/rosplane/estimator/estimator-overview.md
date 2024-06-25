@@ -12,7 +12,7 @@ For a more in depth look at which states are estimated in which way visit the [E
 The estimator takes in sensor information from `rosflight_io` computes an estimate and publishes it to the rest of ROSplane.
 
 
-| ![Diagram of Estimator ROS Interactions](../../../assets/estimator_assets/estimator_ros_input_output.png "Diagram of Estimator ROS Interactions") |
+| ![Diagram of Estimator ROS Interactions](../../../assets/estimator_assets/estimator_full_ros_interactions.png "Diagram of Estimator ROS Interactions") |
 |:--:|
 |*Figure 1: ROS network interactions for the estimator.*|
 

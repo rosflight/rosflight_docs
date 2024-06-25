@@ -13,7 +13,7 @@ The other states are then estimated as a all at once.
 This is called the position estimation step, though more than just position is estimated during this step.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
 
-The estimator makes large use of something called a pseudo-measurements.
+The estimator makes large use of something called a pseudo-measurement.
 These measures assume that the side slip angle is zero and the corresponding wind triangle solution.
 This allows us to take these measures and then find the wind in the north and east directions along with the yaw of the aircraft.
 They are more fully explored in section 8.11.4 of the UAV book.
@@ -36,7 +36,7 @@ They are more fully explored in section 8.11.4 of the UAV book.
 
 ## Sensor Model Inversion
 
-The roll, pitch and yaw rates are directly measured by the rate gyro and low pass filtered.
+The roll, pitch and yaw rates are directly measured by the rate gyro and then low pass filtered.
 The low pass filter is a simple alpha filter described by:
 
 $$
@@ -246,7 +246,7 @@ With this propagated estimate and covariance we are now ready for a measurement 
 
 <!-- TODO: update the documentation when the position step is refactored to happen all at once. -->
 
-Because the GPS measures come in slower than the model propagates, the measurement step is only run when their is new GPS information.
+Because the GPS measures come in slower than the model propagates, the measurement step is only run when there is new GPS information.
 This process is identical to the measurement update in the attitude step.
 This will likely change before release, but the only difference is that it is done one measurement at a time.
 This has advantages for querying the values while debugging, but is on the whole less clear and is more error prone.
@@ -337,7 +337,7 @@ Next, replace `estimator_example.cpp` in the `CMakeLists.txt` with the newly cre
 
 | ![Estimator CMake Change Location](../../../assets/estimator_assets/estimator_cmake.png "Estimator CMake Change Location") |
 |:--:|
-|*Figure 1: The location to replace the file for the new estimator file.*|
+|*Figure 2: The location to replace the file for the new estimator file.*|
 
 ## Parameters
 
@@ -368,6 +368,6 @@ Next, replace `estimator_example.cpp` in the `CMakeLists.txt` with the newly cre
 | `wind_e_initial_cov` | Initial covariance entry for wind east. | double | 0.04 |
 | `psi_initial_cov` | Initial covariance entry for heading. | double | 5.0 |
 | `num_propagation_steps` | Number of propagation steps to run between measurements. | int | 10 |
-| `max_estimated_phi` | The maximum roll estimate, over this and the estimator saturates. | double | ~90.0 degrees |
-| `max_estimated_theta` | The maximum pitch estimate, over this and the estimator saturates. | double | ~80.0 degrees |
+| `max_estimated_phi` | The maximum roll estimate before estimator saturation. | double | ~90.0 degrees |
+| `max_estimated_theta` | The maximum pitch estimate before estimator saturation. | double | ~80.0 degrees |
 | `estimator_max_buffer` | The buffer that the esimator returns the estimate to after saturation. | double | ~3.0 degrees |

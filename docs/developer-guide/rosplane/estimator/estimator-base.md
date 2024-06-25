@@ -19,7 +19,7 @@ They are summarized in the table below:
 
 | ROS Interface | Topic | Explanation | Message Type |
 |:------:|:-------:| :---: | :---: |
-| <div style="white-space: nowrap;">`vehicle_state_pub_`<div> | `/estimated_state` | Publishes the estimated state of teh vehicle. | State.msg |
+| <div style="white-space: nowrap;">`vehicle_state_pub_`<div> | `/estimated_state` | Publishes the estimated state of the vehicle. | State.msg |
 | <div style="white-space: nowrap;">`gnss_fix_sub_`<div> | `/navsat_compat/fix` | Subcribes to the GNSS position information. | NavSatFix.msg |
 | <div style="white-space: nowrap;">`gnss_vel_sub_`<div> | `/navsat_compat/vel` | Subcribes to the GNSS velocity information. | TwistStamped.msg |
 | <div style="white-space: nowrap;">`imu_sub_`<div> | `/imu/data` | Subcribes to the IMU data (both Gyro and Accel). | Imu.msg |
