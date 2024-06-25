@@ -1,9 +1,12 @@
 # ROSplane Setup
 
-ROSplane v2.0.0-beta is now available! Check the [github repo](https://github.com/rosflight/rosplane) for the latest instructions.
+!!! note
+    ROSplane v2.0.0-beta is now available! Check the [github repo](https://github.com/rosflight/rosplane) for the latest instructions.
 
 ROSplane is a basic fixed-wing autopilot build around ROS2 for use with the ROSflight autopilot.
 It is built according to the methods published in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randy Beard and Dr. Tim McLain.
+
+See [ROSplane Overview](rosplane-overview.md) for more general information on ROSplane.
 
 ## Requirements
 
@@ -39,6 +42,9 @@ cd ..
 colcon build
 ```
 
+!!! warning
+    The build will fail if you have not built the `rosflight_msgs` previously or if you are not currently building it.
+
 Next, source the `rosflight_ws` install files.
 If you already added the source command to your `.bashrc` from the [ROS2 Setup](./ros2-setup.md) page, then you can skip this step.
 
@@ -54,7 +60,7 @@ Note that sourcing the `setup.bash` file in the `rosflight_ws` directory will in
 
 ## Running ROSplane SIL
 A controller or a simulated controller can be used to fly the aircraft in simulation.
-See the `README.md` file for the `rosflight_ros_pkgs` package for more information on RC controll in simulation.
+See the `README.md` file for the `rosflight_ros_pkgs` package for more information on RC control in simulation.
 
 ### Launching
 
@@ -63,12 +69,15 @@ A convenience bash script has been included that uses tmux to launch Gazebo, an 
 Note that this requires tmux, so you may need to install it with `sudo apt install tmux`.
 Run
 ```bash
-./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh
+./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh -s -r -a anaconda -b example_bag ~/path/to/rosflight_ws
 ```
-from the `rosflight_ws` directory.
-Note that the script needs options specified, so it will fail.
-However,it will print out the required configuration options.
-See the script for more information.
+from the `rosflight_ws` directory to run a simulation of ROSplane (`-s`) with a simulated RC transmitter (`-r`) and the Anaconda aerodynamic and control parameters (`-a anaconda`), and also to start recording a ROSbag of all the topics (`-b example_bag`).
+
+See the script or run 
+```bash
+~/path/to/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh -h
+```
+for more information.
 
 #### Alternative Method
 Alternatively, you can run each of the commands in the bash script individually:
@@ -118,7 +127,7 @@ This command will create a directory named `rosflight_memory` where the paramete
 The ROSflight firmware will automatically check if the `rosflight_memory` directory is present when launched and will use those parameters if available.
 
 !!! note
-    The ROSflight firmware will only look for the `rosflight_memory` directory in the directory where the launch command is run.
+    The ROSflight firmware will only look for the `rosflight_memory` directory in the directory where the simulation launch command is run.
     You must launch `rosflight_sim` in the same directory to use the saved parameters; otherwise, reload and re-write the parameters.
 
 ### Flying in Sim
@@ -131,7 +140,7 @@ Verify that the commands are working and that the aircraft is responding as expe
 To fly autonomously, use channel 5 to disable RC override.
 If using a simulated transmitter, use `ros2 service call /toggle_override std_srvs/srv/Trigger` to toggle RC override on/off.
 
-The plane should then take off or fly autonomously in the Gazebo simulator!
+The plane should then take off or fly autonomously in the simulator!
 
 ## Running ROSplane on Hardware
 Ensure `rosflight_io` is running on the companion computer, and that the flight controller is connects to the companion computer.
@@ -199,3 +208,14 @@ Additional waypoints can be published using
 ```bash
 ros2 service call /publish_next_waypoint std_srvs/srv/Trigger
 ```
+
+## ROSplane GCS
+
+To visualize the waypoints and the aircraft, an Rviz publisher and configuration file has been created.
+
+Run 
+```bash
+ros2 launch rosplane_gcs rosplane_gcs.launch.py
+```
+to launch Rviz and the publisher node.
+Note that the waypoint publisher from the `path_planner` node and the subscriber in the publisher node have been set up to work like a "latched publisher/subscriber", so you should see the most recently published 20 waypoints, even if you launched RViz after publishing the waypoints.
