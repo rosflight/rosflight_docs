@@ -130,6 +130,9 @@ The entries are the variances and for the attitude step this is defined as:
 Using our estimate and a model set of equations $h$, we predict the measurements the accelerometer will produce.
 We will then compare the actual and predicted measurements and optimally adjust our estimate with the new information.
 Since measurements come in much faster than the model propagates the measurement step is run every time the propagated estimate is calculated.
+!!! note
+    The estimator asssumes that measurements come in faster than/as fast the estimation timer is calls for estimation updates.
+    If this is not the case performance can actually go down for the estimation if you increase the frequency of the estimation updates.
 The set of equations, $h$, that predict the 3 measurements of the accelerometer, $y$, is given by:
 
 \begin{equation}
@@ -326,6 +329,17 @@ Finally, we update the covariance from our new estimate:
 We repeat this cycle until termination of the program.
 
 ## Software Architecture
+
+### Estimator implementation Specifics
+
+The estimator calls the update of the estimate on a timer.
+Between estimation updates, the measurements come in as they are published and are saved in the estimator.
+This allows asynchronous measurements and for only the most recent measurements to be used.
+It does mean however, that the propagation is reliant on the measurements being faster or as fast as the estimation updates.
+It also means that turning up the estimation frequency will not always have the anticipated effect.
+To increase estimator performance a combination of process noise tuning, sensor uncertainty characterization, sensor update speed increase estimate update speed increase will be needed.
+
+### Replacing the Estimator
 
 To replace the estimator all that needs to be done is inherit from the `estimator_base` class and override the `estimate` method, as described in the .hpp file.
 
