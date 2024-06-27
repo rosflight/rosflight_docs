@@ -62,6 +62,8 @@ Note that sourcing the `setup.bash` file in the `rosflight_ws` directory will in
 A controller or a simulated controller can be used to fly the aircraft in simulation.
 See the `README.md` file for the `rosflight_ros_pkgs` package for more information on RC control in simulation.
 
+![ROSplane SIL Demo](../assets/ROSplane_sim.jpg)
+
 ### Launching
 
 #### Recommended Method
@@ -208,12 +210,36 @@ Additional waypoints can be published using
 ```bash
 ros2 service call /publish_next_waypoint std_srvs/srv/Trigger
 ```
+## ROSplane GCS / Visualization Tools
 
-## ROSplane GCS
+Running and tuning an autopilot requires good tools.
+These are the tools we use in our workflow to test and debug the performance of our autopilot.
+Let us know if you have better tools!
 
-To visualize the waypoints and the aircraft, an Rviz publisher and configuration file has been created.
+### Plotjuggler
+[Plotjuggler](https://github.com/facontidavide/PlotJuggler) is a tool to visualize data.
+It is versatile and powerful and can plot many different time series at the same time.
+It allows you to directly stream ROS2 topics, making it an ideal plotting utility in the field.
+We use Plotjuggler extensively to tune our control and estimation loops, and to monitor the status of the airplane.
 
-Run 
+![Plotjuggler Demo](../assets/plotjuggler_demo.png)
+
+While Plotjuggler is not a ROS application, Plotjuggler ROS packages have been created.
+See the [Plotjuggler GitHub page](https://github.com/facontidavide/PlotJuggler) for more information or install the ROS2 packages with:
+```bash
+sudo apt install ros-$ROS_DISTRO-plotjuggler-ros
+```
+
+We also use a layout file to automatically open up the plots we are interested in.
+Use the `Import Layout` button on the Plotjuggler GUI to import the `plotjuggler_layout.xml` file.
+
+### RViz Waypoint Plotter
+Rviz is a ROS2 tool that can visualize 3D information.
+We use Rviz to visualize waypoints and the aircraft's performance in achieving those waypoints.
+
+![Rviz Waypoint Demo](../assets/rviz_demo.png)
+
+Run the Rviz publisher and Rviz configuration file with
 ```bash
 ros2 launch rosplane_gcs rosplane_gcs.launch.py
 ```
