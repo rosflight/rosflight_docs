@@ -69,3 +69,13 @@ sudo apt install dfu-util
 ``` bash
     dfu-util -a 0 -s 0x08000000 -D rosflight-F4.bin
 ```
+
+## LEDs
+
+The meaning of the various LEDs is summarized in the following table. The colors of the LEDs may change depending on your specific board:
+
+| LED           | On            | Off              | Slow Blink       | Fast Blink       |
+|---------------|---------------|------------------|------------------|------------------|
+| Power (Blue)  | Board powered | -                | -                | -                |
+| Info (Green)  | RC control    | Offboard control | -                | -                |
+| Warning (Red) | Armed         | Disarmed         | Error (disarmed) | Failsafe (armed) |

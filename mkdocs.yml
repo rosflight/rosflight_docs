@@ -49,7 +49,7 @@ nav:
   - Home: index.md
   - User Guide:
     - Overview: user-guide/overview.md
-    - Fly with ROSflight:
+    - ROSflight:
       - Getting Started: user-guide/getting-started.md
       - Hardware Setup: user-guide/hardware-setup.md
       - Flight Controller Setup: user-guide/flight-controller-setup.md
