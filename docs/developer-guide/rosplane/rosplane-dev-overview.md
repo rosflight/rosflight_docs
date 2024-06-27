@@ -1,9 +1,9 @@
 # ROSplane Developer Guide Overview
 
 The purpose of the this section is to provide detailed information on each of the components of ROSplane, as shown in the below figure.
-It is written with the intent that a user might know how to change each component of ROSplane, not only just how to use it.
+It is written with the intent that a user might know how to change each component of ROSplane, not only how to use it.
 
-Note that the sections not part of ROSplane are not included in this section (ROSflight firmware, physical aircraft setup, etc.).
+Note that the system components not part of ROSplane are not included in this section (ROSflight firmware, physical aircraft setup, etc.).
 
 
 | ![Diagram of ROSplane architecture](../../assets/ROSplane-overview.svg "ROSplane architecture") |
