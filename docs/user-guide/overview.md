@@ -1,5 +1,9 @@
 # Overview
 
+!!! tldr
+    Visit [Getting Started](./getting-started.md) to start setting up ROSflight.
+    Then visit [ROSplane Overview](./rosplane-overview.md) (for fixedwing aircraft) or [ROScopter Overview](./roscopter-overview.md) (for multirotor aircraft) to set up your autonomy stack.
+
 ## Main Components of ROSflight
 
 ROSflight is intended to be used with both a typical flight controller and a companion Linux computer. Although it can be used with just a flight controller, this setup will not offer most of the advantages of ROSflight.
@@ -11,7 +15,7 @@ ROSflight is intended to be used with both a typical flight controller and a com
       - **Companion computer:** A Linux computer, running ROS2, that is mounted on the vehicle and has a physical, serial connection with the flight controller
       - **Offboard control (setpoints):** The control setpoints passed from the companion computer to the flight controller. The control is "offboard" from the perspective of the flight controller, even though the computer providing those commands is mounted onboard the vehicle.
 
-The following figure illustrates the interactions between the major components of the system:
+The following figure illustrates the interactions between the major components of ROSflight:
 
 ![System Components](images/components.svg)
 
@@ -31,45 +35,17 @@ Although higher level control is offloaded to the companion computer, enough con
 
 ROSplane and ROScopter are not required for using ROSflight and you could choose to use an entirely different autonomy stack if you so desired.
 
-## RC Safety Pilot
+### RC Safety Pilot
 
 ROSflight is designed for use with offboard control from experimental and research code.
-As such, it provides several mechanisms for an RC safety pilot to intervene if something goes wrong with the control setpoints coming from the companion computer:
+As such, it provides several mechanisms for an RC safety pilot to intervene if something goes wrong with the control setpoints coming from the companion computer.
+See the [RC Setup](./rc-configuration.md) page for more information.
 
-  - **RC override switch:** The safety pilot can flip a switch on the transmitter to take back RC control. Attitude and throttle override can be mapped independently, meaning you can choose one or the other, put them on separate switches, or put them both on the same switch. Details on these switches are provided on the [RC configuration](rc-configuration.md) page.
-  - **Stick deviations:** If a stick is deviated from its center position, then that channel is overridden by RC control. This allows the safety pilot to take control without flipping a switch. This may be useful to provide a momentary correction on a single axis. The fraction of stick travel needed to activate the RC override is controlled by the `RC_OVRD_DEV` parameter. The `OVRD_LAG_TIME` parameter controls the amount of time that the override remains active after the sticks return to center.
-  - **Minimum throttle:** By default, the flight controller takes the minimum of the two throttle commands from RC and offboard control setpoints. This allows the safety pilot to drop the throttle quickly if needed. This behavior can be turned on or off with the `MIN_THROTTLE` parameter.
+## Where do I start?
 
-## Arming, Errors & Failsafe
+To get started with ROSflight, visit the [Getting Started](./getting-started.md) page.
+This page will direct you on how to set up your hardware and flight controller to run ROSflight.
 
-The flight controller can only be armed and disarmed via RC control.
-Two mechanisms are provided: sticks (left stick down and right to arm, down and left to disarm) and switch.
-Only one of these options can be active at a time.
-Details on configuration are given on the [RC configuration](rc-configuration.md) page.
-
-The firmware runs a number of error checks before allowing the flight controller to arm.
-Completing the configuration checklist on the [Getting Started](getting-started.md) page should avoid these errors.
-In addition to a few internal health checks, the following conditions are checked:
-
-  - **Mixer:** Valid mixer must have been selected (see the [Hardware Setup](hardware-setup.md) documentation page)
-  - **IMU calibration:** The IMU must have been calibrated since firmware was flashed (it is recommended that you recalibrate often)
-  - **RC:** There must be an active RC connection
-
-In addition to the error checking before arming, the flight controller enters a failsafe mode if the RC connection is lost during flight while armed.
-While in failsafe mode the flight controller commands level flight with the throttle value defined by the `FAILSAFE_THR` parameter.
-
-The following is a simplified version of the finite state machine that defines logic used for the arming, error checks, and failsafe operations:
-
-![Arming FSM](images/arming-fsm-simplified.svg)
-
-The state manager also includes functionality for recovering from hard faults if one were to occur, although this is unlikely with unmodified firmware. If a hard fault occurs while the flight controller is armed, the firmware has the ability to immediately rearm after rebooting to enable continued RC control of the vehicle for recovery.
-
-## LEDs
-
-The meaning of the various LEDs is summarized in the following table. The colors of the LEDs may change depending on your specific board:
-
-| LED           | On            | Off              | Slow Blink       | Fast Blink       |
-|---------------|---------------|------------------|------------------|------------------|
-| Power (Blue)  | Board powered | -                | -                | -                |
-| Info (Green)  | RC control    | Offboard control | -                | -                |
-| Warning (Red) | Armed         | Disarmed         | Error (disarmed) | Failsafe (armed) |
+After you set up ROSflight, you should set up an autonomy stack to interact with ROSflight.
+Visit the [ROSplane Setup](./rosplane-setup.md) page for fixedwing aircraft or the [ROScopter Setup](./roscopter-setup.md) page for multirotor aircraft.
+You can also use your own autonomy stack as described in [Autonomous Flight](./autonomous-flight.md).
