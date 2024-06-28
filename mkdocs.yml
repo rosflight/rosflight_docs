@@ -2,7 +2,7 @@ site_name: ROSflight
 site_description: 'A lean, open-source autopilot system built by researchers, for researchers'
 site_url: http://rosflight.org
 site_author: 'James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore'
-copyright: 'Copyright &copy; 2024, James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore, BYU MAGICC Lab'
+copyright: 'Copyright &copy; 2019-2024, James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore, BYU MAGICC Lab'
 
 edit_uri: 'https://github.com/rosflight/rosflight_docs/edit/main/docs/'
 
