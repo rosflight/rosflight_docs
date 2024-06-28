@@ -26,6 +26,7 @@ std::array<double, 3> lla2ned(std::array<float, 3> lla);
 ```
 
 More detailed explanations are encouraged for non-trivial methods and objects.
+For single-line Doxygen comments, three slashes is acceptable, e.g., `/// Comment here`.
 
 ## White Space and Line Endings
 
