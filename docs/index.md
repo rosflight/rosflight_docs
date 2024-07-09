@@ -4,7 +4,9 @@
 
 ## What is ROSflight?
 
-ROSflight is a lean and adaptable autopilot system designed from the ground up with researchers in mind. Its purpose is to enable researchers to quickly and easily try out new ideas with minimal effort. Some of ROSflight's key feature are:
+ROSflight is a lean and adaptable autopilot system designed from the ground up with researchers in mind.
+Its purpose is to enable researchers to quickly and easily try out new ideas with minimal effort.
+Some of ROSflight's key feature are:
 
 - Lightweight, modular, and well documented code that is easy to understand and modify.
 - Most of the autopilot exists on a Linux computer rather than a microcontroller, enabling easier development with increased capabilities.
