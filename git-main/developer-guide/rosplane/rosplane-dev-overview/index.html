@@ -12,28 +12,28 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/rc-configuration/">
+        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/rosplane-dev-overview/">
       
       
-        <link rel="prev" href="../flight-controller-setup/">
+        <link rel="prev" href="../../firmware/debugging/">
       
       
-        <link rel="next" href="../ros2-setup/">
+        <link rel="next" href="../controller/controller-general-overview/">
       
       
-      <link rel="icon" href="../../assets/favicon.ico">
+      <link rel="icon" href="../../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
-        <title>RC Configuration - ROSflight</title>
+        <title>Developer Guide Overview - ROSflight</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,7 +52,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rc-configuration" class="md-skip">
+        <a href="#rosplane-developer-guide-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -91,7 +91,7 @@
             <div class="md-banner__inner md-grid md-typeset">
               
 You're not viewing the latest stable version.
-<a href="../../..">
+<a href="../../../..">
   <strong>Click here to go to latest.</strong>
 </a>
 
@@ -106,9 +106,9 @@ You're not viewing the latest stable version.
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -125,7 +125,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              RC Configuration
+              Developer Guide Overview
             
           </span>
         </div>
@@ -194,7 +194,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
     
@@ -209,13 +209,11 @@ You're not viewing the latest stable version.
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../overview/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../user-guide/overview/" class="md-tabs__link">
           
   
   User Guide
@@ -229,11 +227,13 @@ You're not viewing the latest stable version.
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../contribution-guidelines/" class="md-tabs__link">
           
   
   Developer Guide
@@ -266,9 +266,9 @@ You're not viewing the latest stable version.
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     ROSflight
@@ -283,7 +283,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -300,28 +300,23 @@ You're not viewing the latest stable version.
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -332,7 +327,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             User Guide
@@ -346,7 +341,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../../user-guide/overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -364,8 +359,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -375,11 +368,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -393,7 +386,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             ROSflight
@@ -407,7 +400,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/" class="md-nav__link">
+      <a href="../../../user-guide/getting-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -428,7 +421,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../hardware-setup/" class="md-nav__link">
+      <a href="../../../user-guide/hardware-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -449,7 +442,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../flight-controller-setup/" class="md-nav__link">
+      <a href="../../../user-guide/flight-controller-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -467,30 +460,10 @@ You're not viewing the latest stable version.
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    RC Configuration
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../user-guide/rc-configuration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -499,128 +472,6 @@ You're not viewing the latest stable version.
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#rc-safety-pilot" class="md-nav__link">
-    <span class="md-ellipsis">
-      RC Safety Pilot
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arming-errors-failsafe" class="md-nav__link">
-    <span class="md-ellipsis">
-      Arming, Errors &amp; Failsafe
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#binding-your-transmitter-to-your-receiver" class="md-nav__link">
-    <span class="md-ellipsis">
-      Binding your Transmitter to your Receiver
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rc-transmitter-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      RC Transmitter Calibration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="RC Transmitter Calibration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configure-the-full-stick-output-for-each-channel" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure the full stick output for each channel
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure stick directions for roll, pitch, and yaw channels.
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Switch Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Switch Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#safety-pilot-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Safety Pilot Configuration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arming" class="md-nav__link">
-    <span class="md-ellipsis">
-      Arming
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flight-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Flight Mode
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -633,7 +484,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../ros2-setup/" class="md-nav__link">
+      <a href="../../../user-guide/ros2-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -654,7 +505,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../parameter-configuration/" class="md-nav__link">
+      <a href="../../../user-guide/parameter-configuration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -675,7 +526,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../preflight-checks/" class="md-nav__link">
+      <a href="../../../user-guide/preflight-checks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -696,7 +547,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../improving-firmware-performance/" class="md-nav__link">
+      <a href="../../../user-guide/improving-firmware-performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -717,7 +568,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../autonomous-flight/" class="md-nav__link">
+      <a href="../../../user-guide/autonomous-flight/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -738,7 +589,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../running-gazebo-simulation/" class="md-nav__link">
+      <a href="../../../user-guide/running-gazebo-simulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -805,7 +656,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../rosplane-overview/" class="md-nav__link">
+      <a href="../../../user-guide/rosplane-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -826,7 +677,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../rosplane-setup/" class="md-nav__link">
+      <a href="../../../user-guide/rosplane-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -893,7 +744,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../roscopter-overview/" class="md-nav__link">
+      <a href="../../../user-guide/roscopter-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -914,7 +765,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../roscopter-setup/" class="md-nav__link">
+      <a href="../../../user-guide/roscopter-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -947,23 +798,28 @@ You're not viewing the latest stable version.
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -974,7 +830,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Developer Guide
@@ -988,7 +844,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/contribution-guidelines/" class="md-nav__link">
+      <a href="../../contribution-guidelines/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1009,7 +865,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/style-guide/" class="md-nav__link">
+      <a href="../../style-guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1068,7 +924,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/firmware/code-architecture/" class="md-nav__link">
+      <a href="../../firmware/code-architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1089,7 +945,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+      <a href="../../firmware/building-and-flashing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1110,7 +966,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+      <a href="../../firmware/unit-tests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1131,7 +987,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/firmware/debugging/" class="md-nav__link">
+      <a href="../../firmware/debugging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1157,6 +1013,8 @@ You're not viewing the latest stable version.
                 
   
   
+    
+  
   
   
     
@@ -1166,11 +1024,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -1184,7 +1042,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             ROSplane
@@ -1195,10 +1053,30 @@ You're not viewing the latest stable version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1207,6 +1085,35 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-to-rosplane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing to ROSplane
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1257,7 +1164,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+      <a href="../controller/controller-general-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1278,7 +1185,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+      <a href="../controller/controller-software-architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1299,7 +1206,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+      <a href="../controller/controller-base/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1320,7 +1227,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+      <a href="../controller/controller-state-machine/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1341,7 +1248,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+      <a href="../controller/controller-outline/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1362,7 +1269,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+      <a href="../controller/controller-total-energy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1391,7 +1298,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+      <a href="../parameter-management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1450,7 +1357,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+      <a href="../navigation/navigation-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1471,7 +1378,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+      <a href="../navigation/path-planner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1492,7 +1399,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+      <a href="../navigation/path-manager/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1513,7 +1420,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+      <a href="../navigation/path-follower/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1577,104 +1484,11 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#rc-safety-pilot" class="md-nav__link">
+  <a href="#contributing-to-rosplane" class="md-nav__link">
     <span class="md-ellipsis">
-      RC Safety Pilot
+      Contributing to ROSplane
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arming-errors-failsafe" class="md-nav__link">
-    <span class="md-ellipsis">
-      Arming, Errors &amp; Failsafe
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#binding-your-transmitter-to-your-receiver" class="md-nav__link">
-    <span class="md-ellipsis">
-      Binding your Transmitter to your Receiver
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rc-transmitter-calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      RC Transmitter Calibration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="RC Transmitter Calibration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configure-the-full-stick-output-for-each-channel" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure the full stick output for each channel
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configure stick directions for roll, pitch, and yaw channels.
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#switch-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Switch Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Switch Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#safety-pilot-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Safety Pilot Configuration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arming" class="md-nav__link">
-    <span class="md-ellipsis">
-      Arming
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flight-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      Flight Mode
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1693,7 +1507,7 @@ You're not viewing the latest stable version.
                   
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/rc-configuration.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/rosplane-dev-overview.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1701,67 +1515,28 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="rc-configuration">RC Configuration<a class="headerlink" href="#rc-configuration" title="Permanent link">&para;</a></h1>
-<h2 id="rc-safety-pilot">RC Safety Pilot<a class="headerlink" href="#rc-safety-pilot" title="Permanent link">&para;</a></h2>
-<p>ROSflight is designed for use with offboard control from experimental and research code.
-As such, it provides several mechanisms for an RC safety pilot to intervene if something goes wrong with the control setpoints coming from the companion computer:</p>
-<ul>
-<li><strong>RC override switch:</strong> The safety pilot can flip a switch on the transmitter to take back RC control. Attitude and throttle override can be mapped independently, meaning you can choose one or the other, put them on separate switches, or put them both on the same switch. Details on these switches are provided on the <a href="./">RC configuration</a> page.</li>
-<li><strong>Stick deviations:</strong> If a stick is deviated from its center position, then that channel is overridden by RC control. This allows the safety pilot to take control without flipping a switch. This may be useful to provide a momentary correction on a single axis. The fraction of stick travel needed to activate the RC override is controlled by the <code>RC_OVRD_DEV</code> parameter. The <code>OVRD_LAG_TIME</code> parameter controls the amount of time that the override remains active after the sticks return to center.</li>
-<li><strong>Minimum throttle:</strong> By default, the flight controller takes the minimum of the two throttle commands from RC and offboard control setpoints. This allows the safety pilot to drop the throttle quickly if needed. This behavior can be turned on or off with the <code>MIN_THROTTLE</code> parameter.</li>
-</ul>
-<h2 id="arming-errors-failsafe">Arming, Errors &amp; Failsafe<a class="headerlink" href="#arming-errors-failsafe" title="Permanent link">&para;</a></h2>
-<p>The flight controller can only be armed and disarmed via RC control.
-Two mechanisms are provided: sticks (left stick down and right to arm, down and left to disarm) and switch.
-Only one of these options can be active at a time.
-Details on configuration are given on the <a href="./">RC configuration</a> page.</p>
-<p>The firmware runs a number of error checks before allowing the flight controller to arm.
-Completing the configuration checklist on the <a href="../getting-started/">Getting Started</a> page should avoid these errors.
-In addition to a few internal health checks, the following conditions are checked:</p>
-<ul>
-<li><strong>Mixer:</strong> Valid mixer must have been selected (see the <a href="../hardware-setup/">Hardware Setup</a> documentation page)</li>
-<li><strong>IMU calibration:</strong> The IMU must have been calibrated since firmware was flashed (it is recommended that you recalibrate often)</li>
-<li><strong>RC:</strong> There must be an active RC connection</li>
-</ul>
-<p>In addition to the error checking before arming, the flight controller enters a failsafe mode if the RC connection is lost during flight while armed.
-While in failsafe mode the flight controller commands level flight with the throttle value defined by the <code>FAILSAFE_THR</code> parameter.</p>
-<p>The following is a simplified version of the finite state machine that defines logic used for the arming, error checks, and failsafe operations:</p>
-<p><img alt="Arming FSM" src="../images/arming-fsm-simplified.svg" /></p>
-<p>The state manager also includes functionality for recovering from hard faults if one were to occur, although this is unlikely with unmodified firmware. If a hard fault occurs while the flight controller is armed, the firmware has the ability to immediately rearm after rebooting to enable continued RC control of the vehicle for recovery.</p>
-<h2 id="binding-your-transmitter-to-your-receiver">Binding your Transmitter to your Receiver<a class="headerlink" href="#binding-your-transmitter-to-your-receiver" title="Permanent link">&para;</a></h2>
-<p>Follow the instructions in your user manual to bind your transmitter to your RC receiver. You may also be able to find a guide on YouTube with instructions; just search for your particular transmitter and receiver model.</p>
-<h2 id="rc-transmitter-calibration">RC Transmitter Calibration<a class="headerlink" href="#rc-transmitter-calibration" title="Permanent link">&para;</a></h2>
-<p>To avoid confusion and to reduce code complexity in the firmware source code, ROSflight does not perform software calibration of RC transmitters. This means that RC calibration must be done on the transmitter itself, as opposed to in software. This is pretty straight-forward for most modern transmitters.</p>
-<h3 id="configure-the-full-stick-output-for-each-channel">Configure the full stick output for each channel<a class="headerlink" href="#configure-the-full-stick-output-for-each-channel" title="Permanent link">&para;</a></h3>
-<p>The easiest way to do this is to enter the "Servo Setup" Menu (for Spektrum transmitters) and change the servo travel variable. You can watch the raw RC readings from the flight controller by echoing the rc_raw topic from <code>rosflight_io</code></p>
-<div class="highlight"><pre><span></span><code>ros2 topic echo /rc_raw
-</code></pre></div>
-<ul>
-<li>Center both sticks on your transmitter</li>
-<li>Apply subtrim until the first four channels all read 1500 exactly (or as close as possible--some RC receivers are worse than others and cannot exactly output 1500 us)</li>
-<li>Set the channel endpoints so that maximum stick deflections result in readings of 1000 and 2000 us.</li>
-</ul>
-<h3 id="configure-stick-directions-for-roll-pitch-and-yaw-channels">Configure stick directions for roll, pitch, and yaw channels.<a class="headerlink" href="#configure-stick-directions-for-roll-pitch-and-yaw-channels" title="Permanent link">&para;</a></h3>
-<p>You now have to make sure your RC transmitter is sending commands consistent with the north-east-down (NED) frame assumed by ROSflight.</p>
-<p>You may find this graphic helpful. It shows all the basic stick positions, and the associated output from the first four channels when looking at a raw AETR (aileron, elevator, throttle, rudder) RC signal from <code>rosflight_io</code>. Make sure that the stick output is in the correct direction.</p>
-<p><img alt="stick_image" src="../images/sticks.png" /></p>
-<p>It should be noted that channel assignment can be modified via the <code>RC_*_CHN</code> parameters. So, if you are using something other than AETR assignment, the channel index for each stick may be different, but the direction should be the same.</p>
-<h2 id="switch-configuration">Switch Configuration<a class="headerlink" href="#switch-configuration" title="Permanent link">&para;</a></h2>
-<p>Switches can be configured for the following functions.
-To disable a switch for a specific, default function, set the corresponding parameter to <code>-1</code>.
-Be sure to check that the switch directions operate as you intend, and reverse them in your transmitter if necessary.</p>
-<h3 id="safety-pilot-configuration">Safety Pilot Configuration<a class="headerlink" href="#safety-pilot-configuration" title="Permanent link">&para;</a></h3>
-<p>The <code>RC_ATT_OVRD_CHN</code> parameter maps a switch to override attitude commands with RC control.
-The <code>RC_THR_OVRD_CHN</code> parameter maps a switch to override throttle commands with RC control.
-To override both with a single switch, set both parameters to the same value (this is the default behavior).</p>
-<h3 id="arming">Arming<a class="headerlink" href="#arming" title="Permanent link">&para;</a></h3>
-<p>By default, arming is done with the sticks (left stick down and right to arm, down and left to disarm).
-To use a switch instead, set the <code>ARM_CHANNEL</code> parameter to the desired channel.
-Setting an arming switch disables arming with the sticks.</p>
-<h3 id="flight-mode">Flight Mode<a class="headerlink" href="#flight-mode" title="Permanent link">&para;</a></h3>
-<p>If desired, you can map a switch to select between attitude control types (angle and rate) in flight by setting the <code>RC_ATT_CTRL_CHN</code> parameter to the desired channel.
-This can be useful if, for example, you are learning rate mode but want to be able to switch back to attitude mode to help stabilize the vehicle.
-This feature is disabled by default.</p>
+<h1 id="rosplane-developer-guide-overview">ROSplane Developer Guide Overview<a class="headerlink" href="#rosplane-developer-guide-overview" title="Permanent link">&para;</a></h1>
+<p>The purpose of the this section is to provide detailed information on each of the components of ROSplane, as shown in the below figure.
+It is written with the intent that a user might know how to change each component of ROSplane, not only how to use it.</p>
+<p>Note that the system components not part of ROSplane are not included in this section (ROSflight firmware, physical aircraft setup, etc.).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Diagram of ROSplane architecture" src="../../../assets/ROSplane-overview.svg" title="ROSplane architecture" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Diagram of the ROSplane architecture</em></td>
+</tr>
+</tbody>
+</table>
+<p>Each of these components are described in detail in this section, but the implementation is not fully described.
+Please refer to the code for more detailed information on the actual implementation of each of the elements shown above.</p>
+<h2 id="contributing-to-rosplane">Contributing to ROSplane<a class="headerlink" href="#contributing-to-rosplane" title="Permanent link">&para;</a></h2>
+<p>If you create a new "module" when using ROSplane for your application, please contribute back!
+While changes won't be included in the core ROSplane stack (see <a href="../../../#our-vision">ROSflight Vision</a>), we hope to build a repository of modules and projects that have been created by others.
+Doing this is also an effective way to share your work and help others build on it.</p>
 
 
 
@@ -1812,10 +1587,10 @@ This feature is disabled by default.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

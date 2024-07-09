@@ -2,157 +2,172 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://rosflight.org/git-main/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/contribution-guidelines/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/style-guide/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/firmware/building-and-flashing/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/firmware/code-architecture/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/firmware/debugging/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/firmware/unit-tests/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/parameter-management/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/developer-guide/rosplane/rosplane-dev-overview/</loc>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/controller/controller-base/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/controller/controller-general-overview/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/controller/controller-outline/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/controller/controller-software-architecture/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/controller/controller-state-machine/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/controller/controller-total-energy/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/navigation/navigation-overview/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/navigation/path-follower/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/navigation/path-manager/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/navigation/path-planner/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/autonomous-flight/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/flight-controller-setup/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/getting-started/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/hardware-setup/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/improving-firmware-performance/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/overview/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/parameter-configuration/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/preflight-checks/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/rc-configuration/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/ros2-setup/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter-overview/</loc>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/roscopter-setup/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/rosplane-overview/</loc>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/rosplane-setup/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/running-gazebo-simulation/</loc>
-         <lastmod>2024-06-28</lastmod>
+         <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
