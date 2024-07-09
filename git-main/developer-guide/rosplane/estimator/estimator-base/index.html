@@ -12,11 +12,13 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/navigation/path-follower/">
+        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/estimator/estimator-base/">
       
       
-        <link rel="prev" href="../path-manager/">
+        <link rel="prev" href="../estimator-overview/">
       
+      
+        <link rel="next" href="../estimator-example/">
       
       
       <link rel="icon" href="../../../../assets/favicon.ico">
@@ -24,7 +26,7 @@
     
     
       
-        <title>Path Follower - ROSflight</title>
+        <title>Estimator Base - ROSflight</title>
       
     
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#path-follower" class="md-skip">
+        <a href="#estimator-base" class="md-skip">
           Skip to content
         </a>
       
@@ -123,7 +125,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Path Follower
+              Estimator Base
             
           </span>
         </div>
@@ -1244,6 +1246,8 @@ You're not viewing the latest stable version.
                 
   
   
+    
+  
   
   
     
@@ -1253,11 +1257,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
@@ -1271,7 +1275,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4_3">
             <span class="md-nav__icon md-icon"></span>
             Estimator
@@ -1285,7 +1289,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../estimator/estimator-overview/" class="md-nav__link">
+      <a href="../estimator-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1303,10 +1307,30 @@ You're not viewing the latest stable version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../estimator/estimator-base/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Estimator Base
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1315,6 +1339,62 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ros-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROS Interfaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying the Estimator
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1327,7 +1407,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../estimator/estimator-example/" class="md-nav__link">
+      <a href="../estimator-example/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1374,8 +1454,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -1385,11 +1463,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
         
           
           <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
@@ -1403,7 +1481,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_4_5">
             <span class="md-nav__icon md-icon"></span>
             Navigation
@@ -1417,7 +1495,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../navigation-overview/" class="md-nav__link">
+      <a href="../../navigation/navigation-overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1438,7 +1516,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../path-planner/" class="md-nav__link">
+      <a href="../../navigation/path-planner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1459,7 +1537,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../path-manager/" class="md-nav__link">
+      <a href="../../navigation/path-manager/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1477,30 +1555,10 @@ You're not viewing the latest stable version.
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Path Follower
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../navigation/path-follower/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1509,110 +1567,6 @@ You're not viewing the latest stable version.
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-follower-base" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path Follower Base
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Path Follower Base">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-of-ros2-interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      List of ROS2 Interfaces
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interface-with-the-autopilot" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interface with the Autopilot
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-follower-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path Follower Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Parameters
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-of-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      List of Parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#modifying-the-path-follower" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modifying the Path Follower
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1677,42 +1631,9 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#path-follower-base" class="md-nav__link">
+  <a href="#ros-interfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Path Follower Base
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Path Follower Base">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-of-ros2-interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      List of ROS2 Interfaces
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interface-with-the-autopilot" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interface with the Autopilot
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-follower-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path Follower Example
+      ROS Interfaces
     </span>
   </a>
   
@@ -1725,27 +1646,12 @@ You're not viewing the latest stable version.
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-of-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      List of Parameters
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#modifying-the-path-follower" class="md-nav__link">
+  <a href="#modifying-the-estimator" class="md-nav__link">
     <span class="md-ellipsis">
-      Modifying the Path Follower
+      Modifying the Estimator
     </span>
   </a>
   
@@ -1766,7 +1672,7 @@ You're not viewing the latest stable version.
                   
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/navigation/path-follower.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/estimator/estimator-base.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1774,158 +1680,142 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="path-follower">Path Follower<a class="headerlink" href="#path-follower" title="Permanent link">&para;</a></h1>
+<h1 id="estimator-base">Estimator Base<a class="headerlink" href="#estimator-base" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The role of the path follower is to generate the correct airspeed, course, and altitude commands for the autopilot such that the aircraft follows the paths published by <code>path_manager</code>.</p>
-<p>More information on the <code>path_follower</code> can be found in <em>Small Unmanned Aircraft: Theory and Practice</em> by Dr. Randal Beard and Dr. Tim McLain.</p>
-<h2 id="path-follower-base">Path Follower Base<a class="headerlink" href="#path-follower-base" title="Permanent link">&para;</a></h2>
-<p>The path follower base contains all the ROS2 interfaces required for the path follower.
-A list of these interfaces is below.</p>
-<p>The <code>path_follower_base::follow</code> method is a virtual method that should be implemented by a derived class.
-The <code>path_follower_base</code> publishes the controller commands calculated by the implementation of <code>path_follower_base::follow</code>.</p>
-<h3 id="list-of-ros2-interfaces">List of ROS2 Interfaces<a class="headerlink" href="#list-of-ros2-interfaces" title="Permanent link">&para;</a></h3>
+<p>The estimator base implements the basic ROS interfaces for the estimator.
+This includes setting up subscribers, publishers and initializing parameter management.
+The idea of the base class, is that all interfacing with ROS and shared resources across all inheritance levels happens or are contained in this class.</p>
+<h2 id="ros-interfaces">ROS Interfaces<a class="headerlink" href="#ros-interfaces" title="Permanent link">&para;</a></h2>
+<p>The estimator has the following ROS interfaces.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center;"><strong>ROS2 Interface</strong></th>
-<th style="text-align: center;"><strong>Topic or Service</strong></th>
-<th style="text-align: center;"><strong>Explanation</strong></th>
-<th style="text-align: center;"><strong>Message or Service Type</strong></th>
+<th style="text-align: center;"><img alt="Diagram of Estimator ROS Sensors" src="../../../../assets/estimator_assets/estimator_ros_input_output.png" title="Estimator ROS Sensors" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;"><code>vehicle_state_sub_</code></td>
+<td style="text-align: center;"><em>Figure 1: Estimator's ROS interactions.</em></td>
+</tr>
+</tbody>
+</table>
+<p>The estimator has several ROS interfaces that are tracked as member variables of the <code>estimator_base</code> class.
+They are summarized in the table below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">ROS Interface</th>
+<th style="text-align: center;">Topic</th>
+<th style="text-align: center;">Explanation</th>
+<th style="text-align: center;">Message Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>vehicle_state_pub_</code><div></td>
 <td style="text-align: center;"><code>/estimated_state</code></td>
-<td style="text-align: center;">Subscribes to the estimated aircraft state</td>
-<td style="text-align: center;"><code>rosplane_msgs::msg::State</code></td>
+<td style="text-align: center;">Publishes the estimated state of the vehicle.</td>
+<td style="text-align: center;">State.msg</td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>current_path_sub_</code></td>
-<td style="text-align: center;"><code>/current_path</code></td>
-<td style="text-align: center;">Subscribes to the current path messages published by <code>path_manager</code></td>
-<td style="text-align: center;"><code>rosplane_msgs::msg::CurrentPath</code></td>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>gnss_fix_sub_</code><div></td>
+<td style="text-align: center;"><code>/navsat_compat/fix</code></td>
+<td style="text-align: center;">Subcribes to the GNSS position information.</td>
+<td style="text-align: center;">NavSatFix.msg</td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>controller_commands_pub_</code></td>
-<td style="text-align: center;"><code>/controller_commands</code></td>
-<td style="text-align: center;">Publishes control commands to the autopilot</td>
-<td style="text-align: center;"><code>rosplane_msgs::msg::ControllerCommand</code></td>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>gnss_vel_sub_</code><div></td>
+<td style="text-align: center;"><code>/navsat_compat/vel</code></td>
+<td style="text-align: center;">Subcribes to the GNSS velocity information.</td>
+<td style="text-align: center;">TwistStamped.msg</td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>update_timer_</code></td>
-<td style="text-align: center;">--</td>
-<td style="text-align: center;">ROS2 timer that controls how frequently <code>controller_commands_pub_</code> publishes</td>
-<td style="text-align: center;">--</td>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>imu_sub_</code><div></td>
+<td style="text-align: center;"><code>/imu/data</code></td>
+<td style="text-align: center;">Subcribes to the IMU data (both Gyro and Accel).</td>
+<td style="text-align: center;">Imu.msg</td>
+</tr>
+<tr>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>baro_sub_</code><div></td>
+<td style="text-align: center;"><code>/baro</code></td>
+<td style="text-align: center;">Subcribes to the barometer pressure information.</td>
+<td style="text-align: center;">Barometer.msg</td>
+</tr>
+<tr>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>airspeed_sub_</code><div></td>
+<td style="text-align: center;"><code>/airspeed</code></td>
+<td style="text-align: center;">Subcribes to the differential pressure information.</td>
+<td style="text-align: center;">Airspeed.msg</td>
+</tr>
+<tr>
+<td style="text-align: center;"><div style="white-space: nowrap;"><code>status_sub_</code><div></td>
+<td style="text-align: center;"><code>/status</code></td>
+<td style="text-align: center;">Subcribes to the aircraft status information.</td>
+<td style="text-align: center;">Status.msg</td>
 </tr>
 </tbody>
 </table>
-<h3 id="interface-with-the-autopilot">Interface with the Autopilot<a class="headerlink" href="#interface-with-the-autopilot" title="Permanent link">&para;</a></h3>
-<p>The <code>path_follower</code> node interfaces with the MAV autopilot by publishing to the <code>/controller_commands</code> topic.
-The <code>/controller_commands</code> topic contains the following information calculated by the <code>path_follower</code>:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;"><strong>Member</strong></th>
-<th style="text-align: center;"><strong>Description</strong></th>
-<th style="text-align: center;"><strong>Type / units</strong></th>
-<th style="text-align: center;"><strong>Required</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><code>header</code></td>
-<td style="text-align: center;">Standard message header that contains a valid timestamp</td>
-<td style="text-align: center;"><code>std_msgs::msg::Header</code></td>
-<td style="text-align: center;">Yes</td>
-</tr>
-<tr>
-<td style="text-align: center;"><code>va_c</code></td>
-<td style="text-align: center;">Commanded airspeed</td>
-<td style="text-align: center;"><code>double</code>, m/s</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-<tr>
-<td style="text-align: center;"><code>h_c</code></td>
-<td style="text-align: center;">Commanded altitude</td>
-<td style="text-align: center;"><code>double</code>, m</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-<tr>
-<td style="text-align: center;"><code>chi_c</code></td>
-<td style="text-align: center;">Commanded course</td>
-<td style="text-align: center;"><code>double</code>, rad</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-<tr>
-<td style="text-align: center;"><code>phi_ff</code></td>
-<td style="text-align: center;">Feedforward command (for orbits)</td>
-<td style="text-align: center;"><code>double</code>, rad</td>
-<td style="text-align: center;">No</td>
-</tr>
-</tbody>
-</table>
-<h2 id="path-follower-example">Path Follower Example<a class="headerlink" href="#path-follower-example" title="Permanent link">&para;</a></h2>
-<p>The <code>path_follower_example</code> class contains the implementation of the <code>path_follower_base::follow</code> method.
-This method contains the control command computations for straight line and orbit-type paths as outlined in <em>Small Unmanned Aircraft: Theory and Practice</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The NavSatFix, TwistStamped and Imu messages are from standard ROS message packages. Barometer, Airspeed and Status messages are from <code>rosflight_msgs</code>.</p>
+</div>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
-<p>See the <a href="../../parameter-management/">Parameter Management</a> page for more details on how parameter management works.</p>
-<h3 id="list-of-parameters">List of Parameters<a class="headerlink" href="#list-of-parameters" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;"><strong>Parameter</strong></th>
 <th style="text-align: center;"><strong>Explanation</strong></th>
-<th style="text-align: center;"><strong>Type / Units</strong></th>
+<th style="text-align: center;"><strong>Type</strong></th>
 <th style="text-align: center;"><strong>Range</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;"><code>chi_infty</code></td>
-<td style="text-align: center;">At infinity, the angle at which the aircraft will approach the desired line</td>
-<td style="text-align: center;">double (rad)</td>
-<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\frac{\pi}{2} \geq \chi^{\infty} &gt; 0.0</span><script type="math/tex">\frac{\pi}{2} \geq \chi^{\infty} > 0.0</script></span></td>
+<td style="text-align: center;"><code>rho</code></td>
+<td style="text-align: center;">The density of the air.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~1.225 <span class="arithmatex"><span class="MathJax_Preview">\frac{kg}{m^3}</span><script type="math/tex">\frac{kg}{m^3}</script></span></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>k_path</code></td>
-<td style="text-align: center;">Constant that determines how quickly commanded course transitions from <span class="arithmatex"><span class="MathJax_Preview">\chi^{\infty}</span><script type="math/tex">\chi^{\infty}</script></span> to 0 during line following</td>
+<td style="text-align: center;"><code>gravity</code></td>
+<td style="text-align: center;">The acceleration due to gravity.</td>
 <td style="text-align: center;">double</td>
-<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">&gt; 0.0</span><script type="math/tex">> 0.0</script></span></td>
+<td style="text-align: center;">~9.81 <span class="arithmatex"><span class="MathJax_Preview">\frac{m}{s^2}</span><script type="math/tex">\frac{m}{s^2}</script></span></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>k_orbit</code></td>
-<td style="text-align: center;">Constant that determines how quickly commanded course transitions from <span class="arithmatex"><span class="MathJax_Preview">\lambda \frac{\pi}{2}</span><script type="math/tex">\lambda \frac{\pi}{2}</script></span> to 0 during an orbit</td>
+<td style="text-align: center;"><code>estimator_update_frequency</code></td>
+<td style="text-align: center;">The frequency that the estimator will run estimations.</td>
 <td style="text-align: center;">double</td>
-<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">&gt; 0.0</span><script type="math/tex">> 0.0</script></span></td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq 100</span><script type="math/tex">\geq 100</script></span> Hz</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>gps_ground_speed_threshold</code></td>
+<td style="text-align: center;">This determines when the aircraft is moving fast enough to get a course estimate.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq</span><script type="math/tex">\geq</script></span> 0.3 <span class="arithmatex"><span class="MathJax_Preview">\frac{m}{s}</span><script type="math/tex">\frac{m}{s}</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>baro_measurement_gate</code></td>
+<td style="text-align: center;">The maximum allowable instantaneous change in barometer pressure measurement.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~1 meter</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>airspeed_measurement_gate</code></td>
+<td style="text-align: center;">The maximum allowable instantaneous change in differential pressure measurement.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~5 <span class="arithmatex"><span class="MathJax_Preview">\frac{m}{s}</span><script type="math/tex">\frac{m}{s}</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>baro_calibration_count</code></td>
+<td style="text-align: center;">The number of barometer measurements used to do calibration.</td>
+<td style="text-align: center;">int</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq 100</span><script type="math/tex">\geq 100</script></span></td>
 </tr>
 </tbody>
 </table>
-<p>Since there are two different types of lines generated by the <code>path_manager</code> (straight lines and orbits), the <code>path_follower</code> uses different parameters to calculate the control output for each path type.</p>
-<p>For <strong>line following</strong>, <code>path_follower</code> uses </p>
-<ul>
-<li><code>chi_infty</code> and </li>
-<li><code>k_path</code> to compute the control commands.</li>
-</ul>
-<p>As described in <em>Small Unmanned Aircraft: Theory and Practice</em>, these two parameters define a vector field for the commanded course.
-The <code>chi_infty</code> parameter describes the angle at which the aircratft will approach a target line if the aircraft is infinitely far from the target line.
-For example, if <code>chi_infty</code> is set to <span class="arithmatex"><span class="MathJax_Preview">\frac{\pi}{2}</span><script type="math/tex">\frac{\pi}{2}</script></span>, then the aircraft will approach the target line at an angle perpindicular to the line when the aircraft is far away.</p>
-<p>The <code>k_path</code> parameter defines how quickly the vectors at <code>chi_infty</code> "smooth" into the target line.
-When <code>k_path</code> is large, the transition will be abrupt, and when <code>k_path</code> is small, the transition will be smoother.</p>
-<p>During <strong>orbit following</strong>, <code>path_follower</code> uses</p>
-<ul>
-<li><code>k_orbit</code> to compute the control commands.</li>
-</ul>
-<p>If the aircraft is very far away from the orbit, it will align itself so it flies directly at the center of the orbit.
-The <code>k_orbit</code> parameter is similar to the <code>k_path</code> parameter in that it determines how quickly the commanded angle of the aircraft will change from directly toward the center to the orbit direction.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When tuning, make sure you are changing the correct gains for the type of line (straight or orbit) the aircraft is tracking.
-<code>chi_infty</code> and <code>k_path</code> will not affect the orbit performance!</p>
-</div>
-<h2 id="modifying-the-path-follower">Modifying the Path Follower<a class="headerlink" href="#modifying-the-path-follower" title="Permanent link">&para;</a></h2>
-<p>Changes to any of the ROS2 interface should be done in the <code>path_follower_base</code>.</p>
-<p>Changes to how <code>path_follower</code> computes control commands to follow paths given by the <code>path_manager</code> should be done in the <code>path_manager_example</code>.</p>
+<h2 id="modifying-the-estimator">Modifying the Estimator<a class="headerlink" href="#modifying-the-estimator" title="Permanent link">&para;</a></h2>
+<p>Update when full state estimator and continuous-discrete are both implemented and a swap between them works.</p>
 
 
 

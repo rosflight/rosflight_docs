@@ -76,6 +76,21 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>http://rosflight.org/git-main/developer-guide/rosplane/estimator/estimator-base/</loc>
+         <lastmod>2024-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/developer-guide/rosplane/estimator/estimator-example/</loc>
+         <lastmod>2024-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/developer-guide/rosplane/estimator/estimator-overview/</loc>
+         <lastmod>2024-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>http://rosflight.org/git-main/developer-guide/rosplane/navigation/navigation-overview/</loc>
          <lastmod>2024-07-09</lastmod>
          <changefreq>daily</changefreq>

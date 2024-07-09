@@ -1,0 +1,2665 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/git-main/developer-guide/rosplane/estimator/estimator-example/">
+      
+      
+        <link rel="prev" href="../estimator-base/">
+      
+      
+        <link rel="next" href="../../parameter-management/">
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+    
+    
+      
+        <title>Estimator Example - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#estimator-example" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Estimator Example
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../user-guide/overview/" class="md-tabs__link">
+          
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../contribution-guidelines/" class="md-tabs__link">
+          
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROSflight
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/hardware-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/flight-controller-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flight Controller Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/rc-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RC Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/ros2-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/parameter-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/preflight-checks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pre-Flight Checks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/improving-firmware-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improving Firmware Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/autonomous-flight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autonomous Flight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/running-gazebo-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Gazebo Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROSplane
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/rosplane-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROSplane Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/rosplane-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROSplane Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROScopter
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/roscopter-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROScopter Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-guide/roscopter-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROScopter Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Developer Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contribution-guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contribution Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../style-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Style Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Firmware
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../firmware/code-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../firmware/building-and-flashing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building and Flashing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../firmware/unit-tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Tests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../firmware/debugging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROSplane
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Controller
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Controller
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Controller Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Controller Software Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../controller/controller-base/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Controller Base
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Controller State Machine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../controller/controller-outline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Successive Loop Closure Controller Outline
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Total Energy Controller
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Estimator
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Estimator
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../estimator-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Estimator Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../estimator-base/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Estimator Base
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Estimator Example
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Estimator Example
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nomenclature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nomenclature
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-model-inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensor Model Inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attitude-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attitude Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attitude Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Propagation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measurement-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measurement Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#position-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Position Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Position Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propagation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Propagation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measurement-update_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measurement Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimator-implementation-specifics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimator implementation Specifics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replacing-the-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Replacing the Estimator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parameter-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parameter Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Navigation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Navigation Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../navigation/path-planner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Path Planner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../navigation/path-manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Path Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../navigation/path-follower/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Path Follower
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nomenclature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nomenclature
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-model-inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensor Model Inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attitude-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attitude Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attitude Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Propagation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measurement-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measurement Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#position-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Position Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Position Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propagation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Propagation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measurement-update_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measurement Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimator-implementation-specifics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estimator implementation Specifics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replacing-the-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Replacing the Estimator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/developer-guide/rosplane/estimator/estimator-example.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="estimator-example">Estimator Example<a class="headerlink" href="#estimator-example" title="Permanent link">&para;</a></h1>
+<!-- TODO: rename this to continuous discrete once full state is integrated. -->
+
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The <code>estimator_example</code> class implements a continuous-discrete Kalman filter as described in section 8.5 of the <a href="https://github.com/randybeard/mavsim_public">UAV book</a> or 8.6 and 8.7 of volume one of the same book.
+Specifically, this estimator uses algorithm 2 of chapter 8 in Volume 1.
+It utilizes a two stage estimation process along with low pass filtering the inversion of a few sensor models and direct measurements.
+The roll and pitch of the aircraft are estimated first.
+This is called the attitude estimation step though not all of the attitude is estimated here.
+The other states are then estimated as a all at once.
+This is called the position estimation step, though more than just position is estimated during this step.
+The estimator runs on a set timer with a configurable frequency (see Parameters section for details).</p>
+<p>The estimator makes large use of something called a pseudo-measurement.
+These measures assume that the side slip angle is zero and the corresponding wind triangle solution.
+This allows us to take these measures and then find the wind in the north and east directions along with the yaw of the aircraft.
+They are more fully explored in section 8.11.4 of the UAV book.</p>
+<h2 id="nomenclature">Nomenclature<a class="headerlink" href="#nomenclature" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Symbol</th>
+<th style="text-align: center;">Meaning</th>
+<th style="text-align: center;">Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{\chi}</span><script type="math/tex">\large{\chi}</script></span></td>
+<td style="text-align: center;">Course</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">[-\pi,\pi)</span><script type="math/tex">[-\pi,\pi)</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{\phi}</span><script type="math/tex">\large{\phi}</script></span></td>
+<td style="text-align: center;">Roll</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">[-\pi,\pi)</span><script type="math/tex">[-\pi,\pi)</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{\theta}</span><script type="math/tex">\large{\theta}</script></span></td>
+<td style="text-align: center;">Theta</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">[-\pi,\pi)</span><script type="math/tex">[-\pi,\pi)</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{\psi}</span><script type="math/tex">\large{\psi}</script></span></td>
+<td style="text-align: center;">Yaw</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">[-\pi,\pi)</span><script type="math/tex">[-\pi,\pi)</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{h}</span><script type="math/tex">\large{h}</script></span></td>
+<td style="text-align: center;">Altitude</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{p}</span><script type="math/tex">\large{p}</script></span></td>
+<td style="text-align: center;">Roll Rate</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{q}</span><script type="math/tex">\large{q}</script></span></td>
+<td style="text-align: center;">Pitch Rate</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{r}</span><script type="math/tex">\large{r}</script></span></td>
+<td style="text-align: center;">Yaw Rate</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{V_a}</span><script type="math/tex">\large{V_a}</script></span></td>
+<td style="text-align: center;">Airspeed</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq 0</span><script type="math/tex">\geq 0</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{w_n}</span><script type="math/tex">\large{w_n}</script></span></td>
+<td style="text-align: center;">Wind North</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\large{w_e}</span><script type="math/tex">\large{w_e}</script></span></td>
+<td style="text-align: center;">Wind East</td>
+<td style="text-align: center;">-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sensor-model-inversion">Sensor Model Inversion<a class="headerlink" href="#sensor-model-inversion" title="Permanent link">&para;</a></h2>
+<p>The roll, pitch and yaw rates are directly measured by the rate gyro and then low pass filtered.
+The low pass filter is a simple alpha filter described by:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+    a_{n} = a_{n-1} \alpha + (1 - \alpha) a_{measured}
+</div>
+<script type="math/tex; mode=display">
+    a_{n} = a_{n-1} \alpha + (1 - \alpha) a_{measured}
+</script>
+</div>
+<p>Where <span class="arithmatex"><span class="MathJax_Preview">a</span><script type="math/tex">a</script></span> is the state.
+This filter technique is used on the measurements before they are used in an estimate throughout the estimator.</p>
+<p>The following are calculated directly from a model of the sensor:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">State</th>
+<th style="text-align: center;">Measured Value</th>
+<th style="text-align: center;">Model Equation</th>
+<th style="text-align: center;">Inversion Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">h</span><script type="math/tex">h</script></span> - altitude</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span> - absolute pressure (Pa)</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">P = \rho_{air} gh</span><script type="math/tex">P = \rho_{air} gh</script></span></td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">h = \frac{\rho_{air} g}{P}</span><script type="math/tex">h = \frac{\rho_{air} g}{P}</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">V_a</span><script type="math/tex">V_a</script></span> - airspeed</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\Delta P</span><script type="math/tex">\Delta P</script></span> - differential pressure (Pa)</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\Delta P = \frac{1}{2} \rho_{air} V_a^2</span><script type="math/tex">\Delta P = \frac{1}{2} \rho_{air} V_a^2</script></span></td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">V_a = \sqrt{\frac{2}{\rho_{air} g} \Delta P}</span><script type="math/tex">V_a = \sqrt{\frac{2}{\rho_{air} g} \Delta P}</script></span></td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>These values are then used in the first step of the estimator.</p>
+<h2 id="attitude-estimation">Attitude Estimation<a class="headerlink" href="#attitude-estimation" title="Permanent link">&para;</a></h2>
+<p>The first step in estimating the attitude is understanding how we propagate our guess between measurements.
+Our estimates are on roll angle, <span class="arithmatex"><span class="MathJax_Preview">\phi</span><script type="math/tex">\phi</script></span>, and on pitch angle, <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>.
+These estimates are part of the state <span class="arithmatex"><span class="MathJax_Preview">\hat{x}_a</span><script type="math/tex">\hat{x}_a</script></span>, where the hat over the variable indicates an estimate.</p>
+<h3 id="propagation">Propagation<a class="headerlink" href="#propagation" title="Permanent link">&para;</a></h3>
+<p>At each call of the estimation algorithm, the estimate from the previous time step is propagated to the next time step.
+The propagation step is broken up into <span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> smaller steps to yield an estimate for the current time step.
+<span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps instead of a single step to calculate the estimate at the current time step.
+The length of each of the <span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> steps is 1/<span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> the original time step.</p>
+<p>The attitude estimation is propagated according to the model <span class="arithmatex"><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span>:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    f =
+    \begin{bmatrix}
+        \dot{\phi} = p + (q \sin{\phi} + r \cos{\phi}) \tan{\theta} \\
+        \dot{\theta} = q \cos{\phi} + r \sin{\phi})
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    f =
+    \begin{bmatrix}
+        \dot{\phi} = p + (q \sin{\phi} + r \cos{\phi}) \tan{\theta} \\
+        \dot{\theta} = q \cos{\phi} + r \sin{\phi})
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>This propagated estimate is then used in the calculation of the Jacobian <span class="arithmatex"><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    A =
+    \begin{bmatrix}
+        (q \cos{\phi} - r \sin{\phi})\tan{\theta} &amp; \frac{q\sin{\phi} + r\cos{phi}}{\cos^2{\theta}} \\
+        0 &amp; -q \sin{\phi} - r \cos{\phi} \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    A =
+    \begin{bmatrix}
+        (q \cos{\phi} - r \sin{\phi})\tan{\theta} & \frac{q\sin{\phi} + r\cos{phi}}{\cos^2{\theta}} \\
+        0 & -q \sin{\phi} - r \cos{\phi} \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>This Jacobian is then used to find a second-order approximation of the matrix exponential, <span class="arithmatex"><span class="MathJax_Preview">A_d</span><script type="math/tex">A_d</script></span>.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
+\end{equation}</script>
+</div>
+<p>Where <span class="arithmatex"><span class="MathJax_Preview">T_s</span><script type="math/tex">T_s</script></span> is the length of a time step.
+<span class="arithmatex"><span class="MathJax_Preview">A_d</span><script type="math/tex">A_d</script></span> is then used to propagate the actual covariance of the estimate.</p>
+<p>The process noise due to model uncertainty is defined in the matrix <span class="arithmatex"><span class="MathJax_Preview">Q</span><script type="math/tex">Q</script></span>, but the process uncertainty due to the use of the rate gyro measurements <span class="arithmatex"><span class="MathJax_Preview">Q_g</span><script type="math/tex">Q_g</script></span>, has not been adjusted for yet.
+This is done with the use of the matrix <span class="arithmatex"><span class="MathJax_Preview">G</span><script type="math/tex">G</script></span> which takes into account the Coriolis effects of the gyro measurements.
+The measurement variance is transformed into process noise due to gyro measurements.
+All of these contribute into finding the current covariance of our estimate, <span class="arithmatex"><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span>.
+This is done by the following equation:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">P_a = A_d P A_d^\top + (Q + G Q_g G^\top) \frac{T_s^2}{N^2}</div>
+<script type="math/tex; mode=display">P_a = A_d P A_d^\top + (Q + G Q_g G^\top) \frac{T_s^2}{N^2}</script>
+</div>
+<p>With this propagated estimate and covariance we are now ready for a measurement update.</p>
+<h3 id="measurement-update">Measurement Update<a class="headerlink" href="#measurement-update" title="Permanent link">&para;</a></h3>
+<p>A measurement update provides a check on our propagated estimate and we take this new information and fuse it into our estimate.
+The Kalman filter allows us to optimally adjust our estimate, our tuned process noises, and the noise characteristics of our sensor given the measurement.
+These noise characteristics are captured in a diagonal matrix, <span class="arithmatex"><span class="MathJax_Preview">R_{sensor}</span><script type="math/tex">R_{sensor}</script></span>.
+The entries are the variances and for the attitude step this is defined as:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    R_{accel} = 
+    \begin{bmatrix}
+        \sigma_{accel, x}^2 &amp; 0 &amp; 0 \\
+        0 &amp; \sigma_{accel, y}^2 &amp; 0 \\
+        0 &amp; 0 &amp; \sigma_{accel, z}^2 \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    R_{accel} = 
+    \begin{bmatrix}
+        \sigma_{accel, x}^2 & 0 & 0 \\
+        0 & \sigma_{accel, y}^2 & 0 \\
+        0 & 0 & \sigma_{accel, z}^2 \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>Using our estimate and a model set of equations <span class="arithmatex"><span class="MathJax_Preview">h</span><script type="math/tex">h</script></span>, we predict the measurements the accelerometer will produce.
+We will then compare the actual and predicted measurements and optimally adjust our estimate with the new information.
+Since measurements come in much faster than the model propagates the measurement step is run every time the propagated estimate is calculated.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The estimator asssumes that measurements come in faster than/as fast the estimation timer is calls for estimation updates.
+If this is not the case performance can actually go down for the estimation if you increase the frequency of the estimation updates.</p>
+</div>
+<p>The set of equations, <span class="arithmatex"><span class="MathJax_Preview">h</span><script type="math/tex">h</script></span>, that predict the 3 measurements of the accelerometer, <span class="arithmatex"><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>, is given by:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    h = 
+    \begin{bmatrix}
+        q V_a \sin{\theta} + g \sin{\theta} \\
+        r V_a \cos{\theta} - p V_a \sin{\theta} - g \cos{\theta} \sin{\phi} \\
+        -q V_a \cos{\theta} - g \cos{\theta} \cos{\phi} \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    h = 
+    \begin{bmatrix}
+        q V_a \sin{\theta} + g \sin{\theta} \\
+        r V_a \cos{\theta} - p V_a \sin{\theta} - g \cos{\theta} \sin{\phi} \\
+        -q V_a \cos{\theta} - g \cos{\theta} \cos{\phi} \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>This yields a Jacobian <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span>:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    C = 
+    \begin{bmatrix}
+        0 &amp; q V_a \cos{\theta} + g \cos{\theta} \\
+        -g \cos{\phi}\cos{\theta} &amp; -r V_a \sin{\theta} - p V_a \cos{\theta} + g \sin{\phi} \sin{theta} \\
+        g \sin{\phi}\cos{\theta} &amp; (q V_a + g \cos{\phi}) \sin{\theta}
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    C = 
+    \begin{bmatrix}
+        0 & q V_a \cos{\theta} + g \cos{\theta} \\
+        -g \cos{\phi}\cos{\theta} & -r V_a \sin{\theta} - p V_a \cos{\theta} + g \sin{\phi} \sin{theta} \\
+        g \sin{\phi}\cos{\theta} & (q V_a + g \cos{\phi}) \sin{\theta}
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>Which is used in finding the Kalman gain <span class="arithmatex"><span class="MathJax_Preview">L</span><script type="math/tex">L</script></span>.
+An intermediate value is calculated called <span class="arithmatex"><span class="MathJax_Preview">S^{-1}</span><script type="math/tex">S^{-1}</script></span>.
+This value is:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    S^{-1} = (R_{accel} + CPC^\top)^{-1}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    S^{-1} = (R_{accel} + CPC^\top)^{-1}
+\end{equation}</script>
+</div>
+<p>This intermediate value is then used to find <span class="arithmatex"><span class="MathJax_Preview">L</span><script type="math/tex">L</script></span>:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    L = PC^\top S^{-1}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    L = PC^\top S^{-1}
+\end{equation}</script>
+</div>
+<p>The optimal estimate is then found:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
+\end{equation}</script>
+</div>
+<p>Finally, we update the covariance from our new estimate:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
+\end{equation}</script>
+</div>
+<p>We repeat this cycle until termination of the program.
+This estimation scheme split into two parts allows for a clear set of equations and how the estimates affect one another.
+We will now move on to the next portion of the estimator that estimates the rest of the states.</p>
+<h2 id="position-estimation">Position Estimation<a class="headerlink" href="#position-estimation" title="Permanent link">&para;</a></h2>
+<p>The position estimation step follows the same algorithm as previous.
+Only new values are used for each of the matrices.
+Those new entries are shown here, but reference the previous section for details on implementation.</p>
+<h3 id="propagation_1">Propagation<a class="headerlink" href="#propagation_1" title="Permanent link">&para;</a></h3>
+<p>The attitude estimation is propagated according to the model <span class="arithmatex"><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span>:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    f =
+    \begin{bmatrix}
+        V_g \cos{\chi} \\
+        V_g \sin{\chi} \\
+        \dot{V_g} \\
+        0 \\
+        0 \\
+        \dot{\psi} \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    f =
+    \begin{bmatrix}
+        V_g \cos{\chi} \\
+        V_g \sin{\chi} \\
+        \dot{V_g} \\
+        0 \\
+        0 \\
+        \dot{\psi} \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>Where,</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    \dot{\psi} = q \sin{\phi} + r \frac{\cos{\phi}}{\cos{\theta}} \\
+    \dot{V_g} = \frac{V_a}{V_g} \dot{\psi} (w_e \cos{\psi} - w_n \sin{\psi})
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    \dot{\psi} = q \sin{\phi} + r \frac{\cos{\phi}}{\cos{\theta}} \\
+    \dot{V_g} = \frac{V_a}{V_g} \dot{\psi} (w_e \cos{\psi} - w_n \sin{\psi})
+\end{equation}</script>
+</div>
+<p>This propagated estimate is then used in the calculation of the Jacobian <span class="arithmatex"><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    A =
+    \begin{bmatrix}
+        0 &amp; 0 &amp; \cos{\chi} &amp; -V_g \sin{\chi} &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; \sin{\chi} &amp; V_g \cos{\chi} &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; -\frac{\dot{V_g}}{V_g} &amp; 0 &amp; -\dot{\psi} V_a \frac{\sin{\psi}}{V_g} &amp; \dot{\psi} V_a \frac{\cos{\psi}}{V_g} &amp; -\dot{\psi} V_a (w_n \cos{\psi} + w_e \sin{\psi}) \\
+        0 &amp; 0 &amp; -\frac{g}{V_g^2} \tan{\phi} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    A =
+    \begin{bmatrix}
+        0 & 0 & \cos{\chi} & -V_g \sin{\chi} & 0 & 0 & 0 \\
+        0 & 0 & \sin{\chi} & V_g \cos{\chi} & 0 & 0 & 0 \\
+        0 & 0 & -\frac{\dot{V_g}}{V_g} & 0 & -\dot{\psi} V_a \frac{\sin{\psi}}{V_g} & \dot{\psi} V_a \frac{\cos{\psi}}{V_g} & -\dot{\psi} V_a (w_n \cos{\psi} + w_e \sin{\psi}) \\
+        0 & 0 & -\frac{g}{V_g^2} \tan{\phi} & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>This Jacobian is then used to find a second-order approximation of the matrix exponential, <span class="arithmatex"><span class="MathJax_Preview">A_d</span><script type="math/tex">A_d</script></span>.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
+\end{equation}</script>
+</div>
+<p>Where <span class="arithmatex"><span class="MathJax_Preview">T_s</span><script type="math/tex">T_s</script></span> is the length of a time step.
+<span class="arithmatex"><span class="MathJax_Preview">A_d</span><script type="math/tex">A_d</script></span> is then used to propagate the actual covariance of the estimate.</p>
+<p>The process noise due to model uncertainty is defined in the matrix <span class="arithmatex"><span class="MathJax_Preview">Q</span><script type="math/tex">Q</script></span> and is fused into the covariance.
+This is done by the following equation:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">P_a = A_d P A_d^\top + Q \frac{T_s^2}{N^2}</div>
+<script type="math/tex; mode=display">P_a = A_d P A_d^\top + Q \frac{T_s^2}{N^2}</script>
+</div>
+<p>With this propagated estimate and covariance we are now ready for a measurement update.</p>
+<h3 id="measurement-update_1">Measurement Update<a class="headerlink" href="#measurement-update_1" title="Permanent link">&para;</a></h3>
+<!-- TODO: update the documentation when the position step is refactored to happen all at once. -->
+
+<p>Because the GPS measures come in slower than the model propagates, the measurement step is only run when there is new GPS information.
+This process is identical to the measurement update in the attitude step.
+This will likely change before release, but the only difference is that it is done one measurement at a time.
+This has advantages for querying the values while debugging, but is on the whole less clear and is more error prone.
+The math is the same but it is carried through, and expressed as the final sum and each row calculated separately.</p>
+<p>The measurement model, <span class="arithmatex"><span class="MathJax_Preview">h</span><script type="math/tex">h</script></span> has only 6 entries instead of 7 since heading, <span class="arithmatex"><span class="MathJax_Preview">\psi</span><script type="math/tex">\psi</script></span> is not measured.
+A digital compass could be added and <span class="arithmatex"><span class="MathJax_Preview">h</span><script type="math/tex">h</script></span> and <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span> expanded if desired, but control is operated on course, <span class="arithmatex"><span class="MathJax_Preview">\chi</span><script type="math/tex">\chi</script></span>, so this proves largely unnecessary.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    h = 
+    \begin{bmatrix}
+        p_n \\
+        p_e \\
+        V_g \\
+        \chi \\
+        V_a \cos{\psi} + w_n - V_g \cos{\chi} \\
+        V_a \sin{\psi} + w_e - V_g \sin{\chi} \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    h = 
+    \begin{bmatrix}
+        p_n \\
+        p_e \\
+        V_g \\
+        \chi \\
+        V_a \cos{\psi} + w_n - V_g \cos{\chi} \\
+        V_a \sin{\psi} + w_e - V_g \sin{\chi} \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>This yields a Jacobian <span class="arithmatex"><span class="MathJax_Preview">C</span><script type="math/tex">C</script></span>:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    C = 
+    \begin{bmatrix}
+        1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; -\cos{\chi} &amp; V_g\sin{\chi} &amp; 1 &amp; 0 &amp; -V_a\sin{\psi} \\
+        0 &amp; 0 &amp; -\sin{\chi} &amp; -V_g\cos{\chi} &amp; 0 &amp; 1 &amp; V_a\cos{\psi} \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    C = 
+    \begin{bmatrix}
+        1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & -\cos{\chi} & V_g\sin{\chi} & 1 & 0 & -V_a\sin{\psi} \\
+        0 & 0 & -\sin{\chi} & -V_g\cos{\chi} & 0 & 1 & V_a\cos{\psi} \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>Which is used in finding the Kalman gain <span class="arithmatex"><span class="MathJax_Preview">L</span><script type="math/tex">L</script></span>.</p>
+<p>The measurement noise matrix, <span class="arithmatex"><span class="MathJax_Preview">R_{position}</span><script type="math/tex">R_{position}</script></span>, is defined as:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    R_{position} = 
+    \begin{bmatrix}
+        \sigma_{gps, n}^2 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; \sigma_{gps, e}^2 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; \sigma_{gps, V_g}^2 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; \sigma_{gps, \chi}^2 &amp; 0 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; \sigma_{pseudo, w_n}^2 &amp; 0 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \sigma_{pseudo, w_n}^2 &amp; 0 \\
+        0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \sigma_{pseudo, \psi}^2 \\
+    \end{bmatrix}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    R_{position} = 
+    \begin{bmatrix}
+        \sigma_{gps, n}^2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & \sigma_{gps, e}^2 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & \sigma_{gps, V_g}^2 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & \sigma_{gps, \chi}^2 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & \sigma_{pseudo, w_n}^2 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & \sigma_{pseudo, w_n}^2 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & \sigma_{pseudo, \psi}^2 \\
+    \end{bmatrix}
+\end{equation}</script>
+</div>
+<p>An intermediate value is calculated called <span class="arithmatex"><span class="MathJax_Preview">S^{-1}</span><script type="math/tex">S^{-1}</script></span>.
+This value is:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    S^{-1} = (R_{position} + CPC^\top)^{-1}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    S^{-1} = (R_{position} + CPC^\top)^{-1}
+\end{equation}</script>
+</div>
+<p>This intermediate value is then used to find <span class="arithmatex"><span class="MathJax_Preview">L</span><script type="math/tex">L</script></span>:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    L = PC^\top S^{-1}
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    L = PC^\top S^{-1}
+\end{equation}</script>
+</div>
+<p>The optimal estimate is then found:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
+\end{equation}</script>
+</div>
+<p>Finally, we update the covariance from our new estimate:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\begin{equation}
+    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
+\end{equation}</script>
+</div>
+<p>We repeat this cycle until termination of the program.</p>
+<h2 id="software-architecture">Software Architecture<a class="headerlink" href="#software-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="estimator-implementation-specifics">Estimator implementation Specifics<a class="headerlink" href="#estimator-implementation-specifics" title="Permanent link">&para;</a></h3>
+<p>The estimator calls the update of the estimate on a timer.
+Between estimation updates, the measurements come in as they are published and are saved in the estimator.
+This allows asynchronous measurements and for only the most recent measurements to be used.
+It does mean however, that the propagation is reliant on the measurements being faster or as fast as the estimation updates.
+It also means that turning up the estimation frequency will not always have the anticipated effect.
+To increase estimator performance a combination of process noise tuning, sensor uncertainty characterization, sensor update speed increase estimate update speed increase will be needed.</p>
+<h3 id="replacing-the-estimator">Replacing the Estimator<a class="headerlink" href="#replacing-the-estimator" title="Permanent link">&para;</a></h3>
+<p>To replace the estimator all that needs to be done is inherit from the <code>estimator_base</code> class and override the <code>estimate</code> method, as described in the .hpp file.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Estimator Override Function" src="../../../../assets/estimator_assets/estimator_override_function.png" title="Estimator Override Function" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Figure 1: The member method that must be overriden to use a new estimator.</em></td>
+</tr>
+</tbody>
+</table>
+<p>Next, replace <code>estimator_example.cpp</code> in the <code>CMakeLists.txt</code> with the newly created estimator file.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Estimator CMake Change Location" src="../../../../assets/estimator_assets/estimator_cmake.png" title="Estimator CMake Change Location" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Figure 2: The location to replace the file for the new estimator file.</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Parameter</strong></th>
+<th style="text-align: center;"><strong>Explanation</strong></th>
+<th style="text-align: center;"><strong>Type</strong></th>
+<th style="text-align: center;"><strong>Range</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>sigma_n_gps</code></td>
+<td style="text-align: center;">The standard deviation of gps measurements in the north axis.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.01 meters</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_e_gps</code></td>
+<td style="text-align: center;">The standard deviation of gps measurements in the east axis.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.01 meters</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_Vg_gps</code></td>
+<td style="text-align: center;">The standard deviation of gps ground speed measurements.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.005 <span class="arithmatex"><span class="MathJax_Preview">\frac{m}{s}</span><script type="math/tex">\frac{m}{s}</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_course_gps</code></td>
+<td style="text-align: center;">The standard deviation of gps ground course measurements.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.00025 radians</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_accel</code></td>
+<td style="text-align: center;">The standard deviation of accelerometer measurements.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.025 <span class="arithmatex"><span class="MathJax_Preview">\frac{m}{s^2}</span><script type="math/tex">\frac{m}{s^2}</script></span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_pseudo_wind_n</code></td>
+<td style="text-align: center;">The standard deviation of pseudo-measurement along the north axis.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.01</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_pseudo_wind_e</code></td>
+<td style="text-align: center;">The standard deviation of pseudo-measurement along the east axis.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.01</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>sigma_heading</code></td>
+<td style="text-align: center;">The standard deviation of heading measurement.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.01 radians</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>lpf_a</code></td>
+<td style="text-align: center;">The lowpass filter cutoff frequency for the gyro and accelerometers.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~50.0 Hz</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>lpf_a1</code></td>
+<td style="text-align: center;">The lowpass filter cutoff frequency for the pressure sensors.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~8.0 Hz</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>gps_n_lim</code></td>
+<td style="text-align: center;">The limit of GPS measurements in the north direction.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq 10000</span><script type="math/tex">\geq 10000</script></span> meters</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>gps_e_lim</code></td>
+<td style="text-align: center;">The limit of GPS measurements in the east direction.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;"><span class="arithmatex"><span class="MathJax_Preview">\geq 10000</span><script type="math/tex">\geq 10000</script></span> meters</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>roll_process_noise</code></td>
+<td style="text-align: center;">The process noise on the roll propagation.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.0001</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>pitch_process_noise</code></td>
+<td style="text-align: center;">The process noise on the pitch propagation.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.0000001</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>gyro_process_noise</code></td>
+<td style="text-align: center;">The process noise on the gyro inversion.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~0.13</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>pos_process_noise</code></td>
+<td style="text-align: center;">The process noise on the position propagation.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>attitude_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for attitude.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">5.0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>pos_n_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for position north.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0.03</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>pos_e_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for position east.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0.03</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>vg_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for groundspeed.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0.01</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>chi_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for course.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">5.0 Degrees</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>wind_n_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for wind north.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0.04</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>wind_e_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for wind east.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0.04</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>psi_initial_cov</code></td>
+<td style="text-align: center;">Initial covariance entry for heading.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">5.0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>num_propagation_steps</code></td>
+<td style="text-align: center;">Number of propagation steps to run between measurements.</td>
+<td style="text-align: center;">int</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>max_estimated_phi</code></td>
+<td style="text-align: center;">The maximum roll estimate before estimator saturation.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~90.0 degrees</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>max_estimated_theta</code></td>
+<td style="text-align: center;">The maximum pitch estimate before estimator saturation.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~80.0 degrees</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>estimator_max_buffer</code></td>
+<td style="text-align: center;">The buffer that the esimator returns the estimate to after saturation.</td>
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">~3.0 degrees</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019-2024, James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>
