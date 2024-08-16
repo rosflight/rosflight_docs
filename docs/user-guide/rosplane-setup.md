@@ -1,7 +1,7 @@
 # ROSplane Setup
 
 !!! note
-    ROSplane v2.0.0-beta is now available! Check the [github repo](https://github.com/rosflight/rosplane) for the latest instructions.
+    ROSplane v2.0.0-beta is now available! Check the [github repo](https://github.com/rosflight/rosplane) for the latest code.
 
 ROSplane is a basic fixed-wing autopilot build around ROS2 for use with the ROSflight autopilot.
 It is built according to the methods published in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randy Beard and Dr. Tim McLain.
