@@ -47,7 +47,7 @@ If you already added the source command to your `.bashrc` from the [ROS2 Setup](
 source install/setup.bash
 
 # add it to your .bashrc
-echo "source install/setup.bash >> $HOME/.bashrc"
+echo "source /path/to/rosflight_ws/install/setup.bash >> $HOME/.bashrc"
 ```
 
 Note that sourcing the `setup.bash` file in the `rosflight_ws` directory will install all ROS2 packages in any subdirectories.
@@ -132,6 +132,11 @@ To fly autonomously, use channel 5 to disable RC override.
 If using a simulated transmitter, use `ros2 service call /toggle_override std_srvs/srv/Trigger` to toggle RC override on/off.
 
 The plane should then take off or fly autonomously in the Gazebo simulator!
+
+!!! note
+    The ROSflight firmware requires that the vehicle is armed before disabling RC override.
+    Make sure that the RC override is toggled off before arming.
+    This can be done using the `ros2 service call` above or an RC switch, if you have one set up.
 
 ## Running ROSplane on Hardware
 Ensure `rosflight_io` is running on the companion computer, and that the flight controller is connects to the companion computer.
