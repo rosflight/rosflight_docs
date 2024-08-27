@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
     
     
       
@@ -2061,7 +2061,7 @@ If you already added the source command to your <code>.bashrc</code> from the <a
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
 
 <span class="c1"># add it to your .bashrc</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source install/setup.bash &gt;&gt; </span><span class="nv">$HOME</span><span class="s2">/.bashrc&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /path/to/rosflight_ws/install/setup.bash &gt;&gt; </span><span class="nv">$HOME</span><span class="s2">/.bashrc&quot;</span>
 </code></pre></div>
 <p>Note that sourcing the <code>setup.bash</code> file in the <code>rosflight_ws</code> directory will install all ROS2 packages in any subdirectories.</p>
 <h2 id="running-rosplane-sil">Running ROSplane SIL<a class="headerlink" href="#running-rosplane-sil" title="Permanent link">&para;</a></h2>
@@ -2128,6 +2128,12 @@ Verify that the commands are working and that the aircraft is responding as expe
 <p>To fly autonomously, use channel 5 to disable RC override.
 If using a simulated transmitter, use <code>ros2 service call /toggle_override std_srvs/srv/Trigger</code> to toggle RC override on/off.</p>
 <p>The plane should then take off or fly autonomously in the simulator!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ROSflight firmware requires that the vehicle is armed before disabling RC override.
+Make sure that the RC override is toggled off before arming.
+This can be done using the <code>ros2 service call</code> above or an RC switch, if you have one set up.</p>
+</div>
 <h2 id="running-rosplane-on-hardware">Running ROSplane on Hardware<a class="headerlink" href="#running-rosplane-on-hardware" title="Permanent link">&para;</a></h2>
 <p>Ensure <code>rosflight_io</code> is running on the companion computer, and that the flight controller is connects to the companion computer.</p>
 <p>Launch ROSplane using
@@ -2255,7 +2261,7 @@ Note that the waypoint publisher from the <code>path_planner</code> node and the
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.af256bd8.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
