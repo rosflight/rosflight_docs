@@ -1,6 +1,6 @@
 # ROSplane Overview
 
-ROSplane is a basic fixed-wing autopilot build around ROS2 for use with the ROSflight autopilot.
+ROSplane is a basic fixed-wing autopilot built around ROS2 for use with the ROSflight autopilot.
 It is built according to the methods published in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randy Beard and Dr. Tim McLain.
 
 As per the [ROSflight vision](../../index.md#our-vision), ROSplane is *not* a fully-featured fixed-wing autopilot.
