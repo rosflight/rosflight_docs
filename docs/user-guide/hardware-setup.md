@@ -2,7 +2,10 @@
 
 ## Parts List
 
-To use ROSflight to its full potential, you will need the following system components. Some components are mounted on your MAV (Miniature Aerial Vehicle), while others are on the ground. ROSflight supports both multirotor and fixed-wing vehicles.
+To use ROSflight to its full potential, you will need the following system components.
+Some components are mounted on your MAV (Miniature Aerial Vehicle), while others are on the ground.
+ROSflight supports both multirotor and fixed-wing vehicle types.
+
 
 *Mounted on the MAV*
 
@@ -23,7 +26,8 @@ To use ROSflight to its full potential, you will need the following system compo
 
 ### Frame, Motors, ESCs, Battery, and Propeller
 
-We do not officially support any specific multirotor or airplane frame, motor, ESC, Battery or Propeller combination. There are a lot of great resources for building your own MAV, and there are a lot of great kits out there that have all of these parts.
+We do not officially support any specific multirotor or airplane frame, motor, ESC, Battery or Propeller combination.
+There are a lot of great resources for building your own MAV, and there are a lot of great kits out there that have all of these parts.
 
 If you are designing your own multirotor or airplane, you may want to look at [ecalc](https://www.ecalc.ch/), an online tool which can help you design a proper ESC/Battery/Motor/Propeller system for your MAV.
 
@@ -31,7 +35,7 @@ Some things to keep in mind as you design or build your MAV.
 
 * Most kits do not include space for a companion computer, cameras, laser scanners or other sensors. Be sure to think about where these components are going to go, and how their placement will affect the CG of the MAV.
 * You will likely also need to customize the power circuitry of your MAV to provide power to your companion computer at some specific voltage. Many people like to separate the power electronics (the ESCs and motors), from the computer and companion sensors. This can really come in handy if you are trying to develop code on the MAV, because you can have the computer on and sensors powered, and not worry at all about propellers turning on and causing injury as you move the aircraft about by hand. We will talk about this more when we talk about wiring up your MAV.
-* Cheap propellers can cause a huge amount of vibration. Consider buying high-quality propellers, doing a propeller balance, or both. RCGroups, DIY Drones and Youtube have some awesome guides on how to do propeller balancing.
+* Cheap propellers can cause a huge amount of vibration. Consider buying high-quality propellers, doing a propeller balance, or both. RCGroups, DIY Drones and YouTube have some awesome guides on how to do propeller balancing.
 * ESCs will need to be calibrated from 2000 to 1000 us
 
 
@@ -73,6 +77,7 @@ You will need Wi-Fi to communicate with your MAV when it is in the air. Because 
 
 For RC Control, you will need a transmitter with between 6 and 8 channels. Any additional channels will be wasted. We require RC control for safe operation, and only support arming and disarming via RC control.
 
+<!-- [comment]: # TODO: Do we actually support PPM? -->
 ROSflight only supports PPM (pulse position modulation) and SBUS receivers. Individual channel PWM outputs are not supported. Any configurations with PPM or SBUS and 6-8 channels will be sufficient.
 
 ### Laptop or Base Station Computer
@@ -87,23 +92,42 @@ A joystick is used for [software-in-the-loop (SIL) simulations](running-gazebo-s
 
 A battery monitor is an analog sensor that provides battery voltage and/or battery current information. This data can be used to prevent power loss in air or to measure system load. The sensor outputs an analog voltage proportional to the battery voltage and/or current through the battery. Most flight controllers come equipped with a built-in battery monitor, but if not, small PCB sensors are also available that can be connected to the flight controller.
 
+<!-- TODO: Is this still the case? -->
 For ROSflight to use a battery monitor, an appropriate multiplier must be set. ROSflight multiplies the analog signal from the monitor by the multiplier to get the final reading. The monitor datasheet should contain the information needed to get the multiplier. For example, the datasheet for the AttoPilot 50V/90A sensor states that it outputs 63.69 mV / V. To get the original battery voltage, the multiplier must be 1/.06369, or 15.7. The multipliers for the voltage and current are set separately, with the `BATT_VOLT_MULT` and `BATT_CURR_MULT` parameters, respectively.
 
 ROSflight applies a simple low-pass filter to remove noise from the voltage and current measurements. These filters are configurable via the `BATT_VOLT_ALPHA` and `BATT_CURR_ALPHA` [parameters](parameter-configuration.md). The alpha value for a given cutoff frequency \\(a\\), can be calulated with: \\( \alpha =  e ^ {-.01a} \\). As battery voltages do not typically change quickly, the default of 0.995 usually suffices.
 
-More information on battery monitor hardware, including determinining appropriate multipliers and creating a simple DIY monitor, can be found on the [OpenPilot Wiki](https://opwiki.readthedocs.io/en/latest/user_manual/revo/voltage_current.html).
+<!-- TODO: Looks like OpenPilot was discontinued... -->
+More information on battery monitor hardware, including determining appropriate multipliers and creating a simple DIY monitor, can be found on the [OpenPilot Wiki](https://opwiki.readthedocs.io/en/latest/user_manual/revo/voltage_current.html).
 
 ## Wiring Diagram
 
+<!-- TODO: We need to update this picture probably... -->
 Below is an example wiring diagram for a multirotor using an MSI Cubi as a companion computer. This diagram also includes the motor power switch, which allows for the sensors, flight controller, and companion computer to be powered on while the motors are off. This is a safer way to test sensors, code, etc. as the motors are unable to spin while the switch is off.
 
 ![Wiring Diagram](images/Wiring_Diagram.png)
 
 Your needs will likely be slightly different than what is shown. This is meant as an example only and can be adapted to fit your needs.
 
-## Motor Layouts
+## Motor Layouts and Mixer
 
-The desired mixer can be chosen by setting the `MIXER` parameter to the following values:
+The mixer takes in the desired forces and torques from the firmware controller and computes the motor and servo outputs accordingly.
+If it is not set correctly, it will likely lead to a crash.
+Make sure it is set properly for your airframe!
+
+!!! tip "Quick Start"
+
+    For a quick start, use one of the "canned mixers".
+    For a more accurate mixer, use a custom mixer.
+
+ROSflight offers some pre-computed, "canned" mixers that can be used off the shelf for a variety of common multirotor and fixedwing airframes.
+These mixers do not take into account all the parameters of your system (i.e. motor and propeller parameters), so they will be less accurate than they could be.
+If you want a more accurate mixer, or have easy access to the motor and prop parameters of your system, then we recommend using a custom mixer. 
+
+!!! note
+    A mixer must be chosen for the firmware to allow arming.
+
+The desired mixer can be chosen by setting the `PRIMARY_MIXER` parameter to one of the following values:
 
 | # | Mixer |
 |---|---------|
@@ -116,16 +140,104 @@ The desired mixer can be chosen by setting the `MIXER` parameter to the followin
 | 6 | Octo X |
 | 7 | Y6 |
 | 8 | X8 |
-| 9 | Tricopter |
-| 10 | Fixed-wing (traditional AETR) |
+| 9 | Fixed-wing (traditional AETR) |
+| 10 | Inverted V-tail fixedwing (like the RMRC Anaconda frame) |
+| 11 | Custom mixer |
 
 The associated motor layouts are shown below for each mixer.
 The **ESC calibration** mixer directly outputs the throttle command equally to each motor, and can be used for calibrating the ESCs.
 
 ![Mixer_1](images/mixers_1.png)
 
-![Mixer_2](images/mixers_2.png)
+The following parameters related to the mixer are optional:
 
+* `SECONDARY_MIXER`
+* `USE_MOTOR_PARAM`
+* All the custom mixer params of the form `PRI_MIXER_i_j` or `SEC_MIXER_i_j`
+
+The following subsections have more detail on these parameters.
+
+### Secondary Mixer 
+
+ROSflight also has a secondary mixer that can be set using the options in the above table by setting the `SECONDARY_MIXER` param.
+
+Offboard control commands will use the secondary mixer, while commands from the RC safety pilot will use the primary mixer.
+Thus, both RC throttle and attitude override will affect the mixer, as shown in the following image.
+
+![RC Mixer Configuration](images/rc_mixer_configuration.png)
+
+The `mixer_to_use_` structure represents the mixer that will be used when computing the output.
+The header, which includes the default PWM rate and the output type for each output channel, is always set to the same as the primary mixer.
+See [Defining a Custom Mixer](#defining-a-custom-mixer) for more information.
+Note that if the `SECONDARY_MIXER` param is not set, then it will default to the same value as the primary mixer.
+
+The secondary mixer might be useful when the airframe needs a different mixer for the offboard control (from the companion computer) than for RC control (from the safety pilot).
+It allows flexibility for more advanced mixing schemes while still having a functional mixer available to a safety pilot.
+
+### Using Motor Parameters
+
+The parameter `USE_MOTOR_PARAM` causes the firmware to compute the actuator outputs differently than if `USE_MOTOR_PARAM` is set false.
+As described in _Small Unmanned Aircraft: Theory and Practice_ by Beard and McLain, the mixing matrix is formed using equations from propeller theory, resulting in a set of equations that set the desired forces and torques equal to the square of the angular speeds of the propellers.
+If the motor and propeller parameters are known, then the desired voltage (and thus throttle) setting can be computed from the squared angular speeds.
+
+If the motor and propeller parameters are not known, then some simplifying assumptions are made to compute the desired throttle settings for each motor from the desired forces and torques.
+See [the report on the ROSflight mixer derivation](https://github.com/rosflight/rosflight_docs/blob/main/latex-reports/mixer.tex) for more information on the mixer derivation and assumptions.
+
+!!! tip "Quick Start"
+
+    If using a canned mixer, set `USE_MOTOR_PARAM=0`.
+
+    If using a custom mixer, set `USE_MOTOR_PARAM=1` **only** if the mixer was designed with motor parameters.
+
+The canned mixing matrices assume that `USE_MOTOR_PARAM` parameter is set to false.
+Using a canned mixer matrix and setting `USE_MOTOR_PARAM=1` (i.e. specifying that you want to mix with motor and propeller parameters) will cause the outputs to be scaled incorrectly.
+It is not required to use motor and propeller parameters when using a custom mixing matrix, but make sure your custom mixer makes sense.
+
+Also, if you selected a custom mixer and used the motor parameters to generate the mixer, make sure you set `USE_MOTOR_PARAM=1`. Otherwise, the outputs will likely be scaled incorrectly.
+
+!!! Important
+
+    We recommend flying your firmware in simulation _before_ loading the firmware onto real hardware to make sure everything is working.
+
+!!! Warning
+
+    It is not recommended to use a _canned mixer for the primary mixer_ and a _custom mixer for the secondary mixer_ **when the secondary mixer needs `USE_MOTOR_PARAM=1`.**
+    In other words, both `PRIMARY_MIXER` and `SECONDARY_MIXER` should use motor parameters, or neither should.
+
+    This is important because the canned mixers make assumptions that affect the gains of the controller on the aircraft.
+    This means that a canned mixer will require slightly different tuning than a custom mixer might.
+
+### Defining a Custom Mixer
+
+A custom mixer can be defined by:
+
+1. Set `PRIMARY_MIXER` (required) and/or `SECONDARY_MIXER` (optional) to the desired value in the mixer table
+2. Load the mixing matrix parameters for either the primary or the secondary mixer
+
+Note that computing the parameters of the mixing matrix is done on the companion computer.
+
+The firmware loads a custom mixer by loading all the values from parameters.
+Since there are 6 inputs to the mixer (\(F_x,F_y,F_z,Q_x,Q_y,Q_z\)) and 10 possible outputs, the mixer is a 6x10 matrix and there are 60 parameters associated with each custom mixer.
+For a standard quadrotor, however, most of these would be zero, since only the first 4 outputs (columns of the mixer matrix) would be used.
+
+In addition to the parameters associated with the 6x10 mixing matrix, there are two additional sets of parameters that need to be defined for each output used, the `PRI_MIXER_OUT_i` and the `PRI_MIXER_PWM_i` parameters, which define the output type and the default PWM rate, respectively, for the `i`th output.
+See the [Parameter Configuration Page](parameter-configuration.md) for more information on these parameters.
+
+The recommended way to load a custom mixer is to first compute all the required parameters and save them to a file on the companion computer.
+The parameters are named `PRI_MIXER_i_j` or `SEC_MIXER_i_j`, where `(i,j)` is the index of the parameter in the 6x10 mixing matrix.
+See the [Parameter Configuration Page](parameter-configuration.md) for more information on these parameters.
+A convenience script is available in the `roscopter` ROS2 package that will compute the custom mixer and save the parameter values in a format ready to load.
+
+Once the parameters are saved to a file, load them with the ROS2 service call (make sure `rosflight_io` is running):
+```ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{file: absolute/or/relative/path/to/saved/param/file.yaml}"```
+
+Also make sure to save those parameters to memory with the ROS2 service call:
+```ros2 service call /param_write std_srvs/srv/Trigger```
+
+<!-- TODO: It would be good to link to the mixer derivation page wherever I put that -->
+
+!!! Important
+    Test your mixer in simulation first when making changes, to avoid accidents.
 
 ## Connecting to the Flight Controller
 

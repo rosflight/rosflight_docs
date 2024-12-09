@@ -89,7 +89,7 @@ Its main purpose is to handle the interaction between offboard commands and the 
 
 ### Controller
 The controller uses the inputs from the command manager and estimator to compute a control output.
-This control output is computed in a generic form (\(x\), \(y\), and \(z\) torques, and force \(F\)), and is later converted into actual motor commands by the mixer.
+This control output is computed in a generic form (\(Q_x\), \(Q_y\), and \(Q_z\) torques, and forces \(F_x, F_y,\) and \(F_z\)), and is later converted into actual motor commands by the mixer.
 
 ### Mixer
-The mixer takes the generic outputs computed by the controller and maps them to actual motor commands depending on the configuration of the vehicle.
+The mixer takes the outputs computed by the controller and maps them to actual motor commands depending on the configuration of the vehicle.
