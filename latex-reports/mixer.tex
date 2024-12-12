@@ -1,76 +1,18 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Short Sectioned Assignment
-% LaTeX Template
-% Version 1.0 (5/5/12)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Frits Wenneker (http://www.howtotex.com)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
-
-\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
-% \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
-\usepackage[english]{babel} % English language/hyphenation
-\usepackage{amsmath,amsfonts,amsthm} % Math packages
-
-\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-
-\usepackage{sectsty} % Allows customizing section commands
-\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
-
-\usepackage{fancyhdr} % Custom headers and footers
+\documentclass{article}
+\usepackage[margin=1in]{geometry} % Required for inserting images \usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{blkarray}
 \usepackage{bm}
-\usepackage{upgreek}
 \usepackage{tikz}
-\usetikzlibrary{shapes, arrows}
-\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
-\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
-\fancyfoot[L]{} % Empty left footer
-\fancyfoot[C]{} % Empty center footer
-\fancyfoot[R]{\thepage} % Page numbering for right footer
-\renewcommand{\headrulewidth}{0pt} % Remove header underlines
-\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
-\setlength{\headheight}{13.6pt} % Customize the height of the header
+\usetikzlibrary{arrows, shapes}
 
-\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
-
-%----------------------------------------------------------------------------------------
-%	TITLE SECTION
-%----------------------------------------------------------------------------------------
-
-\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
-
-\title{
-\normalfont \normalsize
-\textsc{MAGICC Lab - Brigham Young University} \\ [25pt] % Your university, school and/or department name(s)
-\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Mixer \\ % The assignment title
-\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
-}
-
-\author{James Jackson} % Your name
-
-\date{\normalsize\today} % Today's date or a custom date
+\title{ROSflight Mixer Report}
+\date{Last revision: \today}
 
 \begin{document}
 
-\maketitle % Print the title
-
-%----------------------------------------------------------------------------------------
-%	PROBLEM 1
-%----------------------------------------------------------------------------------------
+\maketitle
+\tableofcontents
 
 \section{Introduction}
 
@@ -78,9 +20,9 @@ The mixer is a mechanism by which abstract roll rate, pitch rate, yaw rate and t
 
 In addition to the mixer, there is some saturation functionality baked into ROSflight.  This functionality is insipired by that implemented in cleanflight, and serves to ensure that the MAV is always capable of responding to inputs, even during the most aggressive maneuvers.
 
-The flow of information through the firmware can be visualized in Figure~\ref{fig:mixer_flow}
+The flow of information through the mixer can be visualized in Figure~\ref{fig:mixer_flow}.
 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
 	\tikzstyle{int}=[draw, fill=white, minimum size=6em]
 	\tikzstyle{init} = [pin edge={to-,thin,black}]
@@ -88,48 +30,237 @@ The flow of information through the firmware can be visualized in Figure~\ref{fi
 \begin{tikzpicture}[node distance=4cm,auto,>=latex']
     \node [int] (a) {mixer};
     \node (b) [left of=a,node distance=4cm, coordinate] {a};
-    \node [int] (c) [right of=a] {sat};
+    \node [int] (c) [right of=a] {saturation};
     \node [coordinate] (end) [right of=c, node distance=4cm]{};
-    \path[->] (b) edge node {$\bm{\omega_c}, F$} (a);
-    \path[->] (a) edge node {$\hat{\tau}_1, \hat{\tau}_2 \ldots \hat{\tau}_n$} (c);
-    \draw[->] (c) edge node {$\tau_1, \tau_2 \ldots \tau_n$} (end) ;
+    \path[->] (b) edge node {$\bm{\omega_c}$} (a);
+    \path[->] (a) edge node {$\hat{\delta}_1, \hat{\delta}_2, \ldots \hat{\delta}_n$} (c);
+    \draw[->] (c) edge node {$\delta_1, \delta_2, \ldots \delta_n$} (end) ;
 \end{tikzpicture}
 \label{fig:mixer_flow}
-\caption{The flow of information through the mixer and saturation function}
+\caption{The flow of information through the mixer and saturation function, where $\bm{\omega_c}$ is the vector of desired commands.}
 \end{figure}
 
 \section{Mixer}
 
-As mentioned before, the mixer is essentially a matrix multiplication.  There are a number of mixers pre-programmed into ROSflight2, and they are published in [CITE].  They are designed to match the original mixers programmed into cleanflight, and they match the corresponding motor output diagrams, shown in Figure~\ref{fig:motor_layout}. First, an abstract command is calculated by the rate controller, or passed directly into the mixer (see controller paper), in the form of a four-tuple.  $(F, x, y, z)$.  In general, these are the actuatable degrees of freedom in the MAV, but specifically, in the case of a multirotor, this is interpreted as Force, Roll Torque, Pitch Torque, and Yaw Torque, $(F, \tau_x, \tau_y \tau_z)$, and in the case of a fixed-wing MAV, this is interpreted as throttle, aileron deflection, elevator deflection and rudder deflection $(T, \delta_a, \delta_e, \delta_r)$.  The mixer then maps these commands to the 8 outputs available on the flight controller and executes the command.
+As mentioned before, the mixer is essentially a matrix multiplication.
+There are a number of mixers pre-programmed into ROSflight2, or a custom mixer can be used. 
+First, an abstract command is calculated by the rate controller, or passed directly into the mixer in the form of a six-tuple,  $(F_x, F_y, F_z, Q_x, Q_y, Q_z)$, which represent the possible degrees of freedom of an arbitrary MAV.
 
-As an example, we will analyze the quadcopter-X mixing to show how it works.  The rate controller, based on some higher-level input, calculates some command, $\bm{\omega}$.  This is passed into the mixer, which is essentially the following 4x4 matrix:
+Note that the interpretation of these commands depends on the mixer used.
+For example, in the case of a standard multirotor defined by the pre-programmed mixers, they are interpreted as x-force, y-force, z-force, roll torque, pitch torque, and yaw torque.
+In the case of a standard fixed-wing MAV defined by the pre-programmed mixers, these are interpreted as throttle, nothing, nothing, aileron deflection, elevator deflection, and rudder deflection $(T, 0,0, \delta_a, \delta_e, \delta_r)$. 
+
+The mixer then maps these commands to the 8 outputs available on the flight controller and executes the command.
+
+As an example, we will analyze the pre-programmed quadcopter-X mixing to show how it works.
+The rate controller, based on some higher-level input, calculates some command, $\bm{\omega}$.
+This is passed into the mixer, which in this case is the 4x4 matrix
 
 \begin{equation}
-	\begin{pmatrix}
-		 1 & 1 & 1 & 1 \\
-	  -1 &-1 & 1 & 1 \\
-	  -1 & 1 &-1 & 1 \\
-	   1 &-1 &-1 & 1 \\
-	\end{pmatrix}
+\begin{blockarray}{ccccc}
+ & \delta_1 & \delta_2 & \delta_3 & \delta_4 \\
+\begin{block}{c(cccc)}
+    F_x & 0 & 0 & 0 & 0 \\
+    F_y & 0 & 0 & 0 & 0 \\
+    F_z & -0.25 & -0.25 & -0.25 & -0.25 \\
+    Q_x & -0.7071 &-0.7071 & 0.7071 & 0.7071 \\
+    Q_x & 0.7071 & -0.7071 & 0.7071 & -0.7071 \\
+    Q_x & 1 &-1 & 1 & 1 \\
+\end{block}
+\end{blockarray},
 \end{equation}
+where $\delta_i$ represents the $i$th output.
 
-The remaining outputs are made available to modification by the GPIO inputs to the FC via MAVlink.  It is assumed that PID gains in higher-level functions perform the scaling between the different channels to acheive the desired output.
+In this case, the first two rows corresponding to $F_x$ and $F_y$ are zeros, meaning that the MAV has no actuators in the $x$ or $y$ directions.
+The third row has negative signs, meaning that the actuators point in the negative $z$ direction.
+The torque values come from the geometry of a quadcopter-X.
+See Section \ref{sec:derivation} for more details.
 
-In addition, each mixer contains information about what kind of output each output channel is.  For example, in the case of a fixed-wing.  The output of the mixer for the first channel is attached to a motor while the other three are attached to servos.  The output of a mixer to a servo must lie between -500 and 500, after which it is shifted up to the center of the servo output, or 1500$\upmu$s.  Motor commands, on the other hand, are restricted to lie between 0 and 1000, and mapped to the full PWM range for standard ESC operation.
+The remaining outputs are made available to modification by the GPIO inputs to the FC via MAVlink.
+For the pre-programmed mixers, it is assumed that PID gains in higher-level functions perform the scaling between the different channels to acheive the desired output.
 
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.3]{fig/motor_layout.jpg}
-	\label{fig:motor_layout}
-	\caption{The motor layout for the mixers}
-\end{figure}
+In addition, each mixer contains information about what kind of output each output channel is.
+For example, in the case of a fixed-wing, the output of the mixer for the first channel is attached to a motor while the other three are attached to servos.
+The output of a mixer to a servo must lie between -500 and 500, after which it is shifted up to the center of the servo output, or 1500$\upmu$s.
+Motor commands, on the other hand, are restricted to lie between 0 and 1000, and mapped to the full PWM range for standard ESC operation.
 
 \section{Saturation}
 
 There are often agressive maneuvers which may cause multiple motor outputs to become saturated.  This is of particular concern in multirotors, and can be illustrated in the example of the command of maximum roll while at full throttle in a quadcopter.  Full throttle, with no other command, would normally cause all four motors to saturate at a maximum PWM command of 2000$\upmu$s.  Mixing in a maximum roll command would cause two of the motors to reduce to 1500$\upmu$s, while the other two would go to 2500$\upmu$s.  Because 2500$\upmu$s is beyond the maximum limit, the maximum roll command would actually be interpreted as a half-roll command as the difference between the motors on opposite sides of the MAV would be halved.  To increase controllability in these sorts of situations, we take the motor control value from the mixer, before it is shifted up 1000$\upmu$s to the standard PWM range, and find the scaling factor which would reduce the maximum motor command to 1000$\upmu$s.  We then apply this scaling factor to all other motors, and then shift them up to the standard PWM range of 1000$\upmu$s to 2000$\upmu$s.  This does not completely solve the problem, because the maximum roll command is still reduced somewhat, but it trades off maximum thrust for some additional controllability. In the case of a simultaneous maximum roll and maximum throttle, two of the motors will receive a command of 2000$\upmu$s, while the other two will receive a command of 1333$\upmu$s, as opposed to the 1500$\upmu$s without the saturation, and maintains controllability even at high levels of throttle.
 
 
+\section{Mixer Equation Derivation}\label{sec:derivation}
+There are two types of mixers available in ROSflight, ``canned"/pre-programmed mixers, and custom mixers.
+Details of how to use each type of mixer can be found on the ROSflight website.
+This section describes the derivation and assumptions of the mixer equations.
+We first describe the derivation of a custom mixer for a generic multirotor.
+We then describe the assumptions that were made to compute the ``canned" or pre-programmed mixers included with ROSflight.
 
+Note that many of the details of the mixer are more relevant to multirotor-type than fixedwing-type vehicles.
+
+\subsection{General Form}
+As defined in \textit{Small Unmanned Aircraft: Theory and Practice} by Beard and McLain, the torque and thrust generated by a motor and propeller are
+\[ \Vec{T}_{i} = C_T \frac{\rho D^4}{4 \pi^2} \Omega_i^2 \hat{e}_i \]
+\[\begin{split}
+\Vec{Q}_i & = \vec{r} \times \vec{T}_i + C_Q \frac{\rho D^5}{4 \pi^2} \Omega^2 d_i \hat{e}_i \\
+          & = C_T \frac{\rho D^4}{4 \pi^2} \Omega_i^2 (\vec{r} \times \hat{e}_i)  + C_Q \frac{\rho D^5}{4 \pi^2} \Omega_i^2 d_i \hat{e}_i,
+\end{split}\]
+where $\hat{e}_i$ is the unit vector pointed in the direction of the motor, $C_T$ and $C_Q$ are the torque and thrust coefficients associated with the propeller, $\rho$ is the air density, $D$ is the propeller diameter, $\vec{r}$ is the vector pointing from the center of rotation to the propeller plane, $d_i \in \{-1,1\}$ encodes the direction of rotation of a propeller, and $\Omega_i$ is the angular velocity of the propeller and motor.
+
+The desired forces and torques are transformed into desired angular velocities squared by the inverse of the mixing matrix $M$ according to
+\[
+\begin{bmatrix}
+\Vec{T}_d \\ \Vec{Q}_d \\
+\end{bmatrix}
+=
+M
+\begin{bmatrix}
+    \Omega_1^2 \\ 
+    \Omega_2^2 \\
+    \vdots \\
+    \Omega_n^2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    \Vec{T}_1 & \Vec{T}_2 & \hdots & \Vec{T}_n \\
+    \Vec{Q}_1 & \Vec{Q}_2 & \hdots & \Vec{Q}_n \\
+\end{bmatrix}
+\begin{bmatrix}
+    \Omega_1^2 \\ 
+    \Omega_2^2 \\
+    \vdots \\
+    \Omega_n^2 \\
+\end{bmatrix}
+\]
+where $\Vec{T}_d$ and $\Vec{Q}_d$ are the desired thrust and torque.
+
+The $i^{\text{th}}$ column of M is then
+\[
+\begin{bmatrix}
+\Vec{T}_i \\ \Vec{Q}_i \\
+\end{bmatrix}
+=
+C_T \frac{\rho D^4}{4 \pi^2}
+\begin{bmatrix}
+    \hat{e}_i \\
+    \vec{r} \times \hat{e}_i  + \frac{C_Q D d_i}{C_T} \hat{e}_i \\
+\end{bmatrix}
+\Omega_i^2.
+\]
+This is a general form, so it is valid for any motor configuration, and the desired angular speeds can be computed by inverting the mixing matrix $M$.
+
+If we know the motor parameters, we can compute the desired input voltage based on the desired angular velocities.
+To do this, we set Equations 4.19 and 4.(1) from \textit{Small Unmanned Aircraft: Theory and Practice} equal to each other to get
+\[
+V_{\text{in}} = \frac{R C_Q}{K_Q} \frac{\rho D^5 }{4 \pi^2} \Omega_i^2 + i_0 R + K_V \Omega_i. 
+\]
+The throttle setting, $\delta_{t,i} \in [0,1]$ can then be calculated using $V_{\text{in}} = \delta_{t,i} V_{\text{max}}$.
+This throttle setting is the PWM setting that the mixer writes to the motors, assuming that output voltage is scaled linearly to the PWM duty cycle setting.
+
+\subsection{Simplifications}
+There are some simplifications we can make in order to generate mixing matrices that do not depend on the motor and propeller parameters.
+
+\noindent
+\textbf{Assumption 1:} All motors and propellers are the same (i.e. have the same coefficients).
+
+\noindent
+\textbf{Assumption 2:} $\hat{e}_i = -\hat{k} = \begin{bmatrix}
+    0 \\ 0 \\ -1
+\end{bmatrix}$,
+meaning that the motors are all oriented in the $-z$ direction (i.e. straight up).
+
+\vspace{10pt}
+Then, 
+\[
+\vec{r} \times \hat{e}_i
+=
+\begin{bmatrix}
+    r_y e_z - r_z e_y \\
+    r_z e_x - r_x e_z \\
+    r_x e_y - r_y e_x \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    -r_y \\
+    r_x \\
+    0 \\ 
+\end{bmatrix}
+\]
+and 
+\[
+c_1 
+\begin{bmatrix}
+    \Vec{T}_i \\ \Vec{Q}_i \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 \\ 
+    0 \\
+    1 \\ 
+    -r_y \\
+    r_x \\
+    \frac{C_Q D}{C_T} d_i \\
+\end{bmatrix}
+\Omega_i^2,
+\]
+where $c_1 = \frac{4 \pi^2}{C_T \rho D^4}$.
+
+\vspace{10pt}
+\noindent
+\textbf{Assumption 3:} Each desired torque value is computed independently (i.e. separate gains) than the other desired forces and torques.
+Additionally, $\ell=1$, so that $r_y = \text{sin}\theta$ and $r_x = \text{cos}\theta$.
+
+\vspace{10pt}
+\noindent
+Then the constant terms in those equations can be factored out of the equations and subsumed into the gains and we get
+\[
+\vec{c}_1^T
+\begin{bmatrix}
+    \Vec{T}_i \\ \Vec{Q}_i \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 \\ 
+    0 \\
+    1 \\ 
+    -r_y \\
+    r_x \\
+    d_i \\
+\end{bmatrix}
+\Omega_i^2,
+\]
+which is intuitive, since it comes straight from the geometry.
+Note that $\vec{c}_1$ becomes a vector since the rows have different constants associated with them.
+
+\vspace{10pt}
+\noindent
+\textbf{Assumption 4:} $V_{\text{in}} \approx \frac{R \rho D^5 C_Q}{4 \pi^2 K_Q} \Omega_i^2$, meaning that the first term in the $V_\text{in}$ equation dominates.
+
+\vspace{10pt}
+\noindent
+Then, since $V_{\text{in}} = \delta_{t,i} V_{\text{max}}$ we have 
+\[
+\vec{c}^T_2
+\begin{bmatrix}
+    \Vec{T}_i \\ \Vec{Q}_i \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 \\ 
+    0 \\
+    1 \\ 
+    -r_y \\
+    r_x \\
+    d_i \\
+\end{bmatrix}
+\delta_{t,i},
+\]
+where $\vec{c}_2 = \frac{R \rho D^5 C_Q }{4 \pi^2 K_Q V_{\text{max}}} \vec{c}_1$.
+
+Since the desired forces and torques come from a controller, (specifically a PID controller in the firmware), the $\vec{c}_2$ constants could be wrapped up in the gains associated with each controller, and the columns of the mixing matrix become the right-hand sided of the above equation.
+
+With this formulation, we can define canned mixers that don't require knowledge of the motor and propeller parameters.
+This formulation makes a trade-off between the accuracy of the commands (see Assumption 4) and the simplicity and intuitiveness for the user.
 
 \end{document}
+
