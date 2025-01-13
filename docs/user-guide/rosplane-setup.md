@@ -203,7 +203,7 @@ Adding waypoints can be done at any time, even after loading from a file.
 
 Clearing waypoints can be done using 
 ```bash
-ros2 service call /clear_waypoints std_msgs/srv/Trigger
+ros2 service call /clear_waypoints std_srvs/srv/Trigger
 ```
 
 ### Publishing Waypoints
