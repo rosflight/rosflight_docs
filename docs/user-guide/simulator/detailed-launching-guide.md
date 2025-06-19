@@ -1,24 +1,35 @@
-# Running Simulations in Gazebo
-
-ROSflight comes with a useful tool allowing it to perform software-in-the-loop (SIL) simulations of the ROSflight firmware in Gazebo.
-
-## Architecture of the SIL Simulation
-
-To best mimic the hardware experience of ROSflight, the SIL plugin for Gazebo actually implements the firmware source code as a library. We just implemented a different "board layer" which uses gazebo instead of hardware calls for things like `imu_read()` and `pwm_write()`. Instead of a serial link over USB to the flight controller, we use a UDP connection bouncing off of localhost to communicate between `rosflight_io` and the firmware. This means the interface to the SIL plugin is identical to that of hardware. `rosflight_io` is the main gateway to the firmware in simulation, just as it is in hardware.
-
-The following table summarizes the correlation between connections in hardware and simulation:
-
-| Connection Type                         | Hardware     | Simulation                               |
-|-----------------------------------------|--------------|------------------------------------------|
-| Serial communications to `rosflight_io` | USB / UART   | UDP                                      |
-| RC                                      | PPM Receiver | ROS2 `RC` topic (`rosflight_msgs/RCRaw`) |
-| Motors                                  | PWM          | Gazebo Plugin                            |
-| Sensors                                 | SPI/I2C      | Gazebo Plugin                            |
-
-## Quick-Start Guide to SIL Simulation
+# Detailed Launching Guide
+Detailed launching instructions for the `rosflight_sim` module.
+For a quick copy-paste instructions, see the [quick start guide](running-simulations-with-rosflight.md#quick-start)
 
 !!! note
     To simulate a fixed-wing mav, just change all instances of `multirotor` in the steps below to `fixedwing`.
+
+## A note on sims and viz
+A _simulator_ includes many different modules, such as dynamic propagation, sensor creation, forces and moments computation, etc.
+One of these modules is the _visualization_ module, that provides the graphical element to the simulator.
+Different visualizers provide different functionality and require different information.
+For example, [Gazebo Classic](https://classic.gazebosim.org/) handles the dynamic propagation (integration) for users, while a simple visualizer like RViz does not.
+
+Since each _visualizer_ in large part determines what other functionality the _simulator_ modules need to provide, they are tightly coupled.
+Thus, in this guide, we will refer interchangeably between _simulator_ and _visualizer_.
+
+## Sims that ship with `rosflight_sim`
+The ROSflight simulation module was designed to be as modular as possible, in order to support different simulation and visualization needs.
+Currently, we support 2 visualizers out-of-the-box:
+
+- [Gazebo Classic](https://classic.gazebosim.org/)
+- A "standalone" visualizer using [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) tool
+
+Adding your own visualizer is part of what `rosflight_sim` was designed for.
+See the [instructions on adding your own visualizer](simulator-architecture.md#adding-your-own-visualizer) page for more information on plugging in your simulator into `rosflight_sim`.
+
+This following sections detail how to launch and debug these two simulators.
+
+!!! TODO
+  Continue here with the detailed launching guide. Add figures and the architecture image to show what nodes run with Gazebo
+
+## Gazebo Classic
 
 * Setup ROSflight with the [ROS2 Setup](ros2-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
 
@@ -67,3 +78,4 @@ Remember, the SIL tries its best to replicate hardware. That means you have to c
 ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 ```
 to load all required parameters and perform initial calibrations for a quick simulation setup.
+

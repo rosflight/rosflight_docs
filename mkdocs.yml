@@ -59,7 +59,10 @@ nav:
       - Pre-Flight Checks: user-guide/preflight-checks.md
       - Improving Firmware Performance: user-guide/improving-firmware-performance.md
       - Autonomous Flight: user-guide/autonomous-flight.md
-      - Running Gazebo Simulation: user-guide/running-gazebo-simulation.md
+    - ROSflight Sim:
+      - ROSflight Sim Overview: user-guide/simulator/running-simulations-with-rosflight.md
+      - Detailed Launching Guide: user-guide/simulator/detailed-launching-guide.md
+      - Simulator Architecture: user-guide/simulator/simulator-architecture.md
     - ROSplane:
       - ROSplane Overview: user-guide/rosplane-overview.md
       - ROSplane Setup: user-guide/rosplane-setup.md
