@@ -18,8 +18,8 @@ Thus, in this guide, we will refer interchangeably between _simulator_ and _visu
 The ROSflight simulation module was designed to be as modular as possible, in order to support different simulation and visualization needs.
 Currently, we support 2 visualizers out-of-the-box:
 
+- A "standalone" visualizer using [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) tool (**recommended**)
 - [Gazebo Classic](https://classic.gazebosim.org/)
-- A "standalone" visualizer using [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) tool
 
 Adding your own visualizer is part of what `rosflight_sim` was designed for.
 See the [instructions on adding your own visualizer](simulator-architecture.md#adding-your-own-visualizer) page for more information on plugging in your simulator into `rosflight_sim`.
@@ -27,53 +27,128 @@ See the [instructions on adding your own visualizer](simulator-architecture.md#a
 This following sections detail how to launch and debug these two simulators.
 
 !!! TODO
-  Continue here with the detailed launching guide. Add figures and the architecture image to show what nodes run with Gazebo
+    Continue here with the detailed launching guide. Add figures and the architecture image to show what nodes run with Gazebo Classic
+
+## Standalone Sim
+The "standalone" sim is a simulator that uses [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) to visualize aircraft motion.
+
+### Launching instructions
+- Set up ROSflight with the [ROS2 Setup](../ros2-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
+
+- Launch the standalone sim for ROSflight SIL:
+```bash
+ros2 launch rosflight_sim multirotor_standalone.launch.py
+```
+
+- The standalone sim should now be running! You should have the following `rqt_graph`:
+![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_gazebo_launch.png)
+
+!!! Tip
+    Run `rqt_graph` with `rqt_graph` the in a new terminal, assuming [correct version of ROS2 was installed](../ros2-setup.md).
+
+### Explanation 
+The launch file manages launching several nodes all at once, as shown in the `rqt_graph` image:
+
+- `/rosflight_io`: Handles the communication between the companion computer and the flight controller
+- `/rosflight_sil_manager`: Calls the firmware at the correct time interval
+- `/standalone_sensors`: Simulates sensor measurements given the true state of the robot
+- `/rc`: Simulates the RC safety pilot connection to the firmware
+- `/sil_board`: Instantiation of the firmware
+- `/standalone_dynamics`: Dynamics node for keeping track of the true robot state
+- `/multirotor_forces_and_moments`: Computes aerodynamic forces and moments based on motor commands
+- `/standalone_time_manager`: Only appears if `use_sim_time` is set true. See [launch arguments](#launch-arguments)
+- `/rviz`: Visualizer
+- `/standalone_viz_transcriber`: Manages publishing `rosflight_sim` information to RViz
+- 3 transform listener nodes: Manage coordinate frame transformations to RViz
+
+For more information on each of these nodes, see the [simulator architecture](simulator-architecture.md) page.
+
 
 ## Gazebo Classic
+!!! DANGER
+    Gazebo Classic is officially EOL as of January 2025, and **does not work with ROS2 Jazzy**.
+    If you are using ROS2 Jazzy, please only use the standalond sim.
+    The following instructions assume you are using ROS2 Humble.
 
-* Setup ROSflight with the [ROS2 Setup](ros2-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
+    We have not yet upgraded to Gazebo, which is not EOL and better.
+    If you would like to help in this effort, please visit the [GitHub issue](https://github.com/rosflight/rosflight_ros_pkgs/issues/166) and let us know :)
 
-* Source the Gazebo setup file if you haven't added it to `~/.bashrc`:
+### Launching Instructions 
+
+!!!TODO
+    Change the ROS2 setup instructions include details about Gazebo and skipping if you don't want it.
+
+* Set up ROSflight with the [ROS2 Setup](../ros2-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
+* Source the Gazebo Classic setup file if you haven't added it to `~/.bashrc`:
 ```bash
 source /usr/share/gazebo/setup.sh
 ```
-
-* Launch Gazebo with the ROSflight SIL:
+* Launch Gazebo Classic with the ROSflight SIL:
 ```bash 
-ros2 launch rosflight_sim multirotor.launch.py
+ros2 launch rosflight_sim multirotor_gazebo.launch.py aircraft:=multirotor
 ```
 
-* Gazebo should now be running, and you should have the following `rqt_graph`.
+* Gazebo Classic should now be running! You should have the following `rqt_graph`.
 
-![multirotor_launch_rqt_graph](images/rqt_graph_multirotor_launch.png)
+![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_gazebo_launch.png)
 
-* At this point, you can't actually do anything because there is no RC connection and no `rosflight_io` to talk to the firmware. Let's start by running a `rosflight_io` node. In a separate terminal, run:
-```bash
-ros2 run rosflight_io rosflight_io --ros-args -p udp:=true
-```
+!!! Tip
+    Run `rqt_graph` with `rqt_graph` the in a new terminal, assuming [correct version of ROS2 was installed](../ros2-setup.md).
 
-    * The `udp` parameter tells `rosflight_io` to simulate a serial connection over UDP rather than using the USB connection to hardware
 
-Your `rqt_graph` should look something like the following image. This looks funny because ROS2 doesn't actually know that there is a UDP connection between `rosflight_io` and gazebo. There is one, though, and you can test it by echoing any of the topics published by `rosflight_io`.
+### Explanation 
+The launch file manages launching several nodes all at once, as shown in the `rqt_graph` image:
 
-![rqt_graph_multirotor_launch_with_rosflight_io](images/rqt_graph_multirotor_launch_with_rosflight_io.png)
+- `/rosflight_io`: Handles the communication between the companion computer and the flight controller
+- `/rosflight_sil_manager`: Calls the firmware at the correct time interval
+- `/standalone_sensors`: Simulates sensor measurements given the true state of the robot
+- `/rc`: Simulates the RC safety pilot connection to the firmware
+- `/sil_board`: Instantiation of the firmware
+- `/gazebo`: Visualizer
+- `/multirotor/dynamics`: Dynamics plugin to Gazebo Classic, computes the aerodynamic forces and moments given motor commands
+- `/dynamics`: Interface node between the dynamics plugin and the rest of the `rosflight_sim` modules
 
-* Start up a simulated RC connection. The easiest way to do this is with the ROSflight utility `rc_joy.py`. Connect a joystick to the computer (or transmitter) and run: 
+For more information on each of these nodes, see the [simulator architecture](simulator-architecture.md) page.
+
+## Launch arguments
+!!! Tip
+    Command line arguments to launch files can be previewed by appending `--show-args` to the launch call:
     ```bash
-    ros2 run rosflight_sim rc_joy.py --ros-args --remap /RC:=/multirotor/RC
+    ros2 launch rosflight_sim multirotor_gazebo.launch.py --show-args
     ```
-    This simulates the RC connection in hardware. If everything is mapped correctly, you should now be able to arm, disarm and fly the aircraft in simulation!
 
-!!! tip
-    To start the Gazebo sim, rosflight_io node, and rc_joy.py utility all at once, run this command instead of the three commands individually:
-    ```bash
-    ros2 launch rosflight_sim multirotor_sim_io_joy.launch.py    
-    ```
+There are several command line arguments you can pass to customize the behavior at runtime.
+Here are some important ones:
+
+- `aircraft`: Defaults to "skyhunter". This parameter controls which dynamics and parameter files get loaded. Make sure this is set to your correct airframe!
+- `use_sim_time`: By default, set false. This parameter is a parameter of all nodes in ROS2. If set to true on launch, the node will create a subscription to the `/clock` topic, and will use that as the source of time for its timers.
+For Gazebo Classic, it is recommended to **leave this as false**, since Gazebo Classic publishes a `/clock` topic at 10Hz, which is too slow for most modules. If using the standalone sim, this parameter will allow you to speed up, slow down, or pause time. See the [simulation architecture](simulation-architecture.md) page for more information.
+- `use_vimfly`: Node that changes the default RC behavior to use VimFly, a program that lets you use Vim commands to fly around in the sim!
+Vim, of course, is recommended for everyone, but VimFly especially if you don't have access to RC transmitter connected over USB.
+See the [joystick](#joysticks) section for more information on what joysticks are supported.
+
+These command line arguments should be passed using the `<argument>:=<value>` syntax.
+
+
+## Joysticks
+ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot.
+If one of the supported transmitters is connected via USB at launch, then the sim will default to using that controller instead of the default, **which is no RC connection**.
 
 !!! note
-    It is much easier to fly with a real transmitter than with an Xbox-type controller. FrSky Taranis QX7 transmitters, Radiomaster TX16s transmitters, and RealFlight controllers are also supported. Non-Xbox joysticks may have incorrect mappings. If your joystick does not work, and you write your own mapping, please contribute back your new joystick mapping!
+    It is much easier to fly with a real transmitter than with an Xbox-type controller.
+    FrSky Taranis QX7 transmitters, Radiomaster TX16s transmitters, and RealFlight controllers are also supported.
+    Non-Xbox joysticks may have incorrect mappings.
+    If your joystick does not work, and you write your own mapping, please contribute back your new joystick mapping!
 
-Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the [Hardware Setup](hardware-setup.md) and [Parameter Configuration](parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also run 
+If you want to fly around in the sim and you don't have access to a transmitter, we recommend using VimFly, which allows you to fly around in the sim with your keyboard.
+To use VimFly, just add the `use_vimfly:=true` string to the end of the launch command.
+
+## After launching
+!!! TODO
+    Continue here. Finish the calibration and "gotchas" for setting up the sim.
+    Also write a section somewhere documenting gotchas for the mixing matrix stuff.
+
+Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the [Hardware Setup](../hardware-setup.md) and [Parameter Configuration](../parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also run 
 ```bash
 ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 ```
