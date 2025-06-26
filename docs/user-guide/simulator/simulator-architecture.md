@@ -20,14 +20,5 @@ The following table summarizes the correlation between connections in hardware a
 | Motors                                  | PWM          | Gazebo Plugin                            |
 | Sensors                                 | SPI/I2C      | Gazebo Plugin                            |
 
-## Troubleshooting
-### Installation and Building
-#### It doesn't build.
-- Ensure git submodules are checked out at:
-    - rosflight_ros_pkgs/rosflight_firmware
-    - rosflight_ros_pkgs/rosflight_firmware/lib/eigen
-
-
-
 ## Adding your own simulator
 

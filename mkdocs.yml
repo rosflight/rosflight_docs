@@ -45,6 +45,11 @@ markdown_extensions:
   - toc:
       permalink: true
 
+plugins:
+  - glightbox
+  - search
+  - mkdocs-video
+
 nav:
   - Home: index.md
   - User Guide:

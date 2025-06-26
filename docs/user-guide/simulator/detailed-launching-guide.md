@@ -1,8 +1,9 @@
 # Detailed Launching Guide
 Detailed launching instructions for the `rosflight_sim` module.
-For a quick copy-paste instructions, see the [quick start guide](running-simulations-with-rosflight.md#quick-start)
+For a quick copy-paste instructions, see the [quick start guide](running-simulations-with-rosflight.md#quick-start).
 
 !!! note
+
     To simulate a fixed-wing mav, just change all instances of `multirotor` in the steps below to `fixedwing`.
 
 ## A note on sims and viz
@@ -25,15 +26,14 @@ Adding your own visualizer is part of what `rosflight_sim` was designed for.
 See the [instructions on adding your own visualizer](simulator-architecture.md#adding-your-own-visualizer) page for more information on plugging in your simulator into `rosflight_sim`.
 
 This following sections detail how to launch and debug these two simulators.
+**This guide assumes you have already installed ROS2 and have cloned and build the `rosflight_ros_pkgs` repository, as detailed in the [ROS2 setup guide](../ros2-setup.md).**
 
-!!! TODO
-    Continue here with the detailed launching guide. Add figures and the architecture image to show what nodes run with Gazebo Classic
 
 ## Standalone Sim
 The "standalone" sim is a simulator that uses [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) to visualize aircraft motion.
 
 ### Launching instructions
-- Set up ROSflight with the [ROS2 Setup](../ros2-setup.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
+- Set up rosflight with the [ROS2 Setup](../ros2-setup.md#installing-rosflight) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
 
 - Launch the standalone sim for ROSflight SIL:
 ```bash
@@ -41,7 +41,7 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py
 ```
 
 - The standalone sim should now be running! You should have the following `rqt_graph`:
-![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_gazebo_launch.png)
+![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_standalone_launch.png)
 
 !!! Tip
     Run `rqt_graph` with `rqt_graph` the in a new terminal, assuming [correct version of ROS2 was installed](../ros2-setup.md).
@@ -93,7 +93,7 @@ ros2 launch rosflight_sim multirotor_gazebo.launch.py aircraft:=multirotor
 ![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_gazebo_launch.png)
 
 !!! Tip
-    Run `rqt_graph` with `rqt_graph` the in a new terminal, assuming [correct version of ROS2 was installed](../ros2-setup.md).
+    Run `rqt_graph` with the command `rqt_graph` in a new terminal, assuming [correct version of ROS2 was installed](../ros2-setup.md).
 
 
 ### Explanation 
@@ -132,7 +132,8 @@ These command line arguments should be passed using the `<argument>:=<value>` sy
 
 ## Joysticks
 ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot.
-If one of the supported transmitters is connected via USB at launch, then the sim will default to using that controller instead of the default, **which is no RC connection**.
+If one of the supported transmitters is connected via USB at launch time, then the sim will default to using that controller instead of the default, **which is no RC connection**.
+See the [Hardware Setup](../hardware-setup.md#joystick) guide for more information on joysticks.
 
 !!! note
     It is much easier to fly with a real transmitter than with an Xbox-type controller.
@@ -143,14 +144,30 @@ If one of the supported transmitters is connected via USB at launch, then the si
 If you want to fly around in the sim and you don't have access to a transmitter, we recommend using VimFly, which allows you to fly around in the sim with your keyboard.
 To use VimFly, just add the `use_vimfly:=true` string to the end of the launch command.
 
-## After launching
-!!! TODO
-    Continue here. Finish the calibration and "gotchas" for setting up the sim.
-    Also write a section somewhere documenting gotchas for the mixing matrix stuff.
+!!! example
+    To launch the multirotor sim using the standalone simulator with VimFly, run
+    ```bash
+    ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
+    ```
 
-Remember, the SIL tries its best to replicate hardware. That means you have to calibrate and set parameters in the same way you do in hardware. See the [Hardware Setup](../hardware-setup.md) and [Parameter Configuration](../parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm. You can also run 
+## After launching
+
+Remember that the SIL tries its best to replicate hardware.
+That means you have to calibrate and set parameters in the same way you do in hardware.
+See the [Parameter Configuration](../parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
+
+You can also run 
 ```bash
 ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 ```
 to load all required parameters and perform initial calibrations for a quick simulation setup.
+
+## Troubleshooting
+### Installation and Building
+#### It doesn't build.
+- Ensure git submodules are checked out at:
+    - rosflight_ros_pkgs/rosflight_firmware
+    - rosflight_ros_pkgs/rosflight_firmware/lib/eigen
+
+
 

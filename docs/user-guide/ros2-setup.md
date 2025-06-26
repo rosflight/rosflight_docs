@@ -1,8 +1,15 @@
 # Installing/Setting up ROS2
 
-You will need to get ROS2 on both the companion computer and the base station laptop. This can be done with a native installation or with [Docker](ros2-setup.md#using-a-docker-container-to-run-ros2). To install ROS2 natively, Check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details. Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2. `ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
+You will need to get ROS2 on both the companion computer and the base station laptop.
+This can be done with a native installation or with [Docker](ros2-setup.md#using-a-docker-container-to-run-ros2).
+To install ROS2 natively, check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details.
+Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2.
+`ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
 
-We support all fixed-release ROS2 versions that are not EOL, which currently includes [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html) and [ROS2 Iron](https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html). [ROS2 Rolling](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html) is not fixed-release and is therefore not officially supported. 
+!!! note
+    ROSflight currently supports **ROS2 Humble**, running on Ubunt 22.04.
+    If you want to run a different version of ROS2, some of the below instructions may not work.
+    [ROS2 Rolling](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html) is not fixed-release and is therefore not officially supported. 
 
 ## Installing ROSflight
 
@@ -30,6 +37,9 @@ rosdep update
 rosdep install --from-path . -y --ignore-src
 ```
 
+!!! TODO
+    This note on Gazebo needs to be moved to the Gazebo page on the detailed launching guide
+
 !!! note
     Gazebo does not have an arm64 build target. If using a companion computer with arm64 architecture, append `--skip-keys="gazebo_dev gazebo_plugins gazebo_ros gazebo"` to the `rosdep install` command above. This will skip installing Gazebo and the compilation of rosflight_sim, which currently requires Gazebo.
 
@@ -50,6 +60,8 @@ echo "source ~/rosflight_ws/install/setup.bash" >> ~/.bashrc
 
 
 ## Running rosflight_io
+!!! TODO
+    Add an diagram here detailing what rosflight_io is
 
 The `rosflight_io` node is the bridge between ROS2 and the MAVLink communication with the flight controller. This node must be run on the computer that has the physical serial connection to your flight controller. To run this node, use something like the following command:
 ```bash
@@ -107,13 +119,24 @@ Something the previous commands don't include is the ability to render GUI tools
 * To give access to the host's windowing system, use the following commands. Note that the base Docker image is `osrf/ros:humble-desktop-full`, as `ros:humble` doesn't include GUI tools in the image. Also, `xhost +local:root` needs to be run once per login session and is not persistent.
 ```bash
 xhost +local:root
-docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
+docker run -it \
+    --env="DISPLAY" \
+    --env="QT_X11_NO_MITSHM=1" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    osrf/ros:humble-desktop-full
 ```
 
 * To create a GUI enabled ROS container named `rosflight` with access to the host network, source files found at `~/rosflight_ws`, and a USB device, use this command:
 ```bash
 xhost +local:root
-docker run --name rosflight -it -v /dev/ttyUSB0:/dev/ttyUSB0 --privileged --network host -v ~/rosflight_ws:/rosflight_ws --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:humble-desktop-full
+docker run --name rosflight -it \
+    -v /dev/ttyUSB0:/dev/ttyUSB0 --privileged \
+    --network host \
+    -v ~/rosflight_ws:/rosflight_ws \
+    --env="DISPLAY" \
+    --env="QT_X11_NO_MITSHM=1" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    osrf/ros:humble-desktop-full
 ```
 
 !!! warning
