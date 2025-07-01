@@ -1,16 +1,5 @@
 # Installing/Setting up ROS2
 
-You will need to get ROS2 on both the companion computer and the base station laptop.
-This can be done with a native installation or with [Docker](ros2-setup.md#using-a-docker-container-to-run-ros2).
-To install ROS2 natively, check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details.
-Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2.
-`ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
-
-!!! note
-    ROSflight currently supports **ROS2 Humble**, running on Ubunt 22.04.
-    If you want to run a different version of ROS2, some of the below instructions may not work.
-    [ROS2 Rolling](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html) is not fixed-release and is therefore not officially supported. 
-
 ## Installing ROSflight
 
 You will need to install the ROSflight packages on both the companion computer and the base station computer. The companion computer will run the node that actually communicates with the flight controller over a serial connection, while the base station needs the message and service definitions to be able to call services or subscribe and publish to topics.
@@ -70,6 +59,7 @@ ros2 run rosflight_io rosflight_io --ros-args -p port:=/dev/ttyUSB0
 Replace `/dev/ttyUSB0` with the port your flight controller is connected to.
 
 ## Using a Docker Container to run ROS2
+TODO: Should we remove this paragraph and instead just link to 1) the articles linked below and 2) the repository where we (will) keep our Docker files? We could also do this and then just use this section as a "quickstart" guide.
 
 !!! note
     This guide was written for using Linux as the host machine, but theoretically you should be able to use Docker to do the same thing on Mac or Windows. However, the specifics of the commands may be different. Please refer to the [Docker documentation](https://docs.docker.com/) for information on how to use Docker on a non-Linux system.
