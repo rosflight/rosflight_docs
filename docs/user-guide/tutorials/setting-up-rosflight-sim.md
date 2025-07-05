@@ -157,17 +157,13 @@ Key topics include:
 
 ### Common Issues
 
-#### RViz Not Opening
-- Ensure you installed `ros-humble-desktop`, not `ros-humble-ros-base`
-- Check that you have a display environment (not running in headless mode)
+??? warning "RViz Not Opening"
+    - Ensure you installed `ros-humble-desktop`, not `ros-humble-ros-base`
+    - Check that you have a display environment (not running in headless mode)
 
-#### Keyboard Controls Not Working
-- Verify the VimFly window is in focus
-- Check that pygame is properly installed: `pip install pygame`
-
-#### Simulation Crashes
-- Check parameter files for syntax errors
-- Verify all dependencies are installed: `rosdep install --from-path . -y --ignore-src`
+??? warning "Simulation Crashes"
+    - Check parameter files for syntax errors
+    - Verify all dependencies are installed: `rosdep install --from-path . -y --ignore-src`
 
 <!-- ### Debugging Commands -->
 <!---->
@@ -186,6 +182,14 @@ Key topics include:
 <!-- ros2 param dump /sil_board -->
 <!-- ``` -->
 
+## Review
+
+In this tutorial, you learned how to:
+
+- Launch the ROSflight standalone simulator for multirotor and fixed-wing aircraft
+- Discover some of the simulation architecture and key components
+- Troubleshoot common issues
+
 ## Next Steps
 
 Once you have the simulator running, you can:
@@ -195,16 +199,4 @@ Once you have the simulator running, you can:
 3. **[Custom applications](../../developer-guide/contribution-guidelines.md)**: Use your own ROS2 nodes with ROSflight
 4. **[Parameter/Gain tuning](./tuning-performance-in-sim.md)**: Use the RQT plugins to tune PID controllers and other parameters
 
-## Review
-
-In this tutorial, you learned how to:
-
-- Launch the ROSflight standalone simulator for multirotor and fixed-wing aircraft
-- Initialize firmware parameters for your aircraft type
-- Use keyboard controls with VimFly for manual flight
-- Understand the simulation architecture and key components
-- Customize aircraft parameters through YAML configuration files
-- Troubleshoot common issues
-
-The ROSflight simulator provides a comprehensive environment for testing and developing autopilot algorithms without the need for physical hardware.
 

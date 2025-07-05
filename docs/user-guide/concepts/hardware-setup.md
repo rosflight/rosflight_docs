@@ -88,6 +88,11 @@ You will need a laptop which can run ROS2 to communicate with the MAV over the g
 
 A joystick is used for [software-in-the-loop (SIL) simulations](simulator/running-simulations-with-rosflight.md). The joystick is not technically a required component because it is possible to control your MAV from the command line, but it makes things much easier. Our first recommendation is to use the same transmitter you use for hardware as a joystick by plugging it into the computer via USB. We support Taranis QX7 transmitters, Radiomaster TX16s transmitters, RealFlight controllers, and XBOX controllers. Other joysticks can be used, but you may need to create custom axis and button mappings within the ROSflight joystick utility.
 
+!!! note "Physical vs firmware channels"
+    If you do write your own mapping, remember that the channel numbers need to be configured properly on both the firmware and the transmitter.
+    This means that if the RC transmitter outputs "throttle" on channel 3 on the (1 indexed on the transmitter), then the firmware needs to set `RC_F_CHN` to 2 (0 indexed).
+
+
 ### Battery Monitor
 
 A battery monitor is an analog sensor that provides battery voltage and/or battery current information. This data can be used to prevent power loss in air or to measure system load. The sensor outputs an analog voltage proportional to the battery voltage and/or current through the battery. Most flight controllers come equipped with a built-in battery monitor, but if not, small PCB sensors are also available that can be connected to the flight controller.

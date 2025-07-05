@@ -168,6 +168,16 @@ You can use this instead of doing the three actions manually.
 
 ## Flying
 
+Once you have followed the steps above, you should be able to fly the aircraft manually.
+You can either do this using a keyboard or a supported RC transmitter, connected via USB.
+
+Flying requires you to **arm** the vehicle, meaning that the motors will be active.
+Prior to arming, motors will not spin and will not be powered.
+
+If you can arm and take off, you are good to go!
+Note that the firmware control loops can be tuned if necessary.
+See [the tuning guide](./tuning-performance-in-sim.md) for more information.
+
 ### Keyboard Control with VimFly
 
 VimFly provides keyboard-based control for manual flight operations. Launch your simulation with VimFly enabled:
@@ -197,7 +207,7 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
 
 ### RC Transmitter Control
 
-ROSflight simulation supports various RC transmitters for more realistic flight control:
+ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot:
 
 #### Supported Transmitters
 - **FrSky Taranis Q-X7** (USB connection)
@@ -206,151 +216,90 @@ ROSflight simulation supports various RC transmitters for more realistic flight 
 - **Xbox Controller**
 - **RealFlight InterLink Controller**
 
-#### RC Channel Mapping
+If one of the supported transmitters is connected via USB **at launch time**, then the sim will default to using that controller instead of the default, **which is no RC connection**.
+See the [Hardware Setup](../concepts/hardware-setup.md#joystick) guide for more information on joysticks.
 
-TODO: continue here. Verify that these RC inputs are correct, and then make sure you understand that the firmware interprets these values according to the parameters, separate from the RC node.
-
-| Channel | Function | Typical Stick/Switch |
-|---------|----------|---------------------|
-| 0 (AIL) | Roll Control | Right stick horizontal |
-| 1 (ELV) | Pitch Control | Right stick vertical |
-| 2 (THR) | Throttle | Left stick vertical |
-| 3 (RUD) | Yaw Control | Left stick horizontal |
-| 4 | Arm Switch | Auxiliary switch |
-| 5 | RC Override | Auxiliary switch |
-| 6-7 | Additional Switches | User-configurable |
-
-#### RC Setup Process
-
-1. **Connect Transmitter**: Connect your RC transmitter via USB **before you launch the sim**
-2. **Verify Detection**: Check that the transmitter is detected by monitoring RC output:
-   ```bash
-   ros2 topic echo /rc_raw
-   ```
-3. **Calibrate Transmitter**: Ensure center sticks output 1500μs and full deflection reaches 1000-2000μs
-4. **Test Controls**: Verify all channels respond correctly before flight
-
-#### RC Safety Features
-
-- **RC Override**: Safety pilot can take control using stick deviation or switches
-- **Failsafe Mode**: Aircraft enters level flight if RC connection is lost
-- **Arming Control**: Aircraft can only be armed via RC transmitter
-- **Independent Override**: Attitude and throttle can be overridden separately
-
-### Flight Operations
-
-#### Pre-flight Checklist
-1. ✅ Firmware parameters loaded
-2. ✅ IMU calibrated successfully
-3. ✅ Control input method selected (VimFly or RC)
-4. ✅ Aircraft armed and ready for flight
-
-#### Basic Flight Sequence
-1. **Arm the Aircraft**: Use `t` key (VimFly) or arm switch (RC)
-2. **Apply Throttle**: Gradually increase throttle for takeoff
-3. **Control Attitude**: Use roll, pitch, and yaw inputs for maneuvering
-4. **Monitor Flight**: Observe aircraft behavior and sensor readings
-5. **Land Safely**: Reduce throttle and control descent
-6. **Disarm**: Disarm the aircraft after landing
-
-!!! warning "Safety Considerations"
-    - Always maintain visual contact with the simulated aircraft
-    - Be prepared to use RC override if using autonomous modes
-    - Monitor battery levels and flight time limits
-    - Practice emergency procedures in simulation
+!!! note "Have a joystick not on the list?"
+    Joysticks not on the above list may have incorrect mappings.
+    If your joystick does not work, and you write your own mapping, please contribute back your new joystick mapping!
 
 ## Troubleshooting
 
 ### Common Issues and Solutions
 
-#### Aircraft Won't Arm
+??? warning "Aircraft Won't Arm"
 
-**Symptoms**: Aircraft refuses to arm despite proper setup
+    **Symptoms**: Aircraft refuses to arm despite proper setup
 
-**Possible Causes and Solutions**:
-- **IMU not calibrated**: Run `ros2 service call /calibrate_imu std_srvs/srv/Trigger`
-- **Parameters not loaded**: Execute the appropriate firmware initialization launch file
-- **RC not connected**: Verify RC transmitter connection or use VimFly
-- **Safety checks failing**: Check for error messages in the rosflight_io node output
+    **Possible Causes and Solutions**:
 
-#### VimFly Not Responding
+    - **IMU not calibrated**: Run `ros2 service call /calibrate_imu std_srvs/srv/Trigger`
+    - **Parameters not loaded**: Execute the appropriate firmware initialization launch file
+    - **RC not connected**: Verify RC transmitter connection or use VimFly
+    - **Safety checks failing**: Check for error messages in the `rosflight_io` node output
 
-**Symptoms**: Keyboard inputs not controlling the aircraft
+??? warning "VimFly Not Responding"
 
-**Solutions**:
-- **Window focus**: Click on the VimFly terminal window to ensure it has focus
-- **Pygame dependency**: Verify pygame is installed: `pip install pygame`
-- **Launch parameter**: Ensure `use_vimfly:=true` is set in launch command
-- **RC override**: Check if RC override is enabled and disable if necessary
+    **Symptoms**: Keyboard inputs not controlling the aircraft
 
-#### RC Transmitter Not Detected
+    **Solutions**:
 
-**Symptoms**: No RC input detected in simulation
+    - **Window focus**: Click on the VimFly terminal window to ensure it has focus
+    - **Pygame dependency**: Verify pygame is installed: `pip install pygame`
+    - **Launch parameter**: Ensure `use_vimfly:=true` is set in launch command
+    - **RC override**: Check if RC override is enabled and disable if necessary
 
-**Solutions**:
-- **USB connection**: Verify transmitter is connected via USB
-- **Device permissions**: Check USB device permissions and udev rules
-- **Joystick mode**: Ensure transmitter is in USB joystick mode
-- **Monitor output**: Use `ros2 topic echo /rc_raw` to verify RC signals
+??? warning "RC Transmitter Not Detected"
 
-#### Poor Flight Performance
+    **Symptoms**: No RC input detected in simulation
 
-**Symptoms**: Aircraft is unstable or difficult to control
+    **Solutions**:
 
-**Solutions**:
-- **Parameter verification**: Ensure correct firmware parameters are loaded
-- **IMU recalibration**: Recalibrate IMU if attitude estimation appears incorrect
-- **Control gains**: Check if PID gains are appropriate for aircraft type
-- **Simulation rate**: Verify simulation is running at proper real-time rate
+    - **USB connection**: Verify transmitter is connected via USB
+    - **Device permissions**: Check USB device permissions and udev rules
+    - **Joystick mode**: Ensure transmitter is in USB joystick mode
+    - **Monitor output**: Use `ros2 topic echo /rc_raw` to verify RC signals
 
-#### Simulation Lag or Stuttering
+??? warning "Poor Flight Performance"
 
-**Symptoms**: Jerky or delayed response to control inputs
+    **Symptoms**: Aircraft is unstable or difficult to control
 
-**Solutions**:
-- **System resources**: Close unnecessary applications to free CPU/memory
-- **Simulation complexity**: Reduce visual complexity in Gazebo simulation
-- **Network latency**: Check for network issues if using remote display
-- **Hardware acceleration**: Ensure graphics drivers are properly installed
+    **Solutions**:
 
-### Getting Help
+    - **Parameter verification**: Ensure correct firmware parameters are loaded
+    - **IMU recalibration**: Recalibrate IMU if attitude estimation appears incorrect
+    - **Control gains**: Check if PID gains are appropriate for aircraft type. See [the tuning guide](./tuning-performance-in-sim.md)
+    - **Simulation rate**: Verify simulation is running at proper real-time rate
 
-If issues persist after trying these solutions:
+??? warning "Simulation Lag or Stuttering"
 
-1. **Check Logs**: Review ROS2 node output for error messages
-2. **Community Support**: Post questions on ROSflight forums or GitHub issues
-3. **Documentation**: Refer to additional ROSflight documentation for detailed troubleshooting
-4. **Hardware Verification**: Test with different RC transmitters or input methods
+    **Symptoms**: Jerky or delayed response to control inputs
+
+    **Solutions**:
+
+    - **System resources**: Close unnecessary applications to free CPU/memory
+    - **Simulation complexity**: Reduce visual complexity in Gazebo simulation
+    - **Network latency**: Check for network issues if using remote display
+    - **Hardware acceleration**: Ensure graphics drivers are properly installed
 
 ## Review
 
 You have successfully completed the manual flight tutorial for ROSflight simulation. You should now be able to:
 
-✅ **Initialize Firmware**: Load appropriate parameters for multirotor or fixed-wing aircraft
-✅ **Calibrate Sensors**: Perform IMU calibration for proper attitude estimation
-✅ **Control Aircraft**: Fly using either VimFly keyboard controls or RC transmitter
-✅ **Troubleshoot Issues**: Diagnose and resolve common simulation problems
+- **Initialize Firmware**: Load appropriate parameters for multirotor or fixed-wing aircraft
+- **Calibrate Sensors**: Perform IMU calibration for proper attitude estimation
+- **Control Aircraft**: Fly using either VimFly keyboard controls or RC transmitter
+- **Troubleshoot Issues**: Diagnose and resolve common simulation problems
 
-### Key Concepts Learned
+## Next Steps
 
-- **Parameter Management**: Understanding how firmware parameters control aircraft behavior
-- **Sensor Calibration**: Importance of IMU calibration for flight stability
-- **Control Methods**: Differences between keyboard and RC transmitter control
-- **Safety Procedures**: RC override and failsafe mechanisms for safe operation
+Once you have the simulator running, you can:
 
-### Next Steps
-
-Now that you can manually fly in simulation, consider exploring:
-
-- **Autonomous Flight**: Learn to implement waypoint navigation and autonomous missions
-- **Custom Controllers**: Develop and test custom flight control algorithms
-- **Hardware Integration**: Transition from simulation to real hardware testing
-- **Advanced Scenarios**: Practice emergency procedures and complex flight maneuvers
+1. **[Autonomous flight](./setting-up-roscopter-in-sim.md)**: Integrate with the ROScopter or ROSplane autonomy stacks
+1. **[Custom applications](../../developer-guide/contribution-guidelines.md)**: Use your own ROS2 nodes with ROSflight
+1. **[Parameter/Gain tuning](./tuning-performance-in-sim.md)**: Use the RQT plugins to tune PID controllers and other parameters
 
 ### Additional Resources
 
 - [ROSflight Parameter Reference](../concepts/parameter-configuration.md): Detailed parameter descriptions
 - [Hardware Setup Guide](../concepts/hardware-setup.md): Preparing real hardware for flight
-- [Safety Guidelines](../concepts/safety.md): Important safety considerations for real flight operations
-
-Continue with the ROSflight documentation to expand your autopilot development skills and explore advanced features of the ROSflight ecosystem.
