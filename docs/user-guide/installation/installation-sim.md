@@ -10,11 +10,11 @@ This means we will cover setting up the following packages on either the **compa
 - ROSplane
 
 We will not cover flashing firmware or other hardware-specific instructions.
-For instructions on setting up the software on real hardware, see [the hardware installation guide](./hardware-installation.md).
+For instructions on setting up the software on real hardware, see [the hardware installation guide](./installation-hardware.md).
 
 ## Installing ROS2
 Unsuprisingly, [ROS2](https://docs.ros.org/en/humble/index.html) is a required dependency for ROSflight.
-You can do this with a native installation or with [Docker](ros2-setup.md#using-a-docker-container-to-run-ros2).
+You can do this with a native installation or with [Docker](./using-docker-with-rosflight.md).
 To install ROS2 natively, check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details.
 Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2.
 `ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
@@ -28,7 +28,7 @@ Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages,
 ## Installing ROSflight, ROScopter, and ROSplane
 In this section, when we refer to ROSflight we are referring to the `rosflight_ros_pkgs` repository, which includes the `rosflight_sim`, `rosflight_io`, and `rosflight_firmware` modules.
 
-In the [hardware installation guide](./hardware-installation.md), each of these packages will be installed separately, or not at all.
+In the [hardware installation guide](./installation-hardware.md), each of these packages will be installed separately, or not at all.
 
 1. Create your ROSflight workspace:
 ```bash
@@ -43,7 +43,7 @@ git clone https://github.com/rosflight/roscopter
 git clone https://github.com/rosflight/rosplane
 ```
 
-    !!! success
+    !!! success "File structure"
         Your ROSflight workspace file structure should now look like
         ```bash
         rosflight_ws/
