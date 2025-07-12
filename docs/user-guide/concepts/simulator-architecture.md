@@ -20,5 +20,5 @@ The following table summarizes the correlation between connections in hardware a
 | Motors                                  | PWM          | Gazebo Plugin                            |
 | Sensors                                 | SPI/I2C      | Gazebo Plugin                            |
 
-## Adding your own simulator
+## Adding your own visualizer
 

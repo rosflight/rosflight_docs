@@ -4,7 +4,7 @@ The purpose of this tutorial is to walk users through launching the default ROSf
 
 ## Prerequisites
 
-* Install the ROSflight software (`rosflight_ros_pkgs`) by following the [Installation for sim](../installation-sim.md) guide.
+* Install the ROSflight software (`rosflight_ros_pkgs`) by following the [Installation for sim](../installation/installation-sim.md) guide.
 * Ensure you have the `-desktop` version of ROS2 installed, not the `-ros-base` version, as GUI tools are required for visualization.
 
 ## ROSflight Sim Overview

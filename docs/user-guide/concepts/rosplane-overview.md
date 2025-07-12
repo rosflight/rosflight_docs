@@ -3,14 +3,14 @@
 ROSplane is a basic fixed-wing autopilot build around ROS2 for use with the ROSflight autopilot.
 It is built according to the methods published in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randy Beard and Dr. Tim McLain.
 
-As per the [ROSflight vision](../index.md#our-vision), ROSplane is *not* a fully-featured fixed-wing autopilot.
+As per the [ROSflight vision](../../index.md#our-vision), ROSplane is *not* a fully-featured fixed-wing autopilot.
 Instead, ROSplane is a simple, lean, ROS2-based fixedwing autopilot
 
 The core ROSplane package is a simple waypoint-following autopilot.
 This includes a navigation stack, a controller, and an estimator.
 This can be seen in the figure below.
 
-| ![Diagram of ROSplane architecture](../assets/ROSplane-overview.svg "ROSplane architecture") |
+| ![Diagram of ROSplane architecture](../../assets/ROSplane-overview.svg "ROSplane architecture") |
 |:--:|
 |*Diagram of the ROSplane architecture*|
 
@@ -32,5 +32,5 @@ Instead of loading a predetermined number of waypoints, higher levels of autonom
 For detailed instructions on how to use the core ROSplane package to fly autonomous waypoint missions, see the [ROSplane Setup](./rosplane-setup.md) page. 
 This page can be used as a guide to building and running ROSplane before you start making your own changes to the autonomy stack.
 
-For detailed instructions on each of the components of ROSplane, see the [ROSplane Developer Guide](../developer-guide/rosplane/rosplane-dev-overview.md).
+For detailed instructions on each of the components of ROSplane, see the [ROSplane Developer Guide](../../developer-guide/rosplane/rosplane-dev-overview.md).
 This page provides detailed instructions on how to use and change the code for each component of the ROSplane stack.

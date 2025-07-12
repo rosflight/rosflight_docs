@@ -101,3 +101,8 @@ docker compose -f src/rosflight_ros_pkgs/docker/compose.yaml exec rosflight zsh
               ├── rosflight_ros_pkgs/
               └── rosplane/
         ```
+
+!!! warning
+    During testing, we found some strange behavior with ROS when running a GUI enabled container on a system with ROS already installed.
+    If you need a GUI enabled system, try to do so on a system without ROS installed (or at the very least avoid sourcing/using ROS on your system).
+    Also avoid having multiple GUI enabled containers running at once.

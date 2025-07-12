@@ -41,8 +41,10 @@ Some things to keep in mind as you design or build your MAV.
 
 ### Flight Controller
 
-!!! warning "TODO"
-    Update recommended hardware once supported hardware has been finalized.
+The flight controller is the embedded microcontroller that runs `rosflight_firmware`.
+See the [list of compatible hardware](./flight-controller-setup.md) for more information.
+
+The flight controller includes an IMU and a barometer, as well as some additional sensors depending on the board.
 
 ### External Sensors
 
@@ -56,7 +58,7 @@ Additional Sensors you may want for your ROSflight setup include:
 
 It is really important to isolate your flight controller from vehicle vibrations, such as those caused by propellers and motors. We recommend using small amounts of [Kyosho Zeal](https://www.amainhobbies.com/kyosho-zeal-5mm-vibration-absorption-gyro-receiver-mounting-gel-kyoz8006b/p1391945) to mount a fiberglass plate holding the FC to the MAV. You may also want to try adding mass to the flight control board. We have accomplished this by gluing steel washers to the fiberglass mounting plate.
 
-![Vibration Isloation](images/vibration_isolation.png)
+![Vibration Isloation](../images/vibration_isolation.png)
 
 You may need to experiment with the amount of gel you use, how far apart the gel is spaced, and the amount of mass added to the FC mounting plate. The interaction of these factors is difficult to predict, therefore it takes a little bit of experimentation to get it right.
 
@@ -86,7 +88,7 @@ You will need a laptop which can run ROS2 to communicate with the MAV over the g
 
 ### Joystick
 
-A joystick is used for [software-in-the-loop (SIL) simulations](simulator/running-simulations-with-rosflight.md). The joystick is not technically a required component because it is possible to control your MAV from the command line, but it makes things much easier. Our first recommendation is to use the same transmitter you use for hardware as a joystick by plugging it into the computer via USB. We support Taranis QX7 transmitters, Radiomaster TX16s transmitters, RealFlight controllers, and XBOX controllers. Other joysticks can be used, but you may need to create custom axis and button mappings within the ROSflight joystick utility.
+A joystick is used for [software-in-the-loop (SIL) simulations](./running-simulations-with-rosflight.md). The joystick is not technically a required component because it is possible to control your MAV from the command line, but it makes things much easier. Our first recommendation is to use the same transmitter you use for hardware as a joystick by plugging it into the computer via USB. We support Taranis QX7 transmitters, Radiomaster TX16s transmitters, RealFlight controllers, and XBOX controllers. Other joysticks can be used, but you may need to create custom axis and button mappings within the ROSflight joystick utility.
 
 !!! note "Physical vs firmware channels"
     If you do write your own mapping, remember that the channel numbers need to be configured properly on both the firmware and the transmitter.
@@ -102,7 +104,6 @@ For ROSflight to use a battery monitor, an appropriate multiplier must be set. R
 
 ROSflight applies a simple low-pass filter to remove noise from the voltage and current measurements. These filters are configurable via the `BATT_VOLT_ALPHA` and `BATT_CURR_ALPHA` [parameters](parameter-configuration.md). The alpha value for a given cutoff frequency \\(a\\), can be calulated with: \\( \alpha =  e ^ {-.01a} \\). As battery voltages do not typically change quickly, the default of 0.995 usually suffices.
 
-<!-- TODO: Looks like OpenPilot was discontinued... -->
 More information on battery monitor hardware, including determining appropriate multipliers and creating a simple DIY monitor, can be found on the [OpenPilot Wiki](https://opwiki.readthedocs.io/en/latest/user_manual/revo/voltage_current.html).
 
 ## Wiring Diagram
@@ -110,7 +111,7 @@ More information on battery monitor hardware, including determining appropriate 
 <!-- TODO: We need to update this picture probably... -->
 Below is an example wiring diagram for a multirotor using an MSI Cubi as a companion computer. This diagram also includes the motor power switch, which allows for the sensors, flight controller, and companion computer to be powered on while the motors are off. This is a safer way to test sensors, code, etc. as the motors are unable to spin while the switch is off.
 
-![Wiring Diagram](images/Wiring_Diagram.png)
+![Wiring Diagram](../images/Wiring_Diagram.png)
 
 Your needs will likely be slightly different than what is shown. This is meant as an example only and can be adapted to fit your needs.
 
@@ -129,7 +130,7 @@ ROSflight offers some pre-computed, "canned" mixers that can be used off the she
 These mixers do not take into account all the parameters of your system (i.e. motor and propeller parameters), so they will be less accurate than they could be.
 If you want a more accurate mixer, or have easy access to the motor and prop parameters of your system, then we recommend using a custom mixer. 
 
-!!! note
+!!! warning "Important"
     A mixer must be chosen for the firmware to allow arming.
 
 The desired mixer can be chosen by setting the `PRIMARY_MIXER` parameter to one of the following values:
@@ -152,7 +153,7 @@ The desired mixer can be chosen by setting the `PRIMARY_MIXER` parameter to one 
 The associated motor layouts are shown below for each mixer.
 The **ESC calibration** mixer directly outputs the throttle command equally to each motor, and can be used for calibrating the ESCs.
 
-![Mixer_1](images/mixers_1.png)
+![Mixer_1](../images/mixers_1.png)
 
 The following parameters related to the mixer are optional:
 
@@ -169,7 +170,7 @@ ROSflight also has a secondary mixer that can be set using the options in the ab
 Offboard control commands will use the secondary mixer, while commands from the RC safety pilot will use the primary mixer.
 Thus, both RC throttle and attitude override will affect the mixer, as shown in the following image.
 
-![RC Mixer Configuration](images/rc_mixer_configuration.png)
+![RC Mixer Configuration](../images/rc_mixer_configuration.png)
 
 The `mixer_to_use_` structure represents the mixer that will be used when computing the output.
 The header, which includes the default PWM rate and the output type for each output channel, is always set to the same as the primary mixer.
@@ -217,16 +218,25 @@ Also, if you selected a custom mixer and used the motor parameters to generate t
 A custom mixer can be defined by:
 
 1. Set `PRIMARY_MIXER` (required) and/or `SECONDARY_MIXER` (optional) to the desired value in the mixer table
-2. Load the mixing matrix parameters for either the primary or the secondary mixer
+2. Load the mixing matrix parameters for either/both the primary or the secondary mixer
 
-Note that computing the parameters of the mixing matrix is done on the companion computer.
+Note that computing the parameters of the mixing matrix can be done on the companion computer.
 
-The firmware loads a custom mixer by loading all the values from parameters.
+The firmware loads a custom mixer by loading all mixing matrix values from parameters.
 Since there are 6 inputs to the mixer (\(F_x,F_y,F_z,Q_x,Q_y,Q_z\)) and 10 possible outputs, the mixer is a 6x10 matrix and there are 60 parameters associated with each custom mixer.
 For a standard quadrotor, however, most of these would be zero, since only the first 4 outputs (columns of the mixer matrix) would be used.
 
 In addition to the parameters associated with the 6x10 mixing matrix, there are two additional sets of parameters that need to be defined for each output used, the `PRI_MIXER_OUT_i` and the `PRI_MIXER_PWM_i` parameters, which define the output type and the default PWM rate, respectively, for the `i`th output.
 See the [Parameter Configuration Page](parameter-configuration.md) for more information on these parameters.
+The PWM rate is typically 490 or 50 Hz.
+
+!!! warning "Mixing Matrix PWM Header"
+
+    Depending on the hardware used, the 10 `PRI_MIXER_PWM_*` parameters need to be grouped into sections.
+    This is because the PWM outputs are not all on separate interrupts, so it is not possible to set each PWM rate individually.
+
+    The number of interrupts varies based on hardware.
+    If you don't want to worry about it, just set all the `PRI_MIXER_PWM_i` to the same value, if possible.
 
 The recommended way to load a custom mixer is to first compute all the required parameters and save them to a file on the companion computer.
 The parameters are named `PRI_MIXER_i_j` or `SEC_MIXER_i_j`, where `(i,j)` is the index of the parameter in the 6x10 mixing matrix.
@@ -239,17 +249,10 @@ Once the parameters are saved to a file, load them with the ROS2 service call (m
 Also make sure to save those parameters to memory with the ROS2 service call:
 ```ros2 service call /param_write std_srvs/srv/Trigger```
 
-<!-- TODO: It would be good to link to the mixer derivation page wherever I put that -->
+!!! tip
 
-!!! Important
     Test your mixer in simulation first when making changes, to avoid accidents.
 
 ## Connecting to the Flight Controller
 
 The flight controller communicates with the companion computer over a serial link. ROSflight only supports one serial connection at a time and by default should be the serial link connected to the USB connector on the board.
-
-### Using Secondary Serial Links
-
-In the case of an F4 flight controller, which has a USB peripheral, the highest bandwidth connection will be the USB connector. However, UART3 can also be used to communicate with the companion computer if you desire a more secure connection (micro USB connectors have been known to disconnect in high vibrations).
-
-If a USB connection is detected on the USB peripheral, ROSflight will direct all communication through this port. However, if the `PARAM_SERIAL_DEVICE` parameter is set to `3` and the `PARAM_BAUD_RATE` parameter is set properly, then UART3 will be enabled when the USB connection is absent.

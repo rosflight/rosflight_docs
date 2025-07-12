@@ -330,5 +330,5 @@ Once you have ROScopter running autonomously, you can:
 
 - [ROSflight Parameter Reference](../concepts/parameter-configuration.md): Detailed firmware parameter descriptions
 - [Hardware Setup Guide](../concepts/hardware-setup.md): Preparing real hardware for flight
-- [ROScopter Architecture Documentation](../../developer-guide/roscopter/): In-depth system design and implementation details
+- [ROScopter Architecture Documentation](../concepts/roscopter-overview.md): In-depth system design and implementation details
 

@@ -1,12 +1,23 @@
 # Overview
 
-!!! tldr
-    Visit [Getting Started](./getting-started.md) to start setting up ROSflight.
-    Then visit [ROSplane Overview](./rosplane-overview.md) (for fixedwing aircraft) or [ROScopter Overview](./roscopter-overview.md) (for multirotor aircraft) to set up your autonomy stack.
+!!! tip "New to ROS2?"
+
+    If you are new to ROS2, we recommend you start with the [ROS2 tutorials](https://docs.ros.org/en/humble/Tutorials.html).
+    We assume that users of ROSflight have a basic understanding of ROS2 CLI tools and interfaces.
+    **We do not provide any ROS2 tutorials ourselves.**
+
+!!! tip "New to ROSflight?"
+
+    If you are new to ROSflight, we recommend that you first start by setting up the simulation environment and learning to use the ROSflight ecosystem.
+    Do this by following the [installation for sim](./installation/installation-sim.md) guides, and then the [ROSflight tutorials](./tutorials/tutorial-overview.md).
+
+    After you do that, you should be ready to start using ROSflight in your own research!
+    Visit the [developer guide pages](../developer-guide/contribution-guidelines.md) for more specifics on how to use ROSflight for your research.
 
 ## Main Components of ROSflight
 
-ROSflight is intended to be used with both a typical flight controller and a companion Linux computer. Although it can be used with just a flight controller, this setup will not offer most of the advantages of ROSflight.
+ROSflight is intended to be used with both a typical flight controller and a companion Linux computer.
+Although it can be used with just a flight controller, this setup will not offer most of the advantages of ROSflight.
 
 !!! note
     To avoid confusion, we try to consistently use the following terminology:
@@ -21,7 +32,8 @@ The following figure illustrates the interactions between the major components o
 
 ### Firmware
 
-The ROSflight [firmware](https://github.com/rosflight/rosflight_firmware) is the low level microcontroller code that runs on the flight controller. This communicates directly with sensors and actuators and serves as the bridge between hardware and higher level software. The firmware itself is designed to do as little as possible, offloading most of the work to the companion computer.
+The ROSflight [firmware](https://github.com/rosflight/rosflight_firmware) is the low level microcontroller code that runs on the flight controller. This communicates directly with sensors and actuators and serves as the bridge between hardware and higher level software.
+The firmware itself is designed to do as little as possible, offloading most of the work to the companion computer.
 
 Although higher level control is offloaded to the companion computer, enough control and functionality is included in the firmware to enable a safety pilot to fly the UAV through any portion of the flight with or without an operating companion computer.
 
@@ -39,13 +51,10 @@ ROSplane and ROScopter are not required for using ROSflight and you could choose
 
 ROSflight is designed for use with offboard control from experimental and research code.
 As such, it provides several mechanisms for an RC safety pilot to intervene if something goes wrong with the control setpoints coming from the companion computer.
-See the [RC Setup](./rc-configuration.md) page for more information.
+See the [RC Setup](./concepts/rc-configuration.md) page for more information.
 
 ## Where do I start?
 
-To get started with ROSflight, visit the [Getting Started](./getting-started.md) page.
-This page will direct you on how to set up your hardware and flight controller to run ROSflight.
+To get started with ROSflight, we recommend you first set up the simulation environment and walk through the tutorials to get familiar with the ROSflight ecosystem.
 
-After you set up ROSflight, you should set up an autonomy stack to interact with ROSflight.
-Visit the [ROSplane Setup](./rosplane-setup.md) page for fixedwing aircraft or the [ROScopter Setup](./roscopter-setup.md) page for multirotor aircraft.
-You can also use your own autonomy stack as described in [Autonomous Flight](./autonomous-flight.md).
+If you are ready to start with hardware experiments, first [install the required software](./installation/installation-hardware.md) and then follow the [hardware setup guide](./concepts/getting-started.md) to configure your vehicle for successful flight tests.

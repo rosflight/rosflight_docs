@@ -410,4 +410,4 @@ You should now be able to:
 ### Additional Resources
 
 - [Parameter Reference](../concepts/parameter-configuration.md): Complete parameter documentation
-- [Hardware Tuning Guide](../concepts/hardware-tuning.md): Considerations for real hardware
+- [Hardware Tuning Guide](../concepts/improving-firmware-performance.md): Considerations for real hardware

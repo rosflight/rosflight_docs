@@ -43,6 +43,14 @@ You should get a prompt from `rosflight_io` saying
 
 Notice that the parameters have been set, but not saved. Parameter changes take effect immediately, however they will not persist over a reboot unless you *write* them to the non-volatile memory. This brings us to the next task.
 
+#### Changing Parameters via `rosflight_io` ROS2 params
+
+The `rosflight_io` node has some firmware parameters exposed via the ROS2 parameter interface, enabling quick configuration of *some* of the firmware's parameters.
+This means that changing these `rosflight_io` parameters via the standard ROS2 parameter configuration will automatically change them in the firmware.
+
+Currently, only the controller gains have been exposed to `rosflight_io`'s parameters.
+To expose more, see the `rosflight_io.cpp` file.
+
 ### Writing Parameters
 
 To ensure that parameter values persist between reboots, you must write the parameters to the non-volatile memory. This is done by calling `param_write`
@@ -60,7 +68,7 @@ ros2 service call /param_write std_srvs/srv/Trigger
 !!! warning
     It is highly recommended that you write parameters before arming and flying the vehicle. Among other things, this will ensure that in the rare case that a hard fault is encountered and the flight controller must reboot during flight, the correct configuration will be loaded on reboot.
 
-!!! error
+!!! tip
     Parameter writing can only happen if the flight controller is disarmed. If the param write failed for some reason, you may want to make sure your FC is disarmed and try again.
 
 ### Backing Up and Loading Parameters from File
@@ -94,7 +102,7 @@ Because ROSflight ships with default parameters for multirotors, you will probab
 | MOTOR_IDLE_THR | min throttle command sent to motors when armed (Set above 0.1 to spin when armed) | float |  0.1 |
 | ARM_CHANNEL | RC switch channel mapped to arming [0 indexed, -1 to disable] | int |  4 |
 | FIXED_WING | switches on passthrough commands for fixed-wing operation | int |  true |
-| MIXER | Which mixer to choose - See [Mixer documentation](hardware-setup.md#motor-layouts) | int | 10  |
+| MIXER | Which mixer to choose - See [Mixer documentation](hardware-setup.md#motor-layouts-and-mixer) | int | 10  |
 | ELEVATOR_REV | reverses elevator servo output | int |  0/1 |
 | AIL_REV | reverses aileron servo output | int |  0/1 |
 | RUDDER_REV | reverses rudder servo output | int |  0/1 |

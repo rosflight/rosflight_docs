@@ -5,27 +5,33 @@ This guide will detail how to install these packages as if preparing to run a si
 This means we will cover setting up the following packages on either the **companion computer** or any other Linux computer:
 
 - ROS2
-- ROSflight (including ROSflight sim)
+- ROSflight Sim (and other software from `rosflight_ros_pkgs`)
 - ROScopter
 - ROSplane
 
 We will not cover flashing firmware or other hardware-specific instructions.
 For instructions on setting up the software on real hardware, see [the hardware installation guide](./installation-hardware.md).
 
+!!! note
+
+    You probably don't need both ROSplane and ROScopter.
+    If that is the case, just install the one that makes sense for your application.
+
 ## Installing ROS2
+
 Unsuprisingly, [ROS2](https://docs.ros.org/en/humble/index.html) is a required dependency for ROSflight.
-You can do this with a native installation or with [Docker](./using-docker-with-rosflight.md).
+You can do this with a native installation of ROS2 or by following the [ROSflight Docker guide](./using-docker-with-rosflight.md).
 To install ROS2 natively, check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details.
-Make sure to install both the `ros-humble-desktop` and `ros-dev-tools` packages, or the equivalent packages for your version of ROS2.
-`ros-humble-ros-base` can be used instead of `ros-humble-desktop` if you don't need GUI tools or the simulation.
+
+If you don't plan to run simulations or GUI applications on your companion computer, `ros-humble-ros-base` can be used instead of `ros-humble-desktop`.
 
 !!! note
     ROSflight currently officially supports only **ROS2 Humble**, running on Ubuntu 22.04.
     If you want to run a different version of ROS2, some of the below instructions may not work.
     [ROS2 Rolling](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html) is not fixed-release and is therefore not officially supported. 
 
-
 ## Installing ROSflight, ROScopter, and ROSplane
+
 In this section, when we refer to ROSflight we are referring to the `rosflight_ros_pkgs` repository, which includes the `rosflight_sim`, `rosflight_io`, and `rosflight_firmware` modules.
 
 In the [hardware installation guide](./installation-hardware.md), each of these packages will be installed separately, or not at all.
@@ -86,6 +92,13 @@ colcon build
               ├── rosflight_ros_pkgs/
               └── rosplane/
         ```
+
+1. Add the source files to your `.bashrc` (so you don't have to source the files every time you open a terminal):
+    ```bash
+    # add the sourcing commands to your .bashrc. Replace bash with zsh if using zsh.
+    echo "source /opt/ros/humble/setup.bash >> $HOME/.bashrc"
+    echo "source /path/to/rosflight_ws/install/setup.bash >> $HOME/.bashrc"
+    ```
 
 ## Next Steps
 

@@ -72,7 +72,6 @@ nav:
         - Hardware Setup: user-guide/concepts/hardware-setup.md
         - Flight Controller Setup: user-guide/concepts/flight-controller-setup.md
         - RC Configuration: user-guide/concepts/rc-configuration.md
-        - ROS2 Setup: user-guide/concepts/ros2-setup.md
         - Parameter Configuration: user-guide/concepts/parameter-configuration.md
         - Pre-Flight Checks: user-guide/concepts/preflight-checks.md
         - Improving Firmware Performance: user-guide/concepts/improving-firmware-performance.md
