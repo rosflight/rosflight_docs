@@ -74,16 +74,19 @@ The ROSflight standalone simulator consists of several key components:
 
 Let's look at what just happened when we launched.
 
-TODO: be more descriptive here. Also add images
-
 ### RViz Visualization
 
 Once launched, RViz will open displaying:
 
 - **3D Aircraft Model**: Visual representation of your aircraft
 - **Coordinate Frames**: Shows the aircraft's orientation and position
-- **Sensor Data**: IMU vectors and other sensor information
-- **Flight Path**: Trace of the aircraft's trajectory
+- **Flight Path**: Trace of the aircraft's trajectory (though you might not be able to see this until you start flying)
+
+![RViz window](../images/rviz_fixedwing.png)
+
+If you used the launch command `use_vimfly:=true`, you should also see VimFly open up:
+
+![VimFly window](../images/vimfly_example.png)
 
 ### Running Nodes
 
@@ -102,14 +105,41 @@ You should see the following nodes:
 - `/multirotor_forces_and_moments` or `/fixedwing_forces_and_moments`
 - `/rosflight_io`
 
-Information about these nodes and what they do can be found in the [simulation architecture description](../concepts/simulator-architecture.md).
+Each of these nodes performs a different role in the sim.
+Detailed information about these nodes and what they do can be found in the [simulation architecture description](../concepts/simulator-architecture.md).
+
+You can also see a representation of the data flow by running `rqt_graph` in a new terminal.
+If you don't see a similar view to what is below, click the refresh icon in the upper left.
+
+| ![RQT Graph for Standalone Fixedwing Simulation](../images/fixedwing_rqt_graph_standalone.png) |
+|-----|
+|RQT Graph is great, but it is not very configurable in terms of viewing options (sorry for the small image).|
+
+The main data flow through the simulator starts with the `/rosflight_sil_manager` node, which sends iteration requests to the `/sil_board`.
+The `/sil_board` is the instantiation of the `rosflight_firmware` in sim--in hardware, this would be the flight controller.
+
+The `/sil_board` listens to the `/standalone_sensors` to "read" data from the "sensors", as close as possible to how the hardware board would read the sensor data.
+
+The `/sil_board` then computes motor commands and sends them over the `/sim/pwm_output` topic to the `fixedwing_forces_and_moments` node.
+This node is responsible for computing the aerodynamic forces and moments (not gravity or collisions) given the motor commands.
+
+The `/forces_and_moments` node then sends the computed forces and moments to the `/dynamics node`, which handles integration of the dynamics (i.e. solves $\dot{x} = f(x)$) and publishes the true state.
+The `/dynamics` node handles gravity and other collision forces.
+
+This concludes a simulation "tick", and the simulation starts again with the `/rosflight_sim_manager`.
+
+For more information, see the [detailed simulation architecture description](../concepts/simulator-architecture.md).
 
 ### Topics
 
 View the available topics to see the data flow:
 
 ```bash
+# List the topics
 ros2 topic list
+
+# Echo data sent through topics
+ros2 topic echo <topic_name>
 ```
 
 Key topics include:
@@ -118,40 +148,6 @@ Key topics include:
 - `/imu/data` - IMU sensor data
 - `/attitude` - Aircraft attitude estimated by the firmware's estimator
 - `/command` - Control command inputs to the firmware controller (or mixer)
-
-<!-- ## Configuration and Customization -->
-<!---->
-<!-- ### Parameter Files -->
-<!---->
-<!-- ROSflight sim uses YAML configuration files located in the `rosflight_sim/params/` directory: -->
-<!---->
-<!-- - `multirotor_dynamics.yaml` - Physical parameters (mass, inertia, motor specifications) -->
-<!-- - `multirotor_firmware.yaml` - Firmware configuration (PID gains, mixer settings) -->
-<!-- - `fixedwing_firmware.yaml` - Fixed-wing specific firmware parameters -->
-<!-- - `standalone_sim_params.yaml` - Simulator-specific parameters -->
-<!---->
-<!-- ### Customizing Aircraft Parameters -->
-<!---->
-<!-- To modify aircraft characteristics, edit the appropriate YAML file: -->
-<!---->
-<!-- ```bash -->
-<!-- # Edit multirotor parameters -->
-<!-- nano /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml -->
-<!-- ``` -->
-<!---->
-<!-- Common parameters to modify: -->
-<!-- - `mass` - Aircraft mass in kg -->
-<!-- - `Jxx`, `Jyy`, `Jzz` - Moments of inertia -->
-<!-- - `prop_max` - Maximum propeller force -->
-<!-- - `motor_time_constant` - Motor response time -->
-<!---->
-<!-- After making changes, rebuild your workspace: -->
-<!---->
-<!-- ```bash -->
-<!-- cd /path/to/rosflight_ws -->
-<!-- colcon build --packages-select rosflight_sim -->
-<!-- source install/setup.bash -->
-<!-- ``` -->
 
 ## Troubleshooting
 
@@ -164,23 +160,7 @@ Key topics include:
 ??? warning "Simulation Crashes"
     - Check parameter files for syntax errors
     - Verify all dependencies are installed: `rosdep install --from-path . -y --ignore-src`
-
-<!-- ### Debugging Commands -->
-<!---->
-<!-- Check node status: -->
-<!-- ```bash -->
-<!-- ros2 node info /rosflight_sil_manager -->
-<!-- ``` -->
-<!---->
-<!-- Monitor topic data: -->
-<!-- ```bash -->
-<!-- ros2 topic echo /attitude -->
-<!-- ``` -->
-<!---->
-<!-- View parameter values: -->
-<!-- ```bash -->
-<!-- ros2 param dump /sil_board -->
-<!-- ``` -->
+    - Read the error messages on the launch script :)
 
 ## Review
 
