@@ -85,7 +85,9 @@ We use the STM32CubeProgrammer to flash the flight controller.
 
 ### Flashing the Varmint
 
-TODO: Continue here!
+!!! danger "TODO"
+
+    This section is still under development. Please check back soon.
 
 1. Connect the board to the ST-Link.
 1. Open STM32CubeProgrammer.
