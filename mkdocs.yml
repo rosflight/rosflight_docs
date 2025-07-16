@@ -2,7 +2,7 @@ site_name: ROSflight
 site_description: 'A lean, open-source autopilot system built by researchers, for researchers'
 site_url: http://rosflight.org
 site_author: 'James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore'
-copyright: 'Copyright &copy; 2019-2024, James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore, BYU MAGICC Lab'
+copyright: 'Copyright &copy; 2019-2025, BYU MAGICC Lab'
 
 edit_uri: 'https://github.com/rosflight/rosflight_docs/edit/main/docs/'
 
@@ -45,27 +45,47 @@ markdown_extensions:
   - toc:
       permalink: true
 
+plugins:
+  - glightbox
+  - search
+  - mkdocs-video
+
 nav:
   - Home: index.md
   - User Guide:
     - Overview: user-guide/overview.md
-    - ROSflight:
-      - Getting Started: user-guide/getting-started.md
-      - Hardware Setup: user-guide/hardware-setup.md
-      - Flight Controller Setup: user-guide/flight-controller-setup.md
-      - RC Configuration: user-guide/rc-configuration.md
-      - ROS2 Setup: user-guide/ros2-setup.md
-      - Parameter Configuration: user-guide/parameter-configuration.md
-      - Pre-Flight Checks: user-guide/preflight-checks.md
-      - Improving Firmware Performance: user-guide/improving-firmware-performance.md
-      - Autonomous Flight: user-guide/autonomous-flight.md
-      - Running Gazebo Simulation: user-guide/running-gazebo-simulation.md
-    - ROSplane:
-      - ROSplane Overview: user-guide/rosplane-overview.md
-      - ROSplane Setup: user-guide/rosplane-setup.md
-    - ROScopter:
-      - ROScopter Overview: user-guide/roscopter-overview.md
-      - ROScopter Setup: user-guide/roscopter-setup.md
+    - Installation:
+      - Installation for Sim: user-guide/installation/installation-sim.md
+      - Installation on Hardware: user-guide/installation/installation-hardware.md
+      - Using Docker with ROSflight: user-guide/installation/using-docker-with-rosflight.md
+    - Tutorials: 
+      - Overview: user-guide/tutorials/tutorial-overview.md
+      - Setting up ROSflight Sim: user-guide/tutorials/setting-up-rosflight-sim.md
+      - Manually flying ROSflight Sim: user-guide/tutorials/manually-flying-rosflight-sim.md
+      - Running ROScopter in Sim: user-guide/tutorials/setting-up-roscopter-in-sim.md
+      - Running ROSplane in Sim: user-guide/tutorials/setting-up-rosplane-in-sim.md
+      - Tuning performance: user-guide/tutorials/tuning-performance-in-sim.md
+      - Transitioning from Sim to Hardware: user-guide/tutorials/transitioning-from-sim-to-hardware.md
+    - Concepts:
+      - Hardware and ROSflight:
+        - Getting Started: user-guide/concepts/getting-started.md
+        - Hardware Setup: user-guide/concepts/hardware-setup.md
+        - Flight Controller Setup: user-guide/concepts/flight-controller-setup.md
+        - RC Configuration: user-guide/concepts/rc-configuration.md
+        - Parameter Configuration: user-guide/concepts/parameter-configuration.md
+        - Pre-Flight Checks: user-guide/concepts/preflight-checks.md
+        - Improving Firmware Performance: user-guide/concepts/improving-firmware-performance.md
+        - Autonomous Flight: user-guide/concepts/autonomous-flight.md
+      - ROSflight Sim:
+        - ROSflight Sim Overview: user-guide/concepts/running-simulations-with-rosflight.md
+        - Detailed Launching Guide: user-guide/concepts/detailed-launching-guide.md
+        - Simulator Architecture: user-guide/concepts/simulator-architecture.md
+      - ROSplane:
+        - ROSplane Overview: user-guide/concepts/rosplane-overview.md
+        - ROSplane Setup: user-guide/concepts/rosplane-setup.md
+      - ROScopter:
+        - ROScopter Overview: user-guide/concepts/roscopter-overview.md
+        - ROScopter Setup: user-guide/concepts/roscopter-setup.md
   - Developer Guide:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
     - Style Guide: developer-guide/style-guide.md

@@ -5,7 +5,7 @@
 ROSflight is designed for use with offboard control from experimental and research code.
 As such, it provides several mechanisms for an RC safety pilot to intervene if something goes wrong with the control setpoints coming from the companion computer:
 
-  - **RC override switch:** The safety pilot can flip a switch on the transmitter to take back RC control. Attitude and throttle override can be mapped independently, meaning you can choose one or the other, put them on separate switches, or put them both on the same switch. Details on these switches are provided on the [RC configuration](rc-configuration.md) page.
+  - **RC override switch:** The safety pilot can flip a switch on the transmitter to take back RC control. Attitude and throttle override can be mapped independently, meaning you can choose one or the other, put them on separate switches, or put them both on the same switch.
   - **Stick deviations:** If a stick is deviated from its center position, then that channel is overridden by RC control. This allows the safety pilot to take control without flipping a switch. This may be useful to provide a momentary correction on a single axis. The fraction of stick travel needed to activate the RC override is controlled by the `RC_OVRD_DEV` parameter. The `OVRD_LAG_TIME` parameter controls the amount of time that the override remains active after the sticks return to center.
   - **Minimum throttle:** By default, the flight controller takes the minimum of the two throttle commands from RC and offboard control setpoints. This allows the safety pilot to drop the throttle quickly if needed. This behavior can be turned on or off with the `MIN_THROTTLE` parameter.
 
@@ -14,7 +14,6 @@ As such, it provides several mechanisms for an RC safety pilot to intervene if s
 The flight controller can only be armed and disarmed via RC control.
 Two mechanisms are provided: sticks (left stick down and right to arm, down and left to disarm) and switch.
 Only one of these options can be active at a time.
-Details on configuration are given on the [RC configuration](rc-configuration.md) page.
 
 The firmware runs a number of error checks before allowing the flight controller to arm.
 Completing the configuration checklist on the [Getting Started](getting-started.md) page should avoid these errors.
@@ -29,7 +28,7 @@ While in failsafe mode the flight controller commands level flight with the thro
 
 The following is a simplified version of the finite state machine that defines logic used for the arming, error checks, and failsafe operations:
 
-![Arming FSM](images/arming-fsm-simplified.svg)
+![Arming FSM](../images/arming-fsm-simplified.svg)
 
 The state manager also includes functionality for recovering from hard faults if one were to occur, although this is unlikely with unmodified firmware. If a hard fault occurs while the flight controller is armed, the firmware has the ability to immediately rearm after rebooting to enable continued RC control of the vehicle for recovery.
 
@@ -59,7 +58,7 @@ You now have to make sure your RC transmitter is sending commands consistent wit
 
 You may find this graphic helpful. It shows all the basic stick positions, and the associated output from the first four channels when looking at a raw AETR (aileron, elevator, throttle, rudder) RC signal from `rosflight_io`. Make sure that the stick output is in the correct direction.
 
-![stick_image](images/sticks.png)
+![stick_image](../images/sticks.png)
 
 It should be noted that channel assignment can be modified via the `RC_*_CHN` parameters. So, if you are using something other than AETR assignment, the channel index for each stick may be different, but the direction should be the same.
 

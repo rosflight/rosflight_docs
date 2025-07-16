@@ -13,7 +13,7 @@ See [ROSplane Overview](rosplane-overview.md) for more general information on RO
 ROSplane requires a working ROS2 installation on a companion computer.
 ROSplane will most often be used in conjunction with the ROSflight firmware and the firmware interface (aka `rosflight_ros_pkgs`).
 
-Follow the instructions on [ROS2 Setup](./ros2-setup.md) to install and set up ROS2 and `rosflight_ros_pkgs`.
+Follow the instructions in [the installation for sim guide](../installation/installation-sim.md) to install and set up ROS2 and `rosflight_ros_pkgs`.
 
 ## Installation
 
@@ -46,7 +46,7 @@ colcon build
     The build will fail if you have not built the `rosflight_msgs` previously or if you are not currently building it.
 
 Next, source the `rosflight_ws` install files.
-If you already added the source command to your `.bashrc` from the [ROS2 Setup](./ros2-setup.md) page, then you can skip this step.
+If you already added the source command to your `.bashrc` from the [ROS2 Setup](../installation/installation-sim.md) page, then you can skip this step.
 
 ```bash
 # source the install file
@@ -62,7 +62,7 @@ Note that sourcing the `setup.bash` file in the `rosflight_ws` directory will in
 A controller or a simulated controller can be used to fly the aircraft in simulation.
 See the `README.md` file for the `rosflight_ros_pkgs` package for more information on RC control in simulation.
 
-![ROSplane SIL Demo](../assets/ROSplane_sim.jpg)
+![ROSplane SIL Demo](../../assets/ROSplane_sim.jpg)
 
 ### Launching
 
@@ -170,7 +170,7 @@ The waypoints of a mission are controlled by the `path_planner` node.
 These waypoints are sent to the `path_manager` node.
 Low level path-following is done by the `path_follower` node.
 See "Small Unmanned Aircraft: Theory and Practice" by Dr. Randy Beard and Dr. Tim McLain for more information on the architecture.
-See [Path Planning](../developer-guide/rosplane/navigation/navigation-overview.md) for more information on how to use and tune the path planner, manager, and follower.
+See [Path Planning](../../developer-guide/rosplane/navigation/navigation-overview.md) for more information on how to use and tune the path planner, manager, and follower.
 
 ### Adding waypoints
 
@@ -227,7 +227,7 @@ It is versatile and powerful and can plot many different time series at the same
 It allows you to directly stream ROS2 topics, making it an ideal plotting utility in the field.
 We use Plotjuggler extensively to tune our control and estimation loops, and to monitor the status of the airplane.
 
-![Plotjuggler Demo](../assets/plotjuggler_demo.png)
+![Plotjuggler Demo](../../assets/plotjuggler_demo.png)
 
 While Plotjuggler is not a ROS application, Plotjuggler ROS packages have been created.
 See the [Plotjuggler GitHub page](https://github.com/facontidavide/PlotJuggler) for more information or install the ROS2 packages with:
@@ -242,7 +242,7 @@ Use the `Import Layout` button on the Plotjuggler GUI to import the `plotjuggler
 Rviz is a ROS2 tool that can visualize 3D information.
 We use Rviz to visualize waypoints and the aircraft's performance in achieving those waypoints.
 
-![Rviz Waypoint Demo](../assets/rviz_demo.png)
+![Rviz Waypoint Demo](../../assets/rviz_demo.png)
 
 Run the Rviz publisher and Rviz configuration file with
 ```bash

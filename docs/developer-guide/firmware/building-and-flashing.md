@@ -26,10 +26,10 @@ make
 
 ## Flashing Newly-Built Firmware
 
-!!! warning "TODO"
-Update this when hardware support is finalized.
+!!! danger "TODO"
+    Update this when hardware support is finalized.
 
-First, make sure you have configured your computer as described in the [Serial Port Configuration](../../user-guide/flight-controller-setup.md#serial-port-configuration) section of the user guide.
+First, make sure you have configured your computer as described in the [Serial Port Configuration](../../user-guide/concepts/flight-controller-setup.md#serial-port-configuration) section of the user guide.
 
 ### F4
 

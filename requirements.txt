@@ -3,4 +3,5 @@ mkdocs-material
 pygments
 pymdown-extensions
 mike
-
+mkdocs-glightbox
+mkdocs-video

@@ -5,7 +5,7 @@ Reading through the pages in this user guide in order should provide you with th
   1. [Hardware setup](hardware-setup.md): Set up your hardware (fixed-wing or multirotor platform, flight controller, and companion computer)
   2. [Flight controller setup](flight-controller-setup.md): Flash your flight controller with the latest ROSflight firmware.
   3. [RC Configuration](rc-configuration.md): Set up your RC transmitter.
-  4. [ROS2 setup](ros2-setup.md): Set up ROS2 on your companion computer.
+  4. [ROS2 setup](../installation/installation-hardware.md): Set up ROS2 on your companion computer.
   5. [Parameter configuration](parameter-configuration.md): Configure the flight controller for your setup. The configuration checklists below should help guide you through this process.
   6. [Preflight checks](preflight-checks.md): Run through your preflight checks
   7. [Improving firmware performance](improving-firmware-performance.md) (multirotors only): Tune the firmware attitude controller gains
@@ -47,7 +47,7 @@ The following checklists should help you get a new vehicle set up for the first 
           3. Connect power to the motors
           4. Drop the throttle to minimum
 
-      5. Set the `PRIMARY_MIXER` parameter back to the appropriate value for your vehicle (see the [Hardware Setup](hardware-setup.md#motor-layouts) page)
+      5. Set the `PRIMARY_MIXER` parameter back to the appropriate value for your vehicle (see the [Hardware Setup](hardware-setup.md#motor-layouts-and-mixer) page)
       6. Set `ARM_SPIN_MOTORS` back to `1`
 
   2. The `ARM_SPIN_MOTORS` parameter should be set to `1` so the motors spin slowly when armed. The idle throttle setting can be adjusted with the `MOTOR_IDLE_THR` parameter.

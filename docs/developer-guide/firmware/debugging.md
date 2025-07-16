@@ -14,7 +14,7 @@ This guide assumes you are running Ubuntu 22.04 LTS, which is the currently supp
 
 Follow the guide in [Building and Flashing](building-and-flashing.md) to install the compiler toolchain.
 
-Also make sure you have configured your computer as described in the [Serial Port Configuration](../../user-guide/flight-controller-setup.md#serial-port-configuration) section of the user guide.
+Also make sure you have configured your computer as described in the [Serial Port Configuration](../../user-guide/concepts/flight-controller-setup.md#serial-port-configuration) section of the user guide.
 
 ### Connect debugger to flight controller
 
