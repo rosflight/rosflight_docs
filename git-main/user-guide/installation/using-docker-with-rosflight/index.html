@@ -2300,7 +2300,7 @@ Make sure you also have the <code>docker compose</code> utility installed.</p>
 </li>
 <li>
 <p>Build the Docker container:
-    </p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>src/rosflight_ros_pkgs/docker/compose.yaml<span class="w"> </span>build
+    </p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>src/rosflight_ros_pkgs/docker/compose.yaml<span class="w"> </span>build
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Filepaths</p>
@@ -2330,6 +2330,13 @@ You can run all these commands from the <code>src/rosflight_ros_pkgs/docker</cod
     </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws
 colcon<span class="w"> </span>build
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Resource Usage</p>
+<p>Building the whole repository at once uses a lot of memory.
+If you get build errors, try running the build command with the following argument:
+</p><div class="highlight"><pre><span></span><code>colcon<span class="w"> </span>build<span class="w"> </span>--executor<span class="w"> </span>sequential
+</code></pre></div>
+</div>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Your ROSflight workspace file structure should now look like
