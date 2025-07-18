@@ -37,16 +37,16 @@ We will load parameters from a file.
 
 1. Navigate to the params directory:
   ```bash
-  cd /path/to/rosflight_ws/rosflight_ros_pkgs/rosflight_sim/params
+  cd /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params
   ```
 
 1. Load the multirotor or fixedwing parameter YAML files:
   ```bash
   # For multirotor
-  ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/multirotor_firmware.yaml"
+  ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/multirotor_firmware.yaml}"
 
   # For fixedwing
-  ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/fixedwing_firmware.yaml"
+  ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/fixedwing_firmware.yaml}"
   ```
 
 Note that we first navigated to the directory so we could use the built-in `pwd` Linux command.
@@ -80,7 +80,7 @@ ros2 service call /calibrate_baro std_srvs/srv/Trigger
 ```
 
 These commands may take a few seconds to complete.
-Pay attention to the output.
+Pay attention to the output from the terminal where you launched the `rosflight_io` node.
 You should see something like:
 ```bash
 [rosflight_io-9] [INFO] [1751393533.505232221] [rosflight_io]: Parameter ACC_X_BIAS has new value -0.0507161
