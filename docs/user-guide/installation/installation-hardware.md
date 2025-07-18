@@ -56,7 +56,7 @@ Do the following on your companion computer.
 1. Clone the `rosflight_ros_pkgs` repository, as well as `roscopter` and `rosplane`:
     ```bash
     cd /path/to/rosflight_ws/src
-    git clone https://github.com/rosflight/rosflight_ros_pkgs
+    git clone https://github.com/rosflight/rosflight_ros_pkgs --recursive
     git clone https://github.com/rosflight/roscopter
     git clone https://github.com/rosflight/rosplane
     ```
@@ -100,6 +100,13 @@ Do the following on your companion computer.
 cd /path/to/rosflight_ws
 colcon build
 ```
+
+    !!! warning "Resource Usage"
+        Building the whole repository at once uses a lot of memory.
+        If you get build errors, try running the build command with the following argument:
+        ```bash
+        colcon build --executor sequential
+        ```
 
     !!! success
         Your ROSflight workspace file structure should now look like

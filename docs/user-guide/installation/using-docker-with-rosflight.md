@@ -55,7 +55,7 @@ We have provided the Docker files that we use [here](https://github.com/rosfligh
 
 1. Build the Docker container:
     ```bash
-    docker compose build -f src/rosflight_ros_pkgs/docker/compose.yaml build
+    docker compose -f src/rosflight_ros_pkgs/docker/compose.yaml build
     ```
 
     !!! tip "Filepaths"
@@ -88,6 +88,13 @@ docker compose -f src/rosflight_ros_pkgs/docker/compose.yaml exec rosflight zsh
     cd /path/to/rosflight_ws
     colcon build
     ```
+
+    !!! warning "Resource Usage"
+        Building the whole repository at once uses a lot of memory.
+        If you get build errors, try running the build command with the following argument:
+        ```bash
+        colcon build --executor sequential
+        ```
 
     !!! success
         Your ROSflight workspace file structure should now look like
