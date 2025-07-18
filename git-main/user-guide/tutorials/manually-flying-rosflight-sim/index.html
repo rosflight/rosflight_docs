@@ -2590,16 +2590,16 @@ We will load parameters from a file.</p>
 <ol>
 <li>
 <p>Navigate to the params directory:
-  </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/rosflight_ros_pkgs/rosflight_sim/params
+  </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params
 </code></pre></div>
 </li>
 <li>
 <p>Load the multirotor or fixedwing parameter YAML files:
   </p><div class="highlight"><pre><span></span><code><span class="c1"># For multirotor</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/multirotor_firmware.yaml"</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/multirotor_firmware.yaml}"</span>
 
 <span class="c1"># For fixedwing</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/fixedwing_firmware.yaml"</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/fixedwing_firmware.yaml}"</span>
 </code></pre></div>
 </li>
 </ol>
@@ -2627,7 +2627,7 @@ ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> 
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/calibrate_baro<span class="w"> </span>std_srvs/srv/Trigger
 </code></pre></div>
 <p>These commands may take a few seconds to complete.
-Pay attention to the output.
+Pay attention to the output from the terminal where you launched the <code>rosflight_io</code> node.
 You should see something like:
 </p><div class="highlight"><pre><span></span><code><span class="o">[</span>rosflight_io-9<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1751393533</span>.505232221<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_X_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span>-0.0507161
 <span class="o">[</span>rosflight_io-9<span class="o">]</span><span class="w"> </span><span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1751393533</span>.505511027<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>There<span class="w"> </span>are<span class="w"> </span>unsaved<span class="w"> </span>changes<span class="w"> </span>to<span class="w"> </span>onboard<span class="w"> </span>parameters
