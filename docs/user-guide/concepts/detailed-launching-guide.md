@@ -1,14 +1,7 @@
 # Detailed Launching Guide
 
-!!! danger "TODO"
-    Continue here ... The purpose of this document is to give a deeper look into what is happening when we launch and all the launching options.
-
 Detailed launching instructions for the `rosflight_sim` module.
-For a quick copy-paste instructions, see the [quick start guide](./running-simulations-with-rosflight.md).
-
-!!! note
-
-    To simulate a fixed-wing mav, just change all instances of `multirotor` in the steps below to `fixedwing`.
+For a quick tutorial on running the `standalone_sim`, see the [simulator tutorials](../tutorials/setting-up-rosflight-sim.md).
 
 ## A note on sims and viz
 A _simulator_ includes many different modules, such as dynamic propagation, sensor creation, forces and moments computation, etc.
@@ -18,6 +11,9 @@ For example, [Gazebo Classic](https://classic.gazebosim.org/) handles the dynami
 
 Since each _visualizer_ in large part determines what other functionality the _simulator_ modules need to provide, they are tightly coupled.
 Thus, in this guide, we will refer interchangeably between _simulator_ and _visualizer_.
+
+The `rosflight_sim` architecture has been designed to be as modular as possible in order to adapt as easily as possible to the different needs of various visualizers.
+See the [simulation architecture page](./simulator-architecture.md) for more information.
 
 ## Sims that ship with `rosflight_sim`
 The ROSflight simulation module was designed to be as modular as possible, in order to support different simulation and visualization needs.
@@ -30,8 +26,17 @@ Adding your own visualizer is part of what `rosflight_sim` was designed for.
 See the [instructions on adding your own visualizer](./simulator-architecture.md#adding-your-own-visualizer) page for more information on plugging in your simulator into `rosflight_sim`.
 
 This following sections detail how to launch and debug these two simulators.
-**This guide assumes you have already installed ROS2 and have cloned and build the `rosflight_ros_pkgs` repository, as detailed in the [software installation for sim guide](../installation/installation-sim.md).**
 
+!!! tip "New to ROSflight?"
+
+    If you are new to ROSflight, we recommend that you first start by setting up the simulation environment and learning to use the ROSflight ecosystem.
+    Do this by following the [installation for sim](../installation/installation-sim.md) guides, and then the [ROSflight tutorials](../tutorials/tutorial-overview.md).
+
+    **This guide assumes you have already followed these tutorials.**
+
+!!! note
+
+    To simulate a fixed-wing mav, just change all instances of `multirotor` in the steps below to `fixedwing`.
 
 ## Standalone Sim
 The "standalone" sim is a simulator that uses [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) to visualize aircraft motion.
@@ -39,13 +44,16 @@ The "standalone" sim is a simulator that uses [ROS2 RViz](https://docs.ros.org/e
 ### Launching instructions
 - Set up rosflight with the [software installation for sim guide](../installation/installation-sim.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
 
-- Launch the standalone sim for ROSflight SIL:
+- The standalone sim for ROSflight SIL is usually launched using this launch file:
 ```bash
 ros2 launch rosflight_sim multirotor_standalone.launch.py
 ```
 
-- The standalone sim should now be running! You should have the following `rqt_graph`:
-![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_standalone_launch.png)
+- The standalone sim should now be running! RViz should open with the STL of the multirotor, and you should have the following `rqt_graph`.
+
+| ![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_standalone_launch.png) |
+| --- |
+| RQT graph of the nodes involved in the standalone simulator. Click on the figure to enlarge. |
 
 !!! Tip
     Run `rqt_graph` with `rqt_graph` the in a new terminal, assuming the `-desktop` version of ROS2 was installed.
@@ -60,13 +68,32 @@ The launch file manages launching several nodes all at once, as shown in the `rq
 - `/sil_board`: Instantiation of the firmware
 - `/standalone_dynamics`: Dynamics node for keeping track of the true robot state
 - `/multirotor_forces_and_moments`: Computes aerodynamic forces and moments based on motor commands
-- `/standalone_time_manager`: Only appears if `use_sim_time` is set true. See [launch arguments](#launch-arguments)
+- `/standalone_time_manager`: Only appears if `use_sim_time` is set true. See the [launch arguments](#launch-arguments)
 - `/rviz`: Visualizer
 - `/standalone_viz_transcriber`: Manages publishing `rosflight_sim` information to RViz
 - 3 transform listener nodes: Manage coordinate frame transformations to RViz
 
 For more information on each of these nodes, see the [simulator architecture](./simulator-architecture.md) page.
 
+#### Running nodes individually
+If you don't want to use the launch file, you can instead run all of the nodes individually in separate terminals with the appropriate parameters.
+For example, to run just the `/multirotor_forces_and_moments` node, you would run
+```bash
+ros2 run rosflight_sim multirotor_forces_and_moments --ros-args --params-file /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml
+```
+Check the launch files for more information on what parameters and param files get loaded by the launch file.
+
+Also note that the `multirotor_standalone.launch.py` file actually calls 2 other launch files--one specific to the standalone sim (`standalone_sim.launch.py`) and one that launches the nodes shared by both the fixedwing and multirotor simulators (`common_nodes_standalone.launch.py`).
+You can also launch those files separately if you want--just make sure to also run the forces and moments node in addition to those two sub-launch files.
+
+!!! warning
+
+    If you do run all nodes separately, make sure all the needed nodes are running.
+    You can verify this by checking that the `rqt_graph` is the same as the above image.
+
+    This is important since the nodes are chained together to complete a simulation loop.
+    A common source of error is forgetting to launch a node in the chain.
+    Forgetting to run the `multirotor_forces_and_moments` node, for example, will cause the `standalone_dynamics` node to not perform any updates.
 
 ## Gazebo Classic
 !!! DANGER
@@ -92,8 +119,7 @@ source /usr/share/gazebo/setup.sh
 ros2 launch rosflight_sim multirotor_gazebo.launch.py aircraft:=multirotor
 ```
 
-* Gazebo Classic should now be running! You should have the following `rqt_graph`.
-
+* Gazebo Classic should now be running! Gazebo should open and you should see the STL of the multirotor at the origin. You should have the following `rqt_graph`.
 ![multirotor_launch_rqt_graph](../images/rqt_graph_multirotor_gazebo_launch.png)
 
 !!! Tip
@@ -114,6 +140,10 @@ The launch file manages launching several nodes all at once, as shown in the `rq
 
 For more information on each of these nodes, see the [simulator architecture](./simulator-architecture.md) page.
 
+#### Running nodes individually
+The same file structure was used for the Gazebo launch files as for the standalone launch files.
+If you want to run nodes individually, see the [explanation above](./detailed-launching-guide.md#running-nodes-individually).
+
 ## Launch arguments
 !!! Tip
     Command line arguments to launch files can be previewed by appending `--show-args` to the launch call:
@@ -124,7 +154,7 @@ For more information on each of these nodes, see the [simulator architecture](./
 There are several command line arguments you can pass to customize the behavior at runtime.
 Here are some important ones:
 
-- `aircraft`: Defaults to "skyhunter". This parameter controls which dynamics and parameter files get loaded. Make sure this is set to your correct airframe!
+- `aircraft`: Defaults to "skyhunter". This parameter controls which dynamics and parameter files get loaded, in addition to the STL file for visualization. Make sure this is set to your correct airframe!
 - `use_sim_time`: By default, set false. This parameter is a parameter of all nodes in ROS2. If set to true on launch, the node will create a subscription to the `/clock` topic, and will use that as the source of time for its timers.
 For Gazebo Classic, it is recommended to **leave this as false**, since Gazebo Classic publishes a `/clock` topic at 10Hz, which is too slow for most modules. If using the standalone sim, this parameter will allow you to speed up, slow down, or pause time. See the [simulation architecture](./simulator-architecture.md) page for more information.
 - `use_vimfly`: Node that changes the default RC behavior to use VimFly, a program that lets you use Vim commands to fly around in the sim!
@@ -137,7 +167,7 @@ These command line arguments should be passed using the `<argument>:=<value>` sy
 ## Joysticks
 ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot.
 If one of the supported transmitters is connected via USB at launch time, then the sim will default to using that controller instead of the default, **which is no RC connection**.
-See the [Hardware Setup](./hardware-setup.md) guide for more information on joysticks.
+See the [Hardware Setup](./hardware-setup.md#joystick) guide for more information on joysticks.
 
 !!! note
     It is much easier to fly with a real transmitter than with an Xbox-type controller.
@@ -158,6 +188,8 @@ To use VimFly, just add the `use_vimfly:=true` string to the end of the launch c
 
 Remember that the SIL tries its best to replicate hardware.
 That means you have to calibrate and set parameters in the same way you do in hardware.
+If you need a reminder, please follow the [configuration and manual flight tutorial](../tutorials/manually-flying-rosflight-sim.md).
+
 See the [Parameter Configuration](./parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
 
 You can also run 
@@ -166,3 +198,7 @@ ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 ```
 to load all required parameters and perform initial calibrations for a quick simulation setup.
 
+!!! warning
+
+    Remember to verify that all parameters are set to the value that you would expect.
+    Wrong parameters is a **common source of error** in sim and in hardware.

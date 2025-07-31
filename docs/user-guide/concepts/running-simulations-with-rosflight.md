@@ -11,9 +11,12 @@ The goals of the ROSflight simulation module (called `rosflight_sim`) are to
 - Enable **easy and extensive SIL** testing of an aircraft,
 - Provide to the sim the **exact same software** that flies the physical aircraft,
 - Support a **variety of simulators** out of the box -- from photorealistic to bare-bones, and
-- Enable users to plug in their own simulators if needed.
+- Enable users to support their own simulator needs.
 
 See the [simulator architecture](simulator-architecture.md) description page for more information on adding your own simulator to `rosflight_sim`.
+This page also has more information on the modular structure of `rosflight_sim`.
+
+The [detailed launching guide](./detailed-launching-guide.md) contains information on how to launch the simulation environment, more detailed than what is available in the [simulation tutorials](../tutorials/setting-up-rosflight-sim.md).
 
 !!! tip "New to ROSflight?"
 

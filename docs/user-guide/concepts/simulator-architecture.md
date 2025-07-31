@@ -4,7 +4,7 @@
 
 !!! danger "TODO"
 
-    This page is still under construction. Check back soon!
+    continue here... This page is still under construction. Check back soon!
 
 !!! TODO
     Make a figure of the new architecture. Maybe make it be a GIF? We could replace the table below
