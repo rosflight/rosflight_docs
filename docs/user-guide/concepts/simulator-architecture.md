@@ -12,9 +12,6 @@ It also details what users would need to do to use their own visualizer with `ro
 
 ## Big Picture - Sim Architecture
 
-!!! danger "TODO"
-    continue here... This page is still under construction. Check back soon!
-
 ### Design Philosophy
 
 The design goal of the simulator is to mimic hardware as closely as possible.
@@ -162,7 +159,7 @@ This is done by configuring the parameters associated with the `time_manager` no
 | <span style="display: inline-block; width:150px">Parameter name</span> | Default value | Description |
 | --- | --- | --- |
 | `default_pub_rate_us` | 100.0 | Default interval the time manager will publish to the `clock` topic (in microseconds) |
-| `real_time_multiplier` | 1.0 | Multiplier for configuring faster or slower than real time simulations. E.g. set to 2 to run 2 times as fast as real time |
+| `real_time_multiplier` | 1.0 | Multiplier for configuring faster or slower than real time simulations |
 
 !!! example "Pub rate example"
 
@@ -182,8 +179,24 @@ This is done by configuring the parameters associated with the `time_manager` no
 ### SIL Board
 
 ### Sensors
+The `sensors` module is responsible for generating simulated sensor measurements based on the current true state.
+These sensor measurements are published to the `/simulated_sensors/XXX` topics, where `XXX` is each sensor, i.e. `imu/data` or `baro`, etc.
+
+The `sensors` node adds noise, walk, and biases to each sensor measurement to simulate the real-world data.
+See the code for more information on how the noise is added.
+
+Note that the `sensors` node subscribes to the `forces_and_moments` topic (for the IMU measurement), the truth states, and the `status` topic.
+The `status` topic is used to approximate when the motors are spinning so high-frequency noise can be added to the gyros.
+
+Also note that the `sensors` node could have been implemented as a separate node for each sensor.
+If you are adding a new sensor (e.g. camera), you could either change the `sensor` source code or create an entirely separate ROS2 node for your sensor.
 
 ### Forces and Moments
+!!! danger "TODO"
+    continue here... This page is still under construction. Check back soon!
+
+The `forces_and_moments` node
+
 
 ### Dynamics
 
