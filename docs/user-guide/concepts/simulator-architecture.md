@@ -46,7 +46,7 @@ The following table summarizes the correlation between connections in hardware a
 The simulator architecture is diagrammed below.
 
 | ![Simulator Architecture](../images/simulator_architecture.svg) |
-| --- |
+| :---: |
 | Fig 1: Architecture of the simulator. Note that the blue dashed box refers to the only parts that are active when running on hardware, while every module runs in sim. |
 
 Throughout this guide, we will refer to **_modules_** in the simulator.
@@ -142,6 +142,40 @@ By default, this parameter is set `false`.
 
 When `use_sim_time == true`, however, the node will listen to the `clock` topic as its internal time source.
 This means that all timers, calls to `get_clock()`, or any other time for that node will be based off of the `clock` topic.
+
+ROSflight sim can be run with or without the `time_manager`.
+If you are using the `time_manager`, note that you can toggle pause/play of the simulation using the `/time_manager/toggle_pause` service call.
+
+!!! warning "When to use the `time_manager`"
+
+    The `time_manager` is really only useful when you care about running faster or slower than real time or pausing and starting the simulation.
+    If you don't care about this, don't run the `time_manager` node, and don't set the `use_sim_time` parameter of other nodes to `true`.
+    This will free up resources otherwise used by the `time_manager`.
+
+The `time_manager`'s main job is to publish the current time to the `clock` topic.
+It needs to publish fast enough so that other timers on other nodes aren't stalled because the `clock` topic isn't coming fast enough.
+
+
+The `time_manager` has some built in functionality to enable faster or slower than real time simulations.
+This is done by configuring the parameters associated with the `time_manager` node.
+
+| <span style="display: inline-block; width:150px">Parameter name</span> | Default value | Description |
+| --- | --- | --- |
+| `default_pub_rate_us` | 100.0 | Default interval the time manager will publish to the `clock` topic (in microseconds) |
+| `real_time_multiplier` | 1.0 | Multiplier for configuring faster or slower than real time simulations. E.g. set to 2 to run 2 times as fast as real time |
+
+!!! example "Pub rate example"
+
+    Let's say I know that the fastest timer in my simulation environment runs at 400 Hz.
+    Thus, that timer has to tick every 2.5 ms.
+    The `default_pub_rate` parameter therefore needs to be **smaller than 2500** so that the timer runs reliably.
+
+    Note that we have not tested all of the timing intracacies of the `clock` topic--set it to publish faster than you need and you probably won't run into issues.
+
+!!! example "Real time multiplier example"
+
+    If I want to run a simulation 2 times faster than real time, I would set `real_time_multiplier = 2.0`.
+    If I wanted to run it 0.5 times as fast as real time, I would set it to 0.5.
 
 ### Sim Manager
 
