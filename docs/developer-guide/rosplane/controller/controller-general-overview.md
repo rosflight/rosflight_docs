@@ -63,21 +63,21 @@ These are passed to `rosflight_io`, which formats them into MAVLink messages and
 ## Running the Controller
 
 As mentioned in the ROSplane ROS overview, the controller is in the main `rosplane` ROS package.
-The ROS executable is `rosplane_controller`, yielding the run command:
+The ROS executable is `controller`, yielding the run command:
 
-`ros2 run rosplane rosplane_controller`
+`ros2 run rosplane controller`
 
 The type of controller used is passed right after the executable name, substitute `control_type` for controller being used.
 
-`ros2 run rosplane rosplane_controller control_type`
+`ros2 run rosplane controller control_type`
 
 To pass a set of parameters for the controller from a yaml file using the `--ros-args` option.
 
-`ros2 run rosplane rosplane_controller --ros-args --params-file path/to/params.yaml`
+`ros2 run rosplane controller --ros-args --params-file path/to/params.yaml`
 
 Putting it all together,
 
-`ros2 run rosplane rosplane_controller control_type --ros-args --params-file path/to/params.yaml`
+`ros2 run rosplane controller control_type --ros-args --params-file path/to/params.yaml`
 
 A table of arguments and parameter files that work out of the box is given in the following table.
 !!! note 

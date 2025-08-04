@@ -79,13 +79,13 @@ See the Frames and Derivation page for more information, or chapter 2 of the [UA
 ## Running the Estimator
 
 The estimator is in the main `rosplane` ROS package.
-The ROS executable is `rosplane_estimator_node`, yielding the run command:
+The ROS executable is `estimator`, yielding the run command:
 
-`ros2 run rosplane rosplane_estimator_node`
+`ros2 run rosplane estimator`
 
 To pass a set of parameters for the controller from a yaml file using the `--ros-args` option.
 
-`ros2 run rosplane rosplane_estimator_node --ros-args --params-file path/to/params.yaml`
+`ros2 run rosplane estimator --ros-args --params-file path/to/params.yaml`
 
 
 !!! note 
