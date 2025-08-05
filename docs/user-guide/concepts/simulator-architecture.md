@@ -3,7 +3,7 @@
 This document describes the architecture of the simulator code.
 It describes each node's function and role in the simulator, as well as how different visualizers require different configurations of nodes.
 
-It also details what users would need to do to use their own visualizer with `rosflight_sim`.
+It also details what you would need to do to [customize the sim to your needs](#customizing-the-simulator).
 
 !!! note "Prerequisites"
 
@@ -244,9 +244,6 @@ More information on these equations can be found in chapters 4 and 14 of *Small 
 However, we do need to accurately set the positions of the motors.
 This is done through the `rotor_dists`, `rotor_radial_angles`, and `rotor_rotation_directions` parameters of the `forces_and_moments` node.
 
-!!! danger "TODO"
-    continue here... This page is still under construction. Check back soon!
-
 ### Dynamics
 The `dynamics` node is responsible for maintaining the true state of the vehicle and for adding environmental effects.
 It can be thought of as the "world node", since it is the node that implements physical phenomena like gravity, collisions, state integration, etc.
@@ -269,11 +266,76 @@ It can be useful to instantiate the simulation at a particular point in state sp
 The `dynamics` node has a service server that allows users to set the simulation state (the 19-DoF state) to whatever value you want, called the `dynamics/set_sim_state` service.
 Note that if an estimator is running, it will likely do something crazy if you set the sim state while it is running.
 
-## Swapping out modules
+## Customizing the simulator
+Because of the modular nature of ROS2, nodes can be swapped out with minimal effort.
+As long as the inputs and outputs (the ROS2 interfaces, i.e. publishers, subscribers, services) remain the same, the new module should fit in seamlessly with the rest of the simulator.
 
-This section describes how one would swap out modules, i.e. a different dynamics module.
+#### Important implementation details
+Each module described above (except for the `sil_board` and the `sim_manager`) has been implemented as a C++ node with an interface class and a single derived class.
+For example, the `sensors` module has an interface class, `SensorInterface`, which the implemented class, `StandaloneSensors` inherits from.
+
+The interface class defines all of the ROS2 interfaces and the key functions that a derived class must implement for the code to function correctly.
+
+!!! note "Why is it done this way?"
+
+    Designing the architecture in this way defines a "contract" in the interface class.
+    If that contract is satisfied (which is enforced by the compiler), then the derived class code will work with the rest of `rosflight_sim` (assuming, of course, that the code in the derived class is correct).
+
+    This makes it easier and quicker to create different implementations of the same interface class.
+    For example, the `forces_and_moments` node has a different implementation of the aerodynamic model for the fixedwing and for the multirotor.
+    Instead of duplicating all of the code for the ROS2 interfaces, we move it to the interface class.
+    Additionally, we require that derived classes implement some key functions like `update_forces_and_torques`.
+    Thus, for the fixedwing and multirotor forces and moments, all we do is inherit from the interface class and implement the required functions, and we're good to go!
+
+The following table lists each module and the corresponding interface class, as well as the functions required by the interface class.
+These functions are the functionality that you would be required to implement if you were to swap out a module for a different one.
+
+| Module | <span style="display: inline-block; width:200px">Interface</span> | Required functions |
+| --- | --- | --- |
+| Time Manager | `TimeManagerInterface` | `update_time`, `get_seconds`, `get_nanoseconds` |
+| Sim Manager | None | None |
+| SIL Board | None | None |
+| Sensors | `SensorInterface` | `imu_update`, `imu_temperature_update`, `mag_update`, `baro_update`, `gnss_update`, `sonar_update`, `diff_pressure_update`, `battery_update` |
+| Forces and Moments | `ForcesAndMomentsInterface` | `update_forces_and_torques`, `get_firmware_parameters` |
+| Dynamics | `DynamicsInterface` | `apply_forces_and_torques`, `compute_truth`, `compute_wind_truth` |
+
+!!! note "Programming languages"
+
+    The majority of the simulation code is written in C++.
+    If you want to use a different language when replacing a module, you will have to implement the interface class in that language (i.e. Python).
+
+    In most cases, you should be able to go line by line and replace syntax.
+    Or you could have an LLM do it for you.
+
+#### Example customizations
+
+??? example "Example use case: Different aerodynamic model"
+
+    The aerodynamic model in the forces and moments node is not a high fidelity model, but makes some assumptions in order to simplify the resulting equations.
+    Let's say I wanted to implement a different aerodynamic model in order to increase the fidelity of my simulator.
+
+    All I would need to do would be to create a new class that inherits from the forces and moments interface class (`ForcesAndMomentsInterface`), which handles the ROS2 interfaces and defines the functions that my forces and moments node needs to have.
+    All I do is then
+
+    1. implement those functions with my custom aerodynamic model,
+    1. add it to the `CMakeLists.txt` (so that it is built),
+    1. add it to the launch file instead of the default `forces_and_moments` node, and I'm done!
+
+??? example "Example use case: JSBsim"
+
+    [JSBsim](https://jsbsim.sourceforge.net/index.html) is an open-source, widely used flight dynamics software.
+    For example, both [Ardupilot](https://ardupilot.org/dev/docs/sitl-with-jsbsim.html) and [PX4](https://docs.px4.io/v1.15/en/sim_jsbsim/index.html) both support JSBsim in their simulation envirnoments.
+    This is an example of how JSBsim could be integrated into ROSflight for better aerodynamics.
+
+    JSBsim would replace both the `forces_and_moments` and the `dynamics` nodes.
+    The first step would be to combine the interface classes for both modules into a single ROS2 wrapper.
+    The next step would be to incorporate the JSBsim API into that ROS2 wrapper.
+    Remember that as long as the inputs (`forces_and_moments` topic) and outputs (`sim/truth_state`) are correct, it will work with the rest of ROSflight!
 
 ## Node configuration for the different visualizers
+!!! danger "TODO"
+    continue here... This page is still under construction. Check back soon!
+    Flesh out this section, then go back and do the `sil_board`.
 
 This section describes how each visualizer supported by ROSflight uses the different modules described above.
 
