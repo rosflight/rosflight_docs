@@ -92,18 +92,18 @@ In other words, these blue nodes are still used in sim, but the green nodes are 
 
 ### Flow of information
 
-A single simulation loop starts with the `rosflight_sil_manager` node.
-This node calls a service served up by the `sil_board` node, the `tick` service.
-This `tick` service corresponds to a single iteration of the main loop in the ROSflight firmware (see the [relevant source code](https://github.com/rosflight/rosflight_firmware/blob/main/src/rosflight.cpp), the `run()` function).
+A single simulation loop starts with the `sil_board` node.
+The `sil_board` by default executes a simulation loop when a ROS2 timer fires.
+This corresponds to a single iteration of the main loop in the ROSflight firmware (see the [relevant source code](https://github.com/rosflight/rosflight_firmware/blob/main/src/rosflight.cpp), the `run()` function).
 
-On a `tick`, the `rosflight_firmware` reads sensors when available, performs calculations, communicates over MAVlink, or anything else in the code.
-Note that most actions in the firmware are on timers, so not everything happens every time a `tick` service is called.
-For example, the GPS sensor only creates information at 5-10 Hz, so it only gets read at that rate.
+On a tick, the `rosflight_firmware` code reads sensors when available, performs calculations, communicates over MAVlink, or anything else in the code.
+Note that most actions in the firmware are on timers, so not everything happens every time `sil_board` ticks.
+For example, the GPS sensor only creates information at 5-10 Hz, so it only gets read at that rate, not every time `sil_board` ticks.
 
-During this `tick` call, the `rosflight_firmware` communicates with the `rosflight_io` node using MAVlink.
+During this tick, the `rosflight_firmware` also communicates with the `rosflight_io` node using MAVlink.
 In hardware, this communication happens over a serial connection, but we simulate this serial connection with a UDP connection when in sim.
 
-After a `tick` completes, the `sil_board` publishes the resulting PWM commands over the `sim/pwm_output` topic to the `forces_and_moments` node.
+After a tick completes, the `sil_board` publishes the resulting PWM commands over the `sim/pwm_output` topic to the `forces_and_moments` node.
 The `forces_and_moments` node first unmixes the PWM commands and then computes the aerodynamic forces and moments acting on the airframe based on motor/prop characteristics and the aerodynamic coefficients of the aircraft.
 Note that these calculations are only as accurate as the model in the `forces_and_moments` code.
 
@@ -174,9 +174,67 @@ This is done by configuring the parameters associated with the `time_manager` no
     If I want to run a simulation 2 times faster than real time, I would set `real_time_multiplier = 2.0`.
     If I wanted to run it 0.5 times as fast as real time, I would set it to 0.5.
 
-### Sim Manager
-
 ### SIL Board
+The `sil_board` is the simulated version of the physical flight controller.
+It is composed of two parts: the **software-in-the-loop (SIL) board**, and **a ROS2 wrapper** that manages the interfaces with the rest of the simulation.
+
+A more accurate image of the `sil_board` node than what is in Figure 1 can be seen below in Figure 2.
+This figure is discussed in detail in the following subsections.
+
+| ![SIL board architecture](../images/simulator_architecture_sil_board.svg) |
+| :---: |
+| Fig 2: More accurate description of the SIL board architecture with its two major parts: the ROS2 wrapper and the SIL board. Note that this is pseudocode--the "variable" and function names do not necessarily correspond to the actual variable names in the code.  |
+
+
+!!! note "Naming"
+
+    In implementation, the ROS2 executable corresponding to the "ROS2 wrapper" half of the overall SIL Board module is called `sil_board`.
+    In this guide, we will refer to the ROS2 wrapper as `sil_board_ros`, and the actual board implementation as SIL board.
+
+#### SIL Board
+
+!!! warning "Important"
+
+    "Board" here refers to a module that inherits from ["board.h"](https://github.com/rosflight/rosflight_firmware/blob/main/include/interface/board.h), the interface file defining all the functions a physical board must implement in order to run the `rosflight_firmware`.
+
+The SIL board's responsibility is to perform the same tasks as the physical board.
+It does this by inheriting from ["board.h"](https://github.com/rosflight/rosflight_firmware/blob/main/include/interface/board.h), thus implementing **all of the same functionality** as the board implementations that run on physical hardware.
+
+In the implementation of the [ROSflight firmware](https://github.com/rosflight/rosflight_firmware), any `firmware` object created is passed a reference to a `board` object (which is an object that inherits from "board.h").
+This happens the same way in hardware and in simulation.
+The firmware uses this reference to the `board` object at the appropriate times to do things like get the current clock time, read sensor information, write motor commands, and so on.
+In Fig 2, this is shown by the arrows flowing from the "ROSflight firmware" box to the "SIL Board" box.
+
+Thus, the SIL board implements functions like `imu_read`, `gnss_read`, `rc_read`, `pwm_write`, etc.
+Since we are in sim, instead of reading from the physical IMU when `imu_read()` is called, the `sil_board` loads the IMU data from the information received via subscription to the `sensors` node, which is responsible for creating the simulated sensor information.
+Similarly, instead of writing PWM signals to the physical pins, the SIL board publishes those commands to the `sim/pwm_output` topic, which the `forces_and_moments` node uses to compute the aerodynamic forces and moments.
+These publisher/subscriber interfaces are denoted in Fig 2.
+
+#### ROS2 Wrapper
+As shown in Fig 2, the ROS2 wrapper contains:
+
+- An instantiation of the [**ROSflight firmware**](../overview.md#firmware), which is the same code that runs on the physical flight controller.
+- The **SIL board object** (discussed previously)
+- The **communication link** module (not shown in Fig 2)
+
+Its main responsibility is to manage when the ROSflight firmware's `run()` function gets called.
+
+!!! note "The `run()` function" 
+
+    Remember that this `run()` function corresponds to a single execution loop of the firmware.
+    In hardware, this `run()` function runs *very* fast (~350kHz on some hardware), though not everything in the firmware runs at that same rate since most functionality is hooked to hardware interrupts.
+    It is unnecessary to run it this fast in sim, so we typically run it at the IMU rate, ~400Hz.
+
+In the `sil_board_ros`, the `run()` function can get called in two ways:
+
+1. From a ROS2 timer callback, or
+2. From a ROS2 service served up by the `sil_board_ros` node.
+
+Only one of these methods should be used at a time when running the firmware.
+The timer is used in the standard configuration, as it models what happens in the real hardware.
+The service server is useful when taking one step of the firmware at a time in order to analyze the effects step by step.
+
+The timer frequency can be adjusted using the ROS2 parameter system.
 
 ### Sensors
 The `sensors` module is responsible for generating simulated sensor measurements based on the current true state.
@@ -214,11 +272,11 @@ The `forces_and_moments` node accomplishes this by querying the `sil_board` node
 It saves the mixer and unmixes the input PWM commands back to the "standard" commands.
 We then can use our aerodynamic model to compute the forces and torques.
 
-This process is shown in Fig 2.
+This process is shown in Fig 3.
 
 | ![Flow of information through the forces and moments node](../images/simulator_architecture_fandm.svg) |
 | :--- : |
-| Fig 2: Flow of information through the `forces_and_moments` node. The \(\delta_{r1}\) and \(\delta_{r2}\) values in the data of the `/sim/pwm_output` section refer to the right and left ruddervator commands used for a vtail aircraft. Note how the mixer is used in two places. |
+| Fig 3: Flow of information through the `forces_and_moments` node. The \(\delta_{r1}\) and \(\delta_{r2}\) values in the data of the `/sim/pwm_output` section refer to the right and left ruddervator commands used for a vtail aircraft. Note how the mixer is used in two places. |
 
 !!! note
 
@@ -293,7 +351,6 @@ These functions are the functionality that you would be required to implement if
 | Module | <span style="display: inline-block; width:200px">Interface</span> | Required functions |
 | --- | --- | --- |
 | Time Manager | `TimeManagerInterface` | `update_time`, `get_seconds`, `get_nanoseconds` |
-| Sim Manager | None | None |
 | SIL Board | None | None |
 | Sensors | `SensorInterface` | `imu_update`, `imu_temperature_update`, `mag_update`, `baro_update`, `gnss_update`, `sonar_update`, `diff_pressure_update`, `battery_update` |
 | Forces and Moments | `ForcesAndMomentsInterface` | `update_forces_and_torques`, `get_firmware_parameters` |
@@ -336,6 +393,7 @@ These functions are the functionality that you would be required to implement if
 !!! danger "TODO"
     continue here... This page is still under construction. Check back soon!
     Flesh out this section, then go back and do the `sil_board`.
+    Also make sure to add the rc node! This is not present yet!
 
 This section describes how each visualizer supported by ROSflight uses the different modules described above.
 
