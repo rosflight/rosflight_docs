@@ -356,7 +356,7 @@ Because of the modular nature of ROS2, nodes can be swapped out with minimal eff
 As long as the inputs and outputs (the ROS2 interfaces, i.e. publishers, subscribers, services) remain the same, the new module should fit in seamlessly with the rest of the simulator.
 
 #### Important implementation details
-Each module described above (except for the `sil_board` and the `sim_manager`) has been implemented as a C++ node with an interface class and a single derived class.
+Each module described above (except for the `sil_board`) has been implemented as a C++ node with an interface class and a single derived class.
 For example, the `sensors` module has an interface class, `SensorInterface`, which the implemented class, `StandaloneSensors` inherits from.
 
 The interface class defines all of the ROS2 interfaces and the key functions that a derived class must implement for the code to function correctly.
