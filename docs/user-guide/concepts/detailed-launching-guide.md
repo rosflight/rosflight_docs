@@ -3,6 +3,14 @@
 Detailed launching instructions for the `rosflight_sim` module.
 For a quick tutorial on running the `standalone_sim`, see the [simulator tutorials](../tutorials/setting-up-rosflight-sim.md).
 
+!!! tip "Launch parameters"
+
+    This document describes a lot of the launch-time arguments that can be passed to the launch files to configure the simulation.
+    To see a complete list of the launch-time arguments, run a launch command with
+    ```bash
+    ros2 launch <package_name> <launch_file_name> --show-args
+    ```
+
 ## A note on sims and viz
 A _simulator_ includes many different modules, such as dynamic propagation, sensor creation, forces and moments computation, etc.
 One of these modules is the _visualization_ module, that provides the graphical element to the simulator.
@@ -62,7 +70,6 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py
 The launch file manages launching several nodes all at once, as shown in the `rqt_graph` image:
 
 - `/rosflight_io`: Handles the communication between the companion computer and the flight controller
-- `/rosflight_sil_manager`: Calls the firmware at the correct time interval
 - `/standalone_sensors`: Simulates sensor measurements given the true state of the robot
 - `/rc`: Simulates the RC safety pilot connection to the firmware
 - `/sil_board`: Instantiation of the firmware
@@ -130,7 +137,6 @@ ros2 launch rosflight_sim multirotor_gazebo.launch.py aircraft:=multirotor
 The launch file manages launching several nodes all at once, as shown in the `rqt_graph` image:
 
 - `/rosflight_io`: Handles the communication between the companion computer and the flight controller
-- `/rosflight_sil_manager`: Calls the firmware at the correct time interval
 - `/standalone_sensors`: Simulates sensor measurements given the true state of the robot
 - `/rc`: Simulates the RC safety pilot connection to the firmware
 - `/sil_board`: Instantiation of the firmware
