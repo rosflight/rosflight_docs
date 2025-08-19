@@ -42,6 +42,17 @@ The ROSflight standalone simulator consists of several key components:
     source /path/to/rosflight_ws/install/setup.bash
     ```
 
+    !!! tip "Shell type"
+
+        Note that these commands will only work if you are using `bash` as your shell.
+        If you are using `zsh`, make sure to change the `.bash` part of the above commands to `.zsh`.
+
+        **Using the provided Dockerfile?**
+        The Dockerfile provided and referenced in the [Docker installation section](../installation/using-docker-with-rosflight.md) uses `zsh` by default.
+
+        **How do I check which shell I am using?**
+        Use `echo $0` to check which shell you are using.
+
 2. Launch the simulator:
 
     ROSflight provides launch files for different aircraft types. Choose the appropriate command based on your needs:
