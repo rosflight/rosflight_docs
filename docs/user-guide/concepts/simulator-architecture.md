@@ -168,7 +168,7 @@ This is done by configuring the parameters associated with the `time_manager` no
     Thus, that timer has to tick every 2.5 ms.
     The `default_pub_rate` parameter therefore needs to be **smaller than 2500** so that the timer runs reliably.
 
-    Note that we have not tested all of the timing intracacies of the `clock` topic--set it to publish faster than you need and you probably won't run into issues.
+    Note that we have not tested all of the timing intricacies of the `clock` topic--set it to publish faster than you need and you probably won't run into issues.
 
 !!! example "Real time multiplier example"
 
