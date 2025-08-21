@@ -302,7 +302,7 @@ We then can use our aerodynamic model to compute the forces and torques.
 This process is shown in Fig 3.
 
 | ![Flow of information through the forces and moments node](../images/simulator_architecture_fandm.svg) |
-| :--- : |
+| :---: |
 | Fig 3: Flow of information through the `forces_and_moments` node. The \(\delta_{r1}\) and \(\delta_{r2}\) values in the data of the `/sim/pwm_output` section refer to the right and left ruddervator commands used for a vtail aircraft. Note how the mixer is used in two places. |
 
 !!! note
