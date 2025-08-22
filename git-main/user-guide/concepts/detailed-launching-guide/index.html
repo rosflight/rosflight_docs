@@ -1155,6 +1155,21 @@ You're not viewing the latest stable version.
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-nodes-individually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running nodes individually
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1187,6 +1202,21 @@ You're not viewing the latest stable version.
       Explanation
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-nodes-individually_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running nodes individually
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2313,6 +2343,21 @@ You're not viewing the latest stable version.
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-nodes-individually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running nodes individually
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2345,6 +2390,21 @@ You're not viewing the latest stable version.
       Explanation
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-nodes-individually_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running nodes individually
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2405,15 +2465,14 @@ You're not viewing the latest stable version.
 
 
 <div><h1 id="detailed-launching-guide">Detailed Launching Guide<a class="headerlink" href="#detailed-launching-guide" title="Permanent link">¶</a></h1>
-<div class="admonition danger">
-<p class="admonition-title">TODO</p>
-<p>Continue here ... The purpose of this document is to give a deeper look into what is happening when we launch and all the launching options.</p>
-</div>
 <p>Detailed launching instructions for the <code>rosflight_sim</code> module.
-For a quick copy-paste instructions, see the <a href="../running-simulations-with-rosflight/">quick start guide</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To simulate a fixed-wing mav, just change all instances of <code>multirotor</code> in the steps below to <code>fixedwing</code>.</p>
+For a quick tutorial on running the <code>standalone_sim</code>, see the <a href="../../tutorials/setting-up-rosflight-sim/">simulator tutorials</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Launch parameters</p>
+<p>This document describes a lot of the launch-time arguments that can be passed to the launch files to configure the simulation.
+To see a complete list of the launch-time arguments, run a launch command with
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>&lt;package_name&gt;<span class="w"> </span>&lt;launch_file_name&gt;<span class="w"> </span>--show-args
+</code></pre></div>
 </div>
 <h2 id="a-note-on-sims-and-viz">A note on sims and viz<a class="headerlink" href="#a-note-on-sims-and-viz" title="Permanent link">¶</a></h2>
 <p>A <em>simulator</em> includes many different modules, such as dynamic propagation, sensor creation, forces and moments computation, etc.
@@ -2422,6 +2481,8 @@ Different visualizers provide different functionality and require different info
 For example, <a href="https://classic.gazebosim.org/">Gazebo Classic</a> handles the dynamic propagation (integration) for users, while a simple visualizer like RViz does not.</p>
 <p>Since each <em>visualizer</em> in large part determines what other functionality the <em>simulator</em> modules need to provide, they are tightly coupled.
 Thus, in this guide, we will refer interchangeably between <em>simulator</em> and <em>visualizer</em>.</p>
+<p>The <code>rosflight_sim</code> architecture has been designed to be as modular as possible in order to adapt as easily as possible to the different needs of various visualizers.
+See the <a href="../simulator-architecture/">simulation architecture page</a> for more information.</p>
 <h2 id="sims-that-ship-with-rosflight_sim">Sims that ship with <code>rosflight_sim</code><a class="headerlink" href="#sims-that-ship-with-rosflight_sim" title="Permanent link">¶</a></h2>
 <p>The ROSflight simulation module was designed to be as modular as possible, in order to support different simulation and visualization needs.
 Currently, we support 2 visualizers out-of-the-box:</p>
@@ -2431,8 +2492,17 @@ Currently, we support 2 visualizers out-of-the-box:</p>
 </ul>
 <p>Adding your own visualizer is part of what <code>rosflight_sim</code> was designed for.
 See the <a href="../simulator-architecture/#adding-your-own-visualizer">instructions on adding your own visualizer</a> page for more information on plugging in your simulator into <code>rosflight_sim</code>.</p>
-<p>This following sections detail how to launch and debug these two simulators.
-<strong>This guide assumes you have already installed ROS2 and have cloned and build the <code>rosflight_ros_pkgs</code> repository, as detailed in the <a href="../../installation/installation-sim/">software installation for sim guide</a>.</strong></p>
+<p>This following sections detail how to launch and debug these two simulators.</p>
+<div class="admonition tip">
+<p class="admonition-title">New to ROSflight?</p>
+<p>If you are new to ROSflight, we recommend that you first start by setting up the simulation environment and learning to use the ROSflight ecosystem.
+Do this by following the <a href="../../installation/installation-sim/">installation for sim</a> guides, and then the <a href="../../tutorials/tutorial-overview/">ROSflight tutorials</a>.</p>
+<p><strong>This guide assumes you have already followed these tutorials.</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To simulate a fixed-wing mav, just change all instances of <code>multirotor</code> in the steps below to <code>fixedwing</code>.</p>
+</div>
 <h2 id="standalone-sim">Standalone Sim<a class="headerlink" href="#standalone-sim" title="Permanent link">¶</a></h2>
 <p>The "standalone" sim is a simulator that uses <a href="https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz">ROS2 RViz</a> to visualize aircraft motion.</p>
 <h3 id="launching-instructions">Launching instructions<a class="headerlink" href="#launching-instructions" title="Permanent link">¶</a></h3>
@@ -2441,15 +2511,26 @@ See the <a href="../simulator-architecture/#adding-your-own-visualizer">instruct
 <p>Set up rosflight with the <a href="../../installation/installation-sim/">software installation for sim guide</a> guide, making sure to install the <code>-desktop</code> package of ROS2, not the <code>-ros-base</code>.</p>
 </li>
 <li>
-<p>Launch the standalone sim for ROSflight SIL:
+<p>The standalone sim for ROSflight SIL is usually launched using this launch file:
 </p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_standalone.launch.py
 </code></pre></div>
 </li>
 <li>
-<p>The standalone sim should now be running! You should have the following <code>rqt_graph</code>:
-<a class="glightbox" href="../../images/rqt_graph_multirotor_standalone_launch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="multirotor_launch_rqt_graph" src="../../images/rqt_graph_multirotor_standalone_launch.png"></a></p>
+<p>The standalone sim should now be running! RViz should open with the STL of the multirotor, and you should have the following <code>rqt_graph</code>.</p>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th><a class="glightbox" href="../../images/rqt_graph_multirotor_standalone_launch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="multirotor_launch_rqt_graph" src="../../images/rqt_graph_multirotor_standalone_launch.png"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RQT graph of the nodes involved in the standalone simulator. Click on the figure to enlarge.</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Run <code>rqt_graph</code> with <code>rqt_graph</code> the in a new terminal, assuming the <code>-desktop</code> version of ROS2 was installed.</p>
@@ -2458,18 +2539,33 @@ See the <a href="../simulator-architecture/#adding-your-own-visualizer">instruct
 <p>The launch file manages launching several nodes all at once, as shown in the <code>rqt_graph</code> image:</p>
 <ul>
 <li><code>/rosflight_io</code>: Handles the communication between the companion computer and the flight controller</li>
-<li><code>/rosflight_sil_manager</code>: Calls the firmware at the correct time interval</li>
 <li><code>/standalone_sensors</code>: Simulates sensor measurements given the true state of the robot</li>
 <li><code>/rc</code>: Simulates the RC safety pilot connection to the firmware</li>
 <li><code>/sil_board</code>: Instantiation of the firmware</li>
 <li><code>/standalone_dynamics</code>: Dynamics node for keeping track of the true robot state</li>
 <li><code>/multirotor_forces_and_moments</code>: Computes aerodynamic forces and moments based on motor commands</li>
-<li><code>/standalone_time_manager</code>: Only appears if <code>use_sim_time</code> is set true. See <a href="#launch-arguments">launch arguments</a></li>
+<li><code>/standalone_time_manager</code>: Only appears if <code>use_sim_time</code> is set true. See the <a href="#launch-arguments">launch arguments</a></li>
 <li><code>/rviz</code>: Visualizer</li>
 <li><code>/standalone_viz_transcriber</code>: Manages publishing <code>rosflight_sim</code> information to RViz</li>
 <li>3 transform listener nodes: Manage coordinate frame transformations to RViz</li>
 </ul>
 <p>For more information on each of these nodes, see the <a href="../simulator-architecture/">simulator architecture</a> page.</p>
+<h4 id="running-nodes-individually">Running nodes individually<a class="headerlink" href="#running-nodes-individually" title="Permanent link">¶</a></h4>
+<p>If you don't want to use the launch file, you can instead run all of the nodes individually in separate terminals with the appropriate parameters.
+For example, to run just the <code>/multirotor_forces_and_moments</code> node, you would run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_forces_and_moments<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml
+</code></pre></div>
+Check the launch files for more information on what parameters and param files get loaded by the launch file.
+<p>Also note that the <code>multirotor_standalone.launch.py</code> file actually calls 2 other launch files--one specific to the standalone sim (<code>standalone_sim.launch.py</code>) and one that launches the nodes shared by both the fixedwing and multirotor simulators (<code>common_nodes_standalone.launch.py</code>).
+You can also launch those files separately if you want--just make sure to also run the forces and moments node in addition to those two sub-launch files.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you do run all nodes separately, make sure all the needed nodes are running.
+You can verify this by checking that the <code>rqt_graph</code> is the same as the above image.</p>
+<p>This is important since the nodes are chained together to complete a simulation loop.
+A common source of error is forgetting to launch a node in the chain.
+Forgetting to run the <code>multirotor_forces_and_moments</code> node, for example, will cause the <code>standalone_dynamics</code> node to not perform any updates.</p>
+</div>
 <h2 id="gazebo-classic">Gazebo Classic<a class="headerlink" href="#gazebo-classic" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -2495,10 +2591,10 @@ If you would like to help in this effort, please visit the <a href="https://gith
 </code></pre></div>
 </li>
 <li>
-<p>Gazebo Classic should now be running! You should have the following <code>rqt_graph</code>.</p>
+<p>Gazebo Classic should now be running! Gazebo should open and you should see the STL of the multirotor at the origin. You should have the following <code>rqt_graph</code>.
+<a class="glightbox" href="../../images/rqt_graph_multirotor_gazebo_launch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="multirotor_launch_rqt_graph" src="../../images/rqt_graph_multirotor_gazebo_launch.png"></a></p>
 </li>
 </ul>
-<p><a class="glightbox" href="../../images/rqt_graph_multirotor_gazebo_launch.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="multirotor_launch_rqt_graph" src="../../images/rqt_graph_multirotor_gazebo_launch.png"></a></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Run <code>rqt_graph</code> with the command <code>rqt_graph</code> in a new terminal, assuming the <code>-desktop</code> version of ROS2 was installed.</p>
@@ -2507,7 +2603,6 @@ If you would like to help in this effort, please visit the <a href="https://gith
 <p>The launch file manages launching several nodes all at once, as shown in the <code>rqt_graph</code> image:</p>
 <ul>
 <li><code>/rosflight_io</code>: Handles the communication between the companion computer and the flight controller</li>
-<li><code>/rosflight_sil_manager</code>: Calls the firmware at the correct time interval</li>
 <li><code>/standalone_sensors</code>: Simulates sensor measurements given the true state of the robot</li>
 <li><code>/rc</code>: Simulates the RC safety pilot connection to the firmware</li>
 <li><code>/sil_board</code>: Instantiation of the firmware</li>
@@ -2516,6 +2611,9 @@ If you would like to help in this effort, please visit the <a href="https://gith
 <li><code>/dynamics</code>: Interface node between the dynamics plugin and the rest of the <code>rosflight_sim</code> modules</li>
 </ul>
 <p>For more information on each of these nodes, see the <a href="../simulator-architecture/">simulator architecture</a> page.</p>
+<h4 id="running-nodes-individually_1">Running nodes individually<a class="headerlink" href="#running-nodes-individually_1" title="Permanent link">¶</a></h4>
+<p>The same file structure was used for the Gazebo launch files as for the standalone launch files.
+If you want to run nodes individually, see the <a href="./#running-nodes-individually">explanation above</a>.</p>
 <h2 id="launch-arguments">Launch arguments<a class="headerlink" href="#launch-arguments" title="Permanent link">¶</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2526,7 +2624,7 @@ If you would like to help in this effort, please visit the <a href="https://gith
 <p>There are several command line arguments you can pass to customize the behavior at runtime.
 Here are some important ones:</p>
 <ul>
-<li><code>aircraft</code>: Defaults to "skyhunter". This parameter controls which dynamics and parameter files get loaded. Make sure this is set to your correct airframe!</li>
+<li><code>aircraft</code>: Defaults to "skyhunter". This parameter controls which dynamics and parameter files get loaded, in addition to the STL file for visualization. Make sure this is set to your correct airframe!</li>
 <li><code>use_sim_time</code>: By default, set false. This parameter is a parameter of all nodes in ROS2. If set to true on launch, the node will create a subscription to the <code>/clock</code> topic, and will use that as the source of time for its timers.
 For Gazebo Classic, it is recommended to <strong>leave this as false</strong>, since Gazebo Classic publishes a <code>/clock</code> topic at 10Hz, which is too slow for most modules. If using the standalone sim, this parameter will allow you to speed up, slow down, or pause time. See the <a href="../simulator-architecture/">simulation architecture</a> page for more information.</li>
 <li><code>use_vimfly</code>: Node that changes the default RC behavior to use VimFly, a program that lets you use Vim commands to fly around in the sim!
@@ -2537,7 +2635,7 @@ See the <a href="#joysticks">joystick</a> section for more information on what j
 <h2 id="joysticks">Joysticks<a class="headerlink" href="#joysticks" title="Permanent link">¶</a></h2>
 <p>ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot.
 If one of the supported transmitters is connected via USB at launch time, then the sim will default to using that controller instead of the default, <strong>which is no RC connection</strong>.
-See the <a href="../hardware-setup/">Hardware Setup</a> guide for more information on joysticks.</p>
+See the <a href="../hardware-setup/#joystick">Hardware Setup</a> guide for more information on joysticks.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is much easier to fly with a real transmitter than with an Xbox-type controller.
@@ -2556,11 +2654,17 @@ To use VimFly, just add the <code>use_vimfly:=true</code> string to the end of t
 <h2 id="after-launching">After launching<a class="headerlink" href="#after-launching" title="Permanent link">¶</a></h2>
 <p>Remember that the SIL tries its best to replicate hardware.
 That means you have to calibrate and set parameters in the same way you do in hardware.
-See the <a href="../parameter-configuration/">Parameter Configuration</a> pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.</p>
+If you need a reminder, please follow the <a href="../../tutorials/manually-flying-rosflight-sim/">configuration and manual flight tutorial</a>.</p>
+<p>See the <a href="../parameter-configuration/">Parameter Configuration</a> pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.</p>
 <p>You can also run 
 </p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_init_firmware.launch.py
 </code></pre></div>
-to load all required parameters and perform initial calibrations for a quick simulation setup.</div>
+to load all required parameters and perform initial calibrations for a quick simulation setup.
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember to verify that all parameters are set to the value that you would expect.
+Wrong parameters is a <strong>common source of error</strong> in sim and in hardware.</p>
+</div></div>
 
 
 

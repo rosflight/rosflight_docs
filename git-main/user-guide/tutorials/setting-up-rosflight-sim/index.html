@@ -2502,7 +2502,6 @@ As we work through launching the sim, we'll look at some of those modules and di
 <h2 id="simulation-architecture">Simulation Architecture<a class="headerlink" href="#simulation-architecture" title="Permanent link">¶</a></h2>
 <p>The ROSflight standalone simulator consists of several key components:</p>
 <ul>
-<li><strong>SIL Manager</strong>: Manages the execution and timing of the firmware</li>
 <li><strong>SIL Board</strong>: Instantiates the ROSflight firmware in software</li>
 <li><strong>Dynamics</strong>: Simulates aircraft physics and dynamics</li>
 <li><strong>Sensors</strong>: Simulates IMU, barometer, and other sensor data</li>
@@ -2521,6 +2520,15 @@ As we work through launching the sim, we'll look at some of those modules and di
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
 <span class="nb">source</span><span class="w"> </span>/path/to/rosflight_ws/install/setup.bash
 </code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Shell type</p>
+<p>Note that these commands will only work if you are using <code>bash</code> as your shell.
+If you are using <code>zsh</code>, make sure to change the <code>.bash</code> part of the above commands to <code>.zsh</code>.</p>
+<p><strong>Using the provided Dockerfile?</strong>
+The Dockerfile provided and referenced in the <a href="../../installation/using-docker-with-rosflight/">Docker installation section</a> uses <code>zsh</code> by default.</p>
+<p><strong>How do I check which shell I am using?</strong>
+Use <code>echo $0</code> to check which shell you are using.</p>
+</div>
 </li>
 <li>
 <p>Launch the simulator:</p>
@@ -2559,7 +2567,6 @@ ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span cla
 </code></pre></div>
 <p>You should see the following nodes:</p>
 <ul>
-<li><code>/rosflight_sil_manager</code></li>
 <li><code>/sil_board</code></li>
 <li><code>/standalone_sensors</code></li>
 <li><code>/standalone_dynamics</code></li>
@@ -2582,14 +2589,14 @@ If you don't see a similar view to what is below, click the refresh icon in the 
 </tr>
 </tbody>
 </table>
-<p>The main data flow through the simulator starts with the <code>/rosflight_sil_manager</code> node, which sends iteration requests to the <code>/sil_board</code>.
+<p>The main data flow through the simulator starts with the <code>/sil_board</code>.
 The <code>/sil_board</code> is the instantiation of the <code>rosflight_firmware</code> in sim--in hardware, this would be the flight controller.</p>
 <p>The <code>/sil_board</code> listens to the <code>/standalone_sensors</code> to "read" data from the "sensors", as close as possible to how the hardware board would read the sensor data.</p>
 <p>The <code>/sil_board</code> then computes motor commands and sends them over the <code>/sim/pwm_output</code> topic to the <code>fixedwing_forces_and_moments</code> node.
 This node is responsible for computing the aerodynamic forces and moments (not gravity or collisions) given the motor commands.</p>
 <p>The <code>/forces_and_moments</code> node then sends the computed forces and moments to the <code>/dynamics node</code>, which handles integration of the dynamics (i.e. solves <span class="arithmatex"><span class="MathJax_Preview">\dot{x} = f(x)</span><script type="math/tex">\dot{x} = f(x)</script></span>) and publishes the true state.
 The <code>/dynamics</code> node handles gravity and other collision forces.</p>
-<p>This concludes a simulation "tick", and the simulation starts again with the <code>/rosflight_sim_manager</code>.</p>
+<p>This concludes a simulation "tick", and the simulation starts again with the <code>/sil_board</code>.</p>
 <p>For more information, see the <a href="../../concepts/simulator-architecture/">detailed simulation architecture description</a>.</p>
 <h3 id="topics">Topics<a class="headerlink" href="#topics" title="Permanent link">¶</a></h3>
 <p>View the available topics to see the data flow:</p>
