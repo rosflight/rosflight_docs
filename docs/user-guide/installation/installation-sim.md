@@ -103,9 +103,10 @@ colcon build
 1. Add the source files to your `.bashrc` (so you don't have to source the files every time you open a terminal):
     ```bash
     # add the sourcing commands to your .bashrc. Replace bash with zsh if using zsh.
-    echo "source /opt/ros/humble/setup.bash >> $HOME/.bashrc"
-    echo "source /path/to/rosflight_ws/install/setup.bash >> $HOME/.bashrc"
+    echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
+    echo "source /path/to/rosflight_ws/install/setup.bash" >> $HOME/.bashrc
     ```
+    Make sure to close your current terminal and open a new one after adding these commands to your `.bashrc` file.
 
 ## Next Steps
 
