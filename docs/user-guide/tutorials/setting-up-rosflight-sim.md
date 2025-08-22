@@ -21,7 +21,6 @@ As we work through launching the sim, we'll look at some of those modules and di
 
 The ROSflight standalone simulator consists of several key components:
 
-- **SIL Manager**: Manages the execution and timing of the firmware
 - **SIL Board**: Instantiates the ROSflight firmware in software
 - **Dynamics**: Simulates aircraft physics and dynamics
 - **Sensors**: Simulates IMU, barometer, and other sensor data
@@ -41,6 +40,17 @@ The ROSflight standalone simulator consists of several key components:
     source /opt/ros/humble/setup.bash
     source /path/to/rosflight_ws/install/setup.bash
     ```
+
+    !!! tip "Shell type"
+
+        Note that these commands will only work if you are using `bash` as your shell.
+        If you are using `zsh`, make sure to change the `.bash` part of the above commands to `.zsh`.
+
+        **Using the provided Dockerfile?**
+        The Dockerfile provided and referenced in the [Docker installation section](../installation/using-docker-with-rosflight.md) uses `zsh` by default.
+
+        **How do I check which shell I am using?**
+        Use `echo $0` to check which shell you are using.
 
 2. Launch the simulator:
 
@@ -98,7 +108,6 @@ ros2 node list
 
 You should see the following nodes:
 
-- `/rosflight_sil_manager`
 - `/sil_board`
 - `/standalone_sensors`
 - `/standalone_dynamics`
@@ -115,7 +124,7 @@ If you don't see a similar view to what is below, click the refresh icon in the 
 |-----|
 |RQT Graph is great, but it is not very configurable in terms of viewing options (sorry for the small image).|
 
-The main data flow through the simulator starts with the `/rosflight_sil_manager` node, which sends iteration requests to the `/sil_board`.
+The main data flow through the simulator starts with the `/sil_board`.
 The `/sil_board` is the instantiation of the `rosflight_firmware` in sim--in hardware, this would be the flight controller.
 
 The `/sil_board` listens to the `/standalone_sensors` to "read" data from the "sensors", as close as possible to how the hardware board would read the sensor data.
@@ -126,7 +135,7 @@ This node is responsible for computing the aerodynamic forces and moments (not g
 The `/forces_and_moments` node then sends the computed forces and moments to the `/dynamics node`, which handles integration of the dynamics (i.e. solves $\dot{x} = f(x)$) and publishes the true state.
 The `/dynamics` node handles gravity and other collision forces.
 
-This concludes a simulation "tick", and the simulation starts again with the `/rosflight_sim_manager`.
+This concludes a simulation "tick", and the simulation starts again with the `/sil_board`.
 
 For more information, see the [detailed simulation architecture description](../concepts/simulator-architecture.md).
 

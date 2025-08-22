@@ -29,7 +29,7 @@ Ensure `rosflight_io` (and the rest of the simulation is running) using
 ```bash
 ros2 node list
 ```
-and verifying that the `rosflight_io`, `rosflight_sil_manager`, and `rosflight_sil` nodes are included in the list.
+and verifying that the `rosflight_io` and `sil_board` nodes are included in the list.
 
 ### Loading parameters manually
 You can load parameters one-by-one or with a YAML file, as described in the [parameter configuration guide](../concepts/parameter-configuration.md).
