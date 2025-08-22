@@ -1,16 +1,15 @@
 # ROScopter Overview
 
-ROScopter is a basic multirotor autopilot built around ROS2 for use with the ROSflight autopilot.
+ROScopter is a basic multirotor autopilot built on ROS2 for use with the ROSflight flight controller.
 It is built according to the methods published in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randy Beard and Dr. Tim McLain.
 
-As per the [ROSflight vision](../index.md#our-vision), ROScopter is *not* a fully-featured multirotor autopilot.
-Instead, ROScopter is a simple, lean, ROS2-based multirotor autopilot.
+As per the [ROSflight vision](../../index.md#our-vision), ROScopter is *not* a fully-featured multirotor autopilot, but rather a simple, lean, ROS2-based autopilot.
 
 The core ROScopter package is a simple waypoint-following autopilot.
 This includes a navigation stack, a controller, and an estimator.
 This can be seen in the figure below.
 
-| ![Diagram of ROScopter architecture](../assets/ROScopter-overview.svg "ROScopter architecture") |
+| ![Diagram of ROScopter architecture](../../assets/ROScopter-overview.svg "ROScopter architecture") |
 |:--:|
 |*Diagram of the ROScopter architecture*|
 
@@ -32,5 +31,5 @@ Instead of loading a predetermined number of waypoints, higher levels of autonom
 For detailed instructions on how to use the core ROScopter package to fly autonomous waypoint missions, see the [ROScopter Setup](./roscopter-setup.md) page. 
 This page can be used as a guide to building and running ROScopter before you start making your own changes to the autonomy stack.
 
-For detailed instructions on each of the components of ROScopter, see the [ROScopter Developer Guide](../developer-guide/roscopter/roscopter-dev-overview.md).
+For detailed instructions on each of the components of ROScopter, see the [ROScopter Developer Guide](../../developer-guide/roscopter/roscopter-dev-overview.md).
 This page provides detailed instructions on how to use and change the code for each component of the ROScopter stack.
