@@ -48,14 +48,10 @@ This filter technique is used on the measurements before they are used in an est
 
 The following are calculated directly from a model of the sensor:
 
-<center>
-
 | State | Measured Value | Model Equation | Inversion Equation |
 |:--:|:--:|:--:|:--:|
 | $h$ - altitude | $P$ - absolute pressure (Pa) | $P = \rho_{air} gh$ | $h = \frac{\rho_{air} g}{P}$|
 | $V_a$ - airspeed | $\Delta P$ - differential pressure (Pa) | $\Delta P = \frac{1}{2} \rho_{air} V_a^2$ | $V_a = \sqrt{\frac{2}{\rho_{air} g} \Delta P}$|
-
-</center>
 
 These values are then used in the first step of the estimator.
 
