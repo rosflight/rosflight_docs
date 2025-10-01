@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2a3383ac.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -698,6 +698,19 @@ You're not viewing the latest stable version.
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Transitioning from Sim to Hardware
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -709,6 +722,34 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rosplane-sim2real" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROSplane Sim2Real
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2116,6 +2157,23 @@ You're not viewing the latest stable version.
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rosplane-sim2real" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROSplane Sim2Real
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2139,11 +2197,13 @@ You're not viewing the latest stable version.
 
 
 <h1 id="transitioning-from-sim-to-hardware">Transitioning from Sim to Hardware<a class="headerlink" href="#transitioning-from-sim-to-hardware" title="Permanent link">¶</a></h1>
-<p>TODO: Continue here. Things to talk about:</p>
-<ul>
-<li>Redoing tuning process to fine-tune hardware performance</li>
-<li>anything else?</li>
-</ul>
+<h2 id="rosplane-sim2real">ROSplane Sim2Real<a class="headerlink" href="#rosplane-sim2real" title="Permanent link">¶</a></h2>
+<p>ROSflight simulation allows users to insert aerodynamic models of their aircraft and test in simulation.
+This is useful for controller tuning and validating new functionality in sim before hardware tests.</p>
+<p>See the attached user guide for information on how to use XFlyer5 and OpenVSP to compute the aerodynamic control and stability derivatives required for the ROSflight aerodynamic model.
+These derivatives are found in a parameter file.</p>
+<p>To use this file, please download it and open it in a browser to render it.</p>
+<p><a href="https://drive.google.com/file/d/10-37yCIjK796dnT-5MB5-q3M8o2nCi5_/view">Google Drive link to file</a></p>
 
 
 
