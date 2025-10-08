@@ -3064,7 +3064,7 @@ We'll focus on the roll angle loop.</p>
 <span class="nt">PID_ROLL_ANG_D</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
 </code></pre></div><p></p>
 <p>These gains (with values similar to these) are already set, so you don't technically need to set them.</p>
-<p>These get loaded at launch time to the firmware from the <code>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware.yaml</code> file.
+<p>These get loaded at launch time to the firmware from the <code>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware/multirotor_commbined.yaml</code> file.
 You can change them in the launch file and relaunch, but that is a pain.
 We'll use RQT and the ROS2 parameter system to dynamically reconfigure those parameters.</p>
 <p>To do this,</p>

@@ -2708,7 +2708,7 @@ We will load parameters from a file.</p>
 <li>
 <p>Load the multirotor or fixedwing parameter YAML files:
   </p><div class="highlight"><pre><span></span><code><span class="c1"># For multirotor</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/multirotor_firmware.yaml}"</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/multirotor_firmware/multirotor_combined.yaml}"</span>
 
 <span class="c1"># For fixedwing</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/fixedwing_firmware.yaml}"</span>
