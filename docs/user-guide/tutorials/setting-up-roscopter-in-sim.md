@@ -209,7 +209,7 @@ Load waypoints from mission file using the service call:
 ```bash
 # Load waypoints from the default mission file
 cd /path/to/rosflight_ws/src/roscopter/roscopter/params
-ros2 service call /load_mission_from_file rosflight_msgs/srv/ParamFile \
+ros2 service call /path_planner/load_mission_from_file rosflight_msgs/srv/ParamFile \
   "{filename: $(pwd)/multirotor_mission.yaml}"
 ```
 
@@ -218,11 +218,11 @@ You can also add waypoints dynamically using the following services:
 
 ```bash
 # Add a single waypoint (North=5m, East=5m, Down=-4m, Yaw=0rad)
-ros2 service call /add_waypoint roscopter_msgs/srv/AddWaypoint \
+ros2 service call /path_planner/add_waypoint roscopter_msgs/srv/AddWaypoint \
   "{wp: {w: [5.0, 5.0, -4.0], psi: 0.0}, publish_now: true}"
 
 # Clear all current waypoints
-ros2 service call /clear_waypoints std_srvs/srv/Trigger
+ros2 service call /path_planner/clear_waypoints std_srvs/srv/Trigger
 
 ```
 
@@ -285,7 +285,7 @@ After loading missions, enable autonomous flight through `rc`'s services.
 
 ```bash
 # Arm the vehicle (enable motors)
-ros2 service call /arm std_srvs/srv/Trigger
+ros2 service call /toggle_arm std_srvs/srv/Trigger
 
 # Turn off RC override -- make sure it is toggled off before arming
 ros2 service call /toggle_override std_srvs/srv/Trigger
@@ -293,13 +293,15 @@ ros2 service call /toggle_override std_srvs/srv/Trigger
 
 ### Monitor Flight Progress
 
-Track autonomous flight status:
+In ROScopter, every module communicates with the other modules via ROS2 publishers and subscribers.
+You can track the status and state of the vehicle by echoing the relevant ROS2 topics.
+We often will use [PlotJuggler](./tuning-performance-in-sim.md#install-and-launch-plotjuggler) to visualize the data to monitor what is going on internal to the system.
 
 ```bash
 # Monitor vehicle state during flight
 ros2 topic echo /estimated_state
 
-# Watch controller commands
+# Controller commands (fixedwing)
 ros2 topic echo /controller_commands
 ```
 
