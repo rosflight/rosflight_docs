@@ -185,7 +185,7 @@ PID_ROLL_ANG_D: 0.2
 
 These gains (with values similar to these) are already set, so you don't technically need to set them.
 
-These get loaded at launch time to the firmware from the `/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware.yaml` file.
+These get loaded at launch time to the firmware from the `/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware/multirotor_commbined.yaml` file.
 You can change them in the launch file and relaunch, but that is a pain.
 We'll use RQT and the ROS2 parameter system to dynamically reconfigure those parameters.
 

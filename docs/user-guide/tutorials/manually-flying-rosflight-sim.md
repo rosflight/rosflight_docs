@@ -43,7 +43,7 @@ We will load parameters from a file.
 1. Load the multirotor or fixedwing parameter YAML files:
   ```bash
   # For multirotor
-  ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/multirotor_firmware.yaml}"
+  ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/multirotor_firmware/multirotor_combined.yaml}"
 
   # For fixedwing
   ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{filename: $(pwd)/fixedwing_firmware.yaml}"
