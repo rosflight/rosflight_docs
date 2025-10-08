@@ -74,6 +74,9 @@ git clone https://github.com/rosflight/rosplane
     rosdep install --from-path . -y --ignore-src
     ```
 
+    If you have already done `sudo rosdep init` previously, it will return an error.
+    In most cases, you do not need to reinitialize.
+
 1. Build using the [colcon](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) build tool:
 ```bash
 cd /path/to/rosflight_ws
