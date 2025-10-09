@@ -209,7 +209,7 @@ Load waypoints from mission file using the service call:
 ```bash
 # Load waypoints from the default mission file
 cd /path/to/rosflight_ws/src/roscopter/roscopter/params
-ros2 service call /load_mission_from_file rosflight_msgs/srv/ParamFile \
+ros2 service call /path_planner/load_mission_from_file rosflight_msgs/srv/ParamFile \
   "{filename: $(pwd)/multirotor_mission.yaml}"
 ```
 
@@ -218,11 +218,11 @@ You can also add waypoints dynamically using the following services:
 
 ```bash
 # Add a single waypoint (North=5m, East=5m, Down=-4m, Yaw=0rad)
-ros2 service call /add_waypoint roscopter_msgs/srv/AddWaypoint \
+ros2 service call /path_planner/add_waypoint roscopter_msgs/srv/AddWaypoint \
   "{wp: {w: [5.0, 5.0, -4.0], psi: 0.0}, publish_now: true}"
 
 # Clear all current waypoints
-ros2 service call /clear_waypoints std_srvs/srv/Trigger
+ros2 service call /path_planner/clear_waypoints std_srvs/srv/Trigger
 
 ```
 
@@ -280,33 +280,76 @@ ros2 param set /path_planner num_waypoints_to_publish_at_start 100
 ## Enabling Autonomous Flight
 
 After loading missions, enable autonomous flight through `rc`'s services.
+When starting up ROSflight, RC override will be **enabled** by default, meaning that the companion computer will not control the vehicle.
+To enable offboard control, you will need to **disable RC override**.
 
 ### Arm and Start Mission
 
+!!! note
+
+    If using VimFly or a transmitter, these services will not be available.
+    Use the transmitter or VimFly to arm and disable RC override.
+
 ```bash
 # Arm the vehicle (enable motors)
-ros2 service call /arm std_srvs/srv/Trigger
+ros2 service call /toggle_arm std_srvs/srv/Trigger
 
-# Turn off RC override -- make sure it is toggled off before arming
+# Turn off RC override -- make sure it is toggled on before arming
 ros2 service call /toggle_override std_srvs/srv/Trigger
 ```
 
 ### Monitor Flight Progress
 
-Track autonomous flight status:
+In ROScopter, every module communicates with the other modules via ROS2 publishers and subscribers.
+You can track the status and state of the vehicle by echoing the relevant ROS2 topics.
+We often will use [PlotJuggler](./tuning-performance-in-sim.md#install-and-launch-plotjuggler) to visualize the data to monitor what is going on internal to the system.
 
+For example:
 ```bash
 # Monitor vehicle state during flight
 ros2 topic echo /estimated_state
 
-# Watch controller commands
-ros2 topic echo /controller_commands
+# High level controller commands (sent to ROScopter controller)
+ros2 topic echo /high_level_command
+
+# Low level controller commands (sent to ROSflight firmware)
+ros2 topic echo /command
 ```
 
 ### Tuning Flight Performance
 
 It is possible that the flight performance is unstable due to the `autopilot`'s gains not being set correctly.
 See [the tuning guide](./tuning-performance-in-sim.md) for more information.
+
+## Helpful Tips
+
+### Resetting the Simulation State
+
+The `standalone_sim` module has a very simplistic ground plane representation (i.e. no friction).
+This means that when the aircraft is armed, it will drift over time.
+If this happens to you, you can reset the simulation state of the vehicle.
+
+You can reset the state of the vehicle by using a service call provided by the `dynamics` node using
+```bash
+ros2 service call /dynamics/set_sim_state rosflight_msgs/srv/SetSimState
+```
+
+Note that in this command we didn't specify what the values for the `SetSimState` message type are, so they default to zero.
+This should move the vehicle to the origin in the standalone sim.
+If you are using the Gazebo simulator, a position of \[0,0,0\] is underground, so the vehicle will respond erratically.
+
+You can set the simulation state to any arbitrary state by providing the information in the `SetSimState` service definition.
+
+??? tip "How do I know what information is contained in a message definition?"
+
+    One way is to go find the message definition file in the package where it was built (i.e. rosflight_msgs package in the `rosflight_ros_pkgs` repository).
+
+    Another option is to use the `ros2 interface show <name-of-interface>` command.
+    For example, to find out what is included in the `SetSimState` service definition, do
+    ```bash
+    ros2 service call rosflight_msgs/srv/SetSimState
+    ```
+    and look through the output.
 
 ## Review
 
@@ -315,8 +358,6 @@ You have successfully completed the ROScopter autonomous flight tutorial. You sh
 - **Launch ROScopter Stack**: Start the complete autonomy stack with estimator, controller, and path management
 - **Load Waypoint Missions**: Create and load waypoint missions from YAML files or via ROS services
 - **Execute Autonomous Flight**: Arm the vehicle and fly autonomous waypoint missions
-- **Monitor Flight Performance**: Track vehicle state and controller performance during flight
-- **Understand System Architecture**: Recognize how nodes communicate and data flows through the system
 
 ## Next Steps
 

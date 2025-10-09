@@ -270,8 +270,8 @@ Here's an example of a somewhat-tuned response:
 ![Semi-tuned roll response in PlotJuggler](../images/firmware_controller_tuned_plotjuggler.png)
 
 Note that I also added the estimated state to the plot as well.
-The orange line is the firmware's estimated roll angle.
-It has a noticeable difference between truth.
+The orange line is the firmware's estimated roll angle, and it tracks the command decently.
+However, it has a noticeable difference between truth.
 This means we should either [tune the firmware response](../concepts/improving-firmware-performance.md), or publish ROScopter's estimated state to the `external_attitude` topic.
 
 !!! tip "External Attitude"
