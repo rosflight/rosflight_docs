@@ -3133,8 +3133,8 @@ If the performance of the controller does not allow the takeoff sequence to be s
 <p>Here's an example of a somewhat-tuned response:
 <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/firmware_controller_tuned_plotjuggler.png" data-desc-position="bottom"><img alt="Semi-tuned roll response in PlotJuggler" src="../../images/firmware_controller_tuned_plotjuggler.png"></a></p>
 <p>Note that I also added the estimated state to the plot as well.
-The orange line is the firmware's estimated roll angle.
-It has a noticeable difference between truth.
+The orange line is the firmware's estimated roll angle, and it tracks the command decently.
+However, it has a noticeable difference between truth.
 This means we should either <a href="../../concepts/improving-firmware-performance/">tune the firmware response</a>, or publish ROScopter's estimated state to the <code>external_attitude</code> topic.</p>
 <div class="admonition tip">
 <p class="admonition-title">External Attitude</p>

@@ -867,6 +867,30 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
+  <a href="#helpful-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helpful Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Helpful Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resetting-the-simulation-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resetting the Simulation State
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#review" class="md-nav__link">
     <span class="md-ellipsis">
       Review
@@ -2656,6 +2680,30 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
+  <a href="#helpful-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helpful Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Helpful Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resetting-the-simulation-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resetting the Simulation State
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#review" class="md-nav__link">
     <span class="md-ellipsis">
       Review
@@ -2888,17 +2936,17 @@ vim<span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params/
 <p>Load waypoints from mission file using the service call:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Load waypoints from the default mission file</span>
 <span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="se">\</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_planner/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/multirotor_mission.yaml}"</span>
 </code></pre></div>
 <h3 id="setting-waypoints-manually">Setting Waypoints Manually<a class="headerlink" href="#setting-waypoints-manually" title="Permanent link">¶</a></h3>
 <p>You can also add waypoints dynamically using the following services:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Add a single waypoint (North=5m, East=5m, Down=-4m, Yaw=0rad)</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/add_waypoint<span class="w"> </span>roscopter_msgs/srv/AddWaypoint<span class="w"> </span><span class="se">\</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_planner/add_waypoint<span class="w"> </span>roscopter_msgs/srv/AddWaypoint<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{wp: {w: [5.0, 5.0, -4.0], psi: 0.0}, publish_now: true}"</span>
 
 <span class="c1"># Clear all current waypoints</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/clear_waypoints<span class="w"> </span>std_srvs/srv/Trigger
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_planner/clear_waypoints<span class="w"> </span>std_srvs/srv/Trigger
 </code></pre></div>
 <p>The structure of the <code>wp</code> field in the <code>roscopter_msgs/srv/AddWaypoint</code> service is the same as described above.
 The structure of the service can be seen using:
@@ -2941,33 +2989,65 @@ or by setting the parameter to the desired value:
 <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/path_planner<span class="w"> </span>num_waypoints_to_publish_at_start<span class="w"> </span><span class="m">100</span>
 </code></pre></div><p></p>
 <h2 id="enabling-autonomous-flight">Enabling Autonomous Flight<a class="headerlink" href="#enabling-autonomous-flight" title="Permanent link">¶</a></h2>
-<p>After loading missions, enable autonomous flight through <code>rc</code>'s services.</p>
+<p>After loading missions, enable autonomous flight through <code>rc</code>'s services.
+When starting up ROSflight, RC override will be <strong>enabled</strong> by default, meaning that the companion computer will not control the vehicle.
+To enable offboard control, you will need to <strong>disable RC override</strong>.</p>
 <h3 id="arm-and-start-mission">Arm and Start Mission<a class="headerlink" href="#arm-and-start-mission" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using VimFly or a transmitter, these services will not be available.
+Use the transmitter or VimFly to arm and disable RC override.</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="c1"># Arm the vehicle (enable motors)</span>
-ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/arm<span class="w"> </span>std_srvs/srv/Trigger
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/toggle_arm<span class="w"> </span>std_srvs/srv/Trigger
 
-<span class="c1"># Turn off RC override -- make sure it is toggled off before arming</span>
+<span class="c1"># Turn off RC override -- make sure it is toggled on before arming</span>
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/toggle_override<span class="w"> </span>std_srvs/srv/Trigger
 </code></pre></div>
 <h3 id="monitor-flight-progress">Monitor Flight Progress<a class="headerlink" href="#monitor-flight-progress" title="Permanent link">¶</a></h3>
-<p>Track autonomous flight status:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Monitor vehicle state during flight</span>
+<p>In ROScopter, every module communicates with the other modules via ROS2 publishers and subscribers.
+You can track the status and state of the vehicle by echoing the relevant ROS2 topics.
+We often will use <a href="../tuning-performance-in-sim/#install-and-launch-plotjuggler">PlotJuggler</a> to visualize the data to monitor what is going on internal to the system.</p>
+<p>For example:
+</p><div class="highlight"><pre><span></span><code><span class="c1"># Monitor vehicle state during flight</span>
 ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/estimated_state
 
-<span class="c1"># Watch controller commands</span>
-ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/controller_commands
-</code></pre></div>
+<span class="c1"># High level controller commands (sent to ROScopter controller)</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/high_level_command
+
+<span class="c1"># Low level controller commands (sent to ROSflight firmware)</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/command
+</code></pre></div><p></p>
 <h3 id="tuning-flight-performance">Tuning Flight Performance<a class="headerlink" href="#tuning-flight-performance" title="Permanent link">¶</a></h3>
 <p>It is possible that the flight performance is unstable due to the <code>autopilot</code>'s gains not being set correctly.
 See <a href="../tuning-performance-in-sim/">the tuning guide</a> for more information.</p>
+<h2 id="helpful-tips">Helpful Tips<a class="headerlink" href="#helpful-tips" title="Permanent link">¶</a></h2>
+<h3 id="resetting-the-simulation-state">Resetting the Simulation State<a class="headerlink" href="#resetting-the-simulation-state" title="Permanent link">¶</a></h3>
+<p>The <code>standalone_sim</code> module has a very simplistic ground plane representation (i.e. no friction).
+This means that when the aircraft is armed, it will drift over time.
+If this happens to you, you can reset the simulation state of the vehicle.</p>
+<p>You can reset the state of the vehicle by using a service call provided by the <code>dynamics</code> node using
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/dynamics/set_sim_state<span class="w"> </span>rosflight_msgs/srv/SetSimState
+</code></pre></div><p></p>
+<p>Note that in this command we didn't specify what the values for the <code>SetSimState</code> message type are, so they default to zero.
+This should move the vehicle to the origin in the standalone sim.
+If you are using the Gazebo simulator, a position of [0,0,0] is underground, so the vehicle will respond erratically.</p>
+<p>You can set the simulation state to any arbitrary state by providing the information in the <code>SetSimState</code> service definition.</p>
+<details class="tip">
+<summary>How do I know what information is contained in a message definition?</summary>
+<p>One way is to go find the message definition file in the package where it was built (i.e. rosflight_msgs package in the <code>rosflight_ros_pkgs</code> repository).</p>
+<p>Another option is to use the <code>ros2 interface show &lt;name-of-interface&gt;</code> command.
+For example, to find out what is included in the <code>SetSimState</code> service definition, do
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>rosflight_msgs/srv/SetSimState
+</code></pre></div>
+and look through the output.<p></p>
+</details>
 <h2 id="review">Review<a class="headerlink" href="#review" title="Permanent link">¶</a></h2>
 <p>You have successfully completed the ROScopter autonomous flight tutorial. You should now be able to:</p>
 <ul>
 <li><strong>Launch ROScopter Stack</strong>: Start the complete autonomy stack with estimator, controller, and path management</li>
 <li><strong>Load Waypoint Missions</strong>: Create and load waypoint missions from YAML files or via ROS services</li>
 <li><strong>Execute Autonomous Flight</strong>: Arm the vehicle and fly autonomous waypoint missions</li>
-<li><strong>Monitor Flight Performance</strong>: Track vehicle state and controller performance during flight</li>
-<li><strong>Understand System Architecture</strong>: Recognize how nodes communicate and data flows through the system</li>
 </ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
 <p>Once you have ROScopter running autonomously, you can:</p>
