@@ -33,7 +33,7 @@ The Cm (center of mass) vs. Alpha curve must have a negative slope to be stable.
 
  If the slope is not positive or if the line does not cross the positive x-axis, then the aircraft will not be able to naturally hold level flight.  
 
-![aerodynamics 1](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%201.svg)
+![aerodynamics 1](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%201.jpeg)
 #### Neutral Point
 
 
@@ -45,7 +45,7 @@ The neutral point (NP) is the aerodynamic center of the entire aircraft — the 
 
  If the CG is behind the NP, the aircraft is unstable.  
 
-![neutral point formula](../../assets/user_manual_assets/appendix%20pictures/neutral%20point%20formula.svg)
+![neutral point formula](../../assets/user_manual_assets/appendix%20pictures/neutral%20point%20formula.jpeg)
   
 
  In Xflr5, you can find the calculated neutral point in the plane viewer tab after performing a basic aerodynamic analysis. You can also find the NP in the coefficient viewer window below the list of analyses after a stability analysis.  
@@ -54,10 +54,10 @@ The neutral point (NP) is the aerodynamic center of the entire aircraft — the 
 
  In OpenVSP, the neutral point can be found at the bottom right of the .stab file after a stability analysis is completed.  
 
-![aerodynamics 3](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%203.svg)
+![aerodynamics 3](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%203.jpeg)
  The neutral point can also be found in both Xflr5 and OpenVSP by finding the CG location at which the Cm vs. Alpha curve has a flat slope.  
 
-![aerodynamics 4](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%204.svg)
+![aerodynamics 4](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%204.jpeg)
 
 
 
@@ -70,7 +70,7 @@ Static margin is a measure of how stable an aircraft is. A higher SM means the a
 
  The static margin for most commercial and hobbyist aircraft is between 5-15%. 5-10% is more maneuverable, and 10-20% is more stable.  
 
-![aerodynamics 5](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%205.svg)
+![aerodynamics 5](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%205.jpeg)
 
 
 
@@ -79,7 +79,7 @@ Static margin is a measure of how stable an aircraft is. A higher SM means the a
 
 The y-intercept of a velocity vs. alpha chart will show you the steady flight speed at any alpha.  
 
-![aerodynamics 6](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%206.svg)
+![aerodynamics 6](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%206.jpeg)
 
 
 
@@ -88,7 +88,7 @@ The y-intercept of a velocity vs. alpha chart will show you the steady flight sp
 
 A Cm vs. alpha chart x-intercept shows the trimmed angle of an aircraft.  
 
-![aerodynamics 7](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%207.svg)
+![aerodynamics 7](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%207.jpeg)
 
 
 
@@ -101,7 +101,7 @@ A glide ratio compares how far an aircraft can fly compared to how far it will f
 
  The CL/CD vs. Cm chart y-intercept shows the glide ratio.  
 
-![aerodynamics 8](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%208.svg)
+![aerodynamics 8](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%208.jpeg)
 
 
 
@@ -118,7 +118,7 @@ The root locus chart in the Xflr5 viewer shows the stability response of an airc
 
  If the roots are farther left, the aircraft is more stable. Farther from the x-axis = more oscillation.  
 
-![aerodynamics 9](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%209.svg)
+![aerodynamics 9](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%209.jpeg)
 
 
 
@@ -131,10 +131,10 @@ You should actuate only one group of control surfaces per stability analysis. Fo
 
  Example: have one stability analysis with ailerons activated to get the aileron control derivatives, and another analysis to get the elevator control derivatives.  
 
-![finding derivatives 1](../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%201.svg)
+![finding derivatives 1](../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%201.jpeg)
  The .flt file contains all of the stability derivatives, but does not contain the control derivatives. The drag coefficients in here seem to be the most accurate.  
 
-![finding derivatives 2](../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%202.svg)
+![finding derivatives 2](../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%202.jpeg)
   
 
  In Xflr5, the stability and control derivatives can be found in the output viewer after a stability analysis is completed.  
@@ -143,7 +143,7 @@ You should actuate only one group of control surfaces per stability analysis. Fo
 
  Select an analysis from the list at the top left and the derivatives will appear below.  
 
-![finding derivatives 3](../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%203.svg)
+![finding derivatives 3](../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%203.jpeg)
 
 
 
@@ -153,11 +153,11 @@ You should actuate only one group of control surfaces per stability analysis. Fo
 [Example Cessna 172Notation Glossary Link](https://us1mirror.flightgear.org/terrasync/fgdata/fgdata_2020_3/Aircraft-uiuc/models/cessna172/nonlinear.html)
 
 
-![notation glossary 1](../../assets/user_manual_assets/appendix%20pictures/notation%20glossary%201.svg)
+![notation glossary 1](../../assets/user_manual_assets/appendix%20pictures/notation%20glossary%201.jpeg)
 ### Naming Conventions
 
 
-![naming conventions 1](../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%201.svg)
+![naming conventions 1](../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%201.jpeg)
 ### References, Helpful Links, and Documentation
 
 
