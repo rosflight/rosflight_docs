@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.2a3383ac.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1556,19 +1556,37 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#flashing-newly-built-firmware" class="md-nav__link">
+  <a href="#flashing-firmware" class="md-nav__link">
     <span class="md-ellipsis">
-      Flashing Newly-Built Firmware
+      Flashing firmware
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Flashing Newly-Built Firmware">
+    <nav class="md-nav" aria-label="Flashing firmware">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#f4" class="md-nav__link">
+  <a href="#install-stm32cubeprogrammer" class="md-nav__link">
     <span class="md-ellipsis">
-      F4
+      Install STM32CubeProgrammer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-the-varmint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing the Varmint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-the-pixracer-pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing the Pixracer Pro
     </span>
   </a>
   
@@ -2329,19 +2347,37 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#flashing-newly-built-firmware" class="md-nav__link">
+  <a href="#flashing-firmware" class="md-nav__link">
     <span class="md-ellipsis">
-      Flashing Newly-Built Firmware
+      Flashing firmware
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Flashing Newly-Built Firmware">
+    <nav class="md-nav" aria-label="Flashing firmware">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#f4" class="md-nav__link">
+  <a href="#install-stm32cubeprogrammer" class="md-nav__link">
     <span class="md-ellipsis">
-      F4
+      Install STM32CubeProgrammer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-the-varmint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing the Varmint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashing-the-pixracer-pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flashing the Pixracer Pro
     </span>
   </a>
   
@@ -2383,23 +2419,91 @@ You're not viewing the latest stable version.
 </code></pre></div>
 <p>You can test the installation and check which version is installed by running <code>arm-none-eabi-gcc --version</code>.</p>
 <h2 id="building-the-firmware-from-source">Building the Firmware from Source<a class="headerlink" href="#building-the-firmware-from-source" title="Permanent link">¶</a></h2>
-<p>Now that we have the compiler installed, simply clone the ROSflight firmware repository, pull down the submodules, and build:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/rosflight/rosflight_firmware
-<span class="nb">cd</span><span class="w"> </span>rosflight_firmware
-mkdir<span class="w"> </span>build<span class="w"> </span>
-<span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span>
-cmake<span class="w"> </span>..<span class="w"> </span>-DBUILD_VARMINT<span class="o">=</span>TRUE
-make
-</code></pre></div>
-<h2 id="flashing-newly-built-firmware">Flashing Newly-Built Firmware<a class="headerlink" href="#flashing-newly-built-firmware" title="Permanent link">¶</a></h2>
-<div class="admonition danger">
-<p class="admonition-title">TODO</p>
-<p>Update this when hardware support is finalized.</p>
+<ol>
+<li>To build the firmware, first clone the firmware repository:
+    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/rosflight/rosflight_firmware
+</code></pre></div></li>
+<li>Create build directory:
+    <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>rosflight_firmware<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+</code></pre></div></li>
+<li>Build using: (<code>board_name</code> should be either <code>varmint</code> or <code>pixracer_pro</code>)
+    <div class="highlight"><pre><span></span><code>cmake<span class="w"> </span>..<span class="w"> </span>-DBOARD_TO_BUILD<span class="o">=</span>&lt;board_name&gt;<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>-j
+</code></pre></div></li>
+</ol>
+<h2 id="flashing-firmware">Flashing firmware<a class="headerlink" href="#flashing-firmware" title="Permanent link">¶</a></h2>
+<h3 id="install-stm32cubeprogrammer">Install STM32CubeProgrammer<a class="headerlink" href="#install-stm32cubeprogrammer" title="Permanent link">¶</a></h3>
+<p>We use the STM32CubeProgrammer to flash the flight controller.</p>
+<ol>
+<li>Download the programmer <a href="https://www.st.com/en/development-tools/stm32cubeprog.html#get-software">here</a>.
+    You may have to enter your email to download the software.</li>
+<li>Install the software by following the instructions in the downloaded package.</li>
+</ol>
+<h3 id="flashing-the-varmint">Flashing the Varmint<a class="headerlink" href="#flashing-the-varmint" title="Permanent link">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Needed tools</p>
+<p>You will need an ST-Link STM programmer to flash the firmware.
+We use ST-Link V2, and you can find it <a href="https://www.mouser.com/ProductDetail/STMicroelectronics/ST-LINK-V2?qs=H4BOwPtf9MC1sDQ8j3cy4w%3D%3D&amp;mgh=1&amp;utm_id=22314976717&amp;utm_source=google&amp;utm_medium=cpc&amp;utm_marketing_tactic=amercorp&amp;gad_source=1&amp;gad_campaignid=22304734959">on Mouser</a>.</p>
 </div>
-<p>First, make sure you have configured your computer as described in the <a href="../../../user-guide/concepts/flight-controller-setup/#serial-port-configuration">Serial Port Configuration</a> section of the user guide.</p>
-<h3 id="f4">F4<a class="headerlink" href="#f4" title="Permanent link">¶</a></h3>
-<p>Flash the firmware to the board by running <code>make BOARD=REVO flash</code>.
-If necessary, specify the serial port with <code>make BOARD=REVO SERIAL_DEVICE=/dev/ttyACM0 flash</code>.</p>
+<ol>
+<li>
+<p>Plug the end of the ribbon cable into the 6-pin slot on the Varmint.
+    You may have to make your own cable that connects the ST-Link to the 6-pin connector.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The Varmint has 2 6-pin connectors.
+<strong>Do not</strong> connect the ribbon cable to the port closest to the power wires.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/varmint_flash_instructions.png" data-desc-position="bottom"><img alt="Varmint 6-pin cable" src="../images/varmint_flash_instructions.png"></a></p>
+</li>
+<li>
+<p>Power on the Varmint by connecting a battery to the board.</p>
+</li>
+<li>
+<p>Open STM32CubeProgrammer.</p>
+</li>
+<li>
+<p>Plug in the USB connector from the ST-Link to the computer. Select "Connect" in the STM32CubeProgrammer. This should detect the ST-Link and connect automatically.
+    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/stm_programmer_connect.png" data-desc-position="bottom"><img alt="Select &quot;Connect&quot;" src="../images/stm_programmer_connect.png"></a></p>
+</li>
+<li>
+<p>Navigate to the programming page.
+    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/stm32_programming_page.png" data-desc-position="bottom"><img alt="Navigate to programming page" src="../images/stm32_programming_page.png"></a></p>
+</li>
+<li>
+<p>Select the hex file that was just built and click "Open".
+    </p><div class="highlight"><pre><span></span><code>/path/to/rosflight_firmware/build/boards/varmint_h7/varmint_10X/varmint10X.hex
+</code></pre></div>
+    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/stm32_select_hex.png" data-desc-position="bottom"><img alt="Select the previously built hex file" src="../images/stm32_select_hex.png"></a><p></p>
+</li>
+<li>
+<p>Select the appropriate options and press "Start Programming"
+    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/stm32_select_options.png" data-desc-position="bottom"><img alt="Select options and start programming" src="../images/stm32_select_options.png"></a></p>
+</li>
+</ol>
+<h3 id="flashing-the-pixracer-pro">Flashing the Pixracer Pro<a class="headerlink" href="#flashing-the-pixracer-pro" title="Permanent link">¶</a></h3>
+<p>Flashing the Pixracer Pro is a very similar process to flashing the Varmint.</p>
+<ol>
+<li>
+<p>The Pixracer Pro does not use the same 6-pin connector to connect to the ST-Link.
+    Instead, it uses a TC2030 connector with retaining clips.</p>
+<div class="admonition tip">
+<p class="admonition-title">Connectors we use</p>
+<p>In addition to the ST-Link V2 board linked above, we use these cables to flash the Pixracer Pro:</p>
+<ol>
+<li><a href="https://www.tag-connect.com/product/arm20-ctx-m">20-pin ribbon adapter board</a> (connect the ST-Link to this adapter)</li>
+<li><a href="https://www.tag-connect.com/product/tc2030-idc-nl">Programming cable</a> that connects to the adapter board</li>
+<li><a href="https://www.tag-connect.com/product/tc2030-retaining-clip-board-3-pack">TC2030 clip</a> to attach the programming cable to the board</li>
+</ol>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/pixracer_pro_flash_instructions.jpeg" data-desc-position="bottom"><img alt="Connectors for the Pixracer Pro" src="../images/pixracer_pro_flash_instructions.jpeg"></a></p>
+</li>
+<li>
+<p>Power on the Pixracer Pro using a USB-C port.</p>
+</li>
+<li>
+<p>Follow the instructions from the <a href="#flashing-the-varmint">Varmint flashing guide</a>.</p>
+</li>
+</ol>
 
 
 
