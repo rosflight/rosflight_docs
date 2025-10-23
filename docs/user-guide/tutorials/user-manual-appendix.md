@@ -148,16 +148,18 @@ You should actuate only one group of control surfaces per stability analysis. Fo
 
 
 ### Notation Glossary
-
+This section contains a glossary of common names and abbreviated notation for the most common stability and control derivatives used when analyzing aircraft. 
 
 [Example Cessna 172Notation Glossary Link](https://us1mirror.flightgear.org/terrasync/fgdata/fgdata_2020_3/Aircraft-uiuc/models/cessna172/nonlinear.html)
 
 
 ![notation glossary 1](../../assets/user_manual_assets/appendix%20pictures/notation%20glossary%201.jpeg)
 ### Naming Conventions
+This section lists and compares the stability and control derivative naming conventions for each tool discussed in this manual (ROSplane, Xflr5, and OpenVSP). Note: ROSplane allows users to include non-standard stability and control derivatives that are not commonly used in aircraft analysis. These, along with helpful tips, are located under the "non-standard" section at the bottom of the picture. 
 
+*** IMPORTANT NOTE ***  In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. 
 
-![naming conventions 1](../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%201.jpeg)
+![naming conventions 1](../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%20picture.jpg)
 ### References, Helpful Links, and Documentation
 
 
