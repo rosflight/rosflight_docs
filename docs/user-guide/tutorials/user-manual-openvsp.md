@@ -2,8 +2,13 @@
 
 
 
-![OpenVSP Logo](../../assets/user_manual_assets/pictures/OpenVSP_Logo.svg)
+![OpenVSP Logo](../../assets/user_manual_assets/pictures/OpenVSP_Logo.jpg)
 
+OpenVSP is a free, open-source aerodynamic modeling and analysis software tool based upon NASA aerodynamics tools. This tool is especially useful for modeling and analyzing full aircraft (including fuselage, propellers, landing gear, etc). These capabilites provide better drag estimates than many other tools such as Xflr5. OpenVSP also allows you to import background images to help with modeling your aircraft dimensions accurately and outputs a comprehensive stability coefficients file that are very helpful when analyzing aircraft. Besides these specific distinguishing factors, much of the functionality is similar to what is found in other software tools. There are many advanced modeling and analysis capabilities as well, such as structural analysis and wave drag estimates from supersonic flows. These will not be covered in this manual, but links to a series of useful resources at the end of this page may be helpful. 
+
+Using OpenVSP, you can expect to relatively quickly produce a parametrized model of your entire aircraft that can be analyzed in a variety of flight configurations. 
+
+The following quick-links will walk you through basic navigation of the software, step-by-step aircraft modeling and analysis instructions, a list of common errors, and a list of useful resources for users wishing to go more in depth. 
 
 **Quick Navigation:**
 
@@ -258,6 +263,10 @@ A stability analysis allows you to calculate the stability and control derivativ
  The .flt file contains the stability derivatives arranged in a more explicitly defined list. The values are the same as the .stab file; however, the CD\_o value is different. This seems to be the more accurate drag value, and may include other sources of drag not accounted for in the .stab file.  
 
 ![stability analysis 11](../../assets/user_manual_assets/openvsp%20pictures/stability%20analysis%2011.jpeg)
+
+*** IMPORTANT NOTE ***  In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. 
+
+
 #### Parasitic Drag
 
 
@@ -270,6 +279,7 @@ Parasitic drag can be analyzed using the drag analysis tool in the Analysis tab.
  Make sure the analysis settings are accurate, then calculate the drag.  
 
 ![parasitic drag 2](../../assets/user_manual_assets/openvsp%20pictures/parasitic%20drag%202.jpeg)
+
 #### Mass Properties
 
 

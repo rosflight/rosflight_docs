@@ -2,6 +2,13 @@
 
 ![Xflr5 Logo](../../assets/user_manual_assets/pictures/Xflr5_Logo.jpeg)
 
+Xflr5 is a free, open-source aerodynamic modeling and analysis software tool based upon the aerodynamics work done by Mark Drela, an MIT professor specializing in aerodynamic analysis and aircraft flight dynamics. This tool directly integrates with additional aerodynamic analysis software tools such as Xfoil and AVL and can export / import compatible files between them. 
+
+This tool is especially useful for modeling and analyzing the lifting surfaces of an aircraft (wing and tail). Xflr5 also has an entire airfoil analysis and optimization suite, which provides powerful analysis tools for users looking to improve their fundamental flight characteristics. This tool also has more intuitive stability and control visualizations. Besides these specific distinguishing factors, much of the functionality is similar to what is found in other software tools. 
+
+Using Xflr5, you can expect to relatively quickly produce a model of the lifting surfaces of your aircraft and analyze them in a variety of flight configurations. 
+
+The following quick-links will walk you through basic navigation of the software, step-by-step aircraft modeling and analysis instructions, an overview of all of the visualization tools available, a list of common errors, and a list of useful resources for users wishing to go more in depth. 
 **Quick Navigation:**
 
 * [Navigation](#navigation)
@@ -472,6 +479,7 @@ It is not recommended to activate multiple control surfaces at once. Ailerons sh
 
 ![stability analysis 14](../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2014.jpeg)
 
+*** IMPORTANT NOTE ***  In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. 
 
 
 
