@@ -2,7 +2,7 @@
 
 This section specifically addresses tools that help users simulate fixed-wing aircraft. 
 
-ROSplane is a fixed-wing specific branch of the ROSflight software that allows users to cater autopilot code and functionality to fixed wing UAV's in a variety of configurations. Modular architecture and clearly defined interfaces provide users with the ability to adapt the tool to their specific needs. One particularly useful tool is the ROSplane simulation, which allows users to input an aerodynamic model of their aircraft and then fly in simulation with the equivalent autopilot code that would be used during a physical flight. 
+ROSplane is a fixed-wing specific branch of the ROSflight software that allows users to cater autopilot code and functionality to fixed wing UAVs in a variety of configurations. Modular architecture and clearly defined interfaces provide users with the ability to adapt the tool to their specific needs. One particularly useful tool is the ROSplane simulation, which allows users to input an aerodynamic model of their aircraft and then fly in simulation with the equivalent autopilot code that would be used during a physical flight. 
 
 
 ## ROSplane Sim2Real
@@ -25,13 +25,17 @@ An example of the aircraft derivatives used in ROSplane simulation can be found 
 Users can create a custom dynamics file for their aircaft in the same "params" folder and then request it in the sim launch command by specifying the aircraft name. 
 
 Example: User introduces a new aircraft dynamics file for a Cessna.
+
 - New Dynamics File in "params" Folder: "cessna_dynamics.yaml"
+
 - Command to Open Simulation of Cessna: "ros2 launch rosflight_sim fixedwing_sim_io_joy.launch.py aircraft:=cessna"
 
 
 ### Introduction and Disclaimer
 
 This manual provides guidance on the basic features of XFLR5 and OpenVSP. It is not exhaustive and does not guarantee the accuracy of outputs. Validation through simulation and physical testing is recommended before flight.
+
+xflr5 and openvsp are trademarks of their respective organizations. This webiste is not affiliated with or endorsed by them. This only provides helpful tips on how rosplane users can use these free open-source software tools to model and analyze their aircraft for integration with the ROSplane simulation.
 
 The XFLR5 and OpenVSP sections discuss the step-by-step process for aircraft modeling and analysis using each tool. 
 The Appendix section provides tips for working through common errors, links to helpful resources, and explanations of basic aerodynamics principles. 
@@ -53,21 +57,29 @@ Xflr5 and OpenVSP produce similar models but each have unique strengths and appl
 Each tool's user manual should be done in order, but there is no requirement to use Xflr5 before OpenVSP. 
 
 OpenVSP:
+
 * Allows users to model the entire aircraft (fuselage, wing, landing gear, propellers, etc)
+
 * Often provides a more accurate drag estimate
+
 * Analyses take longer to run
 
 Xflr5:
+
 * Allows users more options when analyzing and visualizing aerodynamics and stability and control performance
+
 * Allows airfoil optimization 
+
 * Requires manual analysis of individual airfoils
-* Can import/export AVL-compatible aircraft files
+
+* Can import/export AVL - compatible aircraft files
 
 Appendix:
+
 * Includes an aerodynamics crash course, common errors, notation and nomenclature outlines, and additional useful resources for further study 
 
 When choosing which tool to start with, use whichever tool you are more comfortable with or use the tool that has capabilities you value. 
-We recommend anyalizing your aircraft in both tools and comparing results to obtain the most accurate aircraft model. 
+We recommend analyzing your aircraft in both tools and comparing results to obtain the most accurate aircraft model. 
 
 
 
