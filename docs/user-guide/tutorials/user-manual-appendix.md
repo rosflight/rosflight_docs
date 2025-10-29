@@ -7,7 +7,6 @@
 * [Aerodynamics Crash Course](#aerodynamics-crash-course)
 * [How to Find the Best Stability and Control Derivatives](#how-to-find-the-best-stability-and-control-derivatives)
 * [Notation Glossary](#notation-glossary)
-* [Naming Conventions](#naming-conventions)
 * [References, Helpful Links, and Documentation](#references-helpful-links-and-documentation)
 
 
@@ -150,16 +149,120 @@ You should actuate only one group of control surfaces per stability analysis. Fo
 ### Notation Glossary
 This section contains a glossary of common names and abbreviated notation for the most common stability and control derivatives used when analyzing aircraft. 
 
-[Example Cessna 172Notation Glossary Link](https://us1mirror.flightgear.org/terrasync/fgdata/fgdata_2020_3/Aircraft-uiuc/models/cessna172/nonlinear.html)
+It also lists and compares the stability and control derivative naming conventions for each tool discussed in this manual (ROSplane, Xflr5, and OpenVSP). 
 
+!!! note 
+    ROSplane allows users to include non-standard stability and control derivatives that are not commonly used in aircraft analysis. These, along with helpful tips, are located under the "non-standard" section at the bottom of the picture. 
 
-![notation glossary 1](../../assets/user_manual_assets/appendix%20pictures/notation%20glossary%201.jpeg)
-### Naming Conventions
-This section lists and compares the stability and control derivative naming conventions for each tool discussed in this manual (ROSplane, Xflr5, and OpenVSP). Note: ROSplane allows users to include non-standard stability and control derivatives that are not commonly used in aircraft analysis. These, along with helpful tips, are located under the "non-standard" section at the bottom of the picture. 
-
-*** IMPORTANT NOTE ***  In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. 
+!!! admonition
+    In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. 
 
 ![naming conventions 1](../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%20picture.jpg)
+
+The following tables define the key equations and variables that are used to calculate the stability and control derivatives referenced above. 
+
+
+<style>
+table th, table td {
+  padding: 2px 6px !important;
+  line-height: 1.1em !important;
+}
+</style>
+
+<small>
+<div align="left" style="margin-bottom:0.1em;"><h4>Variable Definitions</h4></div>
+
+| **Symbol** | **Formula** | **Description** | **Units** |
+|:--|:--|:--|:--|
+| $\alpha$ | — | Angle of attack | rad |
+| $\beta$ | — | Angle of sideslip | rad |
+| $p, q, r$ | — | Roll, pitch, and yaw rates | rad/s |
+| $b$ | — | Wing span | m |
+| $\bar{c}$ | — | Mean aerodynamic chord | m |
+| $U_1$ | — | Freestream (reference) airspeed | m/s |
+| $\delta_e, \delta_a, \delta_r$ | — | Elevator, aileron, and rudder deflections | rad |
+| $\dfrac{q\bar{c}}{2U_1}$ | — | Nondimensional pitch rate | — |
+| $\dfrac{pb}{2U_1}$ | — | Nondimensional roll rate | — |
+| $\dfrac{rb}{2U_1}$ | — | Nondimensional yaw rate | — |
+| $C_L, C_D, C_Y$ | — | Lift, drag, and side-force coefficients | — |
+| $C_\ell, C_m, C_n$ | — | Rolling, pitching, and yawing moment coefficients | — |
+
+</small>
+
+<div align="left" style="margin-bottom:0.1em;"><h4>Longitudinal Coefficients</h4></div>
+
+<small>
+
+| **Symbol** | **Formula** | **Description** | **Units** |
+|:--|:--|:--|:--|
+| $C_{L_0}$ | — | Lift coefficient at zero angle of attack | — |
+| $C_{D_0}$ | — | Zero-lift drag coefficient | — |
+| $C_{m_0}$ | — | Pitching moment coefficient at zero angle of attack | — |
+| $C_{L_\alpha}$ | $\dfrac{\partial C_L}{\partial \alpha}$ | Variation of lift with angle of attack | 1/rad |
+| $C_{D_\alpha}$ | $\dfrac{\partial C_D}{\partial \alpha}$ | Variation of drag with angle of attack | 1/rad |
+| $C_{m_\alpha}$ | $\dfrac{\partial C_m}{\partial \alpha}$ | Variation of pitching moment with angle of attack | 1/rad |
+| $C_{L_q}$ | $\dfrac{\partial C_L}{\partial (q\bar{c}/2U_1)}$ | Variation of lift with nondimensional pitch rate | 1/rad |
+| $C_{D_q}$ | $\dfrac{\partial C_D}{\partial (q\bar{c}/2U_1)}$ | Variation of drag with nondimensional pitch rate | 1/rad |
+| $C_{m_q}$ | $\dfrac{\partial C_m}{\partial (q\bar{c}/2U_1)}$ | Variation of pitching moment with nondimensional pitch rate | 1/rad |
+| $C_{L_{\delta_e}}$ | $\dfrac{\partial C_L}{\partial \delta_e}$ | Variation of lift with elevator deflection | 1/rad |
+| $C_{D_{\delta_e}}$ | $\dfrac{\partial C_D}{\partial \delta_e}$ | Variation of drag with elevator deflection | 1/rad |
+| $C_{m_{\delta_e}}$ | $\dfrac{\partial C_m}{\partial \delta_e}$ | Variation of pitching moment with elevator deflection | 1/rad |
+
+</small>
+
+<div align="left" style="margin-bottom:0.1em;"><h4>Lateral/Directional Coefficients</h4></div>
+
+<small>
+
+| **Symbol** | **Formula** | **Description** | **Units** |
+|:--|:--|:--|:--|
+| $C_{Y_0}$ | — | Side force coefficient for zero sideslip and zero control deflection | — |
+| $C_{\ell_0}$ | — | Rolling moment coefficient for zero sideslip and zero control deflection | — |
+| $C_{n_0}$ | — | Yawing moment coefficient for zero sideslip and zero control deflection | — |
+| $C_{Y_\beta}$ | $\dfrac{\partial C_Y}{\partial \beta}$ | Variation of side force with sideslip angle | 1/rad |
+| $C_{\ell_\beta}$ | $\dfrac{\partial C_\ell}{\partial \beta}$ | Variation of rolling moment with sideslip angle | 1/rad |
+| $C_{n_\beta}$ | $\dfrac{\partial C_n}{\partial \beta}$ | Variation of yawing moment with sideslip angle | 1/rad |
+| $C_{Y_p}$ | $\dfrac{\partial C_Y}{\partial (pb/2U_1)}$ | Variation of side force with nondimensional roll rate | 1/rad |
+| $C_{\ell_p}$ | $\dfrac{\partial C_\ell}{\partial (pb/2U_1)}$ | Variation of rolling moment with nondimensional roll rate | 1/rad |
+| $C_{n_p}$ | $\dfrac{\partial C_n}{\partial (pb/2U_1)}$ | Variation of yawing moment with nondimensional roll rate | 1/rad |
+| $C_{Y_r}$ | $\dfrac{\partial C_Y}{\partial (rb/2U_1)}$ | Variation of side force with nondimensional yaw rate | 1/rad |
+| $C_{\ell_r}$ | $\dfrac{\partial C_\ell}{\partial (rb/2U_1)}$ | Variation of rolling moment with nondimensional yaw rate | 1/rad |
+| $C_{n_r}$ | $\dfrac{\partial C_n}{\partial (rb/2U_1)}$ | Variation of yawing moment with nondimensional yaw rate | 1/rad |
+| $C_{Y_{\delta_a}}$ | $\dfrac{\partial C_Y}{\partial \delta_a}$ | Variation of side force with aileron deflection | 1/rad |
+| $C_{\ell_{\delta_a}}$ | $\dfrac{\partial C_\ell}{\partial \delta_a}$ | Variation of rolling moment with aileron deflection | 1/rad |
+| $C_{n_{\delta_a}}$ | $\dfrac{\partial C_n}{\partial \delta_a}$ | Variation of yawing moment with aileron deflection | 1/rad |
+| $C_{Y_{\delta_r}}$ | $\dfrac{\partial C_Y}{\partial \delta_r}$ | Variation of side force with rudder deflection | 1/rad |
+| $C_{\ell_{\delta_r}}$ | $\dfrac{\partial C_\ell}{\partial \delta_r}$ | Variation of rolling moment with rudder deflection | 1/rad |
+| $C_{n_{\delta_r}}$ | $\dfrac{\partial C_n}{\partial \delta_r}$ | Variation of yawing moment with rudder deflection | 1/rad |
+
+</small>
+
+<div align="left" style="margin-bottom:0.1em;"><h4>Cross-Coupled Derivatives</h4></div>
+
+<small>
+
+| **Symbol** | **Formula** | **Description** | **Units** |
+|:--|:--|:--|:--|
+| $C_{L_\beta}$ | $\dfrac{\partial C_L}{\partial \beta}$ | Variation of lift with sideslip angle | 1/rad |
+| $C_{L_p}$ | $\dfrac{\partial C_L}{\partial (pb/2U_1)}$ | Variation of lift with nondimensional roll rate | 1/rad |
+| $C_{L_r}$ | $\dfrac{\partial C_L}{\partial (rb/2U_1)}$ | Variation of lift with nondimensional yaw rate | 1/rad |
+| $C_{L_{\delta_a}}$ | $\dfrac{\partial C_L}{\partial \delta_a}$ | Variation of lift with aileron deflection | 1/rad |
+| $C_{L_{\delta_r}}$ | $\dfrac{\partial C_L}{\partial \delta_r}$ | Variation of lift with rudder deflection | 1/rad |
+| $C_{D_\beta}$ | $\dfrac{\partial C_D}{\partial \beta}$ | Variation of drag with sideslip angle | 1/rad |
+| $C_{D_p}$ | $\dfrac{\partial C_D}{\partial (pb/2U_1)}$ | Variation of drag with nondimensional roll rate | 1/rad |
+| $C_{D_r}$ | $\dfrac{\partial C_D}{\partial (rb/2U_1)}$ | Variation of drag with nondimensional yaw rate | 1/rad |
+| $C_{D_{\delta_a}}$ | $\dfrac{\partial C_D}{\partial \delta_a}$ | Variation of drag with aileron deflection | 1/rad |
+| $C_{D_{\delta_r}}$ | $\dfrac{\partial C_D}{\partial \delta_r}$ | Variation of drag with rudder deflection | 1/rad |
+
+</small>
+
+<small>**Notes:** All derivatives evaluated at reference condition (stability-axis system). Rate terms use nondimensional rates $\frac{pb}{2U_1}$, $\frac{q\bar{c}}{2U_1}$, $\frac{rb}{2U_1}$. Units: angle/control = 1/rad.
+
+<small>*Formulas from **Airplane Flight Dynamics and Automatic Flight Controls** by J. Roskam*</small>
+
+</small>
+
+
 
 ### References, Helpful Links, and Documentation
 
