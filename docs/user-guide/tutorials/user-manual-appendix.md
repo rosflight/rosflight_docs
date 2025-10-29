@@ -1,7 +1,7 @@
 
+This section contains an aerodynamics crash course, common errors, notation and nomenclature outlines, and additional useful resources/links for further study. 
 
-
-### Quick-Links
+## Quick-Links
 
 
 * [Aerodynamics Crash Course](#aerodynamics-crash-course)
@@ -11,7 +11,7 @@
 
 
 
-### Aerodynamics Crash Course
+## Aerodynamics Crash Course
 
 
 * [Cm/Alpha Rules](#cmalpha-stability)
@@ -23,7 +23,7 @@
 * [Root Locus Stability Charts](#root-locus-stability)
 
 
-#### Cm/Alpha Stability
+### Cm/Alpha Stability
 
 
 The Cm (center of mass) vs. Alpha curve must have a negative slope to be stable. It also should cross the positive x-axis to be stable.  
@@ -33,7 +33,7 @@ The Cm (center of mass) vs. Alpha curve must have a negative slope to be stable.
  If the slope is not positive or if the line does not cross the positive x-axis, then the aircraft will not be able to naturally hold level flight.  
 
 ![aerodynamics 1](../../assets/user_manual_assets/appendix%20pictures/aerodynamics%201.jpeg)
-#### Neutral Point
+### Neutral Point
 
 
 The neutral point (NP) is the aerodynamic center of the entire aircraft — the point along the longitudinal axis where the pitching moment doesn't change with angle of attack.  
@@ -60,7 +60,7 @@ The neutral point (NP) is the aerodynamic center of the entire aircraft — the 
 
 
 
-#### Static Margin
+### Static Margin
 
 
 Static margin is a measure of how stable an aircraft is. A higher SM means the aircraft will more quickly stabilize itself from disturbances, which usually also results in a lower maneuverability.  
@@ -73,7 +73,7 @@ Static margin is a measure of how stable an aircraft is. A higher SM means the a
 
 
 
-#### Flight Speed
+### Flight Speed
 
 
 The y-intercept of a velocity vs. alpha chart will show you the steady flight speed at any alpha.  
@@ -82,7 +82,7 @@ The y-intercept of a velocity vs. alpha chart will show you the steady flight sp
 
 
 
-#### Aircraft Trimming
+### Aircraft Trimming
 
 
 A Cm vs. alpha chart x-intercept shows the trimmed angle of an aircraft.  
@@ -91,7 +91,7 @@ A Cm vs. alpha chart x-intercept shows the trimmed angle of an aircraft.
 
 
 
-#### Glide Ratio
+### Glide Ratio
 
 
 A glide ratio compares how far an aircraft can fly compared to how far it will fall.  
@@ -104,7 +104,7 @@ A glide ratio compares how far an aircraft can fly compared to how far it will f
 
 
 
-#### Root Locus Stability
+### Root Locus Stability
 
 
 The root locus chart in the Xflr5 viewer shows the stability response of an aircraft.  
@@ -121,7 +121,7 @@ The root locus chart in the Xflr5 viewer shows the stability response of an airc
 
 
 
-### How to Find the Best Stability and Control Derivatives
+## How to Find the Best Stability and Control Derivatives
 
 
 You should actuate only one group of control surfaces per stability analysis. For this reason, you will most likely need to run several stability analyses.  
@@ -146,7 +146,7 @@ You should actuate only one group of control surfaces per stability analysis. Fo
 
 
 
-### Notation Glossary
+## Notation Glossary
 This section contains a glossary of common names and abbreviated notation for the most common stability and control derivatives used when analyzing aircraft. 
 
 It also lists and compares the stability and control derivative naming conventions for each tool discussed in this manual (ROSplane, Xflr5, and OpenVSP). 
@@ -154,12 +154,13 @@ It also lists and compares the stability and control derivative naming conventio
 !!! note 
     ROSplane allows users to include non-standard stability and control derivatives that are not commonly used in aircraft analysis. These, along with helpful tips, are located under the "non-standard" section at the bottom of the picture. 
 
-!!! admonition
-    In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. 
+!!! danger ""C_D_p" in ROSflight is the parasitic drag coefficient!"
+    In the ROSplane parameters, C_D_p is "parasitic drag", **not** drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. Instructions for calculating parasitic drag can be found [here](./user-manual-openvsp.md#parasitic-drag).
 
 ![naming conventions 1](../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%20picture.jpg)
 
-The following tables define the key equations and variables that are used to calculate the stability and control derivatives referenced above. 
+The following tables define the key equations and variables that are used to calculate the stability and control derivatives referenced above. The equations are from *Airplane Flight Dynamics and Automatic Flight Controls* by J. Roskam.
+
 
 
 <style>
@@ -172,20 +173,20 @@ table th, table td {
 <small>
 <div align="left" style="margin-bottom:0.1em;"><h4>Variable Definitions</h4></div>
 
-| **Symbol** | **Formula** | **Description** | **Units** |
-|:--|:--|:--|:--|
-| $\alpha$ | — | Angle of attack | rad |
-| $\beta$ | — | Angle of sideslip | rad |
-| $p, q, r$ | — | Roll, pitch, and yaw rates | rad/s |
-| $b$ | — | Wing span | m |
-| $\bar{c}$ | — | Mean aerodynamic chord | m |
-| $U_1$ | — | Freestream (reference) airspeed | m/s |
-| $\delta_e, \delta_a, \delta_r$ | — | Elevator, aileron, and rudder deflections | rad |
-| $\dfrac{q\bar{c}}{2U_1}$ | — | Nondimensional pitch rate | — |
-| $\dfrac{pb}{2U_1}$ | — | Nondimensional roll rate | — |
-| $\dfrac{rb}{2U_1}$ | — | Nondimensional yaw rate | — |
-| $C_L, C_D, C_Y$ | — | Lift, drag, and side-force coefficients | — |
-| $C_\ell, C_m, C_n$ | — | Rolling, pitching, and yawing moment coefficients | — |
+| **Symbol** | **Description** | **Units** |
+|:--|:--|:--|
+| $\alpha$ | Angle of attack | rad |
+| $\beta$ | Angle of sideslip | rad |
+| $p, q, r$ | Roll, pitch, and yaw rates | rad/s |
+| $b$ | Wing span | m |
+| $\bar{c}$ | Mean aerodynamic chord | m |
+| $U_1$ | Freestream (reference) airspeed | m/s |
+| $\delta_e, \delta_a, \delta_r$ | Elevator, aileron, and rudder deflections | rad |
+| $\dfrac{q\bar{c}}{2U_1}$ | Nondimensional pitch rate | — |
+| $\dfrac{pb}{2U_1}$ | Nondimensional roll rate | — |
+| $\dfrac{rb}{2U_1}$ | Nondimensional yaw rate | — |
+| $C_L, C_D, C_Y$ | Lift, drag, and side-force coefficients | — |
+| $C_\ell, C_m, C_n$ | Rolling, pitching, and yawing moment coefficients | — |
 
 </small>
 
@@ -256,15 +257,16 @@ table th, table td {
 
 </small>
 
-<small>**Notes:** All derivatives evaluated at reference condition (stability-axis system). Rate terms use nondimensional rates $\frac{pb}{2U_1}$, $\frac{q\bar{c}}{2U_1}$, $\frac{rb}{2U_1}$. Units: angle/control = 1/rad.
+!!! note
+    All derivatives evaluated at reference condition (stability-axis system). Rate terms use nondimensional rates $\frac{pb}{2U_1}$, $\frac{q\bar{c}}{2U_1}$, $\frac{rb}{2U_1}$. Units: angle/control = 1/rad.
 
-<small>*Formulas from **Airplane Flight Dynamics and Automatic Flight Controls** by J. Roskam*</small>
+ 
 
 </small>
 
 
 
-### References, Helpful Links, and Documentation
+## References, Helpful Links, and Documentation
 
 
 * [Online NACA Databases](http://airfoiltools.com/search/index?m%5Bgrp%5D=naca4d&m%5Bsort%5D=1)
