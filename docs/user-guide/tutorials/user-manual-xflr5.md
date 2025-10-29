@@ -9,6 +9,7 @@ This tool is especially useful for modeling and analyzing the lifting surfaces o
 Using Xflr5, you can expect to relatively quickly produce a model of the lifting surfaces of your aircraft and analyze them in a variety of flight configurations. 
 
 The following quick-links will walk you through basic navigation of the software, step-by-step aircraft modeling and analysis instructions, an overview of all of the visualization tools available, a list of common errors, and a list of useful resources for users wishing to go more in depth. 
+
 **Quick Navigation:**
 
 * [Navigation](#navigation)

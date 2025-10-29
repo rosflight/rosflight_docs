@@ -69,6 +69,7 @@ nav:
         - Overview: user-guide/tutorials/transitioning-from-sim-to-hardware.md
         - Xflr5: user-guide/tutorials/user-manual-xflr5.md
         - OpenVSP: user-guide/tutorials/user-manual-openvsp.md
+        - ROSflight Integration: user-guide/tutorials/user-manual-ROSflight-integration.md
         - Appendix: user-guide/tutorials/user-manual-appendix.md
     - Concepts:
       - Hardware and ROSflight:
