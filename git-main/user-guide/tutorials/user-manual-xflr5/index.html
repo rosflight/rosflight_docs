@@ -1,0 +1,3522 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/tutorials/user-manual-xflr5/">
+      
+      
+        <link rel="prev" href="../transitioning-from-sim-to-hardware/">
+      
+      
+        <link rel="next" href="../user-manual-openvsp/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Xflr5 - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#navigation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Xflr5
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+          
+  
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../publications/rosplane/" class="md-tabs__link">
+          
+  
+  
+  Publications
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation for Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation on Hardware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/using-docker-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using Docker with ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manually-flying-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manually flying ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-roscopter-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROScopter in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-rosplane-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROSplane in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning-performance-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tuning performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transitioning from Sim to Hardware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Transitioning from Sim to Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transitioning-from-sim-to-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Xflr5
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xflr5
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Navigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-foil-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Foil Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfoil-inverse-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Xfoil Inverse Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfoil-direct-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Xfoil Direct Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wing-and-plane-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wing and Plane Design
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-and-analyzing-airfoils" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Analyzing Airfoils
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Analyzing Airfoils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-foil-design_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Foil Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-naca-foils" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding NACA Foils
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-dat-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding .dat Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-flaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Flaps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse-foil-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inverse Foil Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfoil-direct-analysis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      XFoil Direct Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Plane
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Plane">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Information Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-the-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making the Plane
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mass-and-inertia-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mass and Inertia Inputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-an-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running an Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running an Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stability-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stability Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading Graphs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading Graphs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oppoint-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpPoint Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polar-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polar Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-locus-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Locus Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-response-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time Response Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pressure-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pressure Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing Graphs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-visuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing Visuals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outside-flight-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outside Flight Envelope
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cant-be-interpolated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can't be Interpolated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#negative-lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Negative Lift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-list-and-helpful-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      References List and Helpful Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-openvsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenVSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-ROSflight-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Hardware and ROSflight
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware and ROSflight
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/hardware-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/flight-controller-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flight Controller Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rc-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RC Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/parameter-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/preflight-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-Flight Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/improving-firmware-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improving Firmware Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/autonomous-flight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Autonomous Flight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight Sim
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/running-simulations-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/detailed-launching-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed Launching Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/simulator-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulator Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROScopter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/roscopter-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/roscopter-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/contribution-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Style Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Firmware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/code-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building and Flashing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unit Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Controller
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Controller
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General Controller Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Software Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller State Machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Successive Loop Closure Controller Outline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Total Energy Controller
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Estimator
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Estimator
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Example
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Planner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Follower
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Publications
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Publications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosplane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Navigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-foil-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Foil Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfoil-inverse-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Xfoil Inverse Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfoil-direct-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Xfoil Direct Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wing-and-plane-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wing and Plane Design
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-and-analyzing-airfoils" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Analyzing Airfoils
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Analyzing Airfoils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-foil-design_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Foil Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-naca-foils" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding NACA Foils
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-dat-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding .dat Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-flaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Flaps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse-foil-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inverse Foil Design
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfoil-direct-analysis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      XFoil Direct Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Plane
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Plane">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Information Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-the-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making the Plane
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mass-and-inertia-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mass and Inertia Inputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-an-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running an Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running an Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stability-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stability Analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading Graphs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading Graphs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oppoint-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpPoint Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polar-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polar Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-locus-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Locus Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-response-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time Response Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pressure-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pressure Viewer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing Graphs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-visuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing Visuals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outside-flight-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outside Flight Envelope
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cant-be-interpolated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can't be Interpolated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#negative-lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Negative Lift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-list-and-helpful-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      References List and Helpful Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/tutorials/user-manual-xflr5.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+  <h1>Xflr5</h1>
+
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/pictures/Xflr5_Logo.jpeg" data-desc-position="bottom"><img alt="Xflr5 Logo" src="../../../assets/user_manual_assets/pictures/Xflr5_Logo.jpeg"></a></p>
+<p>Xflr5 is a free, open-source aerodynamic modeling and analysis software tool based upon the aerodynamics work done by Mark Drela, an MIT professor specializing in aerodynamic analysis and aircraft flight dynamics. This tool directly integrates with additional aerodynamic analysis software tools such as Xfoil and AVL and can export / import compatible files between them. </p>
+<p>This tool is especially useful for modeling and analyzing the lifting surfaces of an aircraft (wing and tail). Xflr5 also has an entire airfoil analysis and optimization suite, which provides powerful analysis tools for users looking to improve their fundamental flight characteristics. This tool also has more intuitive stability and control visualizations. Besides these specific distinguishing factors, much of the functionality is similar to what is found in other software tools. </p>
+<p>Using Xflr5, you can expect to relatively quickly produce a model of the lifting surfaces of your aircraft and analyze them in a variety of flight configurations. </p>
+<p>The following quick-links will walk you through basic navigation of the software, step-by-step aircraft modeling and analysis instructions, an overview of all of the visualization tools available, a list of common errors, and a list of useful resources for users wishing to go more in depth. </p>
+<p><strong>Quick Navigation:</strong></p>
+<ul>
+<li><a href="#navigation">Navigation</a><ul>
+<li><a href="#direct-foil-design">Direct Foil Design</a></li>
+<li><a href="#xfoil-inverse-design">Xfoil Inverse Design</a></li>
+<li><a href="#xfoil-direct-analysis">Xfoil Direct Analysis</a></li>
+<li><a href="#wing-and-plane-design">Wing and Plane Design</a></li>
+</ul>
+</li>
+<li><a href="#creating-and-analyzing-airfoils">Creating and Analyzing Airfoils</a><ul>
+<li><a href="#direct-foil-design">Direct Foil Design</a></li>
+<li><a href="#adding-naca-foils">Adding NACA Foils</a></li>
+<li><a href="#adding-dat-files">Adding .dat Files</a></li>
+<li><a href="#adding-flaps">Adding Flaps</a></li>
+<li><a href="#inverse-foil-design">Inverse Foil Design</a></li>
+<li><a href="#xfoil-direct-analysis">XFoil Direct Analysis</a></li>
+</ul>
+</li>
+<li><a href="#creating-a-plane">Creating a Plane</a><ul>
+<li><a href="#information-checklist">Information Checklist</a></li>
+<li><a href="#making-the-plane">Making the Plane</a></li>
+<li><a href="#mass-and-inertia-inputs">Mass and Inertia Inputs</a></li>
+</ul>
+</li>
+<li><a href="#running-an-analysis">Running an Analysis</a><ul>
+<li><a href="#basic-analysis">Basic Analysis</a></li>
+<li><a href="#stability-analysis">Stability Analysis</a></li>
+</ul>
+</li>
+<li><a href="#reading-graphs">Reading Graphs</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#oppoint-viewer">OpPoint Viewer</a></li>
+<li><a href="#polar-viewer">Polar Viewer</a></li>
+<li><a href="#root-locus-viewer">Root Locus Viewer</a></li>
+<li><a href="#time-response-viewer">Time Response Viewer</a></li>
+<li><a href="#pressure-viewer">Pressure Viewer</a></li>
+<li><a href="#changing-graphs">Changing Graphs</a></li>
+<li><a href="#customizing-visuals">Customizing Visuals</a></li>
+</ul>
+</li>
+<li><a href="#common-errors">Common Errors</a><ul>
+<li><a href="#outside-flight-envelope">Outside Flight Envelope</a></li>
+<li><a href="#cant-be-interpolated">Can't be Interpolated</a></li>
+<li><a href="#negative-lift">Negative Lift</a></li>
+</ul>
+</li>
+<li><a href="#references-list-and-helpful-links">References List and Helpful Links</a></li>
+</ul>
+<h3 id="navigation">Navigation<a class="headerlink" href="#navigation" title="Permanent link">¶</a></h3>
+<p>To download XFLR5, go to the <a href="https://sourceforge.net/projects/xflr5/files/latest/download">XFLR5 website</a>.</p>
+<p>Once downloaded, open the XFLR5.exe file to start the program.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/Navigation%201%20download%20xflr.jpeg" data-desc-position="bottom"><img alt="Navigation 1" src="../../../assets/user_manual_assets/xflr5%20pictures/Navigation%201%20download%20xflr.jpeg"></a>
+Once XFLR5 is open, you will see the main menu screen.</p>
+<p>The menu bar is located at the top of the screen.</p>
+<p>Under the File tab you can open and save projects. In the Module tab you can access the different modules of XFLR5.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/Navigation%202.jpeg" data-desc-position="bottom"><img alt="Navigation 2" src="../../../assets/user_manual_assets/xflr5%20pictures/Navigation%202.jpeg"></a>
+These modules contain the different tools and features of XFLR5.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/modules%201%20pic%20and%20text.jpeg" data-desc-position="bottom"><img alt="Modules 1" src="../../../assets/user_manual_assets/xflr5%20pictures/modules%201%20pic%20and%20text.jpeg"></a></p>
+<h4 id="direct-foil-design">Direct Foil Design<a class="headerlink" href="#direct-foil-design" title="Permanent link">¶</a></h4>
+<p>Direct Foil Design is where you will create, import, edit, and save each airfoil for your aircraft.
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/modules%202%20direct%20foil%20design.jpeg" data-desc-position="bottom"><img alt="Modules 2" src="../../../assets/user_manual_assets/xflr5%20pictures/modules%202%20direct%20foil%20design.jpeg"></a></p>
+<h4 id="xfoil-inverse-design">Xfoil Inverse Design<a class="headerlink" href="#xfoil-inverse-design" title="Permanent link">¶</a></h4>
+<p>Xfoil Inverse Design is where you reverse engineer an optimal foil shape by editing airfoil performance curves.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/modules%203%20foil%20inverse%20design%201.jpeg" data-desc-position="bottom"><img alt="Modules 1" src="../../../assets/user_manual_assets/xflr5%20pictures/modules%203%20foil%20inverse%20design%201.jpeg"></a></p>
+<h4 id="xfoil-direct-analysis">Xfoil Direct Analysis<a class="headerlink" href="#xfoil-direct-analysis" title="Permanent link">¶</a></h4>
+<p>Xfoil Direct Analysis is where you can analyze airfoils in each expected flight condition (determined by a range of Reynolds numbers).  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/modules%204%20direct%20analysis%201.jpeg" data-desc-position="bottom"><img alt="Modules 2" src="../../../assets/user_manual_assets/xflr5%20pictures/modules%204%20direct%20analysis%201.jpeg"></a></p>
+<h4 id="wing-and-plane-design">Wing and Plane Design<a class="headerlink" href="#wing-and-plane-design" title="Permanent link">¶</a></h4>
+<p>Wing and Plane Design is where you can use your previously analyzed airfoils to model and analyze the performance/stability of a complete aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/modules%205%20wing%20and%20plane%20design%201.jpeg" data-desc-position="bottom"><img alt="Modules 2" src="../../../assets/user_manual_assets/xflr5%20pictures/modules%205%20wing%20and%20plane%20design%201.jpeg"></a></p>
+<h3 id="creating-and-analyzing-airfoils">Creating and Analyzing Airfoils<a class="headerlink" href="#creating-and-analyzing-airfoils" title="Permanent link">¶</a></h3>
+<h4 id="direct-foil-design_1">Direct Foil Design<a class="headerlink" href="#direct-foil-design_1" title="Permanent link">¶</a></h4>
+<p>The first step in modeling an aircraft is defining the airfoils used in the aircraft.  </p>
+<blockquote>
+<p>Module &gt; Direct Foil Design  </p>
+</blockquote>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20foil%20design%201.jpeg" data-desc-position="bottom"><img alt="Direct foil design 1" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20foil%20design%201.jpeg"></a>
+Prerequisite: You must already know the NACA code or have a .dat file on hand for every airfoil on each section of the wing, elevator, and rudder.  </p>
+<p>Direct Foil Design is where you will create, import, edit, and save each airfoil for your aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20foil%20design%202.jpeg" data-desc-position="bottom"><img alt="Direct foil design 2" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20foil%20design%202.jpeg"></a>
+ SAVE CONSTANTLY!</p>
+<h4 id="adding-naca-foils">Adding NACA Foils<a class="headerlink" href="#adding-naca-foils" title="Permanent link">¶</a></h4>
+<p>NACA foils are standardized airfoils commonly defined by a 4-digit code (ex. 2412).  </p>
+<p>To import a NACA foil: &gt; Foil &gt; Naca Foils  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/naca1.jpeg" data-desc-position="bottom"><img alt="Naca 1" src="../../../assets/user_manual_assets/xflr5%20pictures/naca1.jpeg"></a>
+ Enter the NACA code and the number of desired panels for the airfoil you want to add.   </p>
+<p>Click OK.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/naca2.jpeg" data-desc-position="bottom"><img alt="Naca 2" src="../../../assets/user_manual_assets/xflr5%20pictures/naca2.jpeg"></a>
+ Enter the name of your airfoil into the popup box and click OK.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/naca3.jpeg" data-desc-position="bottom"><img alt="Naca 3" src="../../../assets/user_manual_assets/xflr5%20pictures/naca3.jpeg"></a></p>
+<h4 id="adding-dat-files">Adding .dat Files<a class="headerlink" href="#adding-dat-files" title="Permanent link">¶</a></h4>
+<p>You can also add a custom airfoil by importing a .dat file of the airfoil shape.  </p>
+<p>To add a .dat airfoil: &gt; File &gt; Open &gt; Select .dat file from your computer &gt; Open  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/dat1.jpeg" data-desc-position="bottom"><img alt="dat1" src="../../../assets/user_manual_assets/xflr5%20pictures/dat1.jpeg"></a>
+ The newly imported airfoil will appear here.</p>
+<h4 id="adding-flaps">Adding Flaps<a class="headerlink" href="#adding-flaps" title="Permanent link">¶</a></h4>
+<p>Once your airfoil is added to your project, you can edit the airfoil and add control surfaces.  </p>
+<p>To add a flap to the airfoil: right click on your airfoil, then click "Set Flap"  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/flaps1.jpeg" data-desc-position="bottom"><img alt="flaps 1" src="../../../assets/user_manual_assets/xflr5%20pictures/flaps1.jpeg"></a>
+ Click the box for a leading edge (LE) and/or tailing edge (TE) flap.  </p>
+<p>Input the flap characteristics (angle, position along chord, position of hinge)  </p>
+<p>Click OK  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/flaps2.jpeg" data-desc-position="bottom"><img alt="flaps 2" src="../../../assets/user_manual_assets/xflr5%20pictures/flaps2.jpeg"></a>
+ Enter the name of your new airfoil and click OK. Click "Overwrite" if you don't want to add a new airfoil.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/flaps3.jpeg" data-desc-position="bottom"><img alt="flaps 3" src="../../../assets/user_manual_assets/xflr5%20pictures/flaps3.jpeg"></a>
+ You can edit any airfoil by right clicking it and using the drop-down menu.  </p>
+<p>Repeat these steps for every airfoil in your aircraft with control surfaces.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/flaps4.jpeg" data-desc-position="bottom"><img alt="flaps 4" src="../../../assets/user_manual_assets/xflr5%20pictures/flaps4.jpeg"></a></p>
+<h4 id="inverse-foil-design">Inverse Foil Design<a class="headerlink" href="#inverse-foil-design" title="Permanent link">¶</a></h4>
+<p>Inverse Foil Design allows you to create a custom airfoil based off desired performance characteristics.  </p>
+<blockquote>
+<p>Module &gt; Xfoil Inverse Design  </p>
+</blockquote>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%201.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 1" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%201.jpeg"></a>
+ See the graphic below for an overview of the tools in Xfoil Inverse Design  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%202.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 2" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%202.jpeg"></a>
+ To start, import the foil you want to edit.  </p>
+<p>Click on the "extract foil" button.  </p>
+<p>Click on the foil you want to modify then click "OK".  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%203.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 3" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%203.jpeg"></a>
+ Next, choose what flight condition context you want to modify your airfoil in and activate the spline function.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%204.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 4" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%204.jpeg"></a>
+ Move the spline to create the curve you want your airfoil to reflect.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%205.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 5" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%205.jpeg"></a>
+ After your custom spline is complete, click "execute" to create your spline.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%206.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 6" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%206.jpeg"></a>
+ Once the airfoil is created, it can be exported by selecting the "Foil" tab at the top and then the "Store Foil" option.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%207.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 7" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%207.jpeg"></a>
+ Name your airfoil, then click the "OK" button to save your new airfoil.
+ <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%208.jpeg" data-desc-position="bottom"><img alt="inverse foil design section 8" src="../../../assets/user_manual_assets/xflr5%20pictures/inverse%20foil%20design%20section%208.jpeg"></a></p>
+<p>This airfoil can now be added to your project and analyzed in Xfoil Direct Analysis.</p>
+<h4 id="xfoil-direct-analysis_1">XFoil Direct Analysis<a class="headerlink" href="#xfoil-direct-analysis_1" title="Permanent link">¶</a></h4>
+<p>Each airfoil must be individually analyzed at every expected flight condition before it can be used in a full aircraft analysis.  </p>
+<blockquote>
+<p>Module &gt; XFoil Direct Analysis  </p>
+</blockquote>
+<p>This tool basically analyzes how the airfoils will behave at a variety of airspeeds and angles of attack.  </p>
+<p>Prerequisites: Know the expected Reynolds numbers of each flight condition (airspeed etc.) for the aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%201.jpeg" data-desc-position="bottom"><img alt="direct analysis section 1" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%201.jpeg"></a>
+ After opening XFoil Direct Analysis, you will see the following viewer.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%202.jpeg" data-desc-position="bottom"><img alt="direct analysis section 1" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%202.jpeg"></a>
+ Click "Analysis", then click "Batch Analysis".  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%203.jpeg" data-desc-position="bottom"><img alt="direct analysis section 2" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%203.jpeg"></a>
+ Note: Batch analysis performs many analyses simultaneously across a variety of flight conditions to save time. If you want to analyze the airfoil at a single Reynolds number, choose "Define an Analysis" instead.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%203.jpeg" data-desc-position="bottom"><img alt="direct analysis section 3" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%203.jpeg"></a>
+ Select the airfoils you want to analyze in the top list, specify the range of Reynolds numbers over which you want to analyze the airfoil, select any other desired polar specifications (alpha sweep etc), and click "Analyze". Click "Close" when finished.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%204.jpeg" data-desc-position="bottom"><img alt="direct analysis section 4" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%204.jpeg"></a>
+ The graphs on the viewer will update after the analysis is completed. In the top menu, the chart icon on the right will show you polar views (drag, lift polars etc.)  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%205.jpeg" data-desc-position="bottom"><img alt="direct analysis section 5" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%205.jpeg"></a>
+ The OpPoint viewer icon is on the left. This viewer will show you performance distributions across the airfoil at specific flight situations (e.g. pressure distributions at a specific angle of attack, flow separation, etc.)  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%206.jpeg" data-desc-position="bottom"><img alt="direct analysis section 6" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%206.jpeg"></a>
+ To change any of the graphs, right click on the graph, then select "Current Graph" and "Define Graph Settings". This will allow you to customize the axes and any other graph information.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%207.jpeg" data-desc-position="bottom"><img alt="direct analysis section 7" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%207.jpeg"></a>
+ To change the lines on the graphs (color, weight, etc) right click on the airfoil or operating point on the list on the left then select your desired line characteristics.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%208.jpeg" data-desc-position="bottom"><img alt="direct analysis section 8" src="../../../assets/user_manual_assets/xflr5%20pictures/direct%20analysis%20section%208.jpeg"></a></p>
+<h3 id="creating-a-plane">Creating a Plane<a class="headerlink" href="#creating-a-plane" title="Permanent link">¶</a></h3>
+<h4 id="information-checklist">Information Checklist<a class="headerlink" href="#information-checklist" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/creating%20a%20plane%201.jpeg" data-desc-position="bottom"><img alt="creating a plane 1" src="../../../assets/user_manual_assets/xflr5%20pictures/creating%20a%20plane%201.jpeg"></a></p>
+<h4 id="making-the-plane">Making the Plane<a class="headerlink" href="#making-the-plane" title="Permanent link">¶</a></h4>
+<p>Open the "Wing and Plane Design" tab in the top left menu. 
+ To begin modeling your aircraft, click on "Plane" on the top left menu. Then select "Define a New Plane".  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%201.jpeg" data-desc-position="bottom"><img alt="wing and plane design 1" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%201.jpeg"></a>
+ Once the "Plane Editor" opens, you will be able to define the wing, elevator, rudder, and weight distribution of the aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%202.jpeg" data-desc-position="bottom"><img alt="wing and plane design 2" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%202.jpeg"></a>
+ To create a wing, first click the "Symmetric" button (depending on your wing design). Next, begin inputting your wing data into the table below. Input the airfoil and airfoil position for each section of the wing into the table. Make sure your measurements are in meters. (Reminder: your airfoils must already be created in Foil Design and analyzed in Xfoil Direct Analysis).  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%203.jpeg" data-desc-position="bottom"><img alt="wing and plane design 3" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%203.jpeg"></a>
+ Note: You should have a measurement for every major change in the wing. If there is a change in airfoil (such as the start of end of a flap), you will have two overlapping measurements at that transition point.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%204.jpeg" data-desc-position="bottom"><img alt="wing and plane design 4" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%204.jpeg"></a>
+ Once the wing is defined, make sure that your wing matches your design, and that each airfoil transition overlaps correctly. (Note: the control surfaces do not need to be angled unless you are specifically analyzing at an actuated position. A zero angle will still suffice for a stability analysis as long as the control surface hinge exists).  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%205.jpeg" data-desc-position="bottom"><img alt="wing and plane design 5" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%205.jpeg"></a>
+ Next, check the paneling on the wing. On the lower right menu, toggle the "Surfaces" button off and the "Panels" button on. Set the Y-panels over long sections to fill the space and set the distribution to "Cosine" so the edges of the sections have more panels than the middle. Set overlapped sections to 1.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%206.jpeg" data-desc-position="bottom"><img alt="wing and plane design 6" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%206.jpeg"></a>
+ Click "Save" when you are done.  </p>
+<p>Once your wing is defined and saved, define the position of the leading edge and the initial geometric tilt angle. 
+ <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%207.jpeg" data-desc-position="bottom"><img alt="wing and plane design 7" src="../../../assets/user_manual_assets/xflr5%20pictures/wing%20and%20plane%20design%207.jpeg"></a></p>
+<p>Follow the same steps for the elevator and rudder.  </p>
+<h4 id="mass-and-inertia-inputs">Mass and Inertia Inputs<a class="headerlink" href="#mass-and-inertia-inputs" title="Permanent link">¶</a></h4>
+<p>After all your lifting surfaces are correctly defined, click on the "Plane Inertia" button to define the weight distribution of your aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/mass%20and%20inertia%20inputs%201.jpeg" data-desc-position="bottom"><img alt="mass and inertia inputs 1" src="../../../assets/user_manual_assets/xflr5%20pictures/mass%20and%20inertia%20inputs%201.jpeg"></a>
+ Input the mass and position of each important mass of the aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/mass%20and%20inertia%20inputs%202.jpeg" data-desc-position="bottom"><img alt="mass and inertia inputs 2" src="../../../assets/user_manual_assets/xflr5%20pictures/mass%20and%20inertia%20inputs%202.jpeg"></a></p>
+<p>Validate that your weight distribution is accurate by comparing your CG and inertia tensor values with experimental values.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/mass%20and%20inertia%20inputs%203.jpeg" data-desc-position="bottom"><img alt="mass and inertia inputs 3" src="../../../assets/user_manual_assets/xflr5%20pictures/mass%20and%20inertia%20inputs%203.jpeg"></a>
+ You can also validate your mass distribution by toggling on the "masses" button on the Plane Editor page and visually inspecting the location of the CG.</p>
+<h3 id="running-an-analysis">Running an Analysis<a class="headerlink" href="#running-an-analysis" title="Permanent link">¶</a></h3>
+<h4 id="basic-analysis">Basic Analysis<a class="headerlink" href="#basic-analysis" title="Permanent link">¶</a></h4>
+<p>A basic analysis will help you obtain information about lift, drag, moments from the airfoils, and other basic aerodynamic characteristics of your aircraft.  </p>
+<blockquote>
+<p>Analysis &gt; Define an Analysis  </p>
+</blockquote>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/xflr%20basic%20analysis%201.jpeg" data-desc-position="bottom"><img alt="basic analysis 1" src="../../../assets/user_manual_assets/xflr5%20pictures/xflr%20basic%20analysis%201.jpeg"></a>
+ Once the Analysis Definition box opens, in the Polar Type tab choose your desired polar type. (Fixed lift is recommended because it automatically trims the aircraft)  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/xflr%20basic%20analysis%202.jpeg" data-desc-position="bottom"><img alt="basic analysis 2" src="../../../assets/user_manual_assets/xflr5%20pictures/xflr%20basic%20analysis%202.jpeg"></a>
+ In the Analysis tab, choose your desired analysis method (VLM2 is recommended) and whether or not to include viscous flows.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/xflr%20basic%20analysis%203.jpeg" data-desc-position="bottom"><img alt="basic analysis 3" src="../../../assets/user_manual_assets/xflr5%20pictures/xflr%20basic%20analysis%203.jpeg"></a>
+ In the Inertia tab, check the "Use plane inertia" box and change nothing (assuming you already accurately defined your plane inertia). Otherwise, uncheck the box and define your Mass and CG location manually.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%204.jpeg" data-desc-position="bottom"><img alt="basic analysis 4" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%204.jpeg"></a>
+ In the Ref. dimensions tab, select the dimensions you want to use for your aerodynamic coefficient calculations.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%205.jpeg" data-desc-position="bottom"><img alt="basic analysis 5" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%205.jpeg"></a></p>
+<p>In the Aero data tab, ensure the density and viscosity measurements are accurate to your expected flight environment.  </p>
+<p>Leave "Ground Effect" unchecked, unless you are simulating takeoff and landing.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%206.jpeg" data-desc-position="bottom"><img alt="basic analysis 6" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%206.jpeg"></a>
+ In the Extra drag tab, add any extra drag areas and drag coefficients in the corresponding table. Xflr5 only accurately simulates airflow over the lifting surfaces of the aircraft, so the drag from the fuselage, landing gear, or any other parts of the aircraft need to be accounted for separately.  </p>
+<p>A simple way to estimate extra drag is to calculate the cross-sectional area of the other parts of the aircraft and use a drag coefficient from a similar shape (sphere, cone, etc).  </p>
+<p>Click "Save" when you are done.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%207.jpeg" data-desc-position="bottom"><img alt="basic analysis 7" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%207.jpeg"></a>
+ A popup tab will appear. Type your desired identifier or name of your analysis.  </p>
+<p>Click "OK" when you are done.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%208.jpeg" data-desc-position="bottom"><img alt="basic analysis 8" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%208.jpeg"></a></p>
+<p>Your analysis is now defined, and ou can now run it.  </p>
+<p>Choose your analysis from the left, define the parameters on the right, and click "analyze".  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%209.jpeg" data-desc-position="bottom"><img alt="basic analysis 9" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%209.jpeg"></a>
+ Wait until the analysis is completed, the click the close button.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%2010.jpeg" data-desc-position="bottom"><img alt="basic analysis 10" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%2010.jpeg"></a>
+ On the home screen, you will see the analysis has updated. On the left you can select specific points of the analysis. In the middle you will see charts visualizing the analysis data. You can move between visualization by using the plot menu at the top.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%2011.jpeg" data-desc-position="bottom"><img alt="basic analysis 11" src="../../../assets/user_manual_assets/xflr5%20pictures/basic%20analysis%2011.jpeg"></a></p>
+<h4 id="stability-analysis">Stability Analysis<a class="headerlink" href="#stability-analysis" title="Permanent link">¶</a></h4>
+<p>A stability analysis will allow you to evaluate the stability and control derivatives as well the time response of the aircraft to disturbances.  </p>
+<p><strong>Stability Analysis Prerequisites:</strong>  </p>
+<ul>
+<li>Airfoil polars analyzed (Xfoil Direct Analysis)</li>
+<li>Basic aerodynamic analysis performed</li>
+<li>Cm – alpha curve has a positive x-intercept</li>
+<li>Cm – CL curve must have a positive CL value at 0 Cm</li>
+<li>Aircraft inertia tensors and center of gravity are correct</li>
+<li>Control surface dimensions, position, and paneling must be accurate and appropriate</li>
+</ul>
+<p>You should actuate only one group of control surfaces in a stability analysis. For this reason, you will most likely need to run several stability analyses.  </p>
+<p>Example: have one stability analysis with ailerons activated to get the aileron control derivatives, and another analysis to get the elevator control derivatives.  </p>
+<p>To setup your stability analysis, select the aircraft you want to analyze.  </p>
+<blockquote>
+<p>Analysis &gt; Define a Stability Analysis  </p>
+</blockquote>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%201.jpeg" data-desc-position="bottom"><img alt="stability analysis 1" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%201.jpeg"></a>
+ Once the Stability Polar Definition box opens, define any relevant analysis constraints in the Analysis tab.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%202.jpeg" data-desc-position="bottom"><img alt="stability analysis 2" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%202.jpeg"></a>
+ In the Ref. dimensions tab, select the dimensions you want to use for the stability and control coefficient calculations.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%203.jpeg" data-desc-position="bottom"><img alt="stability analysis 3" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%203.jpeg"></a>
+ In the Mass and inertia tab, check the "Use plane inertia" box at the top and change nothing (assuming you already accurately defined your plane inertia); Otherwise, uncheck the box and define your Mass and CG location manually.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%204.jpeg" data-desc-position="bottom"><img alt="stability analysis 4" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%204.jpeg"></a>
+ In the "Control parameters" tab, select the control surfaces to analyze.  </p>
+<p>To calculate control derivatives for each set of control surfaces (ailerons, rudder, elevator) it is recommended to perform a stability analysis for each set individually.  </p>
+<p>It is not recommended to activate multiple control surfaces at once. Ailerons should be actuated in opposite directions and elevators are in the same direction.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%205.jpeg" data-desc-position="bottom"><img alt="stability analysis 5" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%205.jpeg"></a>
+ In the Aero data tab, ensure the density and viscosity measurements are accurate to your expected flight environment.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%206.jpeg" data-desc-position="bottom"><img alt="stability analysis 6" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%206.jpeg"></a>
+ In the Extra drag tab, add any extra drag areas and drag coefficients in the corresponding table. Xflr5 only accurately simulates airflow over the lifting surfaces of the aircraft, so the drag from the fuselage, landing gear, or any other parts of the aircraft need to be accounted for separately.  </p>
+<p>A simple way to estimate extra drag is to calculate the cross-sectional area of the other parts of the aircraft and use a drag coefficient from a similar shape (sphere, cone, etc).  </p>
+<p>Click "Save" when you are done.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%207.jpeg" data-desc-position="bottom"><img alt="stability analysis 7" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%207.jpeg"></a>
+ Select the analysis you want to run and double check your analysis is defined correctly. 
+ Set the analysis settings, and click "Analyze".  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%208.jpeg" data-desc-position="bottom"><img alt="stability analysis 8" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%208.jpeg"></a>
+ While the analysis is being performed you will see a "3D Panel Analysis" box displaying the test code. If there are no errors, the box will automatically close. In the case of errors, the box will remain open and you will need to close it manually.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%209.jpeg" data-desc-position="bottom"><img alt="stability analysis 9" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%209.jpeg"></a>
+ Feel free to look through the test code after the analysis is performed.  </p>
+<p>After the analysis is complete, save your work immediately.  </p>
+<p>To explore the analysis results, click on the analysis from the list on the left.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2010.jpeg" data-desc-position="bottom"><img alt="stability analysis 10" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2010.jpeg"></a>
+ To see specific outputs or results, click on an operating point from the analysis.  </p>
+<p>Aerodynamic, stability, and control derivatives are in the box at the bottom left.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2011.jpeg" data-desc-position="bottom"><img alt="stability analysis 11" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2011.jpeg"></a>
+ A more in-depth record of the analysis outputs can be found in the log file.  </p>
+<blockquote>
+<p>Analysis &gt; View Log File  </p>
+</blockquote>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2012.jpeg" data-desc-position="bottom"><img alt="stability analysis 12" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2012.jpeg"></a>
+ The log file contains the complete outputs at each point of the analysis such as each stability and control derivative, state matrices, and stability response modes.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2013.jpeg" data-desc-position="bottom"><img alt="stability analysis 13" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2013.jpeg"></a>
+ The analysis output tab on the bottom left shows all of the outputs for the selected point of the analysis.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2014.jpeg" data-desc-position="bottom"><img alt="stability analysis 14" src="../../../assets/user_manual_assets/xflr5%20pictures/stability%20analysis%2014.jpeg"></a></p>
+<p>*** IMPORTANT NOTE ***  In the ROSplane parameters, C_D_p is "parasitic drag", NOT drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. </p>
+<h3 id="reading-graphs">Reading Graphs<a class="headerlink" href="#reading-graphs" title="Permanent link">¶</a></h3>
+<h4 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">¶</a></h4>
+<p>On the home screen, you will see the analysis has updated. On the left you can select specific points of the analysis. In the middle you will see charts visualizing the analysis data. You can move between visualization by using the plot menu at the top.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%201.jpeg" data-desc-position="bottom"><img alt="reading graphs 1" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%201.jpeg"></a></p>
+<h4 id="oppoint-viewer">OpPoint Viewer<a class="headerlink" href="#oppoint-viewer" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%202.jpeg" data-desc-position="bottom"><img alt="reading graphs 2" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%202.jpeg"></a>
+The OpPoint viewer shows several charts that display spanwise aerodynamic data at specific points of the analysis (e.g. at specific angles of attack)  </p>
+<h4 id="polar-viewer">Polar Viewer<a class="headerlink" href="#polar-viewer" title="Permanent link">¶</a></h4>
+<p>The polar viewer shows aerodynamic trends across the whole analysis and specifically how they relate to each other (e.g. how lift coefficient relates to angle of attack)  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%203.jpeg" data-desc-position="bottom"><img alt="reading graphs 3" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%203.jpeg"></a></p>
+<h4 id="root-locus-viewer">Root Locus Viewer<a class="headerlink" href="#root-locus-viewer" title="Permanent link">¶</a></h4>
+<p>The root locus viewer shows the roots of the aircraft response to disturbances.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%204.jpeg" data-desc-position="bottom"><img alt="reading graphs 4" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%204.jpeg"></a></p>
+<h4 id="time-response-viewer">Time Response Viewer<a class="headerlink" href="#time-response-viewer" title="Permanent link">¶</a></h4>
+<p>The time response viewer shows the aircraft response to disturbances as a function of time.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%205.jpeg" data-desc-position="bottom"><img alt="reading graphs 5" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%205.jpeg"></a></p>
+<h4 id="pressure-viewer">Pressure Viewer<a class="headerlink" href="#pressure-viewer" title="Permanent link">¶</a></h4>
+<p>The pressure viewer shows the pressure distributions across the lifting surfaces of the wing at specific operating points of the analysis.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%206.jpeg" data-desc-position="bottom"><img alt="reading graphs 6" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%206.jpeg"></a></p>
+<h4 id="changing-graphs">Changing Graphs<a class="headerlink" href="#changing-graphs" title="Permanent link">¶</a></h4>
+<p>To change any of the graphs, right click on the graph, then select "Current Graph" and "Define Graph Settings". This will allow you to customize the axes and any other graph information.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%207.jpeg" data-desc-position="bottom"><img alt="reading graphs 7" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%207.jpeg"></a></p>
+<h4 id="customizing-visuals">Customizing Visuals<a class="headerlink" href="#customizing-visuals" title="Permanent link">¶</a></h4>
+<p>To change the lines on the graphs (color, weight, etc) right click on the airfoil or operating point on the list on the left then select your desired line characteristics.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%208.jpeg" data-desc-position="bottom"><img alt="reading graphs 8" src="../../../assets/user_manual_assets/xflr5%20pictures/reading%20graphs%208.jpeg"></a></p>
+<h3 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">¶</a></h3>
+<h4 id="outside-flight-envelope">Outside Flight Envelope<a class="headerlink" href="#outside-flight-envelope" title="Permanent link">¶</a></h4>
+<p>Cause: Your batch analysis includes angle of attack (α), Reynolds number (Re), or Mach number values beyond the range where data has been defined or computed for your airfoil(s).  </p>
+<p>To Fix:  </p>
+<ul>
+<li>
+<p>Go to the "Batch Analysis" settings.  </p>
+</li>
+<li>
+<p>Restrict the angle of attack and Reynolds number range to within what you've previously analyzed in the airfoil polar analysis (e.g., -5° to +15°, 50,000 ≤ Re ≤ 1,000,000).  </p>
+</li>
+<li>
+<p>Make sure your aircraft's velocity, altitude, and configuration don't push the operating point outside of what was analyzed.  </p>
+</li>
+<li>
+<p>Expand your airfoil batch analysis or restrict the plane analysis until they are both consistent.</p>
+</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/common%20errors%201.jpeg" data-desc-position="bottom"><img alt="common errors 1" src="../../../assets/user_manual_assets/xflr5%20pictures/common%20errors%201.jpeg"></a></p>
+<h4 id="cant-be-interpolated">Can't be Interpolated<a class="headerlink" href="#cant-be-interpolated" title="Permanent link">¶</a></h4>
+<p>Cause: XFLR5 failed to interpolate a value because a requested parameter (e.g., lift coefficient or moment) is between or outside available data points.  </p>
+<p>To Fix:  </p>
+<ul>
+<li>
+<p>Check that your airfoil polar data is dense enough. You might need more data points at smaller intervals in AoA or Re.  </p>
+</li>
+<li>
+<p>Re-run your airfoil analysis with finer steps, e.g., AoA from -6° to 16° in 0.5° increments.  </p>
+</li>
+<li>
+<p>Ensure matching Reynolds numbers between your airplane analysis and airfoil polar data.
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/common%20errors%202.jpeg" data-desc-position="bottom"><img alt="common errors 2" src="../../../assets/user_manual_assets/xflr5%20pictures/common%20errors%202.jpeg"></a></p>
+</li>
+</ul>
+<h4 id="negative-lift">Negative Lift<a class="headerlink" href="#negative-lift" title="Permanent link">¶</a></h4>
+<p>Cause: at the angle of attack analyzed, the airfoil does not have positive lift (it falls)  </p>
+<p>To Fix:  </p>
+<ul>
+<li>
+<p>Check the wing incidence angle and orientation in your model are correct.  </p>
+</li>
+<li>
+<p>Check that your range of tested values in your analysis are appropriate.  </p>
+</li>
+</ul>
+<p>If the above test reveal no problems, then this probably is not a problem and simply identifies an angle of attack that your aircraft cannot sustain.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/xflr5%20pictures/common%20errors%203.jpeg" data-desc-position="bottom"><img alt="common errors 3" src="../../../assets/user_manual_assets/xflr5%20pictures/common%20errors%203.jpeg"></a></p>
+<h3 id="references-list-and-helpful-links">References List and Helpful Links<a class="headerlink" href="#references-list-and-helpful-links" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://www.xflr5.tech/xflr5.htm">Xflr5 Documentation</a></li>
+<li><a href="https://aero.us.es/adesign/Slides/Extra/Aerodynamics/Software/XFLR5/XFLR5%20v6.10.02/Guidelines.pdf">Xflr5 Documentation (PDF)</a></li>
+<li><a href="https://ebrary.net/59623/engineering/analyzing_decode_with_xflr5_stability">Stability Analysis Documentation and Tutorials</a></li>
+<li><a href="https://flow5.tech/docs/flow5_doc/Tutorials/Stability.html">Stability Analysis Documentation and Tutorials (flow5)</a></li>
+<li><a href="https://www.xflr5.com/docs/XFLR5_and_Stability_analysis.pdf">Stability Analysis Documentation and Tutorials (PDF)</a></li>
+<li><a href="https://www.researchpublish.com/upload/book/Lateral%20and%20Longitudinal%20Stability%20Analysis%20of%20UAV%20Using%20Xflr5-1163.pdf">Publications Using Xflr5</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLtl5ylS6jdP6uOxzSJKPnUsvMbkmalfKg">Tutorial Videos</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2019-2025, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
