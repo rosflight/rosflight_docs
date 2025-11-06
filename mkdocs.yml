@@ -118,6 +118,8 @@ nav:
         - Path Planner: developer-guide/rosplane/navigation/path-planner.md
         - Path Manager: developer-guide/rosplane/navigation/path-manager.md
         - Path Follower: developer-guide/rosplane/navigation/path-follower.md
+    - ROScopter:
+      - Developer Guide Overview: developer-guide/roscopter/roscopter-dev-overview.md
   - Publications:
     - ROSplane: publications/rosplane.md
     - ROSflight: publications/rosflight.md
