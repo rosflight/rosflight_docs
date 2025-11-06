@@ -65,12 +65,21 @@ nav:
       - Running ROScopter in Sim: user-guide/tutorials/setting-up-roscopter-in-sim.md
       - Running ROSplane in Sim: user-guide/tutorials/setting-up-rosplane-in-sim.md
       - Tuning performance: user-guide/tutorials/tuning-performance-in-sim.md
-      - Transitioning from Sim to Hardware: 
-        - Overview: user-guide/tutorials/transitioning-from-sim-to-hardware.md
-        - Xflr5: user-guide/tutorials/user-manual-xflr5.md
-        - OpenVSP: user-guide/tutorials/user-manual-openvsp.md
-        - ROSflight Integration: user-guide/tutorials/user-manual-ROSflight-integration.md
-        - Appendix: user-guide/tutorials/user-manual-appendix.md
+      - Finding Aerodynamic Models for Simulation Integration: 
+        - Sim-to-Real Overview: user-guide/tutorials/user-manual-overview.md
+        - Fixedwings:: 
+          - Overview: user-guide/tutorials/user-manual-fixedwing-overview.md
+          - Physical Preparation for Modeling: user-guide/tutorials/user-manual-fixedwing-physical-preparation.md
+          - Modeling: 
+            - Xflr5: user-guide/tutorials/user-manual-xflr5.md
+            - OpenVSP: user-guide/tutorials/user-manual-openvsp.md
+            - Appendix: user-guide/tutorials/user-manual-appendix.md
+          - Integration into ROSflight: user-guide/tutorials/user-manual-fixedwing-integration.md
+        - Quadrotors: 
+          - Overview: user-guide/tutorials/user-manual-quadrotor-overview.md
+          - Physical Preparation for Modeling: user-guide/tutorials/user-manual-quadrotor-physical-preparation.md
+          - Modeling: user-guide/tutorials/user-manual-quadrotor-modeling.md
+          - Integration into ROSflight: user-guide/tutorials/user-manual-quadrotor-integration.md
     - Concepts:
       - Hardware and ROSflight:
         - Getting Started: user-guide/concepts/getting-started.md

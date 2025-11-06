@@ -1,0 +1,1 @@
+info on physical prep for quadrotor modeling

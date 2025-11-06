@@ -36,10 +36,11 @@ You can also download this [user manual](https://drive.google.com/file/d/10-37yC
 
 The workflow for integrating a new aircraft model into the ROSflight simulation is:
 
-1. Model your aircraft
-2. Perform aerodynamic and stability analyses 
-3. Integrate into ROSflight 
-4. Test in simulation!
+1. Obtain prerequisite dimension and inertia measurements
+2. Model your aircraft
+3. Perform aerodynamic and stability analyses 
+4. Integrate into ROSflight 
+5. Test in simulation!
 
 #### Modeling Your Aircraft and Running Aerodynamic Analyses
 
@@ -71,7 +72,7 @@ We recommend analyzing your aircraft in both tools and comparing results to obta
 
 #### ROSflight Integration 
 
-After modeling your aircraft and running the aerodynamic/stability/control analyses, follow [this guide](./user-manual-ROSflight-integration.md) to add your model to the ROSflight simulation. 
+After modeling your aircraft and running the aerodynamic/stability/control analyses, follow [this guide](./user-manual-fixedwing-integration.md) to add your model to the ROSflight simulation. 
 
 This guide contains details on the specific files and parameters you need to edit to fly your aircraft in simulation.
 
