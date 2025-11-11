@@ -2,8 +2,8 @@
 
 ## Overview
 
-The estimator is a continuous-discrete Kalman Filter, a full treatment of the filter is found in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public).
-This filter essentially works by inverting a few sensor models and then using a two stage estimation of first the attitude and then the position state values.
+The estimator is a continuous-discrete full state Kalman filter, a full treatment of the filter is found in section 8.11 of the [UAV book](https://github.com/randybeard/mavsim_public).
+Both ROSplane and ROScopter utilize the same estimator with the minor difference that there is not differential pressure sensor and wind is not estimated in the case of ROScopter. 
 This page will outline the states, their meaning and any general notes on the states.
 For a more in depth look at which states are estimated in which way visit the [Estimator Base](./estimator-base.md) and [Estimator Example](./estimator-example.md) pages.
 
@@ -18,7 +18,7 @@ The estimator takes in sensor information from `rosflight_io` computes an estima
 
 ### Input
 
-The inputs to the estimator are, accelerometer, rate gyro, barometer, differential pressure, GPS position, and GPS velocity estimates.
+The inputs to the estimator are, accelerometer, rate gyro, barometer, differential pressure, magnetometer, GPS position, and GPS velocity estimates.
 The table with the topic for each of the measures is below.
 
 | Measure | Explanation | Topic |
@@ -27,46 +27,46 @@ The table with the topic for each of the measures is below.
 | Rate Gyro | This measures the angular velocity of the aircraft around the body frame axes. | `/imu/data/angular_velocity` |
 | Barometer | The barometer measures the ambient air pressure. It is calibrated on arm to establish a "zero" altitude measurement. | `/baro/pressure` |
 | Differential Pressure | The differential pressure sensor, measures the difference in pressure using a pitot tube due to forward velocity. | `/airspeed/differential_pressure` |
-| GNSS Position | GNSS postion gives the position of the aircraft in latitude, longitude and altitude. | `/navsat_compat/fix` |
-| GNSS Velocity | GNSS velocity gives the velocity of the aircraft in meters per second in the global NED frame. | `/navsat_compat/vel` |
+| Magnetometer | Measures the intesity of the Earth's magnetic field. | `/magnetometer` |
+| GNSS Position | GNSS postion gives the position of the aircraft in latitude, longitude and altitude. | `/gnss` |
+| GNSS Velocity | GNSS velocity gives the velocity of the aircraft in meters per second in the global NED frame. | `/gnss` |
 | Status | Indicates whether the aircraft is armed (indicating a need to initialize position and altitude estimates). | `/status` |
 
 These topics provide the measures that are fused to create a state estimate.
 
-| ![Diagram of Estimator ROS IO](../../../assets/estimator_assets/estimator_ros_input_output.png "Diagram of Estimator ROS IO") |
-|:--:|
-|*Figure 1: ROS topic subscriptions and publications for the estimator.*|
-
 ## Output
 
-There are 20 states estimated by the estimator that are published to the rest of ROSplane.
-These states cover the position, orientation and aerodynamic information for the aircraft.
+There are 14 states estimated by the estimator and 17 other derived values that are published to the rest of ROSplane.
+These states cover the position, orientation velocities and other pertinent information.
 Below is a table of the `/estimated_state` message and what each of the fields represents.
-Note that there are more than 20 states listed in the following table, but this is because either Euler angles or quaternions can be used to express orientation.
-See the Frames and Derivation page for more information, or chapter 2 of the [UAV book](https://github.com/randybeard/mavsim_public).
+Core states that are directly estimated are listed first.
 
 | State | Explanation | Range/Type/Units |
 |:--:|:--:|:--:|
 | postion[3] | A 3 vector of the NED position of the aircraft. | $(-\infty , \infty)$ (float)(meters) |
-| va | The airspeed of the aircraft. Always positive because it is the magnitude. | $(0 , \infty)$ (float)(meters/second) |
-| alpha | The angle of attack of the aircraft wing. | $(-\pi, \pi)$ (float)(radians) |
-| beta | The side-slip angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
+| v_x | The velocity in the body x axis, also denoted as u. | $(-\infty, \infty)$ (float)(meters/second) |
+| v_y | The velocity in the body y axis, also denoted as v. | $(-\infty, \infty)$ (float)(meters/second) |
+| v_z | The velocity in the body z axis, also denoted as w. | $(-\infty, \infty)$ (float)(meters/second) |
 | phi | The roll angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
 | theta | The pitch angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
 | psi | The yaw angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
-| chi | The course angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
-| u | The velocity in the body x axis. | $(-\infty, \infty)$ (float)(meters/second) |
-| v | The velocity in the body y axis. | $(-\infty, \infty)$ (float)(meters/second) |
-| w | The velocity in the body z axis. | $(-\infty, \infty)$ (float)(meters/second) |
+| b_x | The bias of the gyroscope's measurements about the x-axis. | $(-\infty, \infty)$ (float)(meters/second) |
+| b_y | The bias of the gyroscope's measurements about the y-axis. | $(-\infty, \infty)$ (float)(meters/second) |
+| b_z | The bias of the gyroscope's measurements about the z-axis. | $(-\infty, \infty)$ (float)(meters/second) |
+| wn | The global north velocity of the wind. | $(-\infty , \infty)$ (float)(meters/second) |
+| we | The global east velocity of the wind. | $(-\infty , \infty)$ (float)(meters/second) |
+
+| Derived States | Explanation | Range/Type/Units |
+|:--:|:--:|:--:|
 | p | The angular velocity about the body x axis (rollrate). | $(-\infty, \infty)$ (float)(radians/second) |
 | q | The angular velocity about the body y axis (pitchrate). | $(-\infty, \infty)$ (float)(radians/second) |
 | r | The angular velocity about the body z axis (yawrate). | $(-\infty, \infty)$ (float)(radians/second) |
+| chi | The course angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
+| va | The airspeed of the aircraft. Always positive because it is the magnitude. | $(0 , \infty)$ (float)(meters/second) |
 | vg | The groundspeed of the aircraft. Always positive because it is the magnitude. | $(0 , \infty)$ (float)(meters/second) |
-| wn | The global north velocity of the wind. | $(-\infty , \infty)$ (float)(meters/second) |
-| we | The global east velocity of the wind. | $(-\infty , \infty)$ (float)(meters/second) |
-| _ | **The following entries are optional.** | _ |
+| alpha | The angle of attack of the aircraft wing. | $(-\pi, \pi)$ (float)(radians) |
+| beta | The side-slip angle of the aircraft. | $(-\pi, \pi)$ (float)(radians) |
 | quat[4] | A 4 vector of the quaternion describing the orientation. | $(-1 , 1)$ (float) |
-| quat_valid | A flag indicating whether the data in the quat entry is valid.| True/False (bool) |
 | psi_deg | The yaw angle of the aircraft in degrees. | $(-180, 180)$ (float)(degrees) |
 | chi_deg | The course angle of the aircraft in degrees. | $(-180, 180)$ (float)(degrees) |
 | init_lat | The latitude of the aircraft when first armed. | $(-90, 90)$ (float)(DDS) |
