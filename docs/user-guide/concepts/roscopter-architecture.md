@@ -8,7 +8,7 @@ It includes how to use and configure each module beyond the [ROSflight tutorials
     This guide **will not cover** installing or launching the simulation.
     Make sure to check out the [ROSflight tutorials](../tutorials/tutorial-overview.md) to set up ROScopter in simulation on your machine and launch basic waypoint missions.
 
-!!! warn
+!!! warning
 
     This guide assumes at least basic knowledge of ROS 2.
     See the [ROS 2 tutorials](https://docs.ros.org/en/jazzy/Tutorials.html) for more information.
@@ -386,8 +386,8 @@ This means that there are 4 sets of separate PID gains for each controller.
 
         The `trajectory_follower` determines if the safety pilot has control of the vehicle using the `status` message.
 
-1. Eq. (16) requires computing $\dot{\theta}$ (note this is not $q$!). The `trajectory_follower` assumes constant acceleration over the timestep to compute this derivative.
-1. Before computing $\boldsymbol{z}$ in Eq. (13), we first saturate $u_{p_3}$ to avoid instabilities near the origin for Eq. (15).
+1. Eq. (16)[^1] requires computing $\dot{\theta}$ (note this is not $q$!). The `trajectory_follower` assumes constant acceleration over the timestep to compute this derivative.
+1. Before computing $\boldsymbol{z}$ in Eq. (13)[^1], we first saturate $u_{p_3}$ to avoid instabilities near the origin for Eq. (15)[^1].
 
 !!! note
     Saturating $u_{p_3}$ is necessary to prevent poor performance when the trajectory follower tries to track large down setpoints.
@@ -398,7 +398,7 @@ This means that there are 4 sets of separate PID gains for each controller.
     $$
     where $g=9.81$ is gravity.
 
-    When $\ddot{p}^c$ approaches $+g$, then $u_{p_3}$ approaches $0$, and Eq. (15) returns large values of $\theta$ for small changes in $z_1$.
+    When $\ddot{p}^c$ approaches $+g$, then $u_{p_3}$ approaches $0$, and Eq. (15)[^1] returns large values of $\theta$ for small changes in $z_1$.
     Physically, this results in large, rapidly changing pitch commands, resulting in undesireable performance.
     Note that this can happen for large nominal (PID) controller output, but also for large feedforward input.
 
@@ -465,3 +465,124 @@ This parameter exists to help stabilize the drone as it descends.
     This is because when the vehicle descends through the prop wash, the airflow can cause instability and shaking.
 
 
+## Controller
+
+### Responsibility
+The responsibility of the `controller` is to
+
+1. produce low-level commands from high-level commands
+2. Maintain a state machine to manage autonomous takeoff
+
+### Interface with ROScopter
+The `controller` interfaces with the rest of ROScopter using publishers and subscribers.
+
+| Subscriber name | Message type | Description |
+| :--- | :--- | :--- |
+| `estimated_state` | `roscopter_msgs/State` | Estimated state for the vehicle (needs everything) |
+| `status` | `rosflight_msgs/Status` | Status message from the ROSflight firmware (needs to know when RC control is active or when the vehicle is armed) |
+| `high_level_command` | `roscopter_msgs/ControllerCommand` | Input controller command |
+
+| Publisher name | Message type | Description |
+| :--- | :--- | :--- |
+| `command` | `rosflight_msgs/Command` | Output commands to the downstream ROSflight firmware controller |
+
+To summarize, the ROScopter `controller` takes in the estimated state and high-level command setpoints and computes low-level command setpoints that are sent to the ROSflight firmware on the flight control unit.
+Note that the output command messages are sent to ROSflight firmware (on the [flight control unit](../overview.md)) via the `rosflight_io` node.
+
+### Using the `controller`/implementation details
+
+### Parameters and configuration
+The parameters associated with the `controller` are listed below.
+Parameters that have notes/special considerations are discussed below the table.
+
+| Parameter name | Parameter type | Description |
+| :--- | :--- | :--- |
+| `equilibrium_throttle` | `double` | Throttle value required to maintain hover. Between 0-1 |
+| `gravity` | `double` | Gravity in $m/s^2$ |
+| `mass` | `double` | Vehicle mass (in kg) |
+| `max_descend_accel` | `double` | Maximum descent acceleration. **Applies to the acceleration controller** |
+| `max_descend_rate` | `double` | Maximum down velocity. **Applies to the velocity PID controllers** |
+| `max_pitch_deg` | `double` | Maximum pitch angle (in degrees). **Applies to the angle PID controllers.** |
+| `max_pitch_rate_deg` | `double` | Maximum pitch rate (in degrees/sec). **Applies to the rate PID controllers.** |
+| `max_pitch_torque` | `double` | Maximum pitch torque (in N-m). **Applies to the torque controllers.** |
+| `max_roll_deg` | `double` | Maximum roll angle (in degrees). **Applies to the angle PID controllers.** |
+| `max_roll_rate_deg` | `double` | Maximum roll rate (in degrees/sec). **Applies to the rate PID controllers.** |
+| `max_roll_torque` | `double` | Maximum roll torque (in N-m). **Applies to the torque controllers.** |
+| `max_throttle` | `double` | Maximum allowed throttle setpoint. Should be between 0-1 |
+| `max_yaw_rate_deg` | `double` | Maximum yaw rate (in degrees/sec). **Applies to the rate PID controllers.** |
+| `max_yaw_torque` | `double` | Maximum yaw torque (in N-m). **Applies to the torque PID controllers.** |
+| `min_altitude_for_attitude_ctrl` | `double` | Minimum altitude before attitude control. Roll and pitch commands are zero when the vehicle is lower than this number. Helps to reduce crashes on takeoff. |
+| `min_throttle` | `double` | Minimum throttle setpoint. Should be between 0-1 |
+| `takeoff_d_pos` | `double` | Down position to achieve (in takeoff) before turning control over to the "offboard control". |
+| `takeoff_d_vel` | `double` | Down velocity during takeoff (until vehicle reaches the `takeoff_d_pos` position. |
+| `takeoff_height_threshold` | `double` | Radius (in m) that the vehicle must achieve around the `takeoff_d_pos` setpoint before the state machine considers takeoff to be complete. |
+| `takeoff_landing_pos_hold_time` | `double` | Time (in seconds) the state machine will hold before switching to offboard control (after takeoff) or landing. Holding for a brief time before switching over helps with stability. |
+| `tau` | `double` | Bandwidth of the dirty derivative (for the PID controllers). See the [ControlBook](https://github.com/byu-controlbook/controlbook_public). |
+
+!!! danger "Max/min parameters"
+    The parameters associated with max and min values (e.g. `max_descend_accel`) **only apply if the control loop associated with those parameters is run**.
+
+    For example, the `max_descend_rate` parameter is a saturation limit on the down velocity controller, meaning that the output of the down velocity controller is saturated to never be greater than this number.
+    However, if the velocity controller is not run (meaning a controller lower in [the controller chain](FIXME) is used), then the velocity controller will not run and this max velocity limit will not be respected.
+
+    Please note which control loops you are using before tuning these parameters, as some will not be used based on where you are inserting into the control chain.
+
+The `max_throttle` parameter is usually set to be lower than 1 to reserve some actuator effort for attitude control.
+The `min_throttle` parameter is usually set to a value higher than 0 to avoid the motors "shutting off" for particular maneuvers.
+
+!!! warning
+    Make sure the `mass` parameter is correct and that it is the same between all nodes (e.g. the [`trajectory_follower`)](#trajectory-follower).
+
+The following parameters are listed for completeness.
+Each of the PID control types from the [implementation details](#using-the-controllerimplementation-details) section has 3 gains associated with it.
+
+Note that the control loops that are used depends on where the high-level command setpoints are inserted into the controller chain.
+Thus, not all of the PID gains below will need to be tuned when using ROScopter.
+Make sure to check which gains are used based on where you are inserting command setpoints.
+
+| Parameter name | Parameter type |
+| :--- | :--- |
+| `pitch_rate_to_torque_kd` | `double` |
+| `pitch_rate_to_torque_ki` | `double` |
+| `pitch_rate_to_torque_kp` | `double` |
+| `pitch_to_torque_kd` | `double` |
+| `pitch_to_torque_ki` | `double` |
+| `pitch_to_torque_kp`  | `double` |
+| `pos_d_to_vel_kd` | `double` |
+| `pos_d_to_vel_ki` | `double` |
+| `pos_d_to_vel_kp` | `double` |
+| `pos_e_to_vel_kd` | `double` |
+| `pos_e_to_vel_ki` | `double` |
+| `pos_e_to_vel_kp` | `double` |
+| `pos_n_to_vel_kd` | `double` |
+| `pos_n_to_vel_ki` | `double` |
+| `pos_n_to_vel_kp` | `double` |
+| `roll_rate_to_torque_kd` | `double` |
+| `roll_rate_to_torque_ki` | `double` |
+| `roll_rate_to_torque_kp` | `double` |
+| `roll_to_torque_kd` | `double` |
+| `roll_to_torque_ki` | `double` |
+| `roll_to_torque_kp` | `double` |
+| `vel_d_to_accel_kd` | `double` |
+| `vel_d_to_accel_ki` | `double` |
+| `vel_d_to_accel_kp` | `double` |
+| `vel_e_to_accel_kd` | `double` |
+| `vel_e_to_accel_ki` | `double` |
+| `vel_e_to_accel_kp` | `double` |
+| `vel_n_to_accel_kd` | `double` |
+| `vel_n_to_accel_ki` | `double` |
+| `vel_n_to_accel_kp` | `double` |
+| `yaw_rate_to_torque_kd` | `double` |
+| `yaw_rate_to_torque_ki` | `double` |
+| `yaw_rate_to_torque_kp` | `double` |
+| `yaw_to_rate_kd` | `double` | 
+| `yaw_to_rate_ki` | `double` | 
+| `yaw_to_rate_kp` | `double` | 
+| `yaw_to_torque_kd` | `double` |
+| `yaw_to_torque_ki` | `double` |
+| `yaw_to_torque_kp` | `double` |
+
+!!! note
+    Each PID gain is named according to what it takes in and what it returns.
+
+    For example, the derivative gain for the PID loop that takes in position commands and returns velocity commands in the down direction is called `pos_d_to_vel_kd`.
