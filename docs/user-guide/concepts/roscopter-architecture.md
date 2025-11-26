@@ -325,14 +325,14 @@ The `hold_last` parameter determines whether or not the `path_manager` will hold
 If this is set to `false`, then the `path_manager` will repeatedly cycle through the waypoints once it reaches the last one.
 
 The `path_update_frequency` parameter determines how often the `path_manager` publishes the trajectory commands.
-Setting this rate does **not** determine how fast the trajectory setpoints interpolate between waypoints (see the [implementation details](#using-the-pathmanagerimplementation-details)).
+Setting this rate does **not** determine how fast the trajectory setpoints interpolate between waypoints (see the [implementation details](#using-the-path_managerimplementation-details)).
 Settings this to a high value just increases the frequency commands are published.
 
 The last two parameters, `max_acceleration` and `max_velocity` are user-defined parameters that are **highly vehicle-specific**.
 These two parameters determine the total time a given waypoint leg will take.
 The `max_acceleration` parameter limits the acceleration computed by the `path_manager`.
 The `max_velocity` parameter limits the velocity computed by the `path_manager`.
-See the [implementation details](#using-the-pathmanagerimplementation-details) for more information on how they are used/defined.
+See the [implementation details](#using-the-path_managerimplementation-details) for more information on how they are used/defined.
 
 ## Trajectory Follower
 ### Responsibility
@@ -429,7 +429,7 @@ The parameters associated with the `trajectory_follower` are
 | `down_command_window` | `double` | If input down command to down controller is larger than this parameter, input command gets saturated to this value. |
 | `gravity` | `double` | Gravity in $m/s^2$ |
 | `mass` | `double` | Mass of the system in kg |
-| `max_commanded_down_accel_in_gs` | `double` | Maximum down acceleration the `trajectory_follower` can command (in $g$'s). See the [implementation details](#using-the-trajectoryfollowerimplementation-details). |
+| `max_commanded_down_accel_in_gs` | `double` | Maximum down acceleration the `trajectory_follower` can command (in $g$'s). See the [implementation details](#using-the-trajectory_followerimplementation-details). |
 | `tau` | `double` | Bandwidth of the dirty derivative (for the PID controllers). See the [ControlBook](https://github.com/byu-controlbook/controlbook_public). |
 | `u_n_kp` | `double` | $k_p$ gain for the north PID controller |
 | `u_n_ki` | `double` | $k_i$ gain for the north PID controller |
@@ -450,7 +450,7 @@ The parameters associated with the `trajectory_follower` are
 
     Make sure the `mass` parameter is the same between all other nodes.
 
-As described in the [implementation details section](#using-the-trajectoryfollowerimplementation-details), there are 4 PID controllers, one for north, east, down position, and one for yaw to yaw-rate.
+As described in the [implementation details section](#using-the-trajectory_followerimplementation-details), there are 4 PID controllers, one for north, east, down position, and one for yaw to yaw-rate.
 Each controller has a set of PID gains associated with it, and each should be tuned separately.
 
 !!! tip
@@ -490,6 +490,69 @@ To summarize, the ROScopter `controller` takes in the estimated state and high-l
 Note that the output command messages are sent to ROSflight firmware (on the [flight control unit](../overview.md)) via the `rosflight_io` node.
 
 ### Using the `controller`/implementation details
+Many different control schemes exist for multirotor vehicles.
+Since application code (e.g. that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.
+
+| ![ROScopter cascaded architecture](../images/roscopter_and_firmware_controllers.png) |
+| :---: |
+| Diagram of the ROScopter controller architecture and how the cascaded controller chain interacts with the ROSflight firmware controller |
+
+The above figure shows the cascaded architecture of the ROScopter controller.
+In this diagram, the arrows represent how one controller output feeds into the next controller's input, all the way down to one of three basic control types.
+For example, if the user passes control setpoints corresponding to Controller 0 (inertial-frame north, east, down position and yaw commands), Controller 0 converts them to Controller 3 inputs, which then converts to Controller 2 inputs, and so on.
+
+The following table describes the inputs to each type of controller.
+
+| Number | Name | Description of reference commands |
+| :--- | :--- | :--- |
+| 0  | NED-Pos Yaw | Inertial north, east, down (NED) positions and yaw |
+| 1  | NE-Vel D-Pos YawR | Inertial N-E velocities, D position, and yaw rate |
+| 2  | NED-Accel YawR | Vehicle-1 frame[^2] accelerations and yaw rate |
+| 3  | NED-Vel YawR | Inertial NED velocities and yaw rate |
+| 4  | NE-Pos D-Vel Yaw | Inertial N-E velocities and yaw |
+| 5  | Roll Pitch Yaw Throttle | Roll, pitch, yaw, and throttle |
+| 6  | Roll Pitch YawR Throttle | Roll, pitch, yaw rate, and throttle |
+| 7  | RollR PitchR YawR Throttle | Roll rate, pitch rate, yaw rate, throttle |
+| 8  | Pass-through | Pass-through to ROSflight firmware mixer |
+| 9 | Roll Pitch Yaw Thrust | Roll, pitch, yaw, and thrust to pass-through |
+| 10 | Roll Pitch YawR Thrust | Roll, pitch, yaw rate, and thrust to pass-through |
+| 11 | RollR PitchR YawR Thrust | Roll rate, pitch rate, yaw rate, and thrust to pass-through |
+
+[^2]: R. W. Beard and T. W. McLain, *Small Unmanned Aircraft: Theory and Practice*, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.
+
+The `controller`'s cascaded architecture allows users to "insert" control commands at many different levels, depending on the needs of their application code.
+Each insertion point thus produces a different *controller chain*.
+
+!!! note
+    We'll call the sequence of controllers used as a *controller chain*.
+
+    For example, inserting at Controller 4 would have the controller chain of Controller 4 -> Controller 3 -> Controller 2 -> Controller 6.
+
+Each insertion point is chosen via the `mode` field in the `roscopter_msgs/ControllerCommand` message.
+Thus, each ROS 2 message determines which controller it inserts at.
+This means that different control insertion points can be chosen at runtime, and can be mixed and matched throughout the flight.
+
+!!! example "Using different controller chains during a flight"
+    Since the insertion points are chosen via the `mode` field in each ROS 2 message sent to the `controller`, controller chains can be mixed and matched throughout the flight.
+
+    For example, in the default implementation of ROScopter, the `controller` inserts commands at Controller 4 during takeoff and Controller 10 during the other portions of the flight.
+
+As seen in the above ROScopter `controller` diagram, the output of the `controller` node is sent directly to the ROSflight firmware via the `rosflight_io` node (note that the `rosflight_io` node is not shown in the diagram).
+The output of all controller chains needs to be one of the modes that the firmware controller can accept.
+Thus, the output of the ROScopter controller is one of the following output types:
+$$
+    u_\text{angle} = [\phi^d, \theta^d, r^d, \delta_t^d]^T
+$$
+$$
+    u_\text{rate} = [p^d, q^d, r^d, \delta_t^d]^T
+$$
+$$
+    u_\text{pass-through} = [Q_x^d, Q_y^d, Q_z^d, T_z^d]^T
+$$
+where $\phi$, $\theta$, and $\psi$ are roll, pitch, and yaw commands, $p$, $q$, $r$ are roll rate, pitch rate, and yaw rate, and $\delta_t \in [0,1]$ is the throttle setpoint.
+$Q$ and $T$ are the body-frame torques and forces, respectively.
+
+TODO: Continue here with the Controller state machine.
 
 ### Parameters and configuration
 The parameters associated with the `controller` are listed below.
@@ -540,47 +603,23 @@ Note that the control loops that are used depends on where the high-level comman
 Thus, not all of the PID gains below will need to be tuned when using ROScopter.
 Make sure to check which gains are used based on where you are inserting command setpoints.
 
-| Parameter name | Parameter type |
-| :--- | :--- |
-| `pitch_rate_to_torque_kd` | `double` |
-| `pitch_rate_to_torque_ki` | `double` |
-| `pitch_rate_to_torque_kp` | `double` |
-| `pitch_to_torque_kd` | `double` |
-| `pitch_to_torque_ki` | `double` |
-| `pitch_to_torque_kp`  | `double` |
-| `pos_d_to_vel_kd` | `double` |
-| `pos_d_to_vel_ki` | `double` |
-| `pos_d_to_vel_kp` | `double` |
-| `pos_e_to_vel_kd` | `double` |
-| `pos_e_to_vel_ki` | `double` |
-| `pos_e_to_vel_kp` | `double` |
-| `pos_n_to_vel_kd` | `double` |
-| `pos_n_to_vel_ki` | `double` |
-| `pos_n_to_vel_kp` | `double` |
-| `roll_rate_to_torque_kd` | `double` |
-| `roll_rate_to_torque_ki` | `double` |
-| `roll_rate_to_torque_kp` | `double` |
-| `roll_to_torque_kd` | `double` |
-| `roll_to_torque_ki` | `double` |
-| `roll_to_torque_kp` | `double` |
-| `vel_d_to_accel_kd` | `double` |
-| `vel_d_to_accel_ki` | `double` |
-| `vel_d_to_accel_kp` | `double` |
-| `vel_e_to_accel_kd` | `double` |
-| `vel_e_to_accel_ki` | `double` |
-| `vel_e_to_accel_kp` | `double` |
-| `vel_n_to_accel_kd` | `double` |
-| `vel_n_to_accel_ki` | `double` |
-| `vel_n_to_accel_kp` | `double` |
-| `yaw_rate_to_torque_kd` | `double` |
-| `yaw_rate_to_torque_ki` | `double` |
-| `yaw_rate_to_torque_kp` | `double` |
-| `yaw_to_rate_kd` | `double` | 
-| `yaw_to_rate_ki` | `double` | 
-| `yaw_to_rate_kp` | `double` | 
-| `yaw_to_torque_kd` | `double` |
-| `yaw_to_torque_ki` | `double` |
-| `yaw_to_torque_kp` | `double` |
+| | Parameter name | Parameter name | Parameter name |
+| :--- | :--- | :--- | :--- |
+| **Rate to torque** | `pitch_rate_to_torque_kd` | `roll_rate_to_torque_kd` | `yaw_rate_to_torque_kd` |
+| | `pitch_rate_to_torque_ki` | `roll_rate_to_torque_ki` | `yaw_rate_to_torque_ki` |
+| | `pitch_rate_to_torque_kp` | `roll_rate_to_torque_kp` | `yaw_rate_to_torque_kp` |
+| **Angle to torque** | `pitch_to_torque_kd` |  `roll_to_torque_kd` | `yaw_to_torque_kd` |
+| | `pitch_to_torque_ki` |  `roll_to_torque_ki` | `yaw_to_torque_ki` |
+| | `pitch_to_torque_kp` |  `roll_to_torque_kp` | `yaw_to_torque_kp` |
+| **Position to velocity** | `pos_n_to_vel_kd` | `pos_d_to_vel_kd` | `pos_e_to_vel_kd` |
+| | `pos_n_to_vel_ki` | `pos_d_to_vel_ki` | `pos_e_to_vel_ki` |
+| | `pos_n_to_vel_kp` | `pos_d_to_vel_kp` | `pos_e_to_vel_kp` |
+| **Velocity to acceleration** | `vel_d_to_accel_kd` | `vel_e_to_accel_kd` | `vel_n_to_accel_kd` |
+| | `vel_d_to_accel_ki` | `vel_e_to_accel_ki` | `vel_n_to_accel_ki` |
+| | `vel_d_to_accel_kp` | `vel_e_to_accel_kp` | `vel_n_to_accel_kp` |
+| **Yaw to yaw rate** | `yaw_to_rate_kd` | | |
+| | `yaw_to_rate_ki` | | |
+| | `yaw_to_rate_kp` | | |
 
 !!! note
     Each PID gain is named according to what it takes in and what it returns.
