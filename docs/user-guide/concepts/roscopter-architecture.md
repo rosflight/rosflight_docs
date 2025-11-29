@@ -491,7 +491,7 @@ Note that the output command messages are sent to ROSflight firmware (on the [fl
 
 ### Using the `controller`/implementation details
 Many different control schemes exist for multirotor vehicles.
-Since application code (e.g. that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.
+Since application code (i.e. code that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.
 
 | ![ROScopter cascaded architecture](../images/roscopter_and_firmware_controllers.png) |
 | :---: |
@@ -530,7 +530,7 @@ Each insertion point thus produces a different *controller chain*.
 
 Each insertion point is chosen via the `mode` field in the `roscopter_msgs/ControllerCommand` message.
 Thus, each ROS 2 message determines which controller it inserts at.
-This means that different control insertion points can be chosen at runtime, and can be mixed and matched throughout the flight.
+This means that different controller chains can be chosen at runtime, and can be mixed and matched throughout the flight.
 
 !!! example "Using different controller chains during a flight"
     Since the insertion points are chosen via the `mode` field in each ROS 2 message sent to the `controller`, controller chains can be mixed and matched throughout the flight.
@@ -552,7 +552,28 @@ $$
 where $\phi$, $\theta$, and $\psi$ are roll, pitch, and yaw commands, $p$, $q$, $r$ are roll rate, pitch rate, and yaw rate, and $\delta_t \in [0,1]$ is the throttle setpoint.
 $Q$ and $T$ are the body-frame torques and forces, respectively.
 
-TODO: Continue here with the Controller state machine.
+#### Controller State Machine
+The `controller` node also has a simple state machine to manage safe takeoff and landing.
+
+| ![ROScopter controller state machine](../images/roscopter_state_machine.svg) |
+| :---: |
+| Diagram of the `controller`'s state machine.
+
+The `controller` state machine starts in the disarmed state until the user arms the vehicle.
+Additionally, the state machine requires a valid command setpoint sent to the `high_level_command` topic.
+This is determined by the `cmd_valid` field in the `roscopter_msgs/ControllerCommand` message definition.
+
+The state machine then transitions to takeoff mode, where the vehicle will climb at a constant velocity until it reaches a particular height.
+Once the vehicle reaches the desired height (within a given threshold), takeoff is considered complete and the vehicle transitions to position hold mode.
+
+After a brief pause in position hold mode, the vehicle then enters "offboard control" mode, which means that the controller will output control commands to track the commands on the `high_level_command` topic.
+
+During the takeoff and position hold states, the commands sent to the `high_level_command` topic are overridden.
+This ensures that the vehicle is at a safe height before attempting to follow any path commands.
+Note that if the `cmd_valid` field is set to `false` in messages from the `high_level_command` topic, then the offboard control state will transition to position hold.
+
+The behavior of the state machine can be configured via [the `controller`'s parameters](#parameters-and-configuration).
+This includes the takeoff down velocity, the height the controller will climb to, the threshold that the state machine considers the takeoff waypoint complete, and the time that the state machine will spend in takeoff before transitioning to offboard control mode.
 
 ### Parameters and configuration
 The parameters associated with the `controller` are listed below.
