@@ -1,7 +1,7 @@
 # ROScopter Architecture
 
 This guide describes in detail each module in the default ROScopter autopilot stack.
-It includes how to use and configure each module beyond the [ROSflight tutorials](../tutorials/tutorial-overview.md).
+It includes how to use and configure each module beyond what is in the [ROSflight tutorials](../tutorials/tutorial-overview.md).
 
 !!! tip "Getting started with ROScopter?"
 
@@ -607,7 +607,7 @@ Parameters that have notes/special considerations are discussed below the table.
     The parameters associated with max and min values (e.g. `max_descend_accel`) **only apply if the control loop associated with those parameters is run**.
 
     For example, the `max_descend_rate` parameter is a saturation limit on the down velocity controller, meaning that the output of the down velocity controller is saturated to never be greater than this number.
-    However, if the velocity controller is not run (meaning a controller lower in [the controller chain](FIXME) is used), then the velocity controller will not run and this max velocity limit will not be respected.
+    However, if the velocity controller is not run (meaning a controller lower in [the controller chain](#using-the-controllerimplementation-details) is used), then the velocity controller will not run and this max velocity limit will not be respected.
 
     Please note which control loops you are using before tuning these parameters, as some will not be used based on where you are inserting into the control chain.
 

@@ -30,11 +30,12 @@ This can improve research productivity, decrease debugging time, and improve the
 The ROScopter autopilot allows users to fly waypoint missions with an RC safety pilot.
 These waypoints are defined by desired 3-D locations and a desired heading.
 The simplicity of this framework allows users to add their own autonomy stacks or mission requirements on top of the ROScopter stack.
-See [the ROScopter autonomy stack documentation](./roscopter-architecture.md) for a detailed description of the default functionality and description of each module.
 
 For example, the `path_planner` module in the ROScopter navigation stack is responsible for compiling high-level waypoints and sending them to the `path_manager`.
 The `path_planner` by default just takes in user-defined waypoints.
 Instead of loading these user-defined waypoints, higher levels of autonomy (i.e., vision-based guidance, etc.) could be accommodated by building on top of the ROScopter stack by dynamically feeding the `path_planner` waypoints.
+
+See [the ROScopter autonomy stack documentation](./roscopter-architecture.md) for a detailed description of the default functionality and description of each module.
 
 ## Using ROScopter as-is
 
@@ -49,5 +50,5 @@ A detailed description of the ROScopter autonomy stack and each module is found 
 ROScopter's default functionality may not be sufficient for many users.
 Because of this, ROScopter has been designed to be understandable, modular, and customizable.
 
-The [Customizing ROScopter page](./customizing-roscopter.md) describes how ROScopter is meant to be modified to assist in your research.
+The [customizing ROScopter page](./customizing-roscopter.md) describes how ROScopter is meant to be modified to assist in your research.
 The page also includes examples and scenarios where each node can be modified, removed, or combined to accomplish different tasks.
