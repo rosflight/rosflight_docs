@@ -73,7 +73,7 @@ A planned path can be modified using the following service calls:
 
 | Service name | Interface type | Description |
 | :--- | :--- | :--- |
-| `/add_waypoint` | `roscotper_msgs/AddWaypoint` | Add a single waypoint to the planned path |
+| `/add_waypoint` | `roscopter_msgs/AddWaypoint` | Add a single waypoint to the planned path |
 | `/clear_waypoints` | `std_srvs/Trigger` | Clear all waypoints from the planned path |
 | `/load_mission_from_file` | `rosflight_msgs/ParamFile` | Clear all waypoints and load a new plan from a file |
 | `/print_waypoints` | `std_srvs/Trigger` | Print all waypoints in the plan to the screen |
