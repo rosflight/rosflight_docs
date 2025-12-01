@@ -1,6 +1,6 @@
 # Autonomous Flight
 
-To perform autonomous flight with ROSflight, we need to send control commands from our companion computer to the firmware. This can be done with ROSplane or ROScopter, which already have completed autonomy stacks developed specifically for ROSflight. We recommend starting with one of these autonomy stacks and building on them to suit your needs. If using a multirotor, follow the [ROScopter setup guide](roscopter-setup.md) to get started. If using a fixed-wing, follow the [ROSplane setup guide](rosplane-setup.md).
+To perform autonomous flight with ROSflight, we need to send control commands from our companion computer to the firmware. This can be done with ROSplane or ROScopter, which already have completed autonomy stacks developed specifically for ROSflight. We recommend starting with one of these autonomy stacks and building on them to suit your needs. If using a multirotor, follow the [ROScopter setup guide](roscopter-overview.md) to get started. If using a fixed-wing, follow the [ROSplane setup guide](rosplane-setup.md).
 
 However, ROSplane and ROScopter are optional and an entirely different autonomy stack can be used if desired. To use a different autonomy stack, follow this guide.
 

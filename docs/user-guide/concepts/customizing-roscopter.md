@@ -15,8 +15,6 @@ We also give some examples of how ROScopter could be modified.
     This page will not go over the ROScopter architecture, but we do reference it.
     Please see the [ROScopter architecture documentation](./roscopter-architecture.md) for a description of each module before reading through this page.
 
-## Intended workflow for ROScopter
-
 ## Modifying a single node
 
 ### Dependency on ROS 2
@@ -53,7 +51,7 @@ For example, any C++ node could be replaced by a Python node---as long as the RO
 
 Additionally, each module in ROScopter has a single responsibility, further removing dependencies between modules and functionality in ROScopter.
 
-!!! example "Replacing a core ROScopter node - Example 3"
+!!! example "Replacing a core ROScopter node - Single responsibility principle"
     A researcher interested in state estimation wants to use ROScopter.
 
     Since the researcher only wants to test new state estimation algorithms, the `controller`, `path_manager`, `path_planner`, or `trajectory_follower` modules do not need to be modified.
@@ -62,9 +60,41 @@ Additionally, each module in ROScopter has a single responsibility, further remo
 ### Inheritance pattern
 Each module in ROScopter has been designed with an inheritance pattern and is written in C++.
 The base class is an abstract class and defines the ROS 2 interfaces for the node and declares *work* functions for the node.
-These *work* functions are where the node does its "work" like estimating the state for the `estimtor` or creating a trajectory for the `path_manager`.
+These *work* functions are where the node does its job, like estimating the state for the `estimator` or creating a trajectory for the `path_manager`.
 They are declared as pure virtual functions and thus must be implemented by a derived class.
 
 This inheritance pattern reduces boilerplate code (i.e. rewriting the ROS 2 interfaces) for users.
 
+Implementing custom code in ROScopter can be done by subclassing/inheriting from the interface class and implementing the custom functionality.
+
 ## Modifying groups of nodes
+In some cases, application code can take the place of several core ROScopter nodes.
+The procedure for replacing groups of nodes in ROScopter is the same as it is to replace a single node.
+As long as the ROS 2 interfaces remain the same between the other core ROScopter nodes, the new node will interface seamlessly with the rest of ROScopter.
+
+The linear, cascaded flow of information through ROScopter makes this easy.
+Modules typically only depend on output from the module just above, so changes to upstream modules don't affect how downstream modules are implemented.
+
+!!! example "Replacing a group of nodes"
+    A researcher studying spline-based path planning wants to use ROScopter.
+    The new spline-based planning approach takes in information about the enviroment (i.e. obstacles, start and end locations, etc.) and outputs trajectory commands.
+
+    This new code replaces the functionality provided by the core ROScopter navigation stack (the `path_planner` and `path_manager`).
+    The researcher can therefore replace both the `path_planner` and the `path_manager` with the new spline-based controller.
+    The new node just needs to output trajectory commands to the `trajectory_follower` as the `path_manager` does.
+
+## Intended workflow for ROScopter
+When using ROScopter, users should first determine which core ROScopter nodes will be replaced by the new application code.
+Depending on the application, a single node or a group of nodes may need to be modified as described above.
+Some applications may not need to modify any core ROScopter nodes.
+
+After determining which core nodes to modify/replace, the application code should be tested in ROSflight sim.
+Note that the simulation makes assumptions about the vehicle's mass, size, inertia matrix, etc.
+These values are based off a real quadcopter (the Holybro x650 frame), so they are somewhat realistic.
+If hardware experiments will not be done, these parameters will likely work just fine.
+
+If hardware experiments will be performed, then users should set these values appropriately in ROSflight sim and also in each of the ROScopter nodes (many ROScopter nodes need to know about the mass of the vehicle).
+This helps ease the transition from sim to real tests.
+
+Remember that ROScopter runs entirely on the companion computer, so no software changes are necessary when transitioning from simulation to hardware.
+
