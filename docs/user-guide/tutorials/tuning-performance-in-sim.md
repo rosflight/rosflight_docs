@@ -89,7 +89,7 @@ ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 
 # Terminal 3: Run ROScopter controller
 cd /path/to/rosflight_ws/src/roscopter/roscopter/params
-ros2 launch roscopter controller --ros-args --params-file $(pwd)/multirotor.yaml
+ros2 run roscopter controller --ros-args --params-file $(pwd)/multirotor.yaml
 
 # Terminal 4: Run the sim state transcriber node
 ros2 run roscopter_sim sim_state_transcriber
@@ -116,7 +116,7 @@ We'll use it to plot data live as we send control commands to the vehicle.
 Launching PlotJuggler:
 ```bash
 # Install PlotJuggler if not already installed
-sudo apt install ros-humble-plotjuggler-ros
+sudo apt install ros-<ros-distro>-plotjuggler-ros
 
 # Launch PlotJuggler
 ros2 run plotjuggler plotjuggler

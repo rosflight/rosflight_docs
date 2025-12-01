@@ -23,10 +23,10 @@ Unsuprisingly, [ROS2](https://docs.ros.org/en/humble/index.html) is a required d
 You can do this with a native installation of ROS2 or by following the [ROSflight Docker guide](./using-docker-with-rosflight.md).
 To install ROS2 natively, check out the official [ROS2 Installation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) page for details.
 
-If you don't plan to run simulations or GUI applications on your companion computer, `ros-humble-ros-base` can be used instead of `ros-humble-desktop`.
+If you don't plan to run simulations or GUI applications on your companion computer, `ros-<ros-distro>-ros-base` can be used instead of `ros-<ros-distro>-desktop`.
 
 !!! note
-    ROSflight currently officially supports only **ROS2 Humble**, running on Ubuntu 22.04.
+    ROSflight currently officially supports only LTS versions of ROS2, so **ROS2 Humble** running on Ubuntu 22.04 or **ROS2 Jazzy** running on Ubuntu 24.04.
     If you want to run a different version of ROS2, some of the below instructions may not work.
     [ROS2 Rolling](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debians.html) is not fixed-release and is therefore not officially supported. 
 
@@ -64,7 +64,7 @@ git clone https://github.com/rosflight/rosplane
     !!! warning
         Make sure you have properly sourced [the ROS2 environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html) in the terminal you are working in, or the `rosdep` and `colcon` commands will fail.
         ```bash
-        source /opt/ros/humble/setup.bash
+        source /opt/ros/<ros-distro>/setup.bash
         ```
     
     ```bash
@@ -106,7 +106,8 @@ colcon build
 1. Add the source files to your `.bashrc` (so you don't have to source the files every time you open a terminal):
     ```bash
     # add the sourcing commands to your .bashrc. Replace bash with zsh if using zsh.
-    echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
+    # Replace <ros-distro> with your ROS2 distribution
+    echo "source /opt/ros/<ros-distro>/setup.bash" >> $HOME/.bashrc
     echo "source /path/to/rosflight_ws/install/setup.bash" >> $HOME/.bashrc
     ```
     Make sure to close your current terminal and open a new one after adding these commands to your `.bashrc` file.

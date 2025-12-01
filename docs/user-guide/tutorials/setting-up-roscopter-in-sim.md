@@ -229,7 +229,7 @@ ros2 service call /path_planner/clear_waypoints std_srvs/srv/Trigger
 The structure of the `wp` field in the `roscopter_msgs/srv/AddWaypoint` service is the same as described above.
 The structure of the service can be seen using:
 ```bash
-ros2 interface show roscopter_msgs/srv/AddWayoint
+ros2 interface show roscopter_msgs/srv/AddWaypoint
 ```
 which will output:
 ```bash
