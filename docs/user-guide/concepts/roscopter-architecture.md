@@ -100,10 +100,10 @@ See the `roscopter_msgs/AddWaypoint` interface definition to see what informatio
 #### Clear waypoints
 This service clears all waypoints from the planned path.
 
-Under the hood, this service call publishes a new waypoint that sets the `clear_waypoints` field to true.
+Under the hood, this service call publishes a new waypoint that sets the `clear_wp_list` field to true (see the `roscopter_msgs/msg/Waypoint` message definition).
 It is the responsibility of any node subscribing to the waypoints to clear any internal list of waypoints.
 For example, in order to function properly, both the `path_manager` and the ROScopter ground control station (GCS) maintain internal lists of what waypoints have been published.
-These nodes need to clear the internal storage of the waypoints when the `path_planner` publishes a waypoint with the `clear_waypoints` field set true.
+These nodes need to clear the internal storage of the waypoints when the `path_planner` publishes a waypoint with the `clear_wp_list` field set true.
 
 #### Load mission from file
 This service loads a mission file to the `path_planner`.
@@ -130,10 +130,6 @@ The responsibility of the ROScopter `path_manager` is:
 1. Take waypoints published by the [`path_planner`](#path-planner) and produce a trajectory between waypoints, and
 2. Monitor waypoint completion/switching to the next leg. 
 
-!!! note
-
-    In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission
-
 ### Interface with ROScopter
 The `path_manager` interfaces with the rest of ROScopter using publishers and subscribers.
 
@@ -149,6 +145,9 @@ The `path_manager` interfaces with the rest of ROScopter using publishers and su
 To summarize, the `path_manager` takes in waypoints (from the `path_planner`) and the estimated state (from the `estimator`) and computes a desired trajectory, which it publishes on the `trajectory_command` topic.
 
 ### Using the `path_manager`/implementation details
+!!! note
+
+    In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission
 
 Given a set of waypoints and the position of the vehicle, the `path_manager` needs to compute a trajectory to get from one waypoint to the next.
 We would like trajectory setpoints $u_\text{traj}$ of the form
@@ -288,6 +287,12 @@ The `path_manager` offers the following service servers:
 | `clear_waypoints` | `std_srvs/Trigger` | Clears the waypoints internal to the `path_manager` |
 | `print_waypoints` | `std_srvs/Trigger` | Prints all waypoints received to the terminal |
 
+
+!!! note "Clearing waypoints"
+    As described in the [`path_planner`](#clear-waypoints) section, when the `path_planner` publishes a message with the `clear_wp_list` set true, the `path_manager` internally clears its waypoints.
+    This does the same thing as the `clear_waypoints` service call.
+
+    Thus, there is **no need** to publish a waypoint with `clear_wp_list=true` and call the `clear_waypoints` service.
 
 !!! danger
 
