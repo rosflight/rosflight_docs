@@ -142,17 +142,18 @@ You can see this in the `rqt_graph` image (by running `rqt_graph` in a new termi
 
 ![ROScopter RQT graph](../images/roscopter_rqt.png)
 
-### Launch Ground Control Station
+### Publish waypoints to RViz
 
-The ground control station will plot waypoints that we pass to ROScopter.
-It can be helpful to launch this so we can see if ROScopter is actually doing what we want it to do.
+The ROScopter ground control station package (`roscopter_gcs`) has some useful executables to visualize waypoints in RViz.
+The `roscopter_gcs` package was designed so that it can be used out in the field (in other words, it doesn't depend on `rosflight_sim`).
+It can be helpful to run this so we can see if ROScopter is actually doing what we want it to do.
 
 ```bash
 # In a new terminal (source workspace first)
-ros2 launch roscopter_gcs rosplane_gcs.launch.py
+ros2 run roscopter_gcs rviz_waypoint_publisher
 ```
 
-This will launch another instance of RViz that will display different information than the main simulation pane.
+This node will subscribe to all of the waypoints published by the ROScopter `path_planner`, and will publish them to RViz.
 
 ## Loading Missions
 
@@ -259,7 +260,7 @@ string message
 
 ### Verify Mission Loading
 
-You can check that the waypoints are loaded by looking at the `roscopter_gcs` RViz GUI.
+If you ran the [ROScopter GCS `rviz_waypoint_publisher` node](#publish-waypoints-to-rviz), you can check that the waypoints are loaded by looking at the RViz GUI.
 You should see something like:
 
 ![ROScopter GCS](../images/roscopter_gcs.png)
