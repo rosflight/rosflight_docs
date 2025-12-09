@@ -498,7 +498,7 @@ Note that the output command messages are sent to ROSflight firmware (on the [fl
 Many different control schemes exist for multirotor vehicles.
 Since application code (i.e. code that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.
 
-| ![ROScopter cascaded architecture](../images/roscopter_and_firmware_controllers.png) |
+| ![ROScopter cascaded architecture](../images/roscopter_and_firmware_controllers.svg) |
 | :---: |
 | Diagram of the ROScopter controller architecture and how the cascaded controller chain interacts with the ROSflight firmware controller |
 
@@ -512,7 +512,7 @@ The following table describes the inputs to each type of controller.
 | :--- | :--- | :--- |
 | 0  | NED-Pos Yaw | Inertial north, east, down (NED) positions and yaw |
 | 1  | NE-Vel D-Pos YawR | Inertial N-E velocities, D position, and yaw rate |
-| 2  | NED-Accel YawR | Vehicle-1 frame[^2] accelerations and yaw rate |
+| 2  | FRD-Accel YawR | Vehicle-1 frame[^2] (labeled front-right-down) accelerations and yaw rate |
 | 3  | NED-Vel YawR | Inertial NED velocities and yaw rate |
 | 4  | NE-Pos D-Vel Yaw | Inertial N-E velocities and yaw |
 | 5  | Roll Pitch Yaw Throttle | Roll, pitch, yaw, and throttle |
@@ -524,6 +524,17 @@ The following table describes the inputs to each type of controller.
 | 11 | RollR PitchR YawR Thrust | Roll rate, pitch rate, yaw rate, and thrust to pass-through |
 
 [^2]: R. W. Beard and T. W. McLain, *Small Unmanned Aircraft: Theory and Practice*, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.
+
+!!! danger "Reference frames"
+    Knowing which reference frame you are sending commands in is essential for safe operation.
+    The `NED` frame in the table refers to the **inertial** north, east, and down reference frame.
+
+    Thus, if I send commands to the controller 1 entrypoint, I am sending inertial north and east velocities and inertial down position, **regardless of how the aircraft is oriented**.
+
+    Accelerations (controller 2), however, are in the **vehicle 1** frame[^2], which we call the FRD (front-right-down) frame in the above table.
+    Because it is the vehicle 1 frame, front means whichever direction the vehicle is facing (but not that it does not matter how the vehicle is pitched or rolled).
+
+    All of the roll, pitch, and yaw commands are defined in their usual reference frames.
 
 The `controller`'s cascaded architecture allows users to "insert" control commands at many different levels, depending on the needs of their application code.
 Each insertion point thus produces a different *controller chain*.
