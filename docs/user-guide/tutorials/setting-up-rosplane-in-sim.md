@@ -113,7 +113,7 @@ You should see the following output (note that these are topics from only the `r
 /rosout
 /sim/rosplane/state
 /sim/truth_state
-/sim/wind_truth
+/sim/truth_wind
 /status
 /waypoint_path
 ```
