@@ -37,7 +37,8 @@ The ROSflight standalone simulator consists of several key components:
     First, ensure your ROS2 environment and ROSflight workspace are properly sourced:
 
     ```bash
-    source /opt/ros/humble/setup.bash
+    # Replace <ros-distro> with your ROS 2 distro (e.g. "humble" or "jazzy")
+    source /opt/ros/<ros-distro>/setup.bash
     source /path/to/rosflight_ws/install/setup.bash
     ```
 
@@ -163,7 +164,7 @@ Key topics include:
 ### Common Issues
 
 ??? warning "RViz Not Opening"
-    - Ensure you installed `ros-humble-desktop`, not `ros-humble-ros-base`
+    - Ensure you installed `ros-<ros-distro>-desktop`, not `ros-<ros-distro>-ros-base`, where `<ros-distro>` is the ROS 2 distro you installed
     - Check that you have a display environment (not running in headless mode)
 
 ??? warning "Simulation Crashes"
