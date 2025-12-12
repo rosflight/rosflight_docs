@@ -38,7 +38,7 @@ These control loops ultimately feed into the firmware's control loops.
 
 This image shows a flow diagram for how information moves through the ROScopter controller to the firmware controller and then to the physical aircraft.
 
-![ROScopter and the firmware control loop interactions](../images/roscopter_and_firmware_controllers.png)
+![ROScopter and the firmware control loop interactions](../images/roscopter_and_firmware_controllers.svg)
 
 !!! note
     This diagram only shows the `controller` and `sil_board` nodes.

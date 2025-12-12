@@ -100,10 +100,10 @@ See the `roscopter_msgs/AddWaypoint` interface definition to see what informatio
 #### Clear waypoints
 This service clears all waypoints from the planned path.
 
-Under the hood, this service call publishes a new waypoint that sets the `clear_waypoints` field to true.
+Under the hood, this service call publishes a new waypoint that sets the `clear_wp_list` field to true (see the `roscopter_msgs/msg/Waypoint` message definition).
 It is the responsibility of any node subscribing to the waypoints to clear any internal list of waypoints.
 For example, in order to function properly, both the `path_manager` and the ROScopter ground control station (GCS) maintain internal lists of what waypoints have been published.
-These nodes need to clear the internal storage of the waypoints when the `path_planner` publishes a waypoint with the `clear_waypoints` field set true.
+These nodes need to clear the internal storage of the waypoints when the `path_planner` publishes a waypoint with the `clear_wp_list` field set true.
 
 #### Load mission from file
 This service loads a mission file to the `path_planner`.
@@ -130,10 +130,6 @@ The responsibility of the ROScopter `path_manager` is:
 1. Take waypoints published by the [`path_planner`](#path-planner) and produce a trajectory between waypoints, and
 2. Monitor waypoint completion/switching to the next leg. 
 
-!!! note
-
-    In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission
-
 ### Interface with ROScopter
 The `path_manager` interfaces with the rest of ROScopter using publishers and subscribers.
 
@@ -149,6 +145,9 @@ The `path_manager` interfaces with the rest of ROScopter using publishers and su
 To summarize, the `path_manager` takes in waypoints (from the `path_planner`) and the estimated state (from the `estimator`) and computes a desired trajectory, which it publishes on the `trajectory_command` topic.
 
 ### Using the `path_manager`/implementation details
+!!! note
+
+    In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission
 
 Given a set of waypoints and the position of the vehicle, the `path_manager` needs to compute a trajectory to get from one waypoint to the next.
 We would like trajectory setpoints $u_\text{traj}$ of the form
@@ -288,6 +287,12 @@ The `path_manager` offers the following service servers:
 | `clear_waypoints` | `std_srvs/Trigger` | Clears the waypoints internal to the `path_manager` |
 | `print_waypoints` | `std_srvs/Trigger` | Prints all waypoints received to the terminal |
 
+
+!!! note "Clearing waypoints"
+    As described in the [`path_planner`](#clear-waypoints) section, when the `path_planner` publishes a message with the `clear_wp_list` set true, the `path_manager` internally clears its waypoints.
+    This does the same thing as the `clear_waypoints` service call.
+
+    Thus, there is **no need** to publish a waypoint with `clear_wp_list=true` and call the `clear_waypoints` service.
 
 !!! danger
 
@@ -493,7 +498,7 @@ Note that the output command messages are sent to ROSflight firmware (on the [fl
 Many different control schemes exist for multirotor vehicles.
 Since application code (i.e. code that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.
 
-| ![ROScopter cascaded architecture](../images/roscopter_and_firmware_controllers.png) |
+| ![ROScopter cascaded architecture](../images/roscopter_and_firmware_controllers.svg) |
 | :---: |
 | Diagram of the ROScopter controller architecture and how the cascaded controller chain interacts with the ROSflight firmware controller |
 
@@ -507,7 +512,7 @@ The following table describes the inputs to each type of controller.
 | :--- | :--- | :--- |
 | 0  | NED-Pos Yaw | Inertial north, east, down (NED) positions and yaw |
 | 1  | NE-Vel D-Pos YawR | Inertial N-E velocities, D position, and yaw rate |
-| 2  | NED-Accel YawR | Vehicle-1 frame[^2] accelerations and yaw rate |
+| 2  | FRD-Accel YawR | Vehicle-1 frame[^2] (labeled front-right-down) accelerations and yaw rate |
 | 3  | NED-Vel YawR | Inertial NED velocities and yaw rate |
 | 4  | NE-Pos D-Vel Yaw | Inertial N-E velocities and yaw |
 | 5  | Roll Pitch Yaw Throttle | Roll, pitch, yaw, and throttle |
@@ -519,6 +524,17 @@ The following table describes the inputs to each type of controller.
 | 11 | RollR PitchR YawR Thrust | Roll rate, pitch rate, yaw rate, and thrust to pass-through |
 
 [^2]: R. W. Beard and T. W. McLain, *Small Unmanned Aircraft: Theory and Practice*, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.
+
+!!! danger "Reference frames"
+    Knowing which reference frame you are sending commands in is essential for safe operation.
+    The `NED` frame in the table refers to the **inertial** north, east, and down reference frame.
+
+    Thus, if I send commands to the controller 1 entrypoint, I am sending inertial north and east velocities and inertial down position, **regardless of how the aircraft is oriented**.
+
+    Accelerations (controller 2), however, are in the **vehicle 1** frame[^2], which we call the FRD (front-right-down) frame in the above table.
+    Because it is the vehicle 1 frame, front means whichever direction the vehicle is facing (but not that it does not matter how the vehicle is pitched or rolled).
+
+    All of the roll, pitch, and yaw commands are defined in their usual reference frames.
 
 The `controller`'s cascaded architecture allows users to "insert" control commands at many different levels, depending on the needs of their application code.
 Each insertion point thus produces a different *controller chain*.
