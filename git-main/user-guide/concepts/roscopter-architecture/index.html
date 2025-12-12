@@ -3845,10 +3845,10 @@ All of the <code>path_planner</code> service servers are namespaced by <code>/pa
 See the <code>roscopter_msgs/AddWaypoint</code> interface definition to see what information is contained in the service call.</p>
 <h4 id="clear-waypoints">Clear waypoints<a class="headerlink" href="#clear-waypoints" title="Permanent link">¶</a></h4>
 <p>This service clears all waypoints from the planned path.</p>
-<p>Under the hood, this service call publishes a new waypoint that sets the <code>clear_waypoints</code> field to true.
+<p>Under the hood, this service call publishes a new waypoint that sets the <code>clear_wp_list</code> field to true (see the <code>roscopter_msgs/msg/Waypoint</code> message definition).
 It is the responsibility of any node subscribing to the waypoints to clear any internal list of waypoints.
 For example, in order to function properly, both the <code>path_manager</code> and the ROScopter ground control station (GCS) maintain internal lists of what waypoints have been published.
-These nodes need to clear the internal storage of the waypoints when the <code>path_planner</code> publishes a waypoint with the <code>clear_waypoints</code> field set true.</p>
+These nodes need to clear the internal storage of the waypoints when the <code>path_planner</code> publishes a waypoint with the <code>clear_wp_list</code> field set true.</p>
 <h4 id="load-mission-from-file">Load mission from file<a class="headerlink" href="#load-mission-from-file" title="Permanent link">¶</a></h4>
 <p>This service loads a mission file to the <code>path_planner</code>.
 The mission file is a YAML file containing the waypoint definitions.</p>
@@ -3868,10 +3868,6 @@ Note that the first &lt;<code>num_waypoints_to_publish_at_start</code>&gt; numbe
 <li>Take waypoints published by the <a href="#path-planner"><code>path_planner</code></a> and produce a trajectory between waypoints, and</li>
 <li>Monitor waypoint completion/switching to the next leg. </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission</p>
-</div>
 <h3 id="interface-with-roscopter">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter" title="Permanent link">¶</a></h3>
 <p>The <code>path_manager</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
 <table>
@@ -3913,6 +3909,10 @@ Note that the first &lt;<code>num_waypoints_to_publish_at_start</code>&gt; numbe
 </table>
 <p>To summarize, the <code>path_manager</code> takes in waypoints (from the <code>path_planner</code>) and the estimated state (from the <code>estimator</code>) and computes a desired trajectory, which it publishes on the <code>trajectory_command</code> topic.</p>
 <h3 id="using-the-path_managerimplementation-details">Using the <code>path_manager</code>/implementation details<a class="headerlink" href="#using-the-path_managerimplementation-details" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission</p>
+</div>
 <p>Given a set of waypoints and the position of the vehicle, the <code>path_manager</code> needs to compute a trajectory to get from one waypoint to the next.
 We would like trajectory setpoints <span class="arithmatex"><span class="MathJax_Preview">u_\text{traj}</span><script type="math/tex">u_\text{traj}</script></span> of the form
 $$
@@ -4052,6 +4052,12 @@ To set up each leg,</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Clearing waypoints</p>
+<p>As described in the <a href="#clear-waypoints"><code>path_planner</code></a> section, when the <code>path_planner</code> publishes a message with the <code>clear_wp_list</code> set true, the <code>path_manager</code> internally clears its waypoints.
+This does the same thing as the <code>clear_waypoints</code> service call.</p>
+<p>Thus, there is <strong>no need</strong> to publish a waypoint with <code>clear_wp_list=true</code> and call the <code>clear_waypoints</code> service.</p>
+</div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>To avoid long descriptions, we omitted the namespace from the service calls in the documentation.
@@ -4420,7 +4426,7 @@ Since application code (i.e. code that you write) has slightly different outputs
 <table>
 <thead>
 <tr>
-<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_and_firmware_controllers.png" data-desc-position="bottom"><img alt="ROScopter cascaded architecture" src="../../images/roscopter_and_firmware_controllers.png"></a></th>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_and_firmware_controllers.svg" data-desc-position="bottom"><img alt="ROScopter cascaded architecture" src="../../images/roscopter_and_firmware_controllers.svg"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -4454,8 +4460,8 @@ For example, if the user passes control setpoints corresponding to Controller 0 
 </tr>
 <tr>
 <td style="text-align: left;">2</td>
-<td style="text-align: left;">NED-Accel YawR</td>
-<td style="text-align: left;">Vehicle-1 frame<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> accelerations and yaw rate</td>
+<td style="text-align: left;">FRD-Accel YawR</td>
+<td style="text-align: left;">Vehicle-1 frame<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup> (labeled front-right-down) accelerations and yaw rate</td>
 </tr>
 <tr>
 <td style="text-align: left;">3</td>
@@ -4504,6 +4510,15 @@ For example, if the user passes control setpoints corresponding to Controller 0 
 </tr>
 </tbody>
 </table>
+<div class="admonition danger">
+<p class="admonition-title">Reference frames</p>
+<p>Knowing which reference frame you are sending commands in is essential for safe operation.
+The <code>NED</code> frame in the table refers to the <strong>inertial</strong> north, east, and down reference frame.</p>
+<p>Thus, if I send commands to the controller 1 entrypoint, I am sending inertial north and east velocities and inertial down position, <strong>regardless of how the aircraft is oriented</strong>.</p>
+<p>Accelerations (controller 2), however, are in the <strong>vehicle 1</strong> frame<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>, which we call the FRD (front-right-down) frame in the above table.
+Because it is the vehicle 1 frame, front means whichever direction the vehicle is facing (but not that it does not matter how the vehicle is pitched or rolled).</p>
+<p>All of the roll, pitch, and yaw commands are defined in their usual reference frames.</p>
+</div>
 <p>The <code>controller</code>'s cascaded architecture allows users to "insert" control commands at many different levels, depending on the needs of their application code.
 Each insertion point thus produces a different <em>controller chain</em>.</p>
 <div class="admonition note">
@@ -4809,7 +4824,7 @@ Make sure to check which gains are used based on where you are inserting command
 <p>J. Ferrin, R. Leishman, R. Beard and T. McLain, "Differential flatness based control of a rotorcraft for aggressive maneuvers," 2011 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Francisco, CA, USA, 2011, pp. 2688-2693, doi: 10.1109/IROS.2011.6095098.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref4:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref5:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:2">
-<p>R. W. Beard and T. W. McLain, <em>Small Unmanned Aircraft: Theory and Practice</em>, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>R. W. Beard and T. W. McLain, <em>Small Unmanned Aircraft: Theory and Practice</em>, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref2:2" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
 </div>

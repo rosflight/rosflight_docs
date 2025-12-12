@@ -853,10 +853,10 @@ You're not viewing the latest stable version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#launch-ground-control-station" class="md-nav__link">
+  <a href="#publish-waypoints-to-rviz" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launch Ground Control Station
+        Publish waypoints to RViz
       
     </span>
   </a>
@@ -3307,10 +3307,10 @@ You're not viewing the latest stable version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#launch-ground-control-station" class="md-nav__link">
+  <a href="#publish-waypoints-to-rviz" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launch Ground Control Station
+        Publish waypoints to RViz
       
     </span>
   </a>
@@ -3649,13 +3649,14 @@ ros2<span class="w"> </span>topic<span class="w"> </span>list
 The chain of information flows from the <code>path_planner</code> to the <code>path_manager</code>, <code>trajectory_follower</code>, <code>autopilot</code>, and finally on to the firmware.
 You can see this in the <code>rqt_graph</code> image (by running <code>rqt_graph</code> in a new terminal):</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_rqt.png" data-desc-position="bottom"><img alt="ROScopter RQT graph" src="../../images/roscopter_rqt.png"></a></p>
-<h3 id="launch-ground-control-station">Launch Ground Control Station<a class="headerlink" href="#launch-ground-control-station" title="Permanent link">¶</a></h3>
-<p>The ground control station will plot waypoints that we pass to ROScopter.
-It can be helpful to launch this so we can see if ROScopter is actually doing what we want it to do.</p>
+<h3 id="publish-waypoints-to-rviz">Publish waypoints to RViz<a class="headerlink" href="#publish-waypoints-to-rviz" title="Permanent link">¶</a></h3>
+<p>The ROScopter ground control station package (<code>roscopter_gcs</code>) has some useful executables to visualize waypoints in RViz.
+The <code>roscopter_gcs</code> package was designed so that it can be used out in the field (in other words, it doesn't depend on <code>rosflight_sim</code>).
+It can be helpful to run this so we can see if ROScopter is actually doing what we want it to do.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># In a new terminal (source workspace first)</span>
-ros2<span class="w"> </span>launch<span class="w"> </span>roscopter_gcs<span class="w"> </span>rosplane_gcs.launch.py
+ros2<span class="w"> </span>run<span class="w"> </span>roscopter_gcs<span class="w"> </span>rviz_waypoint_publisher
 </code></pre></div>
-<p>This will launch another instance of RViz that will display different information than the main simulation pane.</p>
+<p>This node will subscribe to all of the waypoints published by the ROScopter <code>path_planner</code>, and will publish them to RViz.</p>
 <h2 id="loading-missions">Loading Missions<a class="headerlink" href="#loading-missions" title="Permanent link">¶</a></h2>
 <p>ROScopter supports loading waypoint missions through waypoints defined in YAML files or set through ROS services.
 These waypoints will be uploaded to the <code>path_planner</code> node using the <code>path_planner</code>'s ROS2 services.</p>
@@ -3742,7 +3743,7 @@ bool<span class="w"> </span>success
 string<span class="w"> </span>message
 </code></pre></div><p></p>
 <h3 id="verify-mission-loading">Verify Mission Loading<a class="headerlink" href="#verify-mission-loading" title="Permanent link">¶</a></h3>
-<p>You can check that the waypoints are loaded by looking at the <code>roscopter_gcs</code> RViz GUI.
+<p>If you ran the <a href="#publish-waypoints-to-rviz">ROScopter GCS <code>rviz_waypoint_publisher</code> node</a>, you can check that the waypoints are loaded by looking at the RViz GUI.
 You should see something like:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_gcs.png" data-desc-position="bottom"><img alt="ROScopter GCS" src="../../images/roscopter_gcs.png"></a></p>
 <h3 id="publishing-additional-waypoints">Publishing Additional Waypoints<a class="headerlink" href="#publishing-additional-waypoints" title="Permanent link">¶</a></h3>
