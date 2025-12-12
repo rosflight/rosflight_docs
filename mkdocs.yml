@@ -90,7 +90,8 @@ nav:
         - ROSplane Setup: user-guide/concepts/rosplane-setup.md
       - ROScopter:
         - ROScopter Overview: user-guide/concepts/roscopter-overview.md
-        - ROScopter Setup: user-guide/concepts/roscopter-setup.md
+        - ROScopter Architecture: user-guide/concepts/roscopter-architecture.md
+        - Customizing ROScopter: user-guide/concepts/customizing-roscopter.md
   - Developer Guide:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
     - Style Guide: developer-guide/style-guide.md
@@ -118,6 +119,8 @@ nav:
         - Path Planner: developer-guide/rosplane/navigation/path-planner.md
         - Path Manager: developer-guide/rosplane/navigation/path-manager.md
         - Path Follower: developer-guide/rosplane/navigation/path-follower.md
+    - ROScopter:
+      - Developer Guide Overview: developer-guide/roscopter/roscopter-dev-overview.md
   - Publications:
     - ROSplane: publications/rosplane.md
     - ROSflight: publications/rosflight.md
