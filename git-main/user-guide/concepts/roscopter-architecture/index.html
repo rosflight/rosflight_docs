@@ -1,0 +1,4880 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/concepts/roscopter-architecture/">
+      
+      
+        <link rel="prev" href="../roscopter-overview/">
+      
+      
+        <link rel="next" href="../customizing-roscopter/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>ROScopter Architecture - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#roscopter-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ROScopter Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+          
+  
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../publications/rosplane/" class="md-tabs__link">
+          
+  
+  
+  Publications
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation for Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation on Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/using-docker-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Docker with ROSflight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tutorial-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting up ROSflight Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manually flying ROSflight Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running ROScopter in Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running ROSplane in Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tuning-performance-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuning performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transitioning from Sim to Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transitioning from Sim to Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-xflr5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xflr5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-openvsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVSP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware and ROSflight
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware and ROSflight
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flight-controller-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Controller Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rc-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RC Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preflight-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Flight Checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../improving-firmware-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Improving Firmware Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autonomous-flight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autonomous Flight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight Sim
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSflight Sim
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running-simulations-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight Sim Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../detailed-launching-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detailed Launching Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulator-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSplane
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosplane-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROScopter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#roscopter-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROScopter Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROScopter Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow-of-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow of information
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Planner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Planner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-path_plannerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the path_planner/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the path_planner/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add waypoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clear-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clear waypoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-mission-from-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load mission from file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Print waypoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-next-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publish next waypoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface with ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-path_managerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the path_manager/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the path_manager/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-manager-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Manager Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trajectory-follower" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trajectory Follower
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trajectory Follower">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-roscopter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface with ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-trajectory_followerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the trajectory_follower/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the trajectory_follower/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trajectory-follower-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trajectory Follower Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controller">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-roscopter_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface with ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-controllerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the controller/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the controller/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller State Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customizing-roscopter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing ROScopter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/contribution-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Style Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/code-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building and Flashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSplane
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Controller
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General Controller Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller Software Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller State Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Successive Loop Closure Controller Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Total Energy Controller
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Estimator
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Navigation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigation Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Planner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Follower
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROScopter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Publications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosplane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#roscopter-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROScopter Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROScopter Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow-of-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow of information
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Planner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Planner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-path_plannerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the path_planner/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the path_planner/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add waypoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clear-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clear waypoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-mission-from-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load mission from file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Print waypoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-next-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publish next waypoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface with ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-path_managerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the path_manager/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the path_manager/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-manager-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Manager Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trajectory-follower" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trajectory Follower
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trajectory Follower">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-roscopter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface with ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-trajectory_followerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the trajectory_follower/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the trajectory_follower/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trajectory-follower-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trajectory Follower Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controller">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#responsibility_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-with-roscopter_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface with ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-controllerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the controller/implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the controller/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controller State Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-configuration_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/concepts/roscopter-architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="roscopter-architecture">ROScopter Architecture<a class="headerlink" href="#roscopter-architecture" title="Permanent link">¶</a></h1>
+<p>This guide describes in detail each module in the default ROScopter autopilot stack.
+It includes how to use and configure each module beyond what is in the <a href="../../tutorials/tutorial-overview/">ROSflight tutorials</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Getting started with ROScopter?</p>
+<p>This guide <strong>will not cover</strong> installing or launching the simulation.
+Make sure to check out the <a href="../../tutorials/tutorial-overview/">ROSflight tutorials</a> to set up ROScopter in simulation on your machine and launch basic waypoint missions.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This guide assumes at least basic knowledge of ROS 2.
+See the <a href="https://docs.ros.org/en/jazzy/Tutorials.html">ROS 2 tutorials</a> for more information.</p>
+</div>
+<h2 id="roscopter-architecture-overview">ROScopter Architecture Overview<a class="headerlink" href="#roscopter-architecture-overview" title="Permanent link">¶</a></h2>
+<p>An overview of the ROScopter architecture is diagrammed below.
+Each box in the diagram represents a separate module or ROS 2 node that interfaces over the ROS 2 network using publishers, subscribers, and service calls.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_architecture.svg" data-desc-position="bottom"><img alt="Diagram of ROScopter architecture" src="../../images/roscopter_architecture.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Diagram of the ROScopter architecture</em></td>
+</tr>
+</tbody>
+</table>
+<p>Each module is described in the following sections.</p>
+<h3 id="flow-of-information">Flow of information<a class="headerlink" href="#flow-of-information" title="Permanent link">¶</a></h3>
+<p>As seen in <a href="#roscopter-architecture-overview">the figure</a>, the flow of information through ROScopter cascades from module to module, with the estimator module feeding required information to all modules.</p>
+<p>In the default configuration of ROScopter, users supply waypoints to the <code>path_planner</code>, which then sends waypoints to the <code>path_manager</code>, which sends trajectory commands to the <code>trajectory_follower</code>.
+The <code>controller</code> receives control setpoints from the <code>trajectory_follower</code> and sends those commands to the <a href="../../overview/">flight control unit (FCU)</a> via the <code>rosflight_io</code> node.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When we refer to the "Navigation stack", we refer to the three modules that perform path-related tasks, namely the <code>path_planner</code>, <code>path_manager</code>, and <code>trajectory_follower</code>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For any ROS 2 interface definition (message/service definition, etc.), you can find the message definition using 
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>&lt;interface<span class="w"> </span>type&gt;
+</code></pre></div><p></p>
+</div>
+<h2 id="path-planner">Path Planner<a class="headerlink" href="#path-planner" title="Permanent link">¶</a></h2>
+<h3 id="responsibility">Responsibility<a class="headerlink" href="#responsibility" title="Permanent link">¶</a></h3>
+<p>The <code>path_planner</code>'s responsibility is to define and publish a planned path consisting of waypoints.
+Each waypoint is defined by a 3D location and orientation.</p>
+<p>Thus, the <code>path_planner</code> maintains the list of all waypoints and publishes a subset to downstream nodes.
+Note that the <code>path_planner</code> <strong>does not manage</strong> the path, meaning it does not determine how to transition from one waypoint to another.
+It is simply in charge of maintaining and publishing waypoints.</p>
+<h3 id="parameters-and-configuration">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration" title="Permanent link">¶</a></h3>
+<p>The parameters associated with the <code>path_planner</code> are</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>num_waypoints_to_publish_at_start</code></td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">Number of waypoints from plan to initially publish</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>num_waypoints_to_publish_at_start</code> parameter determines how many waypoints are automatically published when a path plan is loaded.</p>
+<p>If a given plan has 10 waypoints but the <code>num_waypoints_to_publish_at_start</code> is set to 5, then only the first 5 waypoints will be published right away.
+The other waypoints will then be published sequentially using the appropriate service call listed below.</p>
+<h3 id="using-the-path_plannerimplementation-details">Using the <code>path_planner</code>/implementation details<a class="headerlink" href="#using-the-path_plannerimplementation-details" title="Permanent link">¶</a></h3>
+<p>In the default configuration of ROScopter, the <code>path_planner</code> expects waypoints to be loaded using ROS 2 service calls.
+This can be done by another node or manually by the user.
+In our testing of the default ROScopter behavior, we usually manually load these waypoints by hand.</p>
+<p>A planned path can be modified using the following service calls:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Service name</th>
+<th style="text-align: left;">Interface type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>/add_waypoint</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/AddWaypoint</code></td>
+<td style="text-align: left;">Add a single waypoint to the planned path</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/clear_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Clear all waypoints from the planned path</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/load_mission_from_file</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/ParamFile</code></td>
+<td style="text-align: left;">Clear all waypoints and load a new plan from a file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/print_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Print all waypoints in the plan to the screen</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/publish_next_waypoint</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Publish the next waypoint in the plan</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>To avoid long descriptions, we omitted the namespace from the service calls in the documentation.
+All of the <code>path_planner</code> service servers are namespaced by <code>/path_planner</code>.</p>
+<p>In other words, to run the <code>add_waypoint</code> service, you would run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_planner/add_waypoint<span class="w"> </span>...
+</code></pre></div>
+<strong>not</strong>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/add_waypoint<span class="w"> </span>...
+</code></pre></div><p></p>
+</div>
+<h4 id="add-waypoint">Add waypoint<a class="headerlink" href="#add-waypoint" title="Permanent link">¶</a></h4>
+<p>The <code>add_waypoint</code> service adds a single waypoint to the path.
+See the <code>roscopter_msgs/AddWaypoint</code> interface definition to see what information is contained in the service call.</p>
+<h4 id="clear-waypoints">Clear waypoints<a class="headerlink" href="#clear-waypoints" title="Permanent link">¶</a></h4>
+<p>This service clears all waypoints from the planned path.</p>
+<p>Under the hood, this service call publishes a new waypoint that sets the <code>clear_waypoints</code> field to true.
+It is the responsibility of any node subscribing to the waypoints to clear any internal list of waypoints.
+For example, in order to function properly, both the <code>path_manager</code> and the ROScopter ground control station (GCS) maintain internal lists of what waypoints have been published.
+These nodes need to clear the internal storage of the waypoints when the <code>path_planner</code> publishes a waypoint with the <code>clear_waypoints</code> field set true.</p>
+<h4 id="load-mission-from-file">Load mission from file<a class="headerlink" href="#load-mission-from-file" title="Permanent link">¶</a></h4>
+<p>This service loads a mission file to the <code>path_planner</code>.
+The mission file is a YAML file containing the waypoint definitions.</p>
+<p>This service call also clears all existing waypoints first, so the new waypoints will not be appended to the old waypoints.
+If you want to append waypoints instead of clearing, use the <code>add_waypoints</code> service.</p>
+<h4 id="print-waypoints">Print waypoints<a class="headerlink" href="#print-waypoints" title="Permanent link">¶</a></h4>
+<p>It can be helpful during debugging to know what waypoints are currently loaded to the <code>path_planner</code>.
+This service call will print the waypoints to the terminal (the terminal running the <code>path_planner</code>, not the one that calls this service).</p>
+<p>Note that printing to the screen is automatically done when using the <code>load_mission_from_file</code> service.</p>
+<h4 id="publish-next-waypoint">Publish next waypoint<a class="headerlink" href="#publish-next-waypoint" title="Permanent link">¶</a></h4>
+<p>The <code>publish_next_waypoint</code> service server is used to publish the next unpublished waypoint in the planned path.
+Note that the first &lt;<code>num_waypoints_to_publish_at_start</code>&gt; number of waypoints are automatically published whenever the <code>path_planner</code> gets new waypoints.</p>
+<h2 id="path-manager">Path Manager<a class="headerlink" href="#path-manager" title="Permanent link">¶</a></h2>
+<h3 id="responsibility_1">Responsibility<a class="headerlink" href="#responsibility_1" title="Permanent link">¶</a></h3>
+<p>The responsibility of the ROScopter <code>path_manager</code> is:</p>
+<ol>
+<li>Take waypoints published by the <a href="#path-planner"><code>path_planner</code></a> and produce a trajectory between waypoints, and</li>
+<li>Monitor waypoint completion/switching to the next leg. </li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission</p>
+</div>
+<h3 id="interface-with-roscopter">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter" title="Permanent link">¶</a></h3>
+<p>The <code>path_manager</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>estimated_state</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/State</code></td>
+<td style="text-align: left;">Estimated state for the vehicle (needs position and orientation)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>waypoints</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/Waypoint</code></td>
+<td style="text-align: left;">Waypoints to manage</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>trajectory_command</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/TrajectoryCommand</code></td>
+<td style="text-align: left;">Output commanded trajectory</td>
+</tr>
+</tbody>
+</table>
+<p>To summarize, the <code>path_manager</code> takes in waypoints (from the <code>path_planner</code>) and the estimated state (from the <code>estimator</code>) and computes a desired trajectory, which it publishes on the <code>trajectory_command</code> topic.</p>
+<h3 id="using-the-path_managerimplementation-details">Using the <code>path_manager</code>/implementation details<a class="headerlink" href="#using-the-path_managerimplementation-details" title="Permanent link">¶</a></h3>
+<p>Given a set of waypoints and the position of the vehicle, the <code>path_manager</code> needs to compute a trajectory to get from one waypoint to the next.
+We would like trajectory setpoints <span class="arithmatex"><span class="MathJax_Preview">u_\text{traj}</span><script type="math/tex">u_\text{traj}</script></span> of the form
+$$
+    u_\text{traj} = [p, \dot{p}, \ddot{p}, \psi, \dot{\psi}, \ddot{\psi}]^T,
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span> is the 3-D position, and <span class="arithmatex"><span class="MathJax_Preview">\psi</span><script type="math/tex">\psi</script></span> is the desired heading.
+The velocity and acceleration parts are essentially feed-forward terms that can be used by the downstream <a href="#trajectory-follower">trajectory follower</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following path derivation is very similar to the one in <a href="https://github.com/byu-magicc/mavsim_public"><em>Small Unmanned Aircraft: Theory and Practice</em></a>, Ch. 14 by Beard and McLain.</p>
+</div>
+<p>In the default implementation of ROScopter, the path the <code>path_manager</code> produces is simply a linear interpolation between waypoints, parametrized by the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span>.
+This results in a straight line in 3D space, as well as a straight "line" between desired headings at the waypoints.
+Thus, the commanded position, <span class="arithmatex"><span class="MathJax_Preview">p^c</span><script type="math/tex">p^c</script></span>, and heading, <span class="arithmatex"><span class="MathJax_Preview">\psi^c</span><script type="math/tex">\psi^c</script></span>, setpoints at the current time is computed as
+$$
+    p^c = \sigma(\tau) p_i + (1 - \sigma(\tau)) p_{i-1}
+$$
+$$
+    \psi^c = \sigma(\tau) \psi_i + (1 - \sigma(\tau)) \psi_{i-1}
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">p_i</span><script type="math/tex">p_i</script></span> is the waypoint at the end of the current leg, <span class="arithmatex"><span class="MathJax_Preview">p_{i-1}</span><script type="math/tex">p_{i-1}</script></span> is the waypoint at the start of the waypoint leg, <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau) \in [0,1]</span><script type="math/tex">\sigma(\tau) \in [0,1]</script></span> is a monotonically increasing function, and <span class="arithmatex"><span class="MathJax_Preview">\tau = \frac{t}{T} \in [0,1]</span><script type="math/tex">\tau = \frac{t}{T} \in [0,1]</script></span>.
+Here, <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> is the current time along the current waypoint leg, and <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> is the total time taken to travel the waypoint leg.</p>
+<p>We can then compute the commanded derivatives as
+$$
+    \dot{p}^c = \frac{1}{T}\dot{\sigma}(\tau)(p_i - p_{i-1})
+$$
+$$
+    \dot{\psi}^c = \frac{1}{T}\dot{\sigma}(\tau)(\psi_i - \psi_{i-1})
+$$
+$$
+    \ddot{p}^c = \frac{1}{T^2}\ddot{\sigma}(\tau)(p_i - p_{i-1})
+$$
+$$
+    \ddot{\psi}^c = \frac{1}{T^2}\ddot{\sigma}(\tau)(\psi_i - \psi_{i-1})
+$$
+Note that the <span class="arithmatex"><span class="MathJax_Preview">\frac{1}{T}</span><script type="math/tex">\frac{1}{T}</script></span> term shows up because <span class="arithmatex"><span class="MathJax_Preview">\tau = t/T</span><script type="math/tex">\tau = t/T</script></span>.</p>
+<p>To compute the desired output trajectory, we then need to define <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span>.
+We have some freedom to choose how <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> behaves.
+If we let <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau) = \tau = \frac{t}{T}</span><script type="math/tex">\sigma(\tau) = \tau = \frac{t}{T}</script></span>, then <span class="arithmatex"><span class="MathJax_Preview">p^c</span><script type="math/tex">p^c</script></span> would interpolate linearly in time from <span class="arithmatex"><span class="MathJax_Preview">p_{i-1}</span><script type="math/tex">p_{i-1}</script></span> to <span class="arithmatex"><span class="MathJax_Preview">p_i</span><script type="math/tex">p_i</script></span>.
+However, this would mean <span class="arithmatex"><span class="MathJax_Preview">\dot{p}^c</span><script type="math/tex">\dot{p}^c</script></span> (i.e. the velocity) would be constant, and the vehicle would have that same velocity at <span class="arithmatex"><span class="MathJax_Preview">p_i</span><script type="math/tex">p_i</script></span>, causing it to overshoot as it continued on to the next leg.</p>
+<!--TODO: This warrants a picture/gif.-->
+
+<p>Instead, we will define <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> to be a 5<sup>th</sup> order <a href="https://en.wikipedia.org/wiki/Smoothstep">smoothstep function</a>, which smoothly interpolates time from <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span> to <span class="arithmatex"><span class="MathJax_Preview">1</span><script type="math/tex">1</script></span>.
+The smoothstep function guarantees that the velocity and acceleration are zero at <span class="arithmatex"><span class="MathJax_Preview">\tau=0</span><script type="math/tex">\tau=0</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\tau=1</span><script type="math/tex">\tau=1</script></span>, resulting in a smooth transition between waypoint legs.</p>
+<p>The 5<sup>th</sup> order smoothstep scaling function (and derivatives) are defined as
+$$
+ \sigma(\tau) = 6\tau^5 - 15\tau^4 + 10\tau^3
+$$
+$$
+ \dot{\sigma}(\tau) = 30\tau^4 - 60\tau^3 + 30\tau^2
+$$
+$$
+ \ddot{\sigma}(\tau) = 120\tau^3 - 180\tau^2 + 60\tau
+$$</p>
+<p>We can almost compute the desired trajectory setpoints.
+The last piece to consider is how to pick <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span>, the total time to travel a given waypoint path leg.
+The smaller <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> is, the faster the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> will transition, and the faster the vehicle will need to fly.
+For good performance, we would like to pick a <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> such that the vehicle can feasibly follow the path given some constraints.</p>
+<p>One way to do this is to pick <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> so that it is based off of some user-defined maximum velocity and acceleration parameters.
+To do this, let's first find where the maximums of <span class="arithmatex"><span class="MathJax_Preview">\dot{\sigma}(\tau)</span><script type="math/tex">\dot{\sigma}(\tau)</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\ddot{\sigma}(\tau)</span><script type="math/tex">\ddot{\sigma}(\tau)</script></span> are by setting derivatives equal to zero and solving for <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span>
+$$
+\frac{\partial}{\partial \tau}\dot{\sigma}(\tau) = \ddot{\sigma}(\tau) = 120\tau^3 - 180\tau^2 + 60\tau = 0 \implies \tau = \frac{1}{2} = 0.5
+$$
+$$
+\frac{\partial}{\partial \tau}\ddot{\sigma}(\tau) = 360\tau^2 - 360\tau + 60 = 0 \implies \tau = \frac{3 - \sqrt{3}}{6} = 0.2113 
+$$</p>
+<p>Now let's compute the magnitude of the desired velocity and acceleration commands generated at these <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> points.
+$$
+    \lVert \dot{p}^c(\tau = 0.5) \rVert = \frac{1}{T_v}\dot{\sigma}(0.5) \lVert p_i - p_{i-1} \rVert = v_\text{max}
+$$
+$$
+    \lVert \ddot{p}^c(\tau = 0.2113) \rVert = \frac{1}{T^2_a}\ddot{\sigma}(0.2113) \lVert p_i - p_{i-1} \rVert = a_\text{max}
+$$</p>
+<p>Now we solve for <span class="arithmatex"><span class="MathJax_Preview">T_v</span><script type="math/tex">T_v</script></span> and <span class="arithmatex"><span class="MathJax_Preview">T_a</span><script type="math/tex">T_a</script></span> to get
+$$
+T_v = \dot{\sigma}(0.5) * \lVert p_i - p_{i-1} \rVert / v_\text{max}
+$$
+$$
+T_a = \sqrt{\ddot{\sigma}(0.2113) * \lVert p_i - p_{i-1} \rVert / a_\text{max}}
+$$
+Note that both <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span> are user-defined parameters.</p>
+<p>We can then choose the biggest <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> so that both constraints are satisfied:
+$$
+T = \max (T_v, T_a)
+$$</p>
+<div class="admonition warning">
+<p class="admonition-title">Tuning <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span></p>
+<p>The two parameters <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span> are highly vehicle-specific.
+The <code>path_manager</code> uses them to make sure that the commanded trajectory never produces velocity and acceleration commands higher than these parameters (as described above).</p>
+<p>If these parameters are set too high for downstream controllers to track, it will cause poor performance (especially when using a controller that uses the velocity and acceleration feed-forward commands in the trajectory command vector).</p>
+<p>For example, if these parameters are too high, then the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> will propagate faster than downstream controllers are able to track.
+As the vehicle falls behind the commanded trajectory setpoint, the feed-forward terms (velocity and acceleration commands) will get out-of-sync with the current position of the vehicle along the trajectory.</p>
+<p>This is especially noticeable when the setpoint reaches the end of the waypoint path.
+The feed-forward terms are designed to slow the vehicle as it reaches the end of the waypoint path (this is the purpose of the smoothstep function).
+If the vehicle is far behind the final position when the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> reaches it, then those feed-forward terms will cause the vehicle to slow down, even though the vehicle is still somewhere in the middle of the waypoint path.
+This results in visually poor performance.
+<!-- TODO: This is an ideal spot for a graphic/GIF that shows this behavior. --></p>
+<p>The solution? Tune the <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span> parameters appropriately.</p>
+</div>
+<p>We can now plug along and compute our desired trajectory commands at each leg.
+To set up each leg,</p>
+<ol>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span></li>
+<li>Set <span class="arithmatex"><span class="MathJax_Preview">t = 0</span><script type="math/tex">t = 0</script></span></li>
+</ol>
+<p>For each waypoint leg in our path, we</p>
+<ol>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">\tau = t/T</span><script type="math/tex">\tau = t/T</script></span></li>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> and derivatives</li>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">p^c</span><script type="math/tex">p^c</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\psi^c</span><script type="math/tex">\psi^c</script></span> and derivatives</li>
+<li>Publish trajectory command</li>
+</ol>
+<p>When the vehicle arrives at the next leg, simply set up the next leg and continue.</p>
+<p>Note that the <code>path_manager</code> publishes trajectory commands at the rate specified by the <code>path_update_frequency</code> ROS 2 parameter.</p>
+<!--TODO: Nice graphics and visuals of the path manager and trajectory follower would be nice here. Maybe that would be an interesting project for someone?-->
+
+<h4 id="path-manager-services">Path Manager Services<a class="headerlink" href="#path-manager-services" title="Permanent link">¶</a></h4>
+<p>The <code>path_manager</code> offers the following service servers:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Service name</th>
+<th style="text-align: left;">Interface type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>clear_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Clears the waypoints internal to the <code>path_manager</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>print_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Prints all waypoints received to the terminal</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>To avoid long descriptions, we omitted the namespace from the service calls in the documentation.
+All of the <code>path_manager</code> service servers are namespaced by <code>/path_manager</code>.</p>
+<p>In other words, to run the <code>clear_waypoints</code> service, you would run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_manager/clear_waypoints<span class="w"> </span>...
+</code></pre></div>
+<strong>not</strong>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/clear_waypoints<span class="w"> </span>...
+</code></pre></div><p></p>
+</div>
+<h3 id="parameters-and-configuration_1">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration_1" title="Permanent link">¶</a></h3>
+<p>The parameters associated with the <code>path_planner</code> are</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>default_altitude</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Altitude of the default waypoint (see note). Should be a positive number (not in NED frame)!</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hold_last</code></td>
+<td style="text-align: left;"><code>bool</code></td>
+<td style="text-align: left;">Determines if the <code>path_manager</code> will hold at the last waypoint or if it will cycle back to the first</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>path_update_frequency</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Rate (in Hz) at which to publish tractory setpoints</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>waypoint_tolerance</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Distance (in m) from the target waypoint at which the waypoint is considered complete</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>do_linear_interpolation</code></td>
+<td style="text-align: left;"><code>bool</code></td>
+<td style="text-align: left;">Determines if a linear time scaling or a 5<sup>th</sup> order smoothstep time scaling will be used.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_acceleration</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Max acceleration value in m/s<span class="arithmatex"><span class="MathJax_Preview">^2</span><script type="math/tex">^2</script></span> (used when generating trajectory)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_velocity</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Max velocity value in m/s (used when generating trajectory)</td>
+</tr>
+</tbody>
+</table>
+<p>When no waypoints are provided to the <code>path_manager</code>, it will create a default waypoint to send to downstream tasks.
+This default waypoint is at the origin (i.e. where the vehicle was armed), with an altitude determined by the <code>default_altitude</code> parameter.</p>
+<p>The <code>hold_last</code> parameter determines whether or not the <code>path_manager</code> will hold the vehicle at the last waypoint.
+If this is set to <code>false</code>, then the <code>path_manager</code> will repeatedly cycle through the waypoints once it reaches the last one.</p>
+<p>The <code>path_update_frequency</code> parameter determines how often the <code>path_manager</code> publishes the trajectory commands.
+Setting this rate does <strong>not</strong> determine how fast the trajectory setpoints interpolate between waypoints (see the <a href="#using-the-path_managerimplementation-details">implementation details</a>).
+Settings this to a high value just increases the frequency commands are published.</p>
+<p>The last two parameters, <code>max_acceleration</code> and <code>max_velocity</code> are user-defined parameters that are <strong>highly vehicle-specific</strong>.
+These two parameters determine the total time a given waypoint leg will take.
+The <code>max_acceleration</code> parameter limits the acceleration computed by the <code>path_manager</code>.
+The <code>max_velocity</code> parameter limits the velocity computed by the <code>path_manager</code>.
+See the <a href="#using-the-path_managerimplementation-details">implementation details</a> for more information on how they are used/defined.</p>
+<h2 id="trajectory-follower">Trajectory Follower<a class="headerlink" href="#trajectory-follower" title="Permanent link">¶</a></h2>
+<h3 id="responsibility_2">Responsibility<a class="headerlink" href="#responsibility_2" title="Permanent link">¶</a></h3>
+<p>The responsibility of the <code>trajectory_follower</code> is to produce controller setpoints to follow a given trajectory.</p>
+<p>Note that the <code>trajectory_follower</code> does not take in an entire trajectory, but rather a trajectory setpoint <em>at a particular instant in time</em>.</p>
+<h3 id="interface-with-roscopter_1">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter_1" title="Permanent link">¶</a></h3>
+<p>The <code>trajectory_follower</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>estimated_state</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/State</code></td>
+<td style="text-align: left;">Estimated state for the vehicle (needs position and orientation)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Status</code></td>
+<td style="text-align: left;">Status message from the ROSflight firmware (needs to know when RC control is active)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>trajectory_command</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/TrajectoryCommand</code></td>
+<td style="text-align: left;">Input trajectory command</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>high_level_command</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/ControllerCommand</code></td>
+<td style="text-align: left;">Output commands to the downstream ROScopter controller</td>
+</tr>
+</tbody>
+</table>
+<p>To summarize, the <code>trajectory_follower</code> takes in the estimated state (from the <code>estimator</code>) and trajectory setpoints (from the <code>path_manager</code>), and computes and publishes the commands to the <code>controller</code> node.</p>
+<h3 id="using-the-trajectory_followerimplementation-details">Using the <code>trajectory_follower</code>/implementation details<a class="headerlink" href="#using-the-trajectory_followerimplementation-details" title="Permanent link">¶</a></h3>
+<p>The input trajectory commands are vectors of the form
+$$
+    u_\text{traj} = [p, \dot{p}, \ddot{p}, \psi, \dot{\psi}, \ddot{\psi}]^T,
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\psi</span><script type="math/tex">\psi</script></span> are the desired 3-D position and heading setpoints, respectively.
+The derivative terms are feed-forward terms for each setpoint.</p>
+<p>The output of the <code>trajectory_follower</code> is controller setpoints of the form
+$$
+    u_\text{out} = [\phi^c, \theta^c, r^c, T^c]
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">\phi^c</span><script type="math/tex">\phi^c</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\theta^c</span><script type="math/tex">\theta^c</script></span> are the desired roll and pitch in radians, respectively, and <span class="arithmatex"><span class="MathJax_Preview">r^c</span><script type="math/tex">r^c</script></span> is the desired yaw rate in radians per second.
+<span class="arithmatex"><span class="MathJax_Preview">T^c</span><script type="math/tex">T^c</script></span> is the desired thrust, in Newtons.</p>
+<p>The trajectory follower is based off of the <a href="https://ieeexplore.ieee.org/document/6095098">"Differential flatness based control of a rotorcraft for aggressive maneuvers"</a> by Ferrin, et al<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
+We refer the reader to that paper for information on the implementation and how it works.</p>
+<p>There are a number of differences in the ROScopter <code>trajectory_follower</code> not present in the work by Ferrin, et al.</p>
+<ol>
+<li>
+<p>The ROScopter <code>trajectory_follower</code> uses four PID controllers (north, east, down, and yaw) as the nominal controllers, not an LQR controller (as seen in Fig. 2 of the paper).
+This means that there are 4 sets of separate PID gains for each controller.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The nominal controllers (the PID controllers) have integrators.
+To avoid integrator wind-up, the <code>trajectory_follower</code> clears the integrator values when the RC safety pilot has RC override.</p>
+<p>The <code>trajectory_follower</code> determines if the safety pilot has control of the vehicle using the <code>status</code> message.</p>
+</div>
+</li>
+<li>
+<p>Eq. (16)<sup id="fnref5:1"><a class="footnote-ref" href="#fn:1">1</a></sup> requires computing <span class="arithmatex"><span class="MathJax_Preview">\dot{\theta}</span><script type="math/tex">\dot{\theta}</script></span> (note this is not <span class="arithmatex"><span class="MathJax_Preview">q</span><script type="math/tex">q</script></span>!). The <code>trajectory_follower</code> assumes constant acceleration over the timestep to compute this derivative.</p>
+</li>
+<li>Before computing <span class="arithmatex"><span class="MathJax_Preview">\boldsymbol{z}</span><script type="math/tex">\boldsymbol{z}</script></span> in Eq. (13)<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, we first saturate <span class="arithmatex"><span class="MathJax_Preview">u_{p_3}</span><script type="math/tex">u_{p_3}</script></span> to avoid instabilities near the origin for Eq. (15)<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Saturating <span class="arithmatex"><span class="MathJax_Preview">u_{p_3}</span><script type="math/tex">u_{p_3}</script></span> is necessary to prevent poor performance when the trajectory follower tries to track large down setpoints.</p>
+<p>The total desired down acceleration is computed as
+$$
+u_{p_3} = \ddot{p}^c - g
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">g=9.81</span><script type="math/tex">g=9.81</script></span> is gravity.</p>
+<p>When <span class="arithmatex"><span class="MathJax_Preview">\ddot{p}^c</span><script type="math/tex">\ddot{p}^c</script></span> approaches <span class="arithmatex"><span class="MathJax_Preview">+g</span><script type="math/tex">+g</script></span>, then <span class="arithmatex"><span class="MathJax_Preview">u_{p_3}</span><script type="math/tex">u_{p_3}</script></span> approaches <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span>, and Eq. (15)<sup id="fnref4:1"><a class="footnote-ref" href="#fn:1">1</a></sup> returns large values of <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> for small changes in <span class="arithmatex"><span class="MathJax_Preview">z_1</span><script type="math/tex">z_1</script></span>.
+Physically, this results in large, rapidly changing pitch commands, resulting in undesireable performance.
+Note that this can happen for large nominal (PID) controller output, but also for large feedforward input.</p>
+<p>To fix this, we need to make sure <span class="arithmatex"><span class="MathJax_Preview">u_{p_3}</span><script type="math/tex">u_{p_3}</script></span> does not approach <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span>, or equivalently, <span class="arithmatex"><span class="MathJax_Preview">\ddot{p}^c</span><script type="math/tex">\ddot{p}^c</script></span> does not approach <span class="arithmatex"><span class="MathJax_Preview">+g</span><script type="math/tex">+g</script></span>.
+Since free-fall is also usually not desireable (i.e. <span class="arithmatex"><span class="MathJax_Preview">\ddot{p}^c=0</span><script type="math/tex">\ddot{p}^c=0</script></span>), we saturate <span class="arithmatex"><span class="MathJax_Preview">u_{p_3}</span><script type="math/tex">u_{p_3}</script></span> so that
+$$
+u_{p_3} \in [u_\text{max}, -\infty]
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">u_\text{max}</span><script type="math/tex">u_\text{max}</script></span> is a negative number controlled by the <code>max_commanded_down_accel_in_gs</code> parameter.</p>
+<p>Note that the <code>max_commanded_down_accel_in_gs</code> parameter <strong>should be a negative number</strong>, e.g. <span class="arithmatex"><span class="MathJax_Preview">-0.4</span><script type="math/tex">-0.4</script></span>.
+This means that the maximum down command is <span class="arithmatex"><span class="MathJax_Preview">-0.4g</span><script type="math/tex">-0.4g</script></span>.
+Since we are using the NED frame, this translates to a minimum of <span class="arithmatex"><span class="MathJax_Preview">0.4g</span><script type="math/tex">0.4g</script></span> commanded output acceleration up, so a maximum <span class="arithmatex"><span class="MathJax_Preview">0.6g</span><script type="math/tex">0.6g</script></span> actual acceleration down.</p>
+</div>
+<h4 id="trajectory-follower-services">Trajectory Follower Services<a class="headerlink" href="#trajectory-follower-services" title="Permanent link">¶</a></h4>
+<p>The <code>trajectory_follower</code> offers the following service server:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Service name</th>
+<th style="text-align: left;">Interface type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>clear_integrators</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Clears the integrator values in the nominal PID controllers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="parameters-and-configuration_2">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration_2" title="Permanent link">¶</a></h3>
+<p>The parameters associated with the <code>trajectory_follower</code> are</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>down_command_window</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">If input down command to down controller is larger than this parameter, input command gets saturated to this value.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gravity</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Gravity in <span class="arithmatex"><span class="MathJax_Preview">m/s^2</span><script type="math/tex">m/s^2</script></span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mass</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Mass of the system in kg</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_commanded_down_accel_in_gs</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum down acceleration the <code>trajectory_follower</code> can command (in <span class="arithmatex"><span class="MathJax_Preview">g</span><script type="math/tex">g</script></span>'s). See the <a href="#using-the-trajectory_followerimplementation-details">implementation details</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tau</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Bandwidth of the dirty derivative (for the PID controllers). See the <a href="https://github.com/byu-controlbook/controlbook_public">ControlBook</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_n_kp</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_p</span><script type="math/tex">k_p</script></span> gain for the north PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_n_ki</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_i</span><script type="math/tex">k_i</script></span> gain for the north PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_n_kd</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_d</span><script type="math/tex">k_d</script></span> gain for the down PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_e_kp</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_p</span><script type="math/tex">k_p</script></span> gain for the east PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_e_ki</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_i</span><script type="math/tex">k_i</script></span> gain for the east PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_e_kd</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_d</span><script type="math/tex">k_d</script></span> gain for the east PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_d_kp</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_p</span><script type="math/tex">k_p</script></span> gain for the down PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_d_ki</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_i</span><script type="math/tex">k_i</script></span> gain for the down PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u_d_kd</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_d</span><script type="math/tex">k_d</script></span> gain for the down PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yaw_to_rate_kp</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_p</span><script type="math/tex">k_p</script></span> gain for the yaw angle to yaw rate PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yaw_to_rate_ki</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_i</span><script type="math/tex">k_i</script></span> gain for the yaw angle to yaw rate PID controller</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yaw_to_rate_kd</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">k_d</span><script type="math/tex">k_d</script></span> gain for the yaw angle to yaw rate PID controller</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Mass and gravity parameters</p>
+<p>The <code>gravity</code> and <code>mass</code> parameters <strong>must</strong> be correct.
+Otherwise, the <code>trajectory_follower</code> will output incorrect controller commands.</p>
+<p>Make sure the <code>mass</code> parameter is the same between all other nodes.</p>
+</div>
+<p>As described in the <a href="#using-the-trajectory_followerimplementation-details">implementation details section</a>, there are 4 PID controllers, one for north, east, down position, and one for yaw to yaw-rate.
+Each controller has a set of PID gains associated with it, and each should be tuned separately.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For multirotors, the north and east configuration of the vehicle is usually symmetric, so the control gains for those two loops are likely to be very similar.</p>
+</div>
+<p>The <code>down_command_window</code> parameter saturates the input command for the down nominal (PID) controller to avoid large input commands (and thus large output commands).
+In other words, if the input command is larger than <code>down_command_window</code>, then the input is saturated to this value.
+This parameter exists to help stabilize the drone as it descends.</p>
+<div class="admonition warning">
+<p class="admonition-title">Important</p>
+<p>The <code>down_command_window</code> parameter only applies on the descent, <strong>not on the ascent</strong>.
+This is because when the vehicle descends through the prop wash, the airflow can cause instability and shaking.</p>
+</div>
+<h2 id="controller">Controller<a class="headerlink" href="#controller" title="Permanent link">¶</a></h2>
+<h3 id="responsibility_3">Responsibility<a class="headerlink" href="#responsibility_3" title="Permanent link">¶</a></h3>
+<p>The responsibility of the <code>controller</code> is to</p>
+<ol>
+<li>produce low-level commands from high-level commands</li>
+<li>Maintain a state machine to manage autonomous takeoff</li>
+</ol>
+<h3 id="interface-with-roscopter_2">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter_2" title="Permanent link">¶</a></h3>
+<p>The <code>controller</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>estimated_state</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/State</code></td>
+<td style="text-align: left;">Estimated state for the vehicle (needs everything)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Status</code></td>
+<td style="text-align: left;">Status message from the ROSflight firmware (needs to know when RC control is active or when the vehicle is armed)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>high_level_command</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/ControllerCommand</code></td>
+<td style="text-align: left;">Input controller command</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>command</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Command</code></td>
+<td style="text-align: left;">Output commands to the downstream ROSflight firmware controller</td>
+</tr>
+</tbody>
+</table>
+<p>To summarize, the ROScopter <code>controller</code> takes in the estimated state and high-level command setpoints and computes low-level command setpoints that are sent to the ROSflight firmware on the flight control unit.
+Note that the output command messages are sent to ROSflight firmware (on the <a href="../../overview/">flight control unit</a>) via the <code>rosflight_io</code> node.</p>
+<h3 id="using-the-controllerimplementation-details">Using the <code>controller</code>/implementation details<a class="headerlink" href="#using-the-controllerimplementation-details" title="Permanent link">¶</a></h3>
+<p>Many different control schemes exist for multirotor vehicles.
+Since application code (i.e. code that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_and_firmware_controllers.png" data-desc-position="bottom"><img alt="ROScopter cascaded architecture" src="../../images/roscopter_and_firmware_controllers.png"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Diagram of the ROScopter controller architecture and how the cascaded controller chain interacts with the ROSflight firmware controller</td>
+</tr>
+</tbody>
+</table>
+<p>The above figure shows the cascaded architecture of the ROScopter controller.
+In this diagram, the arrows represent how one controller output feeds into the next controller's input, all the way down to one of three basic control types.
+For example, if the user passes control setpoints corresponding to Controller 0 (inertial-frame north, east, down position and yaw commands), Controller 0 converts them to Controller 3 inputs, which then converts to Controller 2 inputs, and so on.</p>
+<p>The following table describes the inputs to each type of controller.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Number</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description of reference commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">NED-Pos Yaw</td>
+<td style="text-align: left;">Inertial north, east, down (NED) positions and yaw</td>
+</tr>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NE-Vel D-Pos YawR</td>
+<td style="text-align: left;">Inertial N-E velocities, D position, and yaw rate</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">NED-Accel YawR</td>
+<td style="text-align: left;">Vehicle-1 frame<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> accelerations and yaw rate</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">NED-Vel YawR</td>
+<td style="text-align: left;">Inertial NED velocities and yaw rate</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">NE-Pos D-Vel Yaw</td>
+<td style="text-align: left;">Inertial N-E velocities and yaw</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Roll Pitch Yaw Throttle</td>
+<td style="text-align: left;">Roll, pitch, yaw, and throttle</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Roll Pitch YawR Throttle</td>
+<td style="text-align: left;">Roll, pitch, yaw rate, and throttle</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">RollR PitchR YawR Throttle</td>
+<td style="text-align: left;">Roll rate, pitch rate, yaw rate, throttle</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Pass-through</td>
+<td style="text-align: left;">Pass-through to ROSflight firmware mixer</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Roll Pitch Yaw Thrust</td>
+<td style="text-align: left;">Roll, pitch, yaw, and thrust to pass-through</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Roll Pitch YawR Thrust</td>
+<td style="text-align: left;">Roll, pitch, yaw rate, and thrust to pass-through</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">RollR PitchR YawR Thrust</td>
+<td style="text-align: left;">Roll rate, pitch rate, yaw rate, and thrust to pass-through</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>controller</code>'s cascaded architecture allows users to "insert" control commands at many different levels, depending on the needs of their application code.
+Each insertion point thus produces a different <em>controller chain</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We'll call the sequence of controllers used as a <em>controller chain</em>.</p>
+<p>For example, inserting at Controller 4 would have the controller chain of Controller 4 -&gt; Controller 3 -&gt; Controller 2 -&gt; Controller 6.</p>
+</div>
+<p>Each insertion point is chosen via the <code>mode</code> field in the <code>roscopter_msgs/ControllerCommand</code> message.
+Thus, each ROS 2 message determines which controller it inserts at.
+This means that different controller chains can be chosen at runtime, and can be mixed and matched throughout the flight.</p>
+<div class="admonition example">
+<p class="admonition-title">Using different controller chains during a flight</p>
+<p>Since the insertion points are chosen via the <code>mode</code> field in each ROS 2 message sent to the <code>controller</code>, controller chains can be mixed and matched throughout the flight.</p>
+<p>For example, in the default implementation of ROScopter, the <code>controller</code> inserts commands at Controller 4 during takeoff and Controller 10 during the other portions of the flight.</p>
+</div>
+<p>As seen in the above ROScopter <code>controller</code> diagram, the output of the <code>controller</code> node is sent directly to the ROSflight firmware via the <code>rosflight_io</code> node (note that the <code>rosflight_io</code> node is not shown in the diagram).
+The output of all controller chains needs to be one of the modes that the firmware controller can accept.
+Thus, the output of the ROScopter controller is one of the following output types:
+$$
+    u_\text{angle} = [\phi^d, \theta^d, r^d, \delta_t^d]^T
+$$
+$$
+    u_\text{rate} = [p^d, q^d, r^d, \delta_t^d]^T
+$$
+$$
+    u_\text{pass-through} = [Q_x^d, Q_y^d, Q_z^d, T_z^d]^T
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">\phi</span><script type="math/tex">\phi</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, and <span class="arithmatex"><span class="MathJax_Preview">\psi</span><script type="math/tex">\psi</script></span> are roll, pitch, and yaw commands, <span class="arithmatex"><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span>, <span class="arithmatex"><span class="MathJax_Preview">q</span><script type="math/tex">q</script></span>, <span class="arithmatex"><span class="MathJax_Preview">r</span><script type="math/tex">r</script></span> are roll rate, pitch rate, and yaw rate, and <span class="arithmatex"><span class="MathJax_Preview">\delta_t \in [0,1]</span><script type="math/tex">\delta_t \in [0,1]</script></span> is the throttle setpoint.
+<span class="arithmatex"><span class="MathJax_Preview">Q</span><script type="math/tex">Q</script></span> and <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> are the body-frame torques and forces, respectively.</p>
+<h4 id="controller-state-machine">Controller State Machine<a class="headerlink" href="#controller-state-machine" title="Permanent link">¶</a></h4>
+<p>The <code>controller</code> node also has a simple state machine to manage safe takeoff and landing.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_state_machine.svg" data-desc-position="bottom"><img alt="ROScopter controller state machine" src="../../images/roscopter_state_machine.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Diagram of the <code>controller</code>'s state machine.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>controller</code> state machine starts in the disarmed state until the user arms the vehicle.
+Additionally, the state machine requires a valid command setpoint sent to the <code>high_level_command</code> topic.
+This is determined by the <code>cmd_valid</code> field in the <code>roscopter_msgs/ControllerCommand</code> message definition.</p>
+<p>The state machine then transitions to takeoff mode, where the vehicle will climb at a constant velocity until it reaches a particular height.
+Once the vehicle reaches the desired height (within a given threshold), takeoff is considered complete and the vehicle transitions to position hold mode.</p>
+<p>After a brief pause in position hold mode, the vehicle then enters "offboard control" mode, which means that the controller will output control commands to track the commands on the <code>high_level_command</code> topic.</p>
+<p>During the takeoff and position hold states, the commands sent to the <code>high_level_command</code> topic are overridden.
+This ensures that the vehicle is at a safe height before attempting to follow any path commands.
+Note that if the <code>cmd_valid</code> field is set to <code>false</code> in messages from the <code>high_level_command</code> topic, then the offboard control state will transition to position hold.</p>
+<p>The behavior of the state machine can be configured via <a href="#parameters-and-configuration">the <code>controller</code>'s parameters</a>.
+This includes the takeoff down velocity, the height the controller will climb to, the threshold that the state machine considers the takeoff waypoint complete, and the time that the state machine will spend in takeoff before transitioning to offboard control mode.</p>
+<h3 id="parameters-and-configuration_3">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration_3" title="Permanent link">¶</a></h3>
+<p>The parameters associated with the <code>controller</code> are listed below.
+Parameters that have notes/special considerations are discussed below the table.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>equilibrium_throttle</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Throttle value required to maintain hover. Between 0-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gravity</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Gravity in <span class="arithmatex"><span class="MathJax_Preview">m/s^2</span><script type="math/tex">m/s^2</script></span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mass</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Vehicle mass (in kg)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_descend_accel</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum descent acceleration. <strong>Applies to the acceleration controller</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_descend_rate</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum down velocity. <strong>Applies to the velocity PID controllers</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_pitch_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum pitch angle (in degrees). <strong>Applies to the angle PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_pitch_rate_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum pitch rate (in degrees/sec). <strong>Applies to the rate PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_pitch_torque</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum pitch torque (in N-m). <strong>Applies to the torque controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_roll_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum roll angle (in degrees). <strong>Applies to the angle PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_roll_rate_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum roll rate (in degrees/sec). <strong>Applies to the rate PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_roll_torque</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum roll torque (in N-m). <strong>Applies to the torque controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_throttle</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum allowed throttle setpoint. Should be between 0-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_yaw_rate_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum yaw rate (in degrees/sec). <strong>Applies to the rate PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_yaw_torque</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum yaw torque (in N-m). <strong>Applies to the torque PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>min_altitude_for_attitude_ctrl</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Minimum altitude before attitude control. Roll and pitch commands are zero when the vehicle is lower than this number. Helps to reduce crashes on takeoff.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>min_throttle</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Minimum throttle setpoint. Should be between 0-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_d_pos</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Down position to achieve (in takeoff) before turning control over to the "offboard control".</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_d_vel</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Down velocity during takeoff (until vehicle reaches the <code>takeoff_d_pos</code> position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_height_threshold</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Radius (in m) that the vehicle must achieve around the <code>takeoff_d_pos</code> setpoint before the state machine considers takeoff to be complete.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_landing_pos_hold_time</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Time (in seconds) the state machine will hold before switching to offboard control (after takeoff) or landing. Holding for a brief time before switching over helps with stability.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tau</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Bandwidth of the dirty derivative (for the PID controllers). See the <a href="https://github.com/byu-controlbook/controlbook_public">ControlBook</a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Max/min parameters</p>
+<p>The parameters associated with max and min values (e.g. <code>max_descend_accel</code>) <strong>only apply if the control loop associated with those parameters is run</strong>.</p>
+<p>For example, the <code>max_descend_rate</code> parameter is a saturation limit on the down velocity controller, meaning that the output of the down velocity controller is saturated to never be greater than this number.
+However, if the velocity controller is not run (meaning a controller lower in <a href="#using-the-controllerimplementation-details">the controller chain</a> is used), then the velocity controller will not run and this max velocity limit will not be respected.</p>
+<p>Please note which control loops you are using before tuning these parameters, as some will not be used based on where you are inserting into the control chain.</p>
+</div>
+<p>The <code>max_throttle</code> parameter is usually set to be lower than 1 to reserve some actuator effort for attitude control.
+The <code>min_throttle</code> parameter is usually set to a value higher than 0 to avoid the motors "shutting off" for particular maneuvers.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure the <code>mass</code> parameter is correct and that it is the same between all nodes (e.g. the <a href="#trajectory-follower"><code>trajectory_follower</code>)</a>.</p>
+</div>
+<p>The following parameters are listed for completeness.
+Each of the PID control types from the <a href="#using-the-controllerimplementation-details">implementation details</a> section has 3 gains associated with it.</p>
+<p>Note that the control loops that are used depends on where the high-level command setpoints are inserted into the controller chain.
+Thus, not all of the PID gains below will need to be tuned when using ROScopter.
+Make sure to check which gains are used based on where you are inserting command setpoints.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Rate to torque</strong></td>
+<td style="text-align: left;"><code>pitch_rate_to_torque_kd</code></td>
+<td style="text-align: left;"><code>roll_rate_to_torque_kd</code></td>
+<td style="text-align: left;"><code>yaw_rate_to_torque_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_rate_to_torque_ki</code></td>
+<td style="text-align: left;"><code>roll_rate_to_torque_ki</code></td>
+<td style="text-align: left;"><code>yaw_rate_to_torque_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_rate_to_torque_kp</code></td>
+<td style="text-align: left;"><code>roll_rate_to_torque_kp</code></td>
+<td style="text-align: left;"><code>yaw_rate_to_torque_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Angle to torque</strong></td>
+<td style="text-align: left;"><code>pitch_to_torque_kd</code></td>
+<td style="text-align: left;"><code>roll_to_torque_kd</code></td>
+<td style="text-align: left;"><code>yaw_to_torque_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_to_torque_ki</code></td>
+<td style="text-align: left;"><code>roll_to_torque_ki</code></td>
+<td style="text-align: left;"><code>yaw_to_torque_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_to_torque_kp</code></td>
+<td style="text-align: left;"><code>roll_to_torque_kp</code></td>
+<td style="text-align: left;"><code>yaw_to_torque_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Position to velocity</strong></td>
+<td style="text-align: left;"><code>pos_n_to_vel_kd</code></td>
+<td style="text-align: left;"><code>pos_d_to_vel_kd</code></td>
+<td style="text-align: left;"><code>pos_e_to_vel_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pos_n_to_vel_ki</code></td>
+<td style="text-align: left;"><code>pos_d_to_vel_ki</code></td>
+<td style="text-align: left;"><code>pos_e_to_vel_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pos_n_to_vel_kp</code></td>
+<td style="text-align: left;"><code>pos_d_to_vel_kp</code></td>
+<td style="text-align: left;"><code>pos_e_to_vel_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocity to acceleration</strong></td>
+<td style="text-align: left;"><code>vel_d_to_accel_kd</code></td>
+<td style="text-align: left;"><code>vel_e_to_accel_kd</code></td>
+<td style="text-align: left;"><code>vel_n_to_accel_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>vel_d_to_accel_ki</code></td>
+<td style="text-align: left;"><code>vel_e_to_accel_ki</code></td>
+<td style="text-align: left;"><code>vel_n_to_accel_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>vel_d_to_accel_kp</code></td>
+<td style="text-align: left;"><code>vel_e_to_accel_kp</code></td>
+<td style="text-align: left;"><code>vel_n_to_accel_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Yaw to yaw rate</strong></td>
+<td style="text-align: left;"><code>yaw_to_rate_kd</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>yaw_to_rate_ki</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>yaw_to_rate_kp</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each PID gain is named according to what it takes in and what it returns.</p>
+<p>For example, the derivative gain for the PID loop that takes in position commands and returns velocity commands in the down direction is called <code>pos_d_to_vel_kd</code>.</p>
+</div>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>J. Ferrin, R. Leishman, R. Beard and T. McLain, "Differential flatness based control of a rotorcraft for aggressive maneuvers," 2011 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Francisco, CA, USA, 2011, pp. 2688-2693, doi: 10.1109/IROS.2011.6095098.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref4:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref5:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>R. W. Beard and T. W. McLain, <em>Small Unmanned Aircraft: Theory and Practice</em>, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2019-2025, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

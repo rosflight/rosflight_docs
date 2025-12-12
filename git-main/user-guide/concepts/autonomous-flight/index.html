@@ -1725,14 +1725,42 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../roscopter-setup/" class="md-nav__link">
+      <a href="../roscopter-architecture/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    ROScopter Setup
+    ROScopter Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customizing-roscopter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing ROScopter
   
 
     
@@ -2697,6 +2725,92 @@ You're not viewing the latest stable version.
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROScopter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2880,7 +2994,7 @@ You're not viewing the latest stable version.
 
 
 <h1 id="autonomous-flight">Autonomous Flight<a class="headerlink" href="#autonomous-flight" title="Permanent link">¶</a></h1>
-<p>To perform autonomous flight with ROSflight, we need to send control commands from our companion computer to the firmware. This can be done with ROSplane or ROScopter, which already have completed autonomy stacks developed specifically for ROSflight. We recommend starting with one of these autonomy stacks and building on them to suit your needs. If using a multirotor, follow the <a href="../roscopter-setup/">ROScopter setup guide</a> to get started. If using a fixed-wing, follow the <a href="../rosplane-setup/">ROSplane setup guide</a>.</p>
+<p>To perform autonomous flight with ROSflight, we need to send control commands from our companion computer to the firmware. This can be done with ROSplane or ROScopter, which already have completed autonomy stacks developed specifically for ROSflight. We recommend starting with one of these autonomy stacks and building on them to suit your needs. If using a multirotor, follow the <a href="../roscopter-overview/">ROScopter setup guide</a> to get started. If using a fixed-wing, follow the <a href="../rosplane-setup/">ROSplane setup guide</a>.</p>
 <p>However, ROSplane and ROScopter are optional and an entirely different autonomy stack can be used if desired. To use a different autonomy stack, follow this guide.</p>
 <h2 id="provide-control-from-a-companion-computer">Provide Control from a Companion Computer<a class="headerlink" href="#provide-control-from-a-companion-computer" title="Permanent link">¶</a></h2>
 <p>Control setpoints are sent to the flight controller by publishing to the <code>/command</code> topic that is advertised by the <code>rosflight_io</code> node. This topic accepts messages of type <code>rosflight_msgs/Command</code>, which have the following structure:</p>

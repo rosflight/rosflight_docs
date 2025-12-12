@@ -9,10 +9,10 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/concepts/roscopter-setup/">
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/concepts/customizing-roscopter/">
       
       
-        <link rel="prev" href="../roscopter-overview/">
+        <link rel="prev" href="../roscopter-architecture/">
       
       
         <link rel="next" href="../../../developer-guide/contribution-guidelines/">
@@ -26,7 +26,7 @@
     
     
       
-        <title>ROScopter Setup - ROSflight</title>
+        <title>Customizing ROScopter - ROSflight</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#roscopter" class="md-skip">
+        <a href="#customizing-roscopter" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +134,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ROScopter Setup
+              Customizing ROScopter
             
           </span>
         </div>
@@ -1664,6 +1664,34 @@ You're not viewing the latest stable version.
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1676,6 +1704,24 @@ You're not viewing the latest stable version.
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing ROScopter
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1683,7 +1729,7 @@ You're not viewing the latest stable version.
   <span class="md-ellipsis">
     
   
-    ROScopter Setup
+    Customizing ROScopter
   
 
     
@@ -1692,6 +1738,86 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-a-single-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying a single node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying a single node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-on-ros-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency on ROS 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inheritance pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-groups-of-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying groups of nodes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intended-workflow-for-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intended workflow for ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2649,6 +2775,92 @@ You're not viewing the latest stable version.
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROScopter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2789,6 +3001,75 @@ You're not viewing the latest stable version.
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-a-single-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying a single node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying a single node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-on-ros-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency on ROS 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inheritance pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-groups-of-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying groups of nodes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intended-workflow-for-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intended workflow for ROScopter
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2804,7 +3085,7 @@ You're not viewing the latest stable version.
 
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/concepts/roscopter-setup.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/concepts/customizing-roscopter.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2812,8 +3093,86 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="roscopter">ROScopter<a class="headerlink" href="#roscopter" title="Permanent link">¶</a></h1>
-<p>ROScopter is still under development. Check the <a href="https://github.com/rosflight/roscopter">github repo</a> for the latest instructions.</p>
+<h1 id="customizing-roscopter">Customizing ROScopter<a class="headerlink" href="#customizing-roscopter" title="Permanent link">¶</a></h1>
+<p>The ROScopter core functionality is intentionally lean, meaning the feature set is small.
+While this increases understandability and can improve research productivity, it also means that the core ROScopter functionality will not satisfy all researcher's needs.
+Additionally, research involves designing and testing <em>novel</em> features and algorithms, so no autopilot will have all the functionality desired by a researcher.</p>
+<p>Thus, to be useful to researchers, ROScopter has been designed to be as modular and extensible as possible.
+In other words, ROScopter has been <strong>designed to be modified, customized, and extended</strong>.
+This enables researchers to do research with minimal effort.</p>
+<p>This page describes how ROScopter is structured to allow researchers maximum flexibility.
+We also give some examples of how ROScopter could be modified.</p>
+<div class="admonition warning">
+<p class="admonition-title">ROScopter architecture</p>
+<p>This page will not go over the ROScopter architecture, but we do reference it.
+Please see the <a href="../roscopter-architecture/">ROScopter architecture documentation</a> for a description of each module before reading through this page.</p>
+</div>
+<h2 id="modifying-a-single-node">Modifying a single node<a class="headerlink" href="#modifying-a-single-node" title="Permanent link">¶</a></h2>
+<h3 id="dependency-on-ros-2">Dependency on ROS 2<a class="headerlink" href="#dependency-on-ros-2" title="Permanent link">¶</a></h3>
+<p>Each module in ROScopter (e.g. <code>path_planner</code>, <code>path_manager</code>, <code>controller</code>) is implemented as a ROS 2 node.
+Each node has a clear interface with the rest of ROScopter defined by its ROS 2 interfaces (i.e. publishers, subscribers, service servers, etc.).
+Each module communicates with the rest of ROScopter only over these ROS 2 interfaces.</p>
+<p>This dependency on ROS 2 removes dependencies between the implementations of each module.
+In other words, the regardless of how the <code>estimator</code> node is implemented (e.g. EKF vs invariant EKF vs any other estimator variant), as long as it has the same publishers and subscribers as the core ROScopter <code>estimator</code> node, then it will integrate seamlessly with the rest of ROScopter.</p>
+<p>Thus, researchers can replace any node in ROScopter with their application code.
+All that is required for the new code is that it has the same ROS 2 interfaces as the core ROScopter node.</p>
+<div class="admonition example">
+<p class="admonition-title">Replacing a core ROScopter node</p>
+<p>A researcher studying model predictive control (MPC) wants to use ROScopter.
+The researcher has already implemented his controller as a separate C++ library, and it takes in reference trajectories and outputs low-level controller commands.</p>
+<p>Since the MPC controller takes in a trajectory and returns low-level control commands, the ideal node to replace would be the <code>trajectory_follower</code>.
+The researcher has already implemented it as a C++ library, so all he needs to do is write a ROS 2 wrapper around his library to have the same ROS 2 interfaces as the ROScopter <code>trajectory_follower</code>.</p>
+<p>Another option would be to create a derived class from the <code>trajectory_follower</code> interface class that forwards function calls to his library.</p>
+</div>
+<p>The dependency on ROS 2 also allows seamless cross-language support (for languages supported by ROS 2).
+For example, any C++ node could be replaced by a Python node---as long as the ROS 2 interfaces are the same, ROScopter will compile and run.</p>
+<div class="admonition example">
+<p class="admonition-title">Replacing a core ROScopter node with a Python node</p>
+<p>Another researcher is studying model predictive control (MPC) and wants to use ROScopter.
+The researcher has already implemented her controller in Python, and it takes in reference trajectories and outputs low-level controller commands.</p>
+<p>Since the MPC controller takes in a trajectory and returns low-level control commands, the ideal node to replace would be the <code>trajectory_follower</code>.
+The researcher has already implemented it in Python, so all she needs to do is write a ROS 2 wrapper around her library to have the same ROS 2 interfaces as the ROScopter <code>trajectory_follower</code>.</p>
+<p>The core ROScopter <code>trajectory_follower</code> is written in C++, so another option would be to rewrite the Python code in C++ and implement it as in the previous example.</p>
+</div>
+<p>Additionally, each module in ROScopter has a single responsibility, further removing dependencies between modules and functionality in ROScopter.</p>
+<div class="admonition example">
+<p class="admonition-title">Replacing a core ROScopter node - Single responsibility principle</p>
+<p>A researcher interested in state estimation wants to use ROScopter.</p>
+<p>Since the researcher only wants to test new state estimation algorithms, the <code>controller</code>, <code>path_manager</code>, <code>path_planner</code>, or <code>trajectory_follower</code> modules do not need to be modified.
+This is because all relevant code is in the <code>estimator</code> node, whose single responsibility is to perform state estimation.</p>
+</div>
+<h3 id="inheritance-pattern">Inheritance pattern<a class="headerlink" href="#inheritance-pattern" title="Permanent link">¶</a></h3>
+<p>Each module in ROScopter has been designed with an inheritance pattern and is written in C++.
+The base class is an abstract class and defines the ROS 2 interfaces for the node and declares <em>work</em> functions for the node.
+These <em>work</em> functions are where the node does its job, like estimating the state for the <code>estimator</code> or creating a trajectory for the <code>path_manager</code>.
+They are declared as pure virtual functions and thus must be implemented by a derived class.</p>
+<p>This inheritance pattern reduces boilerplate code (i.e. rewriting the ROS 2 interfaces) for users.</p>
+<p>Implementing custom code in ROScopter can be done by subclassing/inheriting from the interface class and implementing the custom functionality.</p>
+<h2 id="modifying-groups-of-nodes">Modifying groups of nodes<a class="headerlink" href="#modifying-groups-of-nodes" title="Permanent link">¶</a></h2>
+<p>In some cases, application code can take the place of several core ROScopter nodes.
+The procedure for replacing groups of nodes in ROScopter is the same as it is to replace a single node.
+As long as the ROS 2 interfaces remain the same between the other core ROScopter nodes, the new node will interface seamlessly with the rest of ROScopter.</p>
+<p>The linear, cascaded flow of information through ROScopter makes this easy.
+Modules typically only depend on output from the module just above, so changes to upstream modules don't affect how downstream modules are implemented.</p>
+<div class="admonition example">
+<p class="admonition-title">Replacing a group of nodes</p>
+<p>A researcher studying spline-based path planning wants to use ROScopter.
+The new spline-based planning approach takes in information about the enviroment (i.e. obstacles, start and end locations, etc.) and outputs trajectory commands.</p>
+<p>This new code replaces the functionality provided by the core ROScopter navigation stack (the <code>path_planner</code> and <code>path_manager</code>).
+The researcher can therefore replace both the <code>path_planner</code> and the <code>path_manager</code> with the new spline-based controller.
+The new node just needs to output trajectory commands to the <code>trajectory_follower</code> as the <code>path_manager</code> does.</p>
+</div>
+<h2 id="intended-workflow-for-roscopter">Intended workflow for ROScopter<a class="headerlink" href="#intended-workflow-for-roscopter" title="Permanent link">¶</a></h2>
+<p>When using ROScopter, users should first determine which core ROScopter nodes will be replaced by the new application code.
+Depending on the application, a single node or a group of nodes may need to be modified as described above.
+Some applications may not need to modify any core ROScopter nodes.</p>
+<p>After determining which core nodes to modify/replace, the application code should be tested in ROSflight sim.
+Note that the simulation makes assumptions about the vehicle's mass, size, inertia matrix, etc.
+These values are based off a real quadcopter (the Holybro x650 frame), so they are somewhat realistic.
+If hardware experiments will not be done, these parameters will likely work just fine.</p>
+<p>If hardware experiments will be performed, then users should set these values appropriately in ROSflight sim and also in each of the ROScopter nodes (many ROScopter nodes need to know about the mass of the vehicle).
+This helps ease the transition from sim to real tests.</p>
+<p>Remember that ROScopter runs entirely on the companion computer, so no software changes are necessary when transitioning from simulation to hardware.</p>
 
 
 
