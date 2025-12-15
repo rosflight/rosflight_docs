@@ -1,0 +1,3293 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/v2.0-beta/user-guide/tutorials/user-manual-appendix/">
+      
+      
+        <link rel="prev" href="../user-manual-ROSflight-integration/">
+      
+      
+        <link rel="next" href="../../concepts/getting-started/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Appendix - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quick-links" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Appendix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+          
+  
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../publications/rosplane/" class="md-tabs__link">
+          
+  
+  
+  Publications
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation for Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation on Hardware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/using-docker-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using Docker with ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manually-flying-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manually flying ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-roscopter-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROScopter in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-rosplane-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROSplane in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning-performance-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tuning performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transitioning from Sim to Hardware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Transitioning from Sim to Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transitioning-from-sim-to-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-xflr5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xflr5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-openvsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenVSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-ROSflight-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick-Links
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aerodynamics-crash-course" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aerodynamics Crash Course
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aerodynamics Crash Course">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmalpha-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cm/Alpha Stability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neutral-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neutral Point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-margin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Margin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flight-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flight Speed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aircraft-trimming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aircraft Trimming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glide-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Glide Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-locus-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Locus Stability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-find-the-best-stability-and-control-derivatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Find the Best Stability and Control Derivatives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notation-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notation Glossary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-helpful-links-and-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      References, Helpful Links, and Documentation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Hardware and ROSflight
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware and ROSflight
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/hardware-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/flight-controller-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flight Controller Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rc-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RC Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/parameter-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/preflight-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-Flight Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/improving-firmware-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improving Firmware Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/autonomous-flight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Autonomous Flight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight Sim
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/running-simulations-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/detailed-launching-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed Launching Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/simulator-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulator Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROScopter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/roscopter-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/roscopter-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/customizing-roscopter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing ROScopter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/contribution-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Style Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Firmware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/code-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building and Flashing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unit Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Controller
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Controller
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General Controller Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Software Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller State Machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Successive Loop Closure Controller Outline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Total Energy Controller
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Estimator
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Estimator
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Example
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Planner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Follower
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROScopter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Publications
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Publications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosplane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick-Links
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aerodynamics-crash-course" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aerodynamics Crash Course
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aerodynamics Crash Course">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmalpha-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cm/Alpha Stability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#neutral-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neutral Point
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-margin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Margin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flight-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flight Speed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aircraft-trimming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aircraft Trimming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glide-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Glide Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-locus-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Root Locus Stability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-find-the-best-stability-and-control-derivatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Find the Best Stability and Control Derivatives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notation-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notation Glossary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-helpful-links-and-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      References, Helpful Links, and Documentation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/tutorials/user-manual-appendix.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+  <h1>Appendix</h1>
+
+<p>This section contains an aerodynamics crash course, common errors, notation and nomenclature outlines, and additional useful resources/links for further study. </p>
+<h2 id="quick-links">Quick-Links<a class="headerlink" href="#quick-links" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="#aerodynamics-crash-course">Aerodynamics Crash Course</a></li>
+<li><a href="#how-to-find-the-best-stability-and-control-derivatives">How to Find the Best Stability and Control Derivatives</a></li>
+<li><a href="#notation-glossary">Notation Glossary</a></li>
+<li><a href="#references-helpful-links-and-documentation">References, Helpful Links, and Documentation</a></li>
+</ul>
+<h2 id="aerodynamics-crash-course">Aerodynamics Crash Course<a class="headerlink" href="#aerodynamics-crash-course" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="#cmalpha-stability">Cm/Alpha Rules</a></li>
+<li><a href="#neutral-point">Finding the Neutral Point with a Cm Chart</a></li>
+<li><a href="#static-margin">Static Margin</a></li>
+<li><a href="#flight-speed">Finding Steady Flight Speed</a></li>
+<li><a href="#aircraft-trimming">Finding Trimmed State</a></li>
+<li><a href="#glide-ratio">Glide Ratio</a></li>
+<li><a href="#root-locus-stability">Root Locus Stability Charts</a></li>
+</ul>
+<h3 id="cmalpha-stability">Cm/Alpha Stability<a class="headerlink" href="#cmalpha-stability" title="Permanent link">¶</a></h3>
+<p>The Cm (center of mass) vs. Alpha curve must have a negative slope to be stable. It also should cross the positive x-axis to be stable.  </p>
+<p>If the slope is not positive or if the line does not cross the positive x-axis, then the aircraft will not be able to naturally hold level flight.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%201.jpeg" data-desc-position="bottom"><img alt="aerodynamics 1" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%201.jpeg"></a></p>
+<h3 id="neutral-point">Neutral Point<a class="headerlink" href="#neutral-point" title="Permanent link">¶</a></h3>
+<p>The neutral point (NP) is the aerodynamic center of the entire aircraft — the point along the longitudinal axis where the pitching moment doesn't change with angle of attack.  </p>
+<p>If the center of gravity (CG) is ahead of the NP, the aircraft is statically stable.  </p>
+<p>If the CG is behind the NP, the aircraft is unstable.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/neutral%20point%20formula.jpeg" data-desc-position="bottom"><img alt="neutral point formula" src="../../../assets/user_manual_assets/appendix%20pictures/neutral%20point%20formula.jpeg"></a></p>
+<p>In Xflr5, you can find the calculated neutral point in the plane viewer tab after performing a basic aerodynamic analysis. You can also find the NP in the coefficient viewer window below the list of analyses after a stability analysis.  </p>
+<p>In OpenVSP, the neutral point can be found at the bottom right of the .stab file after a stability analysis is completed.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%203.jpeg" data-desc-position="bottom"><img alt="aerodynamics 3" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%203.jpeg"></a>
+ The neutral point can also be found in both Xflr5 and OpenVSP by finding the CG location at which the Cm vs. Alpha curve has a flat slope.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%204.jpeg" data-desc-position="bottom"><img alt="aerodynamics 4" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%204.jpeg"></a></p>
+<h3 id="static-margin">Static Margin<a class="headerlink" href="#static-margin" title="Permanent link">¶</a></h3>
+<p>Static margin is a measure of how stable an aircraft is. A higher SM means the aircraft will more quickly stabilize itself from disturbances, which usually also results in a lower maneuverability.  </p>
+<p>The static margin for most commercial and hobbyist aircraft is between 5-15%. 5-10% is more maneuverable, and 10-20% is more stable.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%205.jpeg" data-desc-position="bottom"><img alt="aerodynamics 5" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%205.jpeg"></a></p>
+<h3 id="flight-speed">Flight Speed<a class="headerlink" href="#flight-speed" title="Permanent link">¶</a></h3>
+<p>The y-intercept of a velocity vs. alpha chart will show you the steady flight speed at any alpha.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%206.jpeg" data-desc-position="bottom"><img alt="aerodynamics 6" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%206.jpeg"></a></p>
+<h3 id="aircraft-trimming">Aircraft Trimming<a class="headerlink" href="#aircraft-trimming" title="Permanent link">¶</a></h3>
+<p>A Cm vs. alpha chart x-intercept shows the trimmed angle of an aircraft.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%207.jpeg" data-desc-position="bottom"><img alt="aerodynamics 7" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%207.jpeg"></a></p>
+<h3 id="glide-ratio">Glide Ratio<a class="headerlink" href="#glide-ratio" title="Permanent link">¶</a></h3>
+<p>A glide ratio compares how far an aircraft can fly compared to how far it will fall.  </p>
+<p>The CL/CD vs. Cm chart y-intercept shows the glide ratio.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%208.jpeg" data-desc-position="bottom"><img alt="aerodynamics 8" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%208.jpeg"></a></p>
+<h3 id="root-locus-stability">Root Locus Stability<a class="headerlink" href="#root-locus-stability" title="Permanent link">¶</a></h3>
+<p>The root locus chart in the Xflr5 viewer shows the stability response of an aircraft.  </p>
+<p>The roots show stable / oscillatory characteristics.  </p>
+<p>If the roots are farther left, the aircraft is more stable. Farther from the x-axis = more oscillation.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%209.jpeg" data-desc-position="bottom"><img alt="aerodynamics 9" src="../../../assets/user_manual_assets/appendix%20pictures/aerodynamics%209.jpeg"></a></p>
+<h2 id="how-to-find-the-best-stability-and-control-derivatives">How to Find the Best Stability and Control Derivatives<a class="headerlink" href="#how-to-find-the-best-stability-and-control-derivatives" title="Permanent link">¶</a></h2>
+<p>You should actuate only one group of control surfaces per stability analysis. For this reason, you will most likely need to run several stability analyses.  </p>
+<p>Example: have one stability analysis with ailerons activated to get the aileron control derivatives, and another analysis to get the elevator control derivatives.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%201.jpeg" data-desc-position="bottom"><img alt="finding derivatives 1" src="../../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%201.jpeg"></a>
+ The .flt file contains all of the stability derivatives, but does not contain the control derivatives. The drag coefficients in here seem to be the most accurate.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%202.jpeg" data-desc-position="bottom"><img alt="finding derivatives 2" src="../../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%202.jpeg"></a></p>
+<p>In Xflr5, the stability and control derivatives can be found in the output viewer after a stability analysis is completed.  </p>
+<p>Select an analysis from the list at the top left and the derivatives will appear below.  </p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%203.jpeg" data-desc-position="bottom"><img alt="finding derivatives 3" src="../../../assets/user_manual_assets/appendix%20pictures/finding%20derivatives%203.jpeg"></a></p>
+<h2 id="notation-glossary">Notation Glossary<a class="headerlink" href="#notation-glossary" title="Permanent link">¶</a></h2>
+<p>This section contains a glossary of common names and abbreviated notation for the most common stability and control derivatives used when analyzing aircraft. </p>
+<p>It also lists and compares the stability and control derivative naming conventions for each tool discussed in this manual (ROSplane, Xflr5, and OpenVSP). </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ROSplane allows users to include non-standard stability and control derivatives that are not commonly used in aircraft analysis. These, along with helpful tips, are located under the "non-standard" section at the bottom of the picture. </p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">"C_D_p" in ROSflight is the parasitic drag coefficient!</p>
+<p>In the ROSplane parameters, C_D_p is "parasitic drag", <strong>not</strong> drag from roll rate. Make sure to take this into account when building your model and inputting values into your .yaml file. Instructions for calculating parasitic drag can be found <a href="../user-manual-openvsp/#parasitic-drag">here</a>.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%20picture.jpg" data-desc-position="bottom"><img alt="naming conventions 1" src="../../../assets/user_manual_assets/appendix%20pictures/naming%20conventions%20picture.jpg"></a></p>
+<p>The following tables define the key equations and variables that are used to calculate the stability and control derivatives referenced above. The equations are from <em>Airplane Flight Dynamics and Automatic Flight Controls</em> by J. Roskam.</p>
+<style>
+table th, table td {
+  padding: 2px 6px !important;
+  line-height: 1.1em !important;
+}
+</style>
+
+<p><small></small></p><small>
+<div align="left" style="margin-bottom:0.1em;"><h4>Variable Definitions</h4></div>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Symbol</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+<th style="text-align: left;"><strong>Units</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span></td>
+<td style="text-align: left;">Angle of attack</td>
+<td style="text-align: left;">rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\beta</span><script type="math/tex">\beta</script></span></td>
+<td style="text-align: left;">Angle of sideslip</td>
+<td style="text-align: left;">rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">p, q, r</span><script type="math/tex">p, q, r</script></span></td>
+<td style="text-align: left;">Roll, pitch, and yaw rates</td>
+<td style="text-align: left;">rad/s</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span></td>
+<td style="text-align: left;">Wing span</td>
+<td style="text-align: left;">m</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\bar{c}</span><script type="math/tex">\bar{c}</script></span></td>
+<td style="text-align: left;">Mean aerodynamic chord</td>
+<td style="text-align: left;">m</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">U_1</span><script type="math/tex">U_1</script></span></td>
+<td style="text-align: left;">Freestream (reference) airspeed</td>
+<td style="text-align: left;">m/s</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\delta_e, \delta_a, \delta_r</span><script type="math/tex">\delta_e, \delta_a, \delta_r</script></span></td>
+<td style="text-align: left;">Elevator, aileron, and rudder deflections</td>
+<td style="text-align: left;">rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{q\bar{c}}{2U_1}</span><script type="math/tex">\dfrac{q\bar{c}}{2U_1}</script></span></td>
+<td style="text-align: left;">Nondimensional pitch rate</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{pb}{2U_1}</span><script type="math/tex">\dfrac{pb}{2U_1}</script></span></td>
+<td style="text-align: left;">Nondimensional roll rate</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{rb}{2U_1}</span><script type="math/tex">\dfrac{rb}{2U_1}</script></span></td>
+<td style="text-align: left;">Nondimensional yaw rate</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_L, C_D, C_Y</span><script type="math/tex">C_L, C_D, C_Y</script></span></td>
+<td style="text-align: left;">Lift, drag, and side-force coefficients</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_\ell, C_m, C_n</span><script type="math/tex">C_\ell, C_m, C_n</script></span></td>
+<td style="text-align: left;">Rolling, pitching, and yawing moment coefficients</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
+</small><p><small></small></p>
+<div align="left" style="margin-bottom:0.1em;"><h4>Longitudinal Coefficients</h4></div>
+
+<p><small></small></p><small>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Symbol</strong></th>
+<th style="text-align: left;"><strong>Formula</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+<th style="text-align: left;"><strong>Units</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_0}</span><script type="math/tex">C_{L_0}</script></span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Lift coefficient at zero angle of attack</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_0}</span><script type="math/tex">C_{D_0}</script></span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Zero-lift drag coefficient</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{m_0}</span><script type="math/tex">C_{m_0}</script></span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Pitching moment coefficient at zero angle of attack</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_\alpha}</span><script type="math/tex">C_{L_\alpha}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial \alpha}</span><script type="math/tex">\dfrac{\partial C_L}{\partial \alpha}</script></span></td>
+<td style="text-align: left;">Variation of lift with angle of attack</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_\alpha}</span><script type="math/tex">C_{D_\alpha}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial \alpha}</span><script type="math/tex">\dfrac{\partial C_D}{\partial \alpha}</script></span></td>
+<td style="text-align: left;">Variation of drag with angle of attack</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{m_\alpha}</span><script type="math/tex">C_{m_\alpha}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_m}{\partial \alpha}</span><script type="math/tex">\dfrac{\partial C_m}{\partial \alpha}</script></span></td>
+<td style="text-align: left;">Variation of pitching moment with angle of attack</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_q}</span><script type="math/tex">C_{L_q}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial (q\bar{c}/2U_1)}</span><script type="math/tex">\dfrac{\partial C_L}{\partial (q\bar{c}/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of lift with nondimensional pitch rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_q}</span><script type="math/tex">C_{D_q}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial (q\bar{c}/2U_1)}</span><script type="math/tex">\dfrac{\partial C_D}{\partial (q\bar{c}/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of drag with nondimensional pitch rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{m_q}</span><script type="math/tex">C_{m_q}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_m}{\partial (q\bar{c}/2U_1)}</span><script type="math/tex">\dfrac{\partial C_m}{\partial (q\bar{c}/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of pitching moment with nondimensional pitch rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_{\delta_e}}</span><script type="math/tex">C_{L_{\delta_e}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial \delta_e}</span><script type="math/tex">\dfrac{\partial C_L}{\partial \delta_e}</script></span></td>
+<td style="text-align: left;">Variation of lift with elevator deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_{\delta_e}}</span><script type="math/tex">C_{D_{\delta_e}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial \delta_e}</span><script type="math/tex">\dfrac{\partial C_D}{\partial \delta_e}</script></span></td>
+<td style="text-align: left;">Variation of drag with elevator deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{m_{\delta_e}}</span><script type="math/tex">C_{m_{\delta_e}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_m}{\partial \delta_e}</span><script type="math/tex">\dfrac{\partial C_m}{\partial \delta_e}</script></span></td>
+<td style="text-align: left;">Variation of pitching moment with elevator deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+</tbody>
+</table>
+</small><p><small></small></p>
+<div align="left" style="margin-bottom:0.1em;"><h4>Lateral/Directional Coefficients</h4></div>
+
+<p><small></small></p><small>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Symbol</strong></th>
+<th style="text-align: left;"><strong>Formula</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+<th style="text-align: left;"><strong>Units</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{Y_0}</span><script type="math/tex">C_{Y_0}</script></span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Side force coefficient for zero sideslip and zero control deflection</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{\ell_0}</span><script type="math/tex">C_{\ell_0}</script></span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Rolling moment coefficient for zero sideslip and zero control deflection</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{n_0}</span><script type="math/tex">C_{n_0}</script></span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Yawing moment coefficient for zero sideslip and zero control deflection</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{Y_\beta}</span><script type="math/tex">C_{Y_\beta}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_Y}{\partial \beta}</span><script type="math/tex">\dfrac{\partial C_Y}{\partial \beta}</script></span></td>
+<td style="text-align: left;">Variation of side force with sideslip angle</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{\ell_\beta}</span><script type="math/tex">C_{\ell_\beta}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_\ell}{\partial \beta}</span><script type="math/tex">\dfrac{\partial C_\ell}{\partial \beta}</script></span></td>
+<td style="text-align: left;">Variation of rolling moment with sideslip angle</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{n_\beta}</span><script type="math/tex">C_{n_\beta}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_n}{\partial \beta}</span><script type="math/tex">\dfrac{\partial C_n}{\partial \beta}</script></span></td>
+<td style="text-align: left;">Variation of yawing moment with sideslip angle</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{Y_p}</span><script type="math/tex">C_{Y_p}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_Y}{\partial (pb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_Y}{\partial (pb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of side force with nondimensional roll rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{\ell_p}</span><script type="math/tex">C_{\ell_p}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_\ell}{\partial (pb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_\ell}{\partial (pb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of rolling moment with nondimensional roll rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{n_p}</span><script type="math/tex">C_{n_p}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_n}{\partial (pb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_n}{\partial (pb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of yawing moment with nondimensional roll rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{Y_r}</span><script type="math/tex">C_{Y_r}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_Y}{\partial (rb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_Y}{\partial (rb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of side force with nondimensional yaw rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{\ell_r}</span><script type="math/tex">C_{\ell_r}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_\ell}{\partial (rb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_\ell}{\partial (rb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of rolling moment with nondimensional yaw rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{n_r}</span><script type="math/tex">C_{n_r}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_n}{\partial (rb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_n}{\partial (rb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of yawing moment with nondimensional yaw rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{Y_{\delta_a}}</span><script type="math/tex">C_{Y_{\delta_a}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_Y}{\partial \delta_a}</span><script type="math/tex">\dfrac{\partial C_Y}{\partial \delta_a}</script></span></td>
+<td style="text-align: left;">Variation of side force with aileron deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{\ell_{\delta_a}}</span><script type="math/tex">C_{\ell_{\delta_a}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_\ell}{\partial \delta_a}</span><script type="math/tex">\dfrac{\partial C_\ell}{\partial \delta_a}</script></span></td>
+<td style="text-align: left;">Variation of rolling moment with aileron deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{n_{\delta_a}}</span><script type="math/tex">C_{n_{\delta_a}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_n}{\partial \delta_a}</span><script type="math/tex">\dfrac{\partial C_n}{\partial \delta_a}</script></span></td>
+<td style="text-align: left;">Variation of yawing moment with aileron deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{Y_{\delta_r}}</span><script type="math/tex">C_{Y_{\delta_r}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_Y}{\partial \delta_r}</span><script type="math/tex">\dfrac{\partial C_Y}{\partial \delta_r}</script></span></td>
+<td style="text-align: left;">Variation of side force with rudder deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{\ell_{\delta_r}}</span><script type="math/tex">C_{\ell_{\delta_r}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_\ell}{\partial \delta_r}</span><script type="math/tex">\dfrac{\partial C_\ell}{\partial \delta_r}</script></span></td>
+<td style="text-align: left;">Variation of rolling moment with rudder deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{n_{\delta_r}}</span><script type="math/tex">C_{n_{\delta_r}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_n}{\partial \delta_r}</span><script type="math/tex">\dfrac{\partial C_n}{\partial \delta_r}</script></span></td>
+<td style="text-align: left;">Variation of yawing moment with rudder deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+</tbody>
+</table>
+</small><p><small></small></p>
+<div align="left" style="margin-bottom:0.1em;"><h4>Cross-Coupled Derivatives</h4></div>
+
+<p><small></small></p><small>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Symbol</strong></th>
+<th style="text-align: left;"><strong>Formula</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+<th style="text-align: left;"><strong>Units</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_\beta}</span><script type="math/tex">C_{L_\beta}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial \beta}</span><script type="math/tex">\dfrac{\partial C_L}{\partial \beta}</script></span></td>
+<td style="text-align: left;">Variation of lift with sideslip angle</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_p}</span><script type="math/tex">C_{L_p}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial (pb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_L}{\partial (pb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of lift with nondimensional roll rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_r}</span><script type="math/tex">C_{L_r}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial (rb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_L}{\partial (rb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of lift with nondimensional yaw rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_{\delta_a}}</span><script type="math/tex">C_{L_{\delta_a}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial \delta_a}</span><script type="math/tex">\dfrac{\partial C_L}{\partial \delta_a}</script></span></td>
+<td style="text-align: left;">Variation of lift with aileron deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{L_{\delta_r}}</span><script type="math/tex">C_{L_{\delta_r}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_L}{\partial \delta_r}</span><script type="math/tex">\dfrac{\partial C_L}{\partial \delta_r}</script></span></td>
+<td style="text-align: left;">Variation of lift with rudder deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_\beta}</span><script type="math/tex">C_{D_\beta}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial \beta}</span><script type="math/tex">\dfrac{\partial C_D}{\partial \beta}</script></span></td>
+<td style="text-align: left;">Variation of drag with sideslip angle</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_p}</span><script type="math/tex">C_{D_p}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial (pb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_D}{\partial (pb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of drag with nondimensional roll rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_r}</span><script type="math/tex">C_{D_r}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial (rb/2U_1)}</span><script type="math/tex">\dfrac{\partial C_D}{\partial (rb/2U_1)}</script></span></td>
+<td style="text-align: left;">Variation of drag with nondimensional yaw rate</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_{\delta_a}}</span><script type="math/tex">C_{D_{\delta_a}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial \delta_a}</span><script type="math/tex">\dfrac{\partial C_D}{\partial \delta_a}</script></span></td>
+<td style="text-align: left;">Variation of drag with aileron deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">C_{D_{\delta_r}}</span><script type="math/tex">C_{D_{\delta_r}}</script></span></td>
+<td style="text-align: left;"><span class="arithmatex"><span class="MathJax_Preview">\dfrac{\partial C_D}{\partial \delta_r}</span><script type="math/tex">\dfrac{\partial C_D}{\partial \delta_r}</script></span></td>
+<td style="text-align: left;">Variation of drag with rudder deflection</td>
+<td style="text-align: left;">1/rad</td>
+</tr>
+</tbody>
+</table>
+</small><p><small></small></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All derivatives evaluated at reference condition (stability-axis system). Rate terms use nondimensional rates <span class="arithmatex"><span class="MathJax_Preview">\frac{pb}{2U_1}</span><script type="math/tex">\frac{pb}{2U_1}</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\frac{q\bar{c}}{2U_1}</span><script type="math/tex">\frac{q\bar{c}}{2U_1}</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\frac{rb}{2U_1}</span><script type="math/tex">\frac{rb}{2U_1}</script></span>. Units: angle/control = 1/rad.</p>
+</div>
+<p></p>
+<h2 id="references-helpful-links-and-documentation">References, Helpful Links, and Documentation<a class="headerlink" href="#references-helpful-links-and-documentation" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="http://airfoiltools.com/search/index?m%5Bgrp%5D=naca4d&amp;m%5Bsort%5D=1">Online NACA Databases</a></li>
+<li><a href="https://m-selig.ae.illinois.edu/ads/coord_database.html">NACA Database 2</a></li>
+<li><a href="https://m-selig.ae.illinois.edu/apasim/Aircraft-uiuc.html">Aircraft Dynamic Models Database</a></li>
+<li><a href="https://ntrs.nasa.gov/api/citations/19720018355/downloads/19720018355.pdf">NASA Aircraft Analysis Paper</a></li>
+<li><a href="https://www.schoolphysics.co.uk/age16-19/Mechanics/Simple%20harmonic%20motion/text/Bifilar_suspension/index.html">How to Find Inertia Tensors for a Small Aircraft</a></li>
+<li><a href="https://ocw.mit.edu/courses/16-333-aircraft-stability-and-control-fall-2004/99dac83da0ad7eb8906ebac40e9e6ae1_lecture_2.pdf">Stability and Control Crash Course</a></li>
+<li><a href="https://flowlab.groups.et.byu.net/me415/flight.pdf">Flight Vehicle and Aerodynamic Design Textbook</a></li>
+<li><a href="https://www.xflr5.tech/xflr5.htm">Xflr5 Documentation</a></li>
+<li><a href="https://aero.us.es/adesign/Slides/Extra/Aerodynamics/Software/XFLR5/XFLR5%20v6.10.02/Guidelines.pdf">Xflr5 Documentation (PDF)</a></li>
+<li><a href="https://vspu.larc.nasa.gov/training-content/chapter-5-advanced-openvsp-techniques/">OpenVSP Documentation</a></li>
+<li><a href="https://groups.google.com/g/openvsp/c/Pb93zCFufJA/m/mRHC0fD7CQAJ">OpenVSP Google groups</a></li>
+<li><a href="https://www.bing.com/videos/riverview/relatedvideo?q=using+openvsp+to+find+stability+derivatives&amp;mid=797311886965F9F42A1A797311886965F9F42A1A&amp;FORM=VIRE">OpenVSP Example Videos</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLtl5ylS6jdP6uOxzSJKPnUsvMbkmalfKg">Xflr5 Tutorial Videos</a></li>
+<li><a href="https://ebrary.net/59623/engineering/analyzing_decode_with_xflr5_stability">Xflr5 Stability Analysis Documentation and Tutorials</a></li>
+<li><a href="https://flow5.tech/docs/flow5_doc/Tutorials/Stability.html">Stability Analysis Documentation and Tutorials (flow5)</a></li>
+<li><a href="https://www.xflr5.com/docs/XFLR5_and_Stability_analysis.pdf">Stability Analysis Documentation and Tutorials (PDF)</a></li>
+<li><a href="http://wpage.unina.it/danilo.ciliberti/doc/Barrella.pdf">Research papers using Xflr5 and/or OpenVSP (Barrella)</a></li>
+<li><a href="http://wpage.unina.it/danilo.ciliberti/doc/Vincenti.pdf">Research papers using Xflr5 and/or OpenVSP (Vincenti)</a></li>
+<li><a href="https://vtechworks.lib.vt.edu/server/api/core/bitstreams/db1aa291-5e0f-446a-bf5a-6d5e570a2719/content">Research papers using Xflr5 and/or OpenVSP (VT)</a></li>
+<li><a href="https://www.researchpublish.com/upload/book/Lateral%20and%20Longitudinal%20Stability%20Analysis%20of%20UAV%20Using%20Xflr5-1163.pdf">Research papers using Xflr5 and/or OpenVSP (UAV)</a></li>
+<li><a href="https://www.researchgate.net/publication/373635436_Model_Based_Aircraft_Design_and_Optimization_A_Case_Study_with_Cessna_172N_Aircraft">Research papers using Xflr5 and/or OpenVSP (Cessna 172N)</a></li>
+<li><a href="https://www.icas.org/icas_archive/ICAS2022/data/papers/ICAS2022_0367_paper.pdf">ICAS 2022 Paper Comparing Xflr5 and OpenVSP</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2019-2025, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

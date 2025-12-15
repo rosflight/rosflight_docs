@@ -1,0 +1,3321 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/v2.0-beta/user-guide/tutorials/setting-up-rosplane-in-sim/">
+      
+      
+        <link rel="prev" href="../setting-up-roscopter-in-sim/">
+      
+      
+        <link rel="next" href="../tuning-performance-in-sim/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Running ROSplane in Sim - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setting-up-rosplane-in-sim" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Running ROSplane in Sim
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+          
+  
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../publications/rosplane/" class="md-tabs__link">
+          
+  
+  
+  Publications
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation for Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation on Hardware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/using-docker-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using Docker with ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manually-flying-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manually flying ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-roscopter-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROScopter in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Running ROSplane in Sim
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROSplane in Sim
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rosplane-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROSplane Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROSplane Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#major-system-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Major System Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-standalone_sim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching standalone_sim
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-rosplane-autonomy-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching ROSplane Autonomy Stack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching ROSplane Autonomy Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-rosplane-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding the ROSplane Stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-ground-control-station" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launch Ground Control Station
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-missions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading Missions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Loading Missions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-waypoint-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Waypoint Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-waypoints-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Waypoints Manually
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-mission-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Mission Loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-additional-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Publishing Additional Waypoints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-autonomous-flight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling Autonomous Flight
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enabling Autonomous Flight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arm-and-start-mission" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arm and Start Mission
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-flight-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor Flight Progress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-flight-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuning Flight Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helpful Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Helpful Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resetting-the-simulation-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resetting the Simulation State
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuning-performance-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tuning performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transitioning from Sim to Hardware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Transitioning from Sim to Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transitioning-from-sim-to-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-xflr5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xflr5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-openvsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenVSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-ROSflight-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_1" id="__nav_2_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Hardware and ROSflight
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware and ROSflight
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/hardware-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/flight-controller-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flight Controller Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rc-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RC Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/parameter-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/preflight-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-Flight Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/improving-firmware-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improving Firmware Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/autonomous-flight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Autonomous Flight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight Sim
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/running-simulations-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/detailed-launching-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed Launching Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/simulator-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulator Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4">
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROScopter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/roscopter-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/roscopter-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/customizing-roscopter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing ROScopter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/contribution-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Style Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Firmware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/code-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building and Flashing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unit Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Controller
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Controller
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General Controller Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Software Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller State Machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Successive Loop Closure Controller Outline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Total Energy Controller
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Estimator
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Estimator
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Example
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Planner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Follower
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROScopter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Publications
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Publications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosplane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rosplane-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROSplane Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROSplane Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#major-system-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Major System Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-standalone_sim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching standalone_sim
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launching-rosplane-autonomy-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching ROSplane Autonomy Stack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launching ROSplane Autonomy Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-rosplane-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding the ROSplane Stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-ground-control-station" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launch Ground Control Station
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-missions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading Missions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Loading Missions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-waypoint-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Waypoint Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-waypoints-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Waypoints Manually
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-mission-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Mission Loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-additional-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Publishing Additional Waypoints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-autonomous-flight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling Autonomous Flight
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enabling Autonomous Flight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arm-and-start-mission" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arm and Start Mission
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-flight-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor Flight Progress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-flight-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuning Flight Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helpful Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Helpful Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resetting-the-simulation-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resetting the Simulation State
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/tutorials/setting-up-rosplane-in-sim.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="setting-up-rosplane-in-sim">Setting up ROSplane in Sim<a class="headerlink" href="#setting-up-rosplane-in-sim" title="Permanent link">¶</a></h1>
+<p>This tutorial guides you through setting up ROSplane, the fixed-wing autopilot system, in simulation.
+ROSplane provides autonomous flight capabilities for fixed-wing aircraft.</p>
+<p>This tutorial will walk you through:</p>
+<ul>
+<li>Launching the <code>rosplane</code> autonomy stack</li>
+<li>Flying waypoint missions</li>
+<li>Some basic analysis of what is going on</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../manually-flying-rosflight-sim/">Manually flying in ROSflight Sim</a></li>
+</ul>
+<h2 id="rosplane-overview">ROSplane Overview<a class="headerlink" href="#rosplane-overview" title="Permanent link">¶</a></h2>
+<p>ROSplane is a ROS2-based autopilot system designed for fixed-wing vehicles.</p>
+<h3 id="major-system-components">Major System Components<a class="headerlink" href="#major-system-components" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Estimator</strong>: EKF for state estimation from IMU, GPS, and barometer data</li>
+<li><strong>Controller</strong>: Multiple control algorithms (successive loop control, total energy control)</li>
+<li><strong>Path Follower</strong>: Tracks commanded paths and generates control setpoints</li>
+<li><strong>Path Manager</strong>: Converts waypoints into smooth flyable paths using fillets or Dubins curves</li>
+<li><strong>Path Planner</strong>: High-level mission planning and waypoint management</li>
+</ul>
+<h3 id="control-hierarchy">Control Hierarchy<a class="headerlink" href="#control-hierarchy" title="Permanent link">¶</a></h3>
+<p>ROSplane implements a hierarchical control structure where high-level waypoint commands flow through path planning, path management, path following, and finally to low-level control loops.</p>
+<h2 id="launching-standalone_sim">Launching <code>standalone_sim</code><a class="headerlink" href="#launching-standalone_sim" title="Permanent link">¶</a></h2>
+<p>The standalone simulator provides a lightweight simulation environment using RViz for visualization.
+This is the recommended starting point for ROSplane simulation.</p>
+<p>Launch the fixed-wing simulation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start the standalone simulator with ROSflight firmware simulation</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing_standalone.launch.py<span class="w"> </span>use_vimfly:<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>The RViz simulation environment should launch.</p>
+<p>See the <a href="../manually-flying-rosflight-sim/">manually flying guide</a> for instructions on launching, configuring, and arming in sim.</p>
+<h2 id="launching-rosplane-autonomy-stack">Launching ROSplane Autonomy Stack<a class="headerlink" href="#launching-rosplane-autonomy-stack" title="Permanent link">¶</a></h2>
+<p>The ROSplane autonomy stack is a collection of ROS2 nodes that provide autonomous flight capabilities on top of the basic simulation.</p>
+<p>In a new terminal, run:</p>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosplane_sim<span class="w"> </span>sim.launch.py
+</code></pre></div>
+<p>This launch file does 2 things:</p>
+<ol>
+<li>Launches <code>rosplane</code> autonomy stack by calling the <code>rosplane.launch.py</code> file.
+This file launches most of the nodes we'll explore later.</li>
+<li>Starts the <code>sim_state_transcriber</code> node.
+This node publishes the truth state from the simulation as a <code>rosplane/msg/State</code> message so we can easily compare estimated and true state.</li>
+</ol>
+<h3 id="understanding-the-rosplane-stack">Understanding the ROSplane Stack<a class="headerlink" href="#understanding-the-rosplane-stack" title="Permanent link">¶</a></h3>
+<p>Let's take a look at the nodes that we just ran:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check ROSplane-specific nodes</span>
+ros2<span class="w"> </span>node<span class="w"> </span>list
+</code></pre></div>
+<p>You should see the following output:
+</p><div class="highlight"><pre><span></span><code>➜<span class="w">  </span>~<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>list
+/autopilot
+/estimator
+/path_follower
+/path_manager
+/path_planner
+/rosplane_truth
+</code></pre></div><p></p>
+<details class="info">
+<summary><strong>Node Descriptions</strong></summary>
+<ul>
+<li><strong><code>/autopilot</code></strong>: Main control node that implements multiple control algorithms (successive loop control, total energy control) and manages flight modes</li>
+<li><strong><code>/estimator</code></strong>: EKF that fuses IMU, GPS, and barometer data to provide state estimation (position, velocity, attitude, airspeed)</li>
+<li><strong><code>/path_follower</code></strong>: Tracks commanded paths and generates control setpoints for the controller</li>
+<li><strong><code>/path_manager</code></strong>: Converts waypoints into smooth flyable paths using fillets or Dubins curves</li>
+<li><strong><code>/path_planner</code></strong>: High-level mission planning node that handles waypoint loading and mission sequencing</li>
+<li><strong><code>/rosplane_truth</code></strong>: Simulation truth state publisher that provides ground truth data for comparison with estimated state</li>
+</ul>
+</details>
+<p>Let's now take a look at the topics specific to <code>rosplane</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check ROSplane-specific topics</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>list
+</code></pre></div>
+<p>You should see the following output (note that these are topics from only the <code>rosplane</code> launch file):
+</p><div class="highlight"><pre><span></span><code>➜<span class="w">  </span>~<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
+/airspeed
+/baro
+/command
+/controller_command
+/controller_internals
+/current_path
+/estimated_state
+/gnss
+/imu/data
+/parameter_events
+/rosout
+/sim/rosplane/state
+/sim/truth_state
+/sim/truth_wind
+/status
+/waypoint_path
+</code></pre></div><p></p>
+<details class="info">
+<summary><strong>Some Key Topic Descriptions</strong></summary>
+<ul>
+<li>Messages that the <code>estimator</code> subscribes to:<ul>
+<li><strong><code>/airspeed</code></strong>: Differential pressure sensor for airspeed estimation</li>
+<li><strong><code>/baro</code></strong>: Barometric pressure sensor data for altitude estimation</li>
+<li><strong><code>/gnss</code></strong>: GPS position and velocity measurements</li>
+<li><strong><code>/imu/data</code></strong>: IMU sensor data (accelerometer, gyroscope measurements)</li>
+<li><strong><code>/magnetometer</code></strong>: Magnetometer readings for heading estimation</li>
+</ul>
+</li>
+<li><strong><code>/command</code></strong>: Commands sent to ROSflight firmware (see rosflight_msgs/msg/Command for details)</li>
+<li><strong><code>/controller_internals</code></strong>: Inner control loop commands. Helpful for debugging</li>
+<li><strong><code>/current_path</code></strong>: Active path segment being followed by the path follower</li>
+<li><strong><code>/estimated_state</code></strong>: Complete vehicle state from EKF (position, velocity, attitude, airspeed, wind estimation)</li>
+<li><strong><code>/sim/rosplane/state</code></strong>: ROSplane-formatted state message from simulation truth</li>
+<li><strong><code>/waypoint_path</code></strong>: Current mission waypoints and path information</li>
+</ul>
+</details>
+<p>When we fly waypoint missions, we will load waypoints to the <code>path_planner</code> using a service call.
+The chain of information flows from the <code>path_planner</code> to the <code>path_manager</code>, <code>path_follower</code>, <code>autopilot</code>, and finally on to the firmware.</p>
+<h3 id="launch-ground-control-station">Launch Ground Control Station<a class="headerlink" href="#launch-ground-control-station" title="Permanent link">¶</a></h3>
+<p>The ground control station will plot waypoints that we pass to ROSplane.
+It can be helpful to launch this so we can see if ROSplane is actually doing what we want it to do.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In a new terminal (source workspace first)</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>rosplane_gcs<span class="w"> </span>rosplane_gcs.launch.py
+</code></pre></div>
+<p>This will launch another instance of RViz that will display different information than the main simulation pane.</p>
+<h2 id="loading-missions">Loading Missions<a class="headerlink" href="#loading-missions" title="Permanent link">¶</a></h2>
+<p>ROSplane supports loading waypoint missions through waypoints defined in YAML files or set through ROS services.
+These waypoints will be uploaded to the <code>path_planner</code> node using the <code>path_planner</code>'s ROS2 services.</p>
+<h3 id="using-waypoint-files">Using Waypoint Files<a class="headerlink" href="#using-waypoint-files" title="Permanent link">¶</a></h3>
+<p>Waypoints can be loaded in batch manner from a file.</p>
+<p>Create or modify waypoint files:
+</p><div class="highlight"><pre><span></span><code><span class="c1"># Edit the default waypoint file</span>
+vim<span class="w"> </span>/path/to/rosflight_ws/src/rosplane/rosplane/params/fixedwing_mission.yaml
+</code></pre></div><p></p>
+<p>Example waypoint file structure:
+</p><div class="highlight"><pre><span></span><code><span class="c1"># WAYPOINTS</span>
+<span class="nt">wp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">w</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1000.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-500.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-50.0</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># Position [North, East, Down] in meters</span>
+<span class="w">  </span><span class="nt">chi_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.1518</span><span class="w">               </span><span class="c1"># Desired heading (radians)</span>
+<span class="w">  </span><span class="nt">lla</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                  </span><span class="c1"># Use NED coordinates (not GPS lat/lon/alt)</span>
+<span class="w">  </span><span class="nt">use_chi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">              </span><span class="c1"># Use smooth turns</span>
+<span class="w">  </span><span class="nt">va_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15.0</span><span class="w">                  </span><span class="c1"># Desired airspeed (m/s)</span>
+<span class="nt">wp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">w</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1000.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">400.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-50.0</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">chi_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.1518</span>
+<span class="w">  </span><span class="nt">lla</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">use_chi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">va_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15.0</span>
+</code></pre></div><p></p>
+<p><strong>Waypoint Parameters:</strong></p>
+<ul>
+<li><strong><code>w</code></strong>: Position coordinates <code>[North, East, Down]</code> (in meters NED frame or LLA)</li>
+<li><strong><code>chi_d</code></strong>: Desired heading in radians</li>
+<li><strong><code>lla</code></strong>: Set to <code>false</code> for NED coordinates, <code>true</code> for GPS coordinates</li>
+<li><strong><code>use_chi</code></strong>: Set to <code>false</code> for fillet path planning, <code>true</code> for Dubin's path planning. See <em>Small Unmanned Aircraft: Theory and Practice</em> for more information.</li>
+<li><strong><code>va_d</code></strong>: Desired airspeed in m/s</li>
+</ul>
+<p>Load waypoints from mission file using the service call:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load waypoints from the default mission file</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src/rosplane/rosplane/params
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/fixedwing_mission.yaml}"</span>
+</code></pre></div>
+<h3 id="setting-waypoints-manually">Setting Waypoints Manually<a class="headerlink" href="#setting-waypoints-manually" title="Permanent link">¶</a></h3>
+<p>You can also add waypoints dynamically using the following services:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add a single waypoint (N=500m, E=300m, D=-40m, heading=0rad, airspeed=12m/s)</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/add_waypoint<span class="w"> </span>rosplane_msgs/srv/AddWaypoint<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"{w: [500.0, 300.0, -40.0], chi_d: 0.0, use_chi: false, va_d: 12.0}"</span>
+
+<span class="c1"># Progress to next waypoint in sequence</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/publish_next_waypoint<span class="w"> </span>std_srvs/srv/Trigger
+
+<span class="c1"># Print current waypoint list</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/print_waypoints<span class="w"> </span>std_srvs/srv/Trigger
+</code></pre></div>
+<h3 id="verify-mission-loading">Verify Mission Loading<a class="headerlink" href="#verify-mission-loading" title="Permanent link">¶</a></h3>
+<p>You can check that the waypoints are loaded by looking at the <code>rosplane_gcs</code> RViz GUI.
+You should see the waypoints plotted as markers in the visualization.</p>
+<h3 id="publishing-additional-waypoints">Publishing Additional Waypoints<a class="headerlink" href="#publishing-additional-waypoints" title="Permanent link">¶</a></h3>
+<p>Note that the <code>path_planner</code> will publish only the first few waypoints (determined by the <code>num_waypoints_to_publish_at_start</code> parameter).
+Publish the next one by calling:
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/publish_next_waypoint<span class="w"> </span>std_srvs/srv/Trigger
+</code></pre></div>
+or by setting the parameter to the desired value:
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/path_planner<span class="w"> </span>num_waypoints_to_publish_at_start<span class="w"> </span><span class="m">100</span>
+</code></pre></div><p></p>
+<h2 id="enabling-autonomous-flight">Enabling Autonomous Flight<a class="headerlink" href="#enabling-autonomous-flight" title="Permanent link">¶</a></h2>
+<p>After loading missions, enable autonomous flight through <code>rc</code>'s services.
+When starting up ROSflight, RC override will be <strong>enabled</strong> by default, meaning that the companion computer will not control the vehicle.
+To enable offboard control, you will need to <strong>disable RC override</strong>.</p>
+<h3 id="arm-and-start-mission">Arm and Start Mission<a class="headerlink" href="#arm-and-start-mission" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using VimFly or a transmitter, these services will not be available.
+Use the transmitter or VimFly to arm and disable RC override.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Arm the vehicle (enable motors)</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/toggle_arm<span class="w"> </span>std_srvs/srv/Trigger
+
+<span class="c1"># Turn off RC override -- make sure it is toggled on before arming</span>
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/toggle_override<span class="w"> </span>std_srvs/srv/Trigger
+</code></pre></div>
+<h3 id="monitor-flight-progress">Monitor Flight Progress<a class="headerlink" href="#monitor-flight-progress" title="Permanent link">¶</a></h3>
+<p>In ROScopter, every module communicates with the other modules via ROS2 publishers and subscribers.
+You can track the status and state of the vehicle by echoing the relevant ROS2 topics.
+We often will use <a href="../tuning-performance-in-sim/#install-and-launch-plotjuggler">PlotJuggler</a> to visualize the data to monitor what is going on internal to the system.</p>
+<p>For example:
+</p><div class="highlight"><pre><span></span><code><span class="c1"># Monitor vehicle state during flight</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/estimated_state
+
+<span class="c1"># Watch controller commands internal to ROSplane</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/controller_internals
+
+<span class="c1"># Watch controller commands sent to ROSflight firmware</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/command
+</code></pre></div><p></p>
+<h3 id="tuning-flight-performance">Tuning Flight Performance<a class="headerlink" href="#tuning-flight-performance" title="Permanent link">¶</a></h3>
+<p>It is possible that the flight performance is unstable due to the <code>controller</code>'s gains not being set correctly.
+See <a href="../tuning-performance-in-sim/">the tuning guide</a> for more information.</p>
+<h2 id="helpful-tips">Helpful Tips<a class="headerlink" href="#helpful-tips" title="Permanent link">¶</a></h2>
+<h3 id="resetting-the-simulation-state">Resetting the Simulation State<a class="headerlink" href="#resetting-the-simulation-state" title="Permanent link">¶</a></h3>
+<p>The <code>standalone_sim</code> module has a very simplistic ground plane representation (i.e. no friction).
+This means that when the aircraft is armed, it will drift over time.
+If this happens to you, you can reset the simulation state of the vehicle.</p>
+<p>You can reset the state of the vehicle by using a service call provided by the <code>dynamics</code> node using
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/dynamics/set_sim_state<span class="w"> </span>rosflight_msgs/srv/SetSimState
+</code></pre></div><p></p>
+<p>Note that in this command we didn't specify what the values for the <code>SetSimState</code> message type are, so they default to zero.
+This should move the vehicle to the origin in the standalone sim.
+If you are using the Gazebo simulator, a position of [0,0,0] is underground, so the vehicle will respond erratically.</p>
+<p>You can set the simulation state to any arbitrary state by providing the information in the <code>SetSimState</code> service definition.</p>
+<details class="tip">
+<summary>How do I know what information is contained in a message definition?</summary>
+<p>One way is to go find the message definition file in the package where it was built (i.e. rosflight_msgs package in the <code>rosflight_ros_pkgs</code> repository).</p>
+<p>Another option is to use the <code>ros2 interface show &lt;name-of-interface&gt;</code> command.
+For example, to find out what is included in the <code>SetSimState</code> service definition, do
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>rosflight_msgs/srv/SetSimState
+</code></pre></div>
+and look through the output.<p></p>
+</details>
+<h2 id="review">Review<a class="headerlink" href="#review" title="Permanent link">¶</a></h2>
+<p>You have successfully completed the ROSplane autonomous flight tutorial. You should now be able to:</p>
+<ul>
+<li><strong>Launch ROSplane Stack</strong>: Start the complete autonomy stack with estimator, controller, and path management</li>
+<li><strong>Load Waypoint Missions</strong>: Create and load waypoint missions from YAML files or via ROS services</li>
+<li><strong>Execute Autonomous Flight</strong>: Arm the vehicle and fly autonomous waypoint missions</li>
+<li><strong>Monitor Flight Performance</strong>: Track vehicle state and controller performance during flight</li>
+<li><strong>Understand System Architecture</strong>: Recognize how nodes communicate and data flows through the system</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
+<p>Once you have ROSplane running autonomously, you can:</p>
+<ol>
+<li><strong><a href="../setting-up-roscopter-in-sim/">Multirotor Autonomous Flight</a></strong>: Explore ROScopter for multirotor autonomous flight</li>
+<li><strong><a href="../tuning-performance-in-sim/">Parameter/Gain Tuning</a></strong>: Use RQT plugins to tune PID controllers and optimize flight performance</li>
+<li><strong><a href="../../../developer-guide/contribution-guidelines/">Custom Applications</a></strong>: Develop your own ROS2 nodes that interface with ROSplane</li>
+</ol>
+<h3 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="../../concepts/parameter-configuration/">ROSflight Parameter Reference</a>: Detailed firmware parameter descriptions</li>
+<li><a href="../../concepts/hardware-setup/">Hardware Setup Guide</a>: Preparing real hardware for flight</li>
+<li><a href="../../../developer-guide/rosplane/rosplane-dev-overview/">ROSplane Architecture Documentation</a>: In-depth system design and implementation details</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2019-2025, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

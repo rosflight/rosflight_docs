@@ -5,11 +5,17 @@
     "aliases": []
   },
   {
+    "version": "v2.0-beta",
+    "title": "v2.0-beta",
+    "aliases": [
+      "latest"
+    ]
+  },
+  {
     "version": "v1.3",
     "title": "v1.3",
     "aliases": [
-      "ROS1",
-      "latest"
+      "ROS1"
     ]
   }
 ]
