@@ -71,27 +71,30 @@ nav:
         - OpenVSP: user-guide/tutorials/user-manual-openvsp.md
         - ROSflight Integration: user-guide/tutorials/user-manual-ROSflight-integration.md
         - Appendix: user-guide/tutorials/user-manual-appendix.md
-    - Concepts:
-      - Hardware and ROSflight:
-        - Getting Started: user-guide/concepts/getting-started.md
-        - Hardware Setup: user-guide/concepts/hardware-setup.md
-        - Flight Controller Setup: user-guide/concepts/flight-controller-setup.md
-        - RC Configuration: user-guide/concepts/rc-configuration.md
-        - Parameter Configuration: user-guide/concepts/parameter-configuration.md
-        - Pre-Flight Checks: user-guide/concepts/preflight-checks.md
-        - Improving Firmware Performance: user-guide/concepts/improving-firmware-performance.md
-        - Autonomous Flight: user-guide/concepts/autonomous-flight.md
-      - ROSflight Sim:
-        - ROSflight Sim Overview: user-guide/concepts/running-simulations-with-rosflight.md
-        - Detailed Launching Guide: user-guide/concepts/detailed-launching-guide.md
-        - Simulator Architecture: user-guide/concepts/simulator-architecture.md
-      - ROSplane:
-        - ROSplane Overview: user-guide/concepts/rosplane-overview.md
-        - ROSplane Setup: user-guide/concepts/rosplane-setup.md
-      - ROScopter:
-        - ROScopter Overview: user-guide/concepts/roscopter-overview.md
-        - ROScopter Architecture: user-guide/concepts/roscopter-architecture.md
-        - Customizing ROScopter: user-guide/concepts/customizing-roscopter.md
+    - ROSflight Sim:
+      - ROSflight Sim Overview: user-guide/concepts/running-simulations-with-rosflight.md
+      - Detailed Launching Guide: user-guide/concepts/detailed-launching-guide.md
+      - Simulator Architecture: user-guide/concepts/simulator-architecture.md
+    - ROSplane:
+      - ROSplane Overview: user-guide/concepts/rosplane-overview.md
+      - ROSplane Setup: user-guide/concepts/rosplane-setup.md
+    - ROScopter:
+      - ROScopter Overview: user-guide/roscopter/roscopter-overview.md
+      - ROScopter Path Planner: user-guide/roscopter/roscopter-path-planner.md
+      - ROScopter Path Manager: user-guide/roscopter/roscopter-path-manager.md
+      - ROScopter Trajectory Follower: user-guide/roscopter/roscopter-trajectory-follower.md
+      - ROScopter Controller: user-guide/roscopter/roscopter-controller.md
+      - ROScopter Estimator: user-guide/roscopter/roscopter-estimator.md
+    - Hardware and ROSflight:
+      - Getting Started: user-guide/concepts/getting-started.md
+      - Hardware Setup: user-guide/concepts/hardware-setup.md
+      - Flight Controller Setup: user-guide/concepts/flight-controller-setup.md
+      - RC Configuration: user-guide/concepts/rc-configuration.md
+      - Parameter Configuration: user-guide/concepts/parameter-configuration.md
+      - Pre-Flight Checks: user-guide/concepts/preflight-checks.md
+      - Improving Firmware Performance: user-guide/concepts/improving-firmware-performance.md
+      - Autonomous Flight: user-guide/concepts/autonomous-flight.md
+    - Customizing ROSflight: user-guide/customizing-rosflight.md
   - Developer Guide:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
     - Style Guide: developer-guide/style-guide.md

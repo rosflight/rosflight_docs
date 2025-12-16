@@ -13,7 +13,7 @@ We also give some examples of how ROScopter could be modified.
 
 !!! warning "ROScopter architecture"
     This page will not go over the ROScopter architecture, but we do reference it.
-    Please see the [ROScopter architecture documentation](./roscopter-architecture.md) for a description of each module before reading through this page.
+    Please see the [ROScopter architecture documentation](./roscopter/roscopter-overview.md) for a description of each module before reading through this page.
 
 ## Modifying a single node
 
