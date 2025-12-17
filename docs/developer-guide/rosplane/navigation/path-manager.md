@@ -50,7 +50,7 @@ See Figure 1 for an example of a real flight path flown using ROSplane with `chi
 |*Example flight path from an actual flight test showing the straight lines and fillets path type*|
 
 Note that using fillets to manage the corners often means that the aircraft does not actually achieve the waypoint.
-If this is undesireable in your application, use Dubins paths or another method for the `path_manager`. 
+If this is undesirable in your application, use Dubins paths or another method for the `path_manager`. 
 
 
 ## Parameters

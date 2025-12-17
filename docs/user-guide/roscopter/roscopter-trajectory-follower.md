@@ -67,11 +67,11 @@ This means that there are 4 sets of separate PID gains for each controller.
     where $g=9.81$ is gravity.
 
     When $\ddot{p}^c$ approaches $+g$, then $u_{p_3}$ approaches $0$, and Eq. (15)[^1] returns large values of $\theta$ for small changes in $z_1$.
-    Physically, this results in large, rapidly changing pitch commands, resulting in undesireable performance.
+    Physically, this results in large, rapidly changing pitch commands, resulting in undesirable performance.
     Note that this can happen for large nominal (PID) controller output, but also for large feedforward input.
 
     To fix this, we need to make sure $u_{p_3}$ does not approach $0$, or equivalently, $\ddot{p}^c$ does not approach $+g$.
-    Since free-fall is also usually not desireable (i.e. $\ddot{p}^c=0$), we saturate $u_{p_3}$ so that
+    Since free-fall is also usually not desirable (i.e. $\ddot{p}^c=0$), we saturate $u_{p_3}$ so that
     $$
     u_{p_3} \in [u_\text{max}, -\infty]
     $$

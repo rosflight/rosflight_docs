@@ -196,7 +196,7 @@ The parameters associated with the `path_planner` are
 | :--- | :--- | :--- |
 | `default_altitude` | `double` | Altitude of the default waypoint (see note). Should be a positive number (not in NED frame)! |
 | `hold_last` | `bool` | Determines if the `path_manager` will hold at the last waypoint or if it will cycle back to the first |
-| `path_update_frequency` | `double` | Rate (in Hz) at which to publish tractory setpoints |
+| `path_update_frequency` | `double` | Rate (in Hz) at which to publish trajectory setpoints |
 | `waypoint_tolerance` | `double` | Distance (in m) from the target waypoint at which the waypoint is considered complete |
 | `do_linear_interpolation` | `bool` | Determines if a linear time scaling or a 5th order smoothstep time scaling will be used.  |
 | `max_acceleration` | `double` | Max acceleration value in m/s$^2$ (used when generating trajectory) |

@@ -59,7 +59,7 @@ nav:
       - Installation on Hardware: user-guide/installation/installation-hardware.md
       - Using Docker with ROSflight: user-guide/installation/using-docker-with-rosflight.md
     - Tutorials: 
-      - Overview: user-guide/tutorials/tutorial-overview.md
+      - Tutorial overview: user-guide/tutorials/tutorial-overview.md
       - Setting up ROSflight Sim: user-guide/tutorials/setting-up-rosflight-sim.md
       - Manually flying ROSflight Sim: user-guide/tutorials/manually-flying-rosflight-sim.md
       - Running ROScopter in Sim: user-guide/tutorials/setting-up-roscopter-in-sim.md
@@ -71,6 +71,7 @@ nav:
         - OpenVSP: user-guide/tutorials/user-manual-openvsp.md
         - ROSflight Integration: user-guide/tutorials/user-manual-ROSflight-integration.md
         - Appendix: user-guide/tutorials/user-manual-appendix.md
+    - ROSflightIO: user-guide/rosflight-io.md
     - ROSflight Sim:
       - ROSflight Sim Overview: user-guide/concepts/running-simulations-with-rosflight.md
       - Detailed Launching Guide: user-guide/concepts/detailed-launching-guide.md
