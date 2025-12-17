@@ -78,7 +78,7 @@ See the [Parameter Management](../parameter-management.md) page for more details
 
 ## Recommended Usage
 We recommend using a YAML file and the `/load_mission_from_file` service from the command line to load and fly waypoints.
-See the example mission YAML file located at `/path/to/rosplane/rosplane/params/fixedwing_mission.yaml`.
+See the example mission YAML file located at `/path/to/rosplane/rosplane/missions/fixedwing_mission.yaml`.
 
 To call the service, run
 ```bash

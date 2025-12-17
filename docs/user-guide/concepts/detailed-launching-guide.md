@@ -86,7 +86,7 @@ For more information on each of these nodes, see the [simulator architecture](./
 If you don't want to use the launch file, you can instead run all of the nodes individually in separate terminals with the appropriate parameters.
 For example, to run just the `/multirotor_forces_and_moments` node, you would run
 ```bash
-ros2 run rosflight_sim multirotor_forces_and_moments --ros-args --params-file /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml
+ros2 run rosflight_sim multirotor_forces_and_moments --ros-args --params-file ~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml
 ```
 Check the launch files for more information on what parameters and param files get loaded by the launch file.
 

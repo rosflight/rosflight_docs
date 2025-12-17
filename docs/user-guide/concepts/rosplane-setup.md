@@ -22,7 +22,7 @@ You will need to install ROSplane on the companion computer.
 First, navigate to the src directory of the ROS2 workspace and clone the git repository:
 
 ```bash
-cd /path/to/rosflight_ws/src
+cd ~/rosflight_ws/src
 git clone https://github.com/rosflight/rosplane.git
 ```
 
@@ -53,7 +53,7 @@ If you already added the source command to your `.bashrc` from the [ROS2 Setup](
 source install/setup.bash
 
 # add it to your .bashrc
-echo "source /path/to/rosflight_ws/install/setup.bash >> $HOME/.bashrc"
+echo "source ~/rosflight_ws/install/setup.bash >> $HOME/.bashrc"
 ```
 
 Note that sourcing the `setup.bash` file in the `rosflight_ws` directory will install all ROS2 packages in any subdirectories.
@@ -71,13 +71,13 @@ A convenience bash script has been included that uses tmux to launch Gazebo, an 
 Note that this requires tmux, so you may need to install it with `sudo apt install tmux`.
 Run
 ```bash
-./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh -s -r -a anaconda -b example_bag ~/path/to/rosflight_ws
+./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh -s -r -a anaconda -b example_bag ~/rosflight_ws
 ```
 from the `rosflight_ws` directory to run a simulation of ROSplane (`-s`) with a simulated RC transmitter (`-r`) and the Anaconda aerodynamic and control parameters (`-a anaconda`), and also to start recording a ROSbag of all the topics (`-b example_bag`).
 
 See the script or run 
 ```bash
-~/path/to/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh -h
+~/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh -h
 ```
 for more information.
 
@@ -111,7 +111,7 @@ ros2 launch rosflight_sim fixedwing_init_firmware.launch.py
 Alternatively, you can run the following commands to initialize firmware parameters and calibrate the IMU.
 Firmware parameters should first be loaded using
 ```bash
-ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "filename: /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/fixedwing_firmware.yaml"
+ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "filename: ~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/fixedwing_firmware.yaml"
 ```
 
 The IMU should then be calibrated to remove the random biases generated at startup.
@@ -176,7 +176,7 @@ See [Path Planning](../../developer-guide/rosplane/navigation/navigation-overvie
 
 #### Recommended Method
 ROSplane initializes with no waypoints added to the `path_planner`.
-We recommend using a mission .yaml file (an example mission can be found in `rosplane/params/fixedwing_mission.yaml`).
+We recommend using a mission .yaml file (an example mission can be found in `rosplane/missions/fixedwing_mission.yaml`).
 Loading the mission can be done using 
 
 ```bash

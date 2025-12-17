@@ -16,9 +16,9 @@ Fortunately, the developers of ROS provide Docker images for nearly all versions
 
 !!! warning "Docker on Windows"
 
-    If you are using Docker on Windows natively, be aware that GUI tools will not work.
+    If you are using Docker on Windows natively, be aware that GUI tools may not work.
     We have not tested GUI applications while using a Docker container in WSL.
-    GUI applications in WSL work fine with a "native" installation of ROS2.
+    GUI applications in WSL (without Docker) work fine with a "native" installation of ROS2.
 
 !!! note "Using Docker instead of a native installation"
 
@@ -50,7 +50,7 @@ We have provided the Docker files that we use [here](https://github.com/rosfligh
 
 1. Navigate to the `rosflight_ws` directory:
     ```bash
-    cd /path/to/rosflight_ws
+    cd ~/rosflight_ws
     ```
 
 1. Build the Docker container:
@@ -83,11 +83,23 @@ docker compose -f src/rosflight_ros_pkgs/docker/compose.yaml exec rosflight zsh
 
 1. Attach to the container using the above commands.
 
-1. Build the `rosflight_ws` using the [colcon](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) build tool:
+1. Build the packages in `rosflight_ws` using the [colcon](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) build tool:
     ```bash
-    cd /path/to/rosflight_ws
+    cd ~/rosflight_ws
     colcon build
     ```
+
+    After the build, you should see output similar to:
+    ```bash
+    ---
+    Finished <<< roscopter [1min 34s]
+    Starting >>> rosflight_pkgs
+    Finished <<< rosflight_pkgs [0.42s]                        
+
+    Summary: 18 packages finished [1min 44s]
+    4 packages had stderr output: roscopter rosflight_io rosplane rosplane_extra
+    ```
+    There may be warnings or `stderr` output, but as long as each package says `Finished`, the build was successful.
 
     !!! warning "Resource Usage"
         Building the whole repository at once uses a lot of memory.
@@ -97,6 +109,7 @@ docker compose -f src/rosflight_ros_pkgs/docker/compose.yaml exec rosflight zsh
         ```
 
     !!! success
+        The `colcon` build tool will create `build`, `log`, and `install` folders, even if the build fails.
         Your ROSflight workspace file structure should now look like
         ```bash
         rosflight_ws/
