@@ -161,4 +161,4 @@ See the [flight controller guide](../concepts/flight-controller-setup.md) for in
 
 At this point, you have successfully installed ROS2 and set up ROSflight on the companion computer, including all required dependencies.
 
-For guidance on running simulations, see the [tutorials](../tutorials/tutorial-overview.md).
+For guidance on running simulations, see the [tutorials](../tutorials/index.md).

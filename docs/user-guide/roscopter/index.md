@@ -4,7 +4,7 @@
 
     Ready to get fly your code with ROScopter? Start here:
 
-    1. Follow [the ROSflight tutorials](../tutorials/tutorial-overview.md) to set up ROScopter fly waypoint missions in sim.
+    1. Follow [the ROSflight tutorials](../tutorials/index.md) to set up ROScopter fly waypoint missions in sim.
     2. Read through [the following ROScopter architecture pages](./roscopter-path-planner.md) to understand the responsibilities of each node.
     3. Find examples of how to customize ROScopter in the [Customizing ROSflight](../customizing-rosflight.md) page.
 
@@ -40,7 +40,7 @@ See [the ROScopter autonomy stack documentation pages](./roscopter-path-planner.
 ## Using ROScopter as-is
 
 ROScopter's default waypoint-following functionality may be useful to some users.
-The [ROSflight tutorials](../tutorials/tutorial-overview.md) walk users through setting up ROSflight and ROScopter in sim, all the way through flying waypoint missions.
+The [ROSflight tutorials](../tutorials/index.md) walk users through setting up ROSflight and ROScopter in sim, all the way through flying waypoint missions.
 Follow those tutorials first to get a feel for the default ROScopter behavior and workflow before you start making your own changes to the autonomy stack.
 
 A detailed description of the ROScopter autonomy stack and each module is found in [the ROScopter architecture pages](./roscopter-path-planner.md).
@@ -50,7 +50,7 @@ A detailed description of the ROScopter autonomy stack and each module is found 
 ROScopter's default functionality may not be sufficient for many users.
 Because of this, ROScopter has been designed to be understandable, modular, and customizable.
 
-The [customizing ROflight page](../customizing-rosflight.md) describes how ROScopter is meant to be modified to assist in your research.
+The [customizing ROSflight page](../customizing-rosflight.md) describes how ROScopter is meant to be modified to assist in your research.
 The page also includes examples and scenarios where each node can be modified, removed, or combined to accomplish different tasks.
 
 ## ROScopter Architecture Overview

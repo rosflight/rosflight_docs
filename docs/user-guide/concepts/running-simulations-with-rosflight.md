@@ -21,7 +21,7 @@ The [detailed launching guide](./detailed-launching-guide.md) contains informati
 !!! tip "New to ROSflight?"
 
     If you are new to ROSflight, we recommend that you first start by setting up the simulation environment and learning to use the ROSflight ecosystem.
-    Do this by following the [installation for sim](../installation/installation-sim.md) guides, and then the [ROSflight tutorials](../tutorials/tutorial-overview.md).
+    Do this by following the [installation for sim](../installation/installation-sim.md) guides, and then the [ROSflight tutorials](../tutorials/index.md).
 
     After you do that, you should be ready to start using ROSflight in your own research!
     Visit the [developer guide pages](../../developer-guide/contribution-guidelines.md) for more specifics on how to use ROSflight for your research.

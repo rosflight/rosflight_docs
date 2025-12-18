@@ -38,7 +38,7 @@ This following sections detail how to launch and debug these two simulators.
 !!! tip "New to ROSflight?"
 
     If you are new to ROSflight, we recommend that you first start by setting up the simulation environment and learning to use the ROSflight ecosystem.
-    Do this by following the [installation for sim](../installation/installation-sim.md) guides, and then the [ROSflight tutorials](../tutorials/tutorial-overview.md).
+    Do this by following the [installation for sim](../installation/installation-sim.md) guides, and then the [ROSflight tutorials](../tutorials/index.md).
 
     **This guide assumes you have already followed these tutorials.**
 
