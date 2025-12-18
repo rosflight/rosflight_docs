@@ -9,13 +9,13 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/v2.0-beta/user-guide/tutorials/transitioning-from-sim-to-hardware/">
+        <link rel="canonical" href="http://rosflight.org/v2.0-beta/user-guide/roscopter/roscopter-path-planner/">
       
       
-        <link rel="prev" href="../tuning-performance-in-sim/">
+        <link rel="prev" href="../roscopter-overview/">
       
       
-        <link rel="next" href="../user-manual-xflr5/">
+        <link rel="next" href="../roscopter-path-manager/">
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
@@ -23,7 +23,7 @@
     
     
       
-        <title>Overview - ROSflight</title>
+        <title>ROScopter Path Planner - ROSflight</title>
       
     
     
@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#transitioning-from-sim-to-hardware" class="md-skip">
+        <a href="#path-planner" class="md-skip">
           Skip to content
         </a>
       
@@ -132,7 +132,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              ROScopter Path Planner
             
           </span>
         </div>
@@ -525,8 +525,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -537,11 +535,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -557,7 +555,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Tutorials
@@ -571,7 +569,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../tutorial-overview/" class="md-nav__link">
+      <a href="../../tutorials/tutorial-overview/" class="md-nav__link">
         
   
   
@@ -594,7 +592,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../setting-up-rosflight-sim/" class="md-nav__link">
+      <a href="../../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
         
   
   
@@ -617,7 +615,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../manually-flying-rosflight-sim/" class="md-nav__link">
+      <a href="../../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
         
   
   
@@ -640,7 +638,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../setting-up-roscopter-in-sim/" class="md-nav__link">
+      <a href="../../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
         
   
   
@@ -663,7 +661,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../setting-up-rosplane-in-sim/" class="md-nav__link">
+      <a href="../../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
         
   
   
@@ -686,7 +684,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../tuning-performance-in-sim/" class="md-nav__link">
+      <a href="../../tutorials/tuning-performance-in-sim/" class="md-nav__link">
         
   
   
@@ -706,8 +704,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -718,11 +714,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7">
         
           
           <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
@@ -738,7 +734,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3_7">
             <span class="md-nav__icon md-icon"></span>
             Transitioning from Sim to Hardware
@@ -749,32 +745,10 @@ You're not viewing the latest stable version.
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
         
   
   
@@ -785,92 +759,6 @@ You're not viewing the latest stable version.
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#rosplane-sim2real" class="md-nav__link">
-    <span class="md-ellipsis">
-      ROSplane Sim2Real
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ROSplane Sim2Real">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#introduction-and-disclaimer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction and Disclaimer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#where-to-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Where to Start
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Where to Start">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modeling-your-aircraft-and-running-aerodynamic-analyses" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modeling Your Aircraft and Running Aerodynamic Analyses
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rosflight-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      ROSflight Integration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-resources-and-further-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional Resources and Further Study
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -883,7 +771,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-xflr5/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-xflr5/" class="md-nav__link">
         
   
   
@@ -906,7 +794,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-openvsp/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-openvsp/" class="md-nav__link">
         
   
   
@@ -929,7 +817,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-ROSflight-integration/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
         
   
   
@@ -952,7 +840,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-appendix/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-appendix/" class="md-nav__link">
         
   
   
@@ -1224,6 +1112,8 @@ You're not viewing the latest stable version.
                 
   
   
+    
+  
   
   
     
@@ -1234,11 +1124,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
         
           
           <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
@@ -1254,7 +1144,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             ROScopter
@@ -1268,7 +1158,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-overview/" class="md-nav__link">
+      <a href="../roscopter-overview/" class="md-nav__link">
         
   
   
@@ -1288,10 +1178,32 @@ You're not viewing the latest stable version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-planner/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Path Planner
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1302,6 +1214,113 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-with-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface with ROScopter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters and configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-path_plannerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the path_planner/implementation details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the path_planner/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add waypoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clear-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clear waypoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-mission-from-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load mission from file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Print waypoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-next-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Publish next waypoint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1314,7 +1333,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-manager/" class="md-nav__link">
+      <a href="../roscopter-path-manager/" class="md-nav__link">
         
   
   
@@ -1337,7 +1356,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
+      <a href="../roscopter-trajectory-follower/" class="md-nav__link">
         
   
   
@@ -1360,7 +1379,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-controller/" class="md-nav__link">
+      <a href="../roscopter-controller/" class="md-nav__link">
         
   
   
@@ -1383,7 +1402,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-estimator/" class="md-nav__link">
+      <a href="../roscopter-estimator/" class="md-nav__link">
         
   
   
@@ -2639,63 +2658,84 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#rosplane-sim2real" class="md-nav__link">
+  <a href="#responsibility" class="md-nav__link">
     <span class="md-ellipsis">
-      ROSplane Sim2Real
+      Responsibility
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ROSplane Sim2Real">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-with-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface with ROScopter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters and configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-path_plannerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the path_planner/implementation details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the path_planner/implementation details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#introduction-and-disclaimer" class="md-nav__link">
+  <a href="#add-waypoint" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction and Disclaimer
+      Add waypoint
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#where-to-start" class="md-nav__link">
+  <a href="#clear-waypoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Where to Start
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Where to Start">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modeling-your-aircraft-and-running-aerodynamic-analyses" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modeling Your Aircraft and Running Aerodynamic Analyses
+      Clear waypoints
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#rosflight-integration" class="md-nav__link">
+  <a href="#load-mission-from-file" class="md-nav__link">
     <span class="md-ellipsis">
-      ROSflight Integration
+      Load mission from file
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources-and-further-study" class="md-nav__link">
+  <a href="#print-waypoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Resources and Further Study
+      Print waypoints
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#publish-next-waypoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Publish next waypoint
+    </span>
+  </a>
   
 </li>
         
@@ -2720,7 +2760,7 @@ You're not viewing the latest stable version.
 
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/tutorials/transitioning-from-sim-to-hardware.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/roscopter/roscopter-path-planner.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2728,79 +2768,154 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="transitioning-from-sim-to-hardware">Transitioning from Sim to Hardware<a class="headerlink" href="#transitioning-from-sim-to-hardware" title="Permanent link">¶</a></h1>
-<p>This section specifically addresses tools that help users simulate fixed-wing aircraft. </p>
-<p>ROSplane is a fixed-wing specific branch of the ROSflight software that allows users to cater autopilot code and functionality to fixed wing UAVs in a variety of configurations. Modular architecture and clearly defined interfaces provide users with the ability to adapt the tool to their specific needs. One particularly useful tool is the ROSplane simulation, which allows users to input an aerodynamic model of their aircraft and then fly in simulation with the equivalent autopilot code that would be used during a physical flight. </p>
-<h2 id="rosplane-sim2real">ROSplane Sim2Real<a class="headerlink" href="#rosplane-sim2real" title="Permanent link">¶</a></h2>
-<p>This section of the user manual addresses capabilities and recommendations for the ROSplane simulation for fixed-wing aircraft. 
-ROSplane simulation allows users to insert aerodynamic models of their aircraft and test in simulation.
-This is useful for controller tuning and validating new functionality in simulation before hardware tests.</p>
-<p>The following pages provide a step-by-step user guide with information on how to use two open source aerodynamic modeling software tools (XFlr5 and OpenVSP) to compute the aerodynamic control and stability derivatives required for the ROSplane aerodynamic model.</p>
-<p>Following this guide will result in aerodynamic coefficients that are sufficiently close to the real aircraft aero coefficients.
-For more information on the specific aerodynamic model used in ROSplane, see Chapter 4, Section 4.1 - 4.4 of <a href="https://drive.google.com/file/d/10iq7L_kAAdkjCFoq4EBRaT1u212BbyJ7/view"><em>Small Unmanned Aircraft: Theory and Practice</em></a> by Randy Beard and Tim McLain.</p>
-<p>Here is a link to a recently submitted <a href="https://arxiv.org/abs/2510.01041">conference paper</a> outlining ROSplane capabilities and the sim-to-real workflow. </p>
-<h3 id="introduction-and-disclaimer">Introduction and Disclaimer<a class="headerlink" href="#introduction-and-disclaimer" title="Permanent link">¶</a></h3>
-<p>This manual provides guidance on the basic features of XFLR5 and OpenVSP. It is not exhaustive and does not guarantee the accuracy of outputs. Validation through simulation and physical testing is recommended before flight.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Xflr5 and OpenVSP are trademarks of their respective organizations. This webiste is not affiliated with or endorsed by them. This only provides helpful tips on how rosplane users can use these free open-source software tools to model and analyze their aircraft for integration with the ROSplane simulation.</p>
+<h1 id="path-planner">Path Planner<a class="headerlink" href="#path-planner" title="Permanent link">¶</a></h1>
+<h2 id="responsibility">Responsibility<a class="headerlink" href="#responsibility" title="Permanent link">¶</a></h2>
+<p>The <code>path_planner</code>'s responsibility is to define and publish a planned path consisting of waypoints.
+Each waypoint is defined by a 3D location and orientation.</p>
+<p>Thus, the <code>path_planner</code> maintains the list of all waypoints and publishes a subset to downstream nodes.
+Note that the <code>path_planner</code> <strong>does not manage</strong> the path, meaning it does not determine how to transition from one waypoint to another.
+It is simply in charge of maintaining and publishing waypoints.</p>
+<h2 id="interface-with-roscopter">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_architecture.svg" data-desc-position="bottom"><img alt="Diagram of ROScopter architecture" src="../../images/roscopter_architecture.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Reference diagram of the ROScopter architecture</em></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>path_planner</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>estimated_state</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/State</code></td>
+<td style="text-align: left;">Estimated state for the vehicle (needs GPS location of initial position)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>waypoints</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/Waypoint</code></td>
+<td style="text-align: left;">Waypoints in the planned path</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>path_planner</code> takes in user-defined waypoints and publishes those waypoints to the <code>path_manager</code> over the <code>waypoints</code> topic.</p>
+<h2 id="parameters-and-configuration">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration" title="Permanent link">¶</a></h2>
+<p>The parameters associated with the <code>path_planner</code> are</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>num_waypoints_to_publish_at_start</code></td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">Number of waypoints from plan to initially publish</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>num_waypoints_to_publish_at_start</code> parameter determines how many waypoints are automatically published when a path plan is loaded.</p>
+<p>If a given plan has 10 waypoints but the <code>num_waypoints_to_publish_at_start</code> is set to 5, then only the first 5 waypoints will be published right away.
+The other waypoints will then be published sequentially using the appropriate service call listed below.</p>
+<h2 id="using-the-path_plannerimplementation-details">Using the <code>path_planner</code>/implementation details<a class="headerlink" href="#using-the-path_plannerimplementation-details" title="Permanent link">¶</a></h2>
+<p>In the default configuration of ROScopter, the <code>path_planner</code> expects waypoints to be loaded using ROS 2 service calls.
+This can be done by another node or manually by the user.
+In our testing of the default ROScopter behavior, we usually manually load these waypoints by hand.</p>
+<p>A planned path can be modified using the following service calls:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Service name</th>
+<th style="text-align: left;">Interface type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>/add_waypoint</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/AddWaypoint</code></td>
+<td style="text-align: left;">Add a single waypoint to the planned path</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/clear_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Clear all waypoints from the planned path</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/load_mission_from_file</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/ParamFile</code></td>
+<td style="text-align: left;">Clear all waypoints and load a new plan from a file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/print_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Print all waypoints in the plan to the screen</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/publish_next_waypoint</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Publish the next waypoint in the plan</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>To avoid long descriptions, we omitted the namespace from the service calls in the documentation.
+All of the <code>path_planner</code> service servers are namespaced by <code>/path_planner</code>.</p>
+<p>In other words, to run the <code>add_waypoint</code> service, you would run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_planner/add_waypoint<span class="w"> </span>...
+</code></pre></div>
+<strong>not</strong>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/add_waypoint<span class="w"> </span>...
+</code></pre></div><p></p>
 </div>
-<p>The XFLR5 and OpenVSP sections discuss the step-by-step process for aircraft modeling and analysis using each tool. 
-The Appendix section provides tips for working through common errors, links to helpful resources, and explanations of basic aerodynamics principles. </p>
-<p>You can also download this <a href="https://drive.google.com/file/d/10-37yCIjK796dnT-5MB5-q3M8o2nCi5_/view">user manual</a> as a single file and then open it in your browser to render it.</p>
-<h3 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">¶</a></h3>
-<p>The workflow for integrating a new aircraft model into the ROSflight simulation is:</p>
-<ol>
-<li>Model your aircraft</li>
-<li>Perform aerodynamic and stability analyses </li>
-<li>Integrate into ROSflight </li>
-<li>Test in simulation!</li>
-</ol>
-<h4 id="modeling-your-aircraft-and-running-aerodynamic-analyses">Modeling Your Aircraft and Running Aerodynamic Analyses<a class="headerlink" href="#modeling-your-aircraft-and-running-aerodynamic-analyses" title="Permanent link">¶</a></h4>
-<div class="admonition note">
-<p class="admonition-title">Which tool do I use?</p>
-<p>You should feel free to start with the tool you are most comfortable with. 
-Xflr5 and OpenVSP produce similar models but each have unique strengths and application layout. 
-Each tool's user manual should be done in order, but there is no requirement to use Xflr5 before OpenVSP. </p>
-</div>
-<p><a href="../user-manual-xflr5/">Xflr5</a>:</p>
-<ul>
-<li>
-<p>Allows users more options when analyzing and visualizing aerodynamics and stability and control performance</p>
-</li>
-<li>
-<p>Allows airfoil optimization </p>
-</li>
-<li>
-<p>Requires manual analysis of individual airfoils</p>
-</li>
-<li>
-<p>Can import/export AVL - compatible aircraft files</p>
-</li>
-</ul>
-<p><a href="../user-manual-openvsp/">OpenVSP</a>:</p>
-<ul>
-<li>
-<p>Allows users to model the entire aircraft (fuselage, wing, landing gear, propellers, etc)</p>
-</li>
-<li>
-<p>Often provides a more accurate drag estimate</p>
-</li>
-<li>
-<p>Analyses take longer to run</p>
-</li>
-</ul>
-<p>When choosing which tool to start with, use whichever tool you are more comfortable with or use the tool that has capabilities you value. 
-We recommend analyzing your aircraft in both tools and comparing results to obtain the most accurate aircraft model. </p>
-<h4 id="rosflight-integration">ROSflight Integration<a class="headerlink" href="#rosflight-integration" title="Permanent link">¶</a></h4>
-<p>After modeling your aircraft and running the aerodynamic/stability/control analyses, follow <a href="../user-manual-ROSflight-integration/">this guide</a> to add your model to the ROSflight simulation. </p>
-<p>This guide contains details on the specific files and parameters you need to edit to fly your aircraft in simulation.</p>
-<h4 id="additional-resources-and-further-study">Additional Resources and Further Study<a class="headerlink" href="#additional-resources-and-further-study" title="Permanent link">¶</a></h4>
-<p>The <a href="../user-manual-appendix/">Appendix</a> contains an aerodynamics crash course, common errors, notation and nomenclature outlines, and additional useful resources/links for further study. </p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you have questions during your modeling and analysis process, make sure to look here for helpful information and tips. </p>
-</div>
+<h3 id="add-waypoint">Add waypoint<a class="headerlink" href="#add-waypoint" title="Permanent link">¶</a></h3>
+<p>The <code>add_waypoint</code> service adds a single waypoint to the path.
+See the <code>roscopter_msgs/AddWaypoint</code> interface definition to see what information is contained in the service call.</p>
+<h3 id="clear-waypoints">Clear waypoints<a class="headerlink" href="#clear-waypoints" title="Permanent link">¶</a></h3>
+<p>This service clears all waypoints from the planned path.</p>
+<p>Under the hood, this service call publishes a new waypoint that sets the <code>clear_wp_list</code> field to true (see the <code>roscopter_msgs/msg/Waypoint</code> message definition).
+It is the responsibility of any node subscribing to the waypoints to clear any internal list of waypoints.
+For example, in order to function properly, both the <code>path_manager</code> and the ROScopter ground control station (GCS) maintain internal lists of what waypoints have been published.
+These nodes need to clear the internal storage of the waypoints when the <code>path_planner</code> publishes a waypoint with the <code>clear_wp_list</code> field set true.</p>
+<h3 id="load-mission-from-file">Load mission from file<a class="headerlink" href="#load-mission-from-file" title="Permanent link">¶</a></h3>
+<p>This service loads a mission file to the <code>path_planner</code>.
+The mission file is a YAML file containing the waypoint definitions.</p>
+<p>This service call also clears all existing waypoints first, so the new waypoints will not be appended to the old waypoints.
+If you want to append waypoints instead of clearing, use the <code>add_waypoints</code> service.</p>
+<h3 id="print-waypoints">Print waypoints<a class="headerlink" href="#print-waypoints" title="Permanent link">¶</a></h3>
+<p>It can be helpful during debugging to know what waypoints are currently loaded to the <code>path_planner</code>.
+This service call will print the waypoints to the terminal (the terminal running the <code>path_planner</code>, not the one that calls this service).</p>
+<p>Note that printing to the screen is automatically done when using the <code>load_mission_from_file</code> service.</p>
+<h3 id="publish-next-waypoint">Publish next waypoint<a class="headerlink" href="#publish-next-waypoint" title="Permanent link">¶</a></h3>
+<p>The <code>publish_next_waypoint</code> service server is used to publish the next unpublished waypoint in the planned path.
+Note that the first &lt;<code>num_waypoints_to_publish_at_start</code>&gt; number of waypoints are automatically published whenever the <code>path_planner</code> gets new waypoints.</p>
 
 
 

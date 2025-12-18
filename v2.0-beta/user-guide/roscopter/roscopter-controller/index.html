@@ -9,13 +9,13 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/v2.0-beta/user-guide/tutorials/transitioning-from-sim-to-hardware/">
+        <link rel="canonical" href="http://rosflight.org/v2.0-beta/user-guide/roscopter/roscopter-controller/">
       
       
-        <link rel="prev" href="../tuning-performance-in-sim/">
+        <link rel="prev" href="../roscopter-trajectory-follower/">
       
       
-        <link rel="next" href="../user-manual-xflr5/">
+        <link rel="next" href="../roscopter-estimator/">
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
@@ -23,7 +23,7 @@
     
     
       
-        <title>Overview - ROSflight</title>
+        <title>ROScopter Controller - ROSflight</title>
       
     
     
@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#transitioning-from-sim-to-hardware" class="md-skip">
+        <a href="#controller" class="md-skip">
           Skip to content
         </a>
       
@@ -132,7 +132,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              ROScopter Controller
             
           </span>
         </div>
@@ -525,8 +525,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -537,11 +535,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -557,7 +555,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Tutorials
@@ -571,7 +569,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../tutorial-overview/" class="md-nav__link">
+      <a href="../../tutorials/tutorial-overview/" class="md-nav__link">
         
   
   
@@ -594,7 +592,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../setting-up-rosflight-sim/" class="md-nav__link">
+      <a href="../../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
         
   
   
@@ -617,7 +615,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../manually-flying-rosflight-sim/" class="md-nav__link">
+      <a href="../../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
         
   
   
@@ -640,7 +638,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../setting-up-roscopter-in-sim/" class="md-nav__link">
+      <a href="../../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
         
   
   
@@ -663,7 +661,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../setting-up-rosplane-in-sim/" class="md-nav__link">
+      <a href="../../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
         
   
   
@@ -686,7 +684,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../tuning-performance-in-sim/" class="md-nav__link">
+      <a href="../../tutorials/tuning-performance-in-sim/" class="md-nav__link">
         
   
   
@@ -706,8 +704,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -718,11 +714,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7">
         
           
           <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
@@ -738,7 +734,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3_7">
             <span class="md-nav__icon md-icon"></span>
             Transitioning from Sim to Hardware
@@ -749,32 +745,10 @@ You're not viewing the latest stable version.
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
         
   
   
@@ -785,92 +759,6 @@ You're not viewing the latest stable version.
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#rosplane-sim2real" class="md-nav__link">
-    <span class="md-ellipsis">
-      ROSplane Sim2Real
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ROSplane Sim2Real">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#introduction-and-disclaimer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction and Disclaimer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#where-to-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Where to Start
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Where to Start">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modeling-your-aircraft-and-running-aerodynamic-analyses" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modeling Your Aircraft and Running Aerodynamic Analyses
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rosflight-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      ROSflight Integration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-resources-and-further-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional Resources and Further Study
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -883,7 +771,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-xflr5/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-xflr5/" class="md-nav__link">
         
   
   
@@ -906,7 +794,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-openvsp/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-openvsp/" class="md-nav__link">
         
   
   
@@ -929,7 +817,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-ROSflight-integration/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
         
   
   
@@ -952,7 +840,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../user-manual-appendix/" class="md-nav__link">
+      <a href="../../tutorials/user-manual-appendix/" class="md-nav__link">
         
   
   
@@ -1224,6 +1112,8 @@ You're not viewing the latest stable version.
                 
   
   
+    
+  
   
   
     
@@ -1234,11 +1124,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
         
           
           <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
@@ -1254,7 +1144,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             ROScopter
@@ -1268,7 +1158,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-overview/" class="md-nav__link">
+      <a href="../roscopter-overview/" class="md-nav__link">
         
   
   
@@ -1291,7 +1181,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-planner/" class="md-nav__link">
+      <a href="../roscopter-path-planner/" class="md-nav__link">
         
   
   
@@ -1314,7 +1204,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-manager/" class="md-nav__link">
+      <a href="../roscopter-path-manager/" class="md-nav__link">
         
   
   
@@ -1337,7 +1227,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
+      <a href="../roscopter-trajectory-follower/" class="md-nav__link">
         
   
   
@@ -1357,10 +1247,32 @@ You're not viewing the latest stable version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-controller/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Controller
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1371,6 +1283,77 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-with-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface with ROScopter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-controllerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the controller/implementation details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the controller/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controller-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Controller State Machine
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters and configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1383,7 +1366,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-estimator/" class="md-nav__link">
+      <a href="../roscopter-estimator/" class="md-nav__link">
         
   
   
@@ -2639,56 +2622,37 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#rosplane-sim2real" class="md-nav__link">
+  <a href="#responsibility" class="md-nav__link">
     <span class="md-ellipsis">
-      ROSplane Sim2Real
+      Responsibility
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ROSplane Sim2Real">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-with-roscopter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface with ROScopter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-controllerimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the controller/implementation details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the controller/implementation details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#introduction-and-disclaimer" class="md-nav__link">
+  <a href="#controller-state-machine" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction and Disclaimer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#where-to-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Where to Start
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Where to Start">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modeling-your-aircraft-and-running-aerodynamic-analyses" class="md-nav__link">
-    <span class="md-ellipsis">
-      Modeling Your Aircraft and Running Aerodynamic Analyses
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rosflight-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      ROSflight Integration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-resources-and-further-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional Resources and Further Study
+      Controller State Machine
     </span>
   </a>
   
@@ -2698,9 +2662,13 @@ You're not viewing the latest stable version.
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters and configuration
+    </span>
+  </a>
   
 </li>
       
@@ -2720,7 +2688,7 @@ You're not viewing the latest stable version.
 
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/tutorials/transitioning-from-sim-to-hardware.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/roscopter/roscopter-controller.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -2728,78 +2696,475 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="transitioning-from-sim-to-hardware">Transitioning from Sim to Hardware<a class="headerlink" href="#transitioning-from-sim-to-hardware" title="Permanent link">¶</a></h1>
-<p>This section specifically addresses tools that help users simulate fixed-wing aircraft. </p>
-<p>ROSplane is a fixed-wing specific branch of the ROSflight software that allows users to cater autopilot code and functionality to fixed wing UAVs in a variety of configurations. Modular architecture and clearly defined interfaces provide users with the ability to adapt the tool to their specific needs. One particularly useful tool is the ROSplane simulation, which allows users to input an aerodynamic model of their aircraft and then fly in simulation with the equivalent autopilot code that would be used during a physical flight. </p>
-<h2 id="rosplane-sim2real">ROSplane Sim2Real<a class="headerlink" href="#rosplane-sim2real" title="Permanent link">¶</a></h2>
-<p>This section of the user manual addresses capabilities and recommendations for the ROSplane simulation for fixed-wing aircraft. 
-ROSplane simulation allows users to insert aerodynamic models of their aircraft and test in simulation.
-This is useful for controller tuning and validating new functionality in simulation before hardware tests.</p>
-<p>The following pages provide a step-by-step user guide with information on how to use two open source aerodynamic modeling software tools (XFlr5 and OpenVSP) to compute the aerodynamic control and stability derivatives required for the ROSplane aerodynamic model.</p>
-<p>Following this guide will result in aerodynamic coefficients that are sufficiently close to the real aircraft aero coefficients.
-For more information on the specific aerodynamic model used in ROSplane, see Chapter 4, Section 4.1 - 4.4 of <a href="https://drive.google.com/file/d/10iq7L_kAAdkjCFoq4EBRaT1u212BbyJ7/view"><em>Small Unmanned Aircraft: Theory and Practice</em></a> by Randy Beard and Tim McLain.</p>
-<p>Here is a link to a recently submitted <a href="https://arxiv.org/abs/2510.01041">conference paper</a> outlining ROSplane capabilities and the sim-to-real workflow. </p>
-<h3 id="introduction-and-disclaimer">Introduction and Disclaimer<a class="headerlink" href="#introduction-and-disclaimer" title="Permanent link">¶</a></h3>
-<p>This manual provides guidance on the basic features of XFLR5 and OpenVSP. It is not exhaustive and does not guarantee the accuracy of outputs. Validation through simulation and physical testing is recommended before flight.</p>
+<h1 id="controller">Controller<a class="headerlink" href="#controller" title="Permanent link">¶</a></h1>
+<h2 id="responsibility">Responsibility<a class="headerlink" href="#responsibility" title="Permanent link">¶</a></h2>
+<p>The responsibility of the <code>controller</code> is to</p>
+<ol>
+<li>produce low-level commands from high-level commands</li>
+<li>Maintain a state machine to manage autonomous takeoff</li>
+</ol>
+<h2 id="interface-with-roscopter">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_architecture.svg" data-desc-position="bottom"><img alt="Diagram of ROScopter architecture" src="../../images/roscopter_architecture.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Reference diagram of the ROScopter architecture</em></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>controller</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>estimated_state</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/State</code></td>
+<td style="text-align: left;">Estimated state for the vehicle (needs everything)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Status</code></td>
+<td style="text-align: left;">Status message from the ROSflight firmware (needs to know when RC control is active or when the vehicle is armed)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>high_level_command</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/ControllerCommand</code></td>
+<td style="text-align: left;">Input controller command</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>command</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Command</code></td>
+<td style="text-align: left;">Output commands to the downstream ROSflight firmware controller</td>
+</tr>
+</tbody>
+</table>
+<p>To summarize, the ROScopter <code>controller</code> takes in the estimated state and high-level command setpoints and computes low-level command setpoints that are sent to the ROSflight firmware on the flight control unit.
+Note that the output command messages are sent to ROSflight firmware (on the <a href="../../overview/">flight control unit</a>) via the <code>rosflight_io</code> node.</p>
+<h2 id="using-the-controllerimplementation-details">Using the <code>controller</code>/implementation details<a class="headerlink" href="#using-the-controllerimplementation-details" title="Permanent link">¶</a></h2>
+<p>Many different control schemes exist for multirotor vehicles.
+Since application code (i.e. code that you write) has slightly different outputs, the ROScopter controller has the architecture shown in the following figure.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_and_firmware_controllers.svg" data-desc-position="bottom"><img alt="ROScopter cascaded architecture" src="../../images/roscopter_and_firmware_controllers.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Diagram of the ROScopter controller architecture and how the cascaded controller chain interacts with the ROSflight firmware controller</td>
+</tr>
+</tbody>
+</table>
+<p>The above figure shows the cascaded architecture of the ROScopter controller.
+In this diagram, the arrows represent how one controller output feeds into the next controller's input, all the way down to one of three basic control types.
+For example, if the user passes control setpoints corresponding to Controller 0 (inertial-frame north, east, down position and yaw commands), Controller 0 converts them to Controller 3 inputs, which then converts to Controller 2 inputs, and so on.</p>
+<p>The following table describes the inputs to each type of controller.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Number</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description of reference commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">NED-Pos Yaw</td>
+<td style="text-align: left;">Inertial north, east, down (NED) positions and yaw</td>
+</tr>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NE-Vel D-Pos YawR</td>
+<td style="text-align: left;">Inertial N-E velocities, D position, and yaw rate</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">FRD-Accel YawR</td>
+<td style="text-align: left;">Vehicle-1 frame<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> (labeled front-right-down) accelerations and yaw rate</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">NED-Vel YawR</td>
+<td style="text-align: left;">Inertial NED velocities and yaw rate</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">NE-Pos D-Vel Yaw</td>
+<td style="text-align: left;">Inertial N-E velocities and yaw</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Roll Pitch Yaw Throttle</td>
+<td style="text-align: left;">Roll, pitch, yaw, and throttle</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Roll Pitch YawR Throttle</td>
+<td style="text-align: left;">Roll, pitch, yaw rate, and throttle</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">RollR PitchR YawR Throttle</td>
+<td style="text-align: left;">Roll rate, pitch rate, yaw rate, throttle</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Pass-through</td>
+<td style="text-align: left;">Pass-through to ROSflight firmware mixer</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Roll Pitch Yaw Thrust</td>
+<td style="text-align: left;">Roll, pitch, yaw, and thrust to pass-through</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Roll Pitch YawR Thrust</td>
+<td style="text-align: left;">Roll, pitch, yaw rate, and thrust to pass-through</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">RollR PitchR YawR Thrust</td>
+<td style="text-align: left;">Roll rate, pitch rate, yaw rate, and thrust to pass-through</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Reference frames</p>
+<p>Knowing which reference frame you are sending commands in is essential for safe operation.
+The <code>NED</code> frame in the table refers to the <strong>inertial</strong> north, east, and down reference frame.</p>
+<p>Thus, if I send commands to the controller 1 entrypoint, I am sending inertial north and east velocities and inertial down position, <strong>regardless of how the aircraft is oriented</strong>.</p>
+<p>Accelerations (controller 2), however, are in the <strong>vehicle 1</strong> frame<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, which we call the FRD (front-right-down) frame in the above table.
+Because it is the vehicle 1 frame, front means whichever direction the vehicle is facing (but not that it does not matter how the vehicle is pitched or rolled).</p>
+<p>All of the roll, pitch, and yaw commands are defined in their usual reference frames.</p>
+</div>
+<p>The <code>controller</code>'s cascaded architecture allows users to "insert" control commands at many different levels, depending on the needs of their application code.
+Each insertion point thus produces a different <em>controller chain</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We'll call the sequence of controllers used as a <em>controller chain</em>.</p>
+<p>For example, inserting at Controller 4 would have the controller chain of Controller 4 -&gt; Controller 3 -&gt; Controller 2 -&gt; Controller 6.</p>
+</div>
+<p>Each insertion point is chosen via the <code>mode</code> field in the <code>roscopter_msgs/ControllerCommand</code> message.
+Thus, each ROS 2 message determines which controller it inserts at.
+This means that different controller chains can be chosen at runtime, and can be mixed and matched throughout the flight.</p>
+<div class="admonition example">
+<p class="admonition-title">Using different controller chains during a flight</p>
+<p>Since the insertion points are chosen via the <code>mode</code> field in each ROS 2 message sent to the <code>controller</code>, controller chains can be mixed and matched throughout the flight.</p>
+<p>For example, in the default implementation of ROScopter, the <code>controller</code> inserts commands at Controller 4 during takeoff and Controller 10 during the other portions of the flight.</p>
+</div>
+<p>As seen in the above ROScopter <code>controller</code> diagram, the output of the <code>controller</code> node is sent directly to the ROSflight firmware via the <code>rosflight_io</code> node (note that the <code>rosflight_io</code> node is not shown in the diagram).
+The output of all controller chains needs to be one of the modes that the firmware controller can accept.
+Thus, the output of the ROScopter controller is one of the following output types:
+$$
+    u_\text{angle} = [\phi^d, \theta^d, r^d, \delta_t^d]^T
+$$
+$$
+    u_\text{rate} = [p^d, q^d, r^d, \delta_t^d]^T
+$$
+$$
+    u_\text{pass-through} = [Q_x^d, Q_y^d, Q_z^d, T_z^d]^T
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">\phi</span><script type="math/tex">\phi</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span>, and <span class="arithmatex"><span class="MathJax_Preview">\psi</span><script type="math/tex">\psi</script></span> are roll, pitch, and yaw commands, <span class="arithmatex"><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span>, <span class="arithmatex"><span class="MathJax_Preview">q</span><script type="math/tex">q</script></span>, <span class="arithmatex"><span class="MathJax_Preview">r</span><script type="math/tex">r</script></span> are roll rate, pitch rate, and yaw rate, and <span class="arithmatex"><span class="MathJax_Preview">\delta_t \in [0,1]</span><script type="math/tex">\delta_t \in [0,1]</script></span> is the throttle setpoint.
+<span class="arithmatex"><span class="MathJax_Preview">Q</span><script type="math/tex">Q</script></span> and <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> are the body-frame torques and forces, respectively.</p>
+<h3 id="controller-state-machine">Controller State Machine<a class="headerlink" href="#controller-state-machine" title="Permanent link">¶</a></h3>
+<p>The <code>controller</code> node also has a simple state machine to manage safe takeoff and landing.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_state_machine.svg" data-desc-position="bottom"><img alt="ROScopter controller state machine" src="../../images/roscopter_state_machine.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Diagram of the <code>controller</code>'s state machine.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>controller</code> state machine starts in the disarmed state until the user arms the vehicle.
+Additionally, the state machine requires a valid command setpoint sent to the <code>high_level_command</code> topic.
+This is determined by the <code>cmd_valid</code> field in the <code>roscopter_msgs/ControllerCommand</code> message definition.</p>
+<p>The state machine then transitions to takeoff mode, where the vehicle will climb at a constant velocity until it reaches a particular height.
+Once the vehicle reaches the desired height (within a given threshold), takeoff is considered complete and the vehicle transitions to position hold mode.</p>
+<p>After a brief pause in position hold mode, the vehicle then enters "offboard control" mode, which means that the controller will output control commands to track the commands on the <code>high_level_command</code> topic.</p>
+<p>During the takeoff and position hold states, the commands sent to the <code>high_level_command</code> topic are overridden.
+This ensures that the vehicle is at a safe height before attempting to follow any path commands.
+Note that if the <code>cmd_valid</code> field is set to <code>false</code> in messages from the <code>high_level_command</code> topic, then the offboard control state will transition to position hold.</p>
+<p>The behavior of the state machine can be configured via <a href="#parameters-and-configuration">the <code>controller</code>'s parameters</a>.
+This includes the takeoff down velocity, the height the controller will climb to, the threshold that the state machine considers the takeoff waypoint complete, and the time that the state machine will spend in takeoff before transitioning to offboard control mode.</p>
+<h2 id="parameters-and-configuration">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration" title="Permanent link">¶</a></h2>
+<p>The parameters associated with the <code>controller</code> are listed below.
+Parameters that have notes/special considerations are discussed below the table.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>equilibrium_throttle</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Throttle value required to maintain hover. Between 0-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gravity</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Gravity in <span class="arithmatex"><span class="MathJax_Preview">m/s^2</span><script type="math/tex">m/s^2</script></span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mass</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Vehicle mass (in kg)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_descend_accel</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum descent acceleration. <strong>Applies to the acceleration controller</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_descend_rate</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum down velocity. <strong>Applies to the velocity PID controllers</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_pitch_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum pitch angle (in degrees). <strong>Applies to the angle PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_pitch_rate_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum pitch rate (in degrees/sec). <strong>Applies to the rate PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_pitch_torque</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum pitch torque (in N-m). <strong>Applies to the torque controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_roll_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum roll angle (in degrees). <strong>Applies to the angle PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_roll_rate_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum roll rate (in degrees/sec). <strong>Applies to the rate PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_roll_torque</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum roll torque (in N-m). <strong>Applies to the torque controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_throttle</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum allowed throttle setpoint. Should be between 0-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_yaw_rate_deg</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum yaw rate (in degrees/sec). <strong>Applies to the rate PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_yaw_torque</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Maximum yaw torque (in N-m). <strong>Applies to the torque PID controllers.</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>min_altitude_for_attitude_ctrl</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Minimum altitude before attitude control. Roll and pitch commands are zero when the vehicle is lower than this number. Helps to reduce crashes on takeoff.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>min_throttle</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Minimum throttle setpoint. Should be between 0-1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_d_pos</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Down position to achieve (in takeoff) before turning control over to the "offboard control".</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_d_vel</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Down velocity during takeoff (until vehicle reaches the <code>takeoff_d_pos</code> position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_height_threshold</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Radius (in m) that the vehicle must achieve around the <code>takeoff_d_pos</code> setpoint before the state machine considers takeoff to be complete.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>takeoff_landing_pos_hold_time</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Time (in seconds) the state machine will hold before switching to offboard control (after takeoff) or landing. Holding for a brief time before switching over helps with stability.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tau</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Bandwidth of the dirty derivative (for the PID controllers). See the <a href="https://github.com/byu-controlbook/controlbook_public">ControlBook</a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Max/min parameters</p>
+<p>The parameters associated with max and min values (e.g. <code>max_descend_accel</code>) <strong>only apply if the control loop associated with those parameters is run</strong>.</p>
+<p>For example, the <code>max_descend_rate</code> parameter is a saturation limit on the down velocity controller, meaning that the output of the down velocity controller is saturated to never be greater than this number.
+However, if the velocity controller is not run (meaning a controller lower in <a href="#using-the-controllerimplementation-details">the controller chain</a> is used), then the velocity controller will not run and this max velocity limit will not be respected.</p>
+<p>Please note which control loops you are using before tuning these parameters, as some will not be used based on where you are inserting into the control chain.</p>
+</div>
+<p>The <code>max_throttle</code> parameter is usually set to be lower than 1 to reserve some actuator effort for attitude control.
+The <code>min_throttle</code> parameter is usually set to a value higher than 0 to avoid the motors "shutting off" for particular maneuvers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Xflr5 and OpenVSP are trademarks of their respective organizations. This webiste is not affiliated with or endorsed by them. This only provides helpful tips on how rosplane users can use these free open-source software tools to model and analyze their aircraft for integration with the ROSplane simulation.</p>
+<p>Make sure the <code>mass</code> parameter is correct and that it is the same between all nodes (e.g. the <a href="../roscopter-trajectory-follower/"><code>trajectory_follower</code>)</a>.</p>
 </div>
-<p>The XFLR5 and OpenVSP sections discuss the step-by-step process for aircraft modeling and analysis using each tool. 
-The Appendix section provides tips for working through common errors, links to helpful resources, and explanations of basic aerodynamics principles. </p>
-<p>You can also download this <a href="https://drive.google.com/file/d/10-37yCIjK796dnT-5MB5-q3M8o2nCi5_/view">user manual</a> as a single file and then open it in your browser to render it.</p>
-<h3 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">¶</a></h3>
-<p>The workflow for integrating a new aircraft model into the ROSflight simulation is:</p>
-<ol>
-<li>Model your aircraft</li>
-<li>Perform aerodynamic and stability analyses </li>
-<li>Integrate into ROSflight </li>
-<li>Test in simulation!</li>
-</ol>
-<h4 id="modeling-your-aircraft-and-running-aerodynamic-analyses">Modeling Your Aircraft and Running Aerodynamic Analyses<a class="headerlink" href="#modeling-your-aircraft-and-running-aerodynamic-analyses" title="Permanent link">¶</a></h4>
+<p>The following parameters are listed for completeness.
+Each of the PID control types from the <a href="#using-the-controllerimplementation-details">implementation details</a> section has 3 gains associated with it.</p>
+<p>Note that the control loops that are used depends on where the high-level command setpoints are inserted into the controller chain.
+Thus, not all of the PID gains below will need to be tuned when using ROScopter.
+Make sure to check which gains are used based on where you are inserting command setpoints.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Rate to torque</strong></td>
+<td style="text-align: left;"><code>pitch_rate_to_torque_kd</code></td>
+<td style="text-align: left;"><code>roll_rate_to_torque_kd</code></td>
+<td style="text-align: left;"><code>yaw_rate_to_torque_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_rate_to_torque_ki</code></td>
+<td style="text-align: left;"><code>roll_rate_to_torque_ki</code></td>
+<td style="text-align: left;"><code>yaw_rate_to_torque_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_rate_to_torque_kp</code></td>
+<td style="text-align: left;"><code>roll_rate_to_torque_kp</code></td>
+<td style="text-align: left;"><code>yaw_rate_to_torque_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Angle to torque</strong></td>
+<td style="text-align: left;"><code>pitch_to_torque_kd</code></td>
+<td style="text-align: left;"><code>roll_to_torque_kd</code></td>
+<td style="text-align: left;"><code>yaw_to_torque_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_to_torque_ki</code></td>
+<td style="text-align: left;"><code>roll_to_torque_ki</code></td>
+<td style="text-align: left;"><code>yaw_to_torque_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pitch_to_torque_kp</code></td>
+<td style="text-align: left;"><code>roll_to_torque_kp</code></td>
+<td style="text-align: left;"><code>yaw_to_torque_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Position to velocity</strong></td>
+<td style="text-align: left;"><code>pos_n_to_vel_kd</code></td>
+<td style="text-align: left;"><code>pos_d_to_vel_kd</code></td>
+<td style="text-align: left;"><code>pos_e_to_vel_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pos_n_to_vel_ki</code></td>
+<td style="text-align: left;"><code>pos_d_to_vel_ki</code></td>
+<td style="text-align: left;"><code>pos_e_to_vel_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>pos_n_to_vel_kp</code></td>
+<td style="text-align: left;"><code>pos_d_to_vel_kp</code></td>
+<td style="text-align: left;"><code>pos_e_to_vel_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Velocity to acceleration</strong></td>
+<td style="text-align: left;"><code>vel_d_to_accel_kd</code></td>
+<td style="text-align: left;"><code>vel_e_to_accel_kd</code></td>
+<td style="text-align: left;"><code>vel_n_to_accel_kd</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>vel_d_to_accel_ki</code></td>
+<td style="text-align: left;"><code>vel_e_to_accel_ki</code></td>
+<td style="text-align: left;"><code>vel_n_to_accel_ki</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>vel_d_to_accel_kp</code></td>
+<td style="text-align: left;"><code>vel_e_to_accel_kp</code></td>
+<td style="text-align: left;"><code>vel_n_to_accel_kp</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Yaw to yaw rate</strong></td>
+<td style="text-align: left;"><code>yaw_to_rate_kd</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>yaw_to_rate_ki</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>yaw_to_rate_kp</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
-<p class="admonition-title">Which tool do I use?</p>
-<p>You should feel free to start with the tool you are most comfortable with. 
-Xflr5 and OpenVSP produce similar models but each have unique strengths and application layout. 
-Each tool's user manual should be done in order, but there is no requirement to use Xflr5 before OpenVSP. </p>
+<p class="admonition-title">Note</p>
+<p>Each PID gain is named according to what it takes in and what it returns.</p>
+<p>For example, the derivative gain for the PID loop that takes in position commands and returns velocity commands in the down direction is called <code>pos_d_to_vel_kd</code>.</p>
 </div>
-<p><a href="../user-manual-xflr5/">Xflr5</a>:</p>
-<ul>
-<li>
-<p>Allows users more options when analyzing and visualizing aerodynamics and stability and control performance</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>R. W. Beard and T. W. McLain, <em>Small Unmanned Aircraft: Theory and Practice</em>, 2012, Princeton University Press, see also https://github.com/byu-magicc/mavsim_public.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
-<li>
-<p>Allows airfoil optimization </p>
-</li>
-<li>
-<p>Requires manual analysis of individual airfoils</p>
-</li>
-<li>
-<p>Can import/export AVL - compatible aircraft files</p>
-</li>
-</ul>
-<p><a href="../user-manual-openvsp/">OpenVSP</a>:</p>
-<ul>
-<li>
-<p>Allows users to model the entire aircraft (fuselage, wing, landing gear, propellers, etc)</p>
-</li>
-<li>
-<p>Often provides a more accurate drag estimate</p>
-</li>
-<li>
-<p>Analyses take longer to run</p>
-</li>
-</ul>
-<p>When choosing which tool to start with, use whichever tool you are more comfortable with or use the tool that has capabilities you value. 
-We recommend analyzing your aircraft in both tools and comparing results to obtain the most accurate aircraft model. </p>
-<h4 id="rosflight-integration">ROSflight Integration<a class="headerlink" href="#rosflight-integration" title="Permanent link">¶</a></h4>
-<p>After modeling your aircraft and running the aerodynamic/stability/control analyses, follow <a href="../user-manual-ROSflight-integration/">this guide</a> to add your model to the ROSflight simulation. </p>
-<p>This guide contains details on the specific files and parameters you need to edit to fly your aircraft in simulation.</p>
-<h4 id="additional-resources-and-further-study">Additional Resources and Further Study<a class="headerlink" href="#additional-resources-and-further-study" title="Permanent link">¶</a></h4>
-<p>The <a href="../user-manual-appendix/">Appendix</a> contains an aerodynamics crash course, common errors, notation and nomenclature outlines, and additional useful resources/links for further study. </p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you have questions during your modeling and analysis process, make sure to look here for helpful information and tips. </p>
+</ol>
 </div>
 
 
