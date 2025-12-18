@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3071,9 +3071,9 @@ For more information on Docker, see <a href="https://docs.docker.com/">the Docke
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Docker on Windows</p>
-<p>If you are using Docker on Windows natively, be aware that GUI tools will not work.
+<p>If you are using Docker on Windows natively, be aware that GUI tools may not work.
 We have not tested GUI applications while using a Docker container in WSL.
-GUI applications in WSL work fine with a "native" installation of ROS2.</p>
+GUI applications in WSL (without Docker) work fine with a "native" installation of ROS2.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Using Docker instead of a native installation</p>
@@ -3100,7 +3100,7 @@ Make sure you also have the <code>docker compose</code> utility installed.</p>
 </li>
 <li>
 <p>Navigate to the <code>rosflight_ws</code> directory:
-    </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws
+    </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
 </code></pre></div><p></p>
 </li>
 <li>
@@ -3131,10 +3131,20 @@ You can run all these commands from the <code>src/rosflight_ros_pkgs/docker</cod
 <p>Attach to the container using the above commands.</p>
 </li>
 <li>
-<p>Build the <code>rosflight_ws</code> using the <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html">colcon</a> build tool:
-    </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws
+<p>Build the packages in <code>rosflight_ws</code> using the <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html">colcon</a> build tool:
+    </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
 colcon<span class="w"> </span>build
 </code></pre></div><p></p>
+<p>After the build, you should see output similar to:
+</p><div class="highlight"><pre><span></span><code>---
+Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>roscopter<span class="w"> </span><span class="o">[</span>1min<span class="w"> </span>34s<span class="o">]</span>
+Starting<span class="w"> </span>&gt;&gt;&gt;<span class="w"> </span>rosflight_pkgs
+Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>rosflight_pkgs<span class="w"> </span><span class="o">[</span><span class="m">0</span>.42s<span class="o">]</span><span class="w">                        </span>
+
+Summary:<span class="w"> </span><span class="m">18</span><span class="w"> </span>packages<span class="w"> </span>finished<span class="w"> </span><span class="o">[</span>1min<span class="w"> </span>44s<span class="o">]</span>
+<span class="m">4</span><span class="w"> </span>packages<span class="w"> </span>had<span class="w"> </span>stderr<span class="w"> </span>output:<span class="w"> </span>roscopter<span class="w"> </span>rosflight_io<span class="w"> </span>rosplane<span class="w"> </span>rosplane_extra
+</code></pre></div>
+There may be warnings or <code>stderr</code> output, but as long as each package says <code>Finished</code>, the build was successful.<p></p>
 <div class="admonition warning">
 <p class="admonition-title">Resource Usage</p>
 <p>Building the whole repository at once uses a lot of memory.
@@ -3144,7 +3154,8 @@ If you get build errors, try running the build command with the following argume
 </div>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
-<p>Your ROSflight workspace file structure should now look like
+<p>The <code>colcon</code> build tool will create <code>build</code>, <code>log</code>, and <code>install</code> folders, even if the build fails.
+Your ROSflight workspace file structure should now look like
 </p><div class="highlight"><pre><span></span><code>rosflight_ws/
 <span class="w">  </span>├──<span class="w"> </span>build/
 <span class="w">  </span>├──<span class="w"> </span>install/
@@ -3216,10 +3227,10 @@ Also avoid having multiple GUI enabled containers running at once.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

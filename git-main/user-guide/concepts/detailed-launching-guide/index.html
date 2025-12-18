@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3394,7 +3394,7 @@ Do this by following the <a href="../../installation/installation-sim/">installa
 <h4 id="running-nodes-individually">Running nodes individually<a class="headerlink" href="#running-nodes-individually" title="Permanent link">¶</a></h4>
 <p>If you don't want to use the launch file, you can instead run all of the nodes individually in separate terminals with the appropriate parameters.
 For example, to run just the <code>/multirotor_forces_and_moments</code> node, you would run
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_forces_and_moments<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_forces_and_moments<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_dynamics.yaml
 </code></pre></div>
 Check the launch files for more information on what parameters and param files get loaded by the launch file.<p></p>
 <p>Also note that the <code>multirotor_standalone.launch.py</code> file actually calls 2 other launch files--one specific to the standalone sim (<code>standalone_sim.launch.py</code>) and one that launches the nodes shared by both the fixedwing and multirotor simulators (<code>common_nodes_standalone.launch.py</code>).
@@ -3559,10 +3559,10 @@ Wrong parameters is a <strong>common source of error</strong> in sim and in hard
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

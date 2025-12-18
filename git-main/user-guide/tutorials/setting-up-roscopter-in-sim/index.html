@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3560,6 +3560,7 @@ See the <code>roscopter_msgs/msg/ControllerCommand</code> message definition for
 This is the recommended starting point for ROScopter simulation.</p>
 <p>Launch the multirotor simulation:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Start the standalone simulator with ROSflight firmware simulation</span>
+<span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
 ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_standalone.launch.py<span class="w"> </span>use_vimfly:<span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 <p>The RViz simulation environment should launch.</p>
@@ -3664,7 +3665,7 @@ These waypoints will be uploaded to the <code>path_planner</code> node using the
 <p>Waypoints can be loaded in batch manner from a file.</p>
 <p>Create or modify waypoint files:
 </p><div class="highlight"><pre><span></span><code><span class="c1"># Edit the default waypoint file</span>
-vim<span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params/multirotor_mission.yaml
+vim<span class="w"> </span>~/rosflight_ws/src/roscopter/roscopter/params/multirotor_mission.yaml
 </code></pre></div><p></p>
 <p>Example waypoint file structure:
 </p><div class="highlight"><pre><span></span><code><span class="c1"># WAYPOINTS</span>
@@ -3701,7 +3702,7 @@ vim<span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params/
 </ul>
 <p>Load waypoints from mission file using the service call:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Load waypoints from the default mission file</span>
-<span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params
+<span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src/roscopter/roscopter/params
 ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_planner/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="s2">"{filename: </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/multirotor_mission.yaml}"</span>
 </code></pre></div>
@@ -3881,10 +3882,10 @@ and look through the output.<p></p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

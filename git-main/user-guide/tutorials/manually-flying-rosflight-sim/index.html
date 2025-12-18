@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3447,7 +3447,7 @@ We will load parameters from a file.</p>
 <ol>
 <li>
 <p>Navigate to the params directory:
-  </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params
+  </p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params
 </code></pre></div><p></p>
 </li>
 <li>
@@ -3510,13 +3510,22 @@ In sim, if you don't save the parameters to a file (as described below), then yo
 These steps are mandatory for every simulation session (if you don't write the params as described below).</p>
 </div>
 <h2 id="saving-parameters-to-memory">Saving parameters to memory<a class="headerlink" href="#saving-parameters-to-memory" title="Permanent link">¶</a></h2>
-<p>The ROSflight sim tries to mimic hardware as much as possible.
+<p>ROSflight sim tries to mimic hardware as much as possible.
 By default, parameters in the firmware are not saved to flash memory, so they do not persist across reboots of the sim.</p>
+<div class="admonition tip">
+<p class="admonition-title">Parameter initialization when booting up the sim</p>
+<p>In hardware, when the flight control unit (FCU) boots up, it looks in the SD card to detect a parameter file.
+If it doesn't find the file, then it initializes all firmware parameters to their default values.
+Likewise, when <code>rosflight_sim</code> boots up, it looks for the <code>rosflight_memory</code> folder <strong>in the location where <code>rosflight_sim</code> was booted</strong>.
+If it does not find the <code>rosflight_memory</code> folder, it creates one and initializes firmware parameters to the default values.</p>
+<p>While it doesn't really matter where you launch <code>rosflight_sim</code> from, you probably will want to launch it from the same place each time (so you don't have to load parameters to the firmware every time you boot).
+We recommend always launching <code>rosflight_sim</code> from the <code>rosflight_ws</code> directory for convenience.</p>
+</div>
 <p>To save firmware parameters (including calibration values) to memory, use the <code>rosflight_io</code> service call:
 </p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_write<span class="w"> </span>std_srvs/srv/Trigger
 </code></pre></div><p></p>
 <p>In hardware, this service call will write all the firmware's parameters to the SD card, where they will load on boot.
-In sim, however, it will generate a directory called <code>rosflight_memory</code> in the directory where the command to launch the sim occurred.</p>
+In sim, however, it will generate a directory called <code>rosflight_memory</code> <strong>in the directory where the command to launch the sim occurred</strong> (not the directory where you ran the service call).</p>
 <p>To load those same parameters by default the next time that <code>rosflight_sim</code> is launched, just launch <code>rosflight_sim</code> from the directory that contains the <code>rosflight_memory</code> directory.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -3527,8 +3536,10 @@ In sim, however, it will generate a directory called <code>rosflight_memory</cod
 ├──<span class="w"> </span>log
 └──<span class="w"> </span>src
 </code></pre></div><p></p>
-<p>And I launch the simulation from this directory using <code>ros2 launch rosflight_sim multirotor_standalone.launch.py</code>.
-I then write the params with <code>ros2 service call /param_write std_srvs/srv/Trigger</code>.</p>
+<p>And I launch the simulation from the <code>rosflight_ws</code> directory using
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_standalone.launch.py
+</code></pre></div>
+I then write the params with <code>ros2 service call /param_write std_srvs/srv/Trigger</code>.<p></p>
 <p>My new file structure will be:
 </p><div class="highlight"><pre><span></span><code>rosflight_ws
 ├──<span class="w"> </span>build
@@ -3566,6 +3577,7 @@ See <a href="../tuning-performance-in-sim/">the tuning guide</a> for more inform
 <h3 id="keyboard-control-with-vimfly">Keyboard Control with VimFly<a class="headerlink" href="#keyboard-control-with-vimfly" title="Permanent link">¶</a></h3>
 <p>VimFly provides keyboard-based control for manual flight operations. Launch your simulation with VimFly enabled:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Launch with VimFly keyboard control</span>
+<span class="nb">cd</span><span class="w"> </span>~/rosflight_ws
 ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_standalone.launch.py<span class="w"> </span>use_vimfly:<span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 <h4 id="vimfly-control-mapping">VimFly Control Mapping<a class="headerlink" href="#vimfly-control-mapping" title="Permanent link">¶</a></h4>
@@ -3581,42 +3593,42 @@ ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span cla
 <tr>
 <td><code>a</code></td>
 <td>Increase Thrust</td>
-<td>Raises throttle in 10% increments</td>
+<td>Raises throttle increments</td>
 </tr>
 <tr>
 <td><code>s</code></td>
 <td>Decrease Thrust</td>
-<td>Lowers throttle in 10% increments</td>
+<td>Lowers throttle increments</td>
 </tr>
 <tr>
 <td><code>h</code></td>
 <td>Roll Left</td>
-<td>Commands left roll input</td>
+<td>Commands left roll stick input</td>
 </tr>
 <tr>
 <td><code>l</code></td>
 <td>Roll Right</td>
-<td>Commands right roll input</td>
+<td>Commands right roll stick input</td>
 </tr>
 <tr>
 <td><code>j</code></td>
 <td>Pitch Backward</td>
-<td>Commands backward pitch input</td>
+<td>Commands backward pitch stick input</td>
 </tr>
 <tr>
 <td><code>k</code></td>
 <td>Pitch Forward</td>
-<td>Commands forward pitch input</td>
+<td>Commands forward pitch stick input</td>
 </tr>
 <tr>
 <td><code>d</code></td>
 <td>Yaw Left (CCW)</td>
-<td>Commands counter-clockwise yaw</td>
+<td>Commands left yaw stick</td>
 </tr>
 <tr>
 <td><code>f</code></td>
 <td>Yaw Right (CW)</td>
-<td>Commands clockwise yaw</td>
+<td>Commands right yaw stick</td>
 </tr>
 <tr>
 <td><code>t</code></td>
@@ -3630,7 +3642,7 @@ ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span cla
 </tr>
 </tbody>
 </table>
-<div class="admonition tip">
+<div class="admonition warning">
 <p class="admonition-title">VimFly Window Focus</p>
 <p>The VimFly window must be in focus to receive keyboard input. Click on the VimFly terminal window to ensure it's active before attempting to control the aircraft.</p>
 </div>
@@ -3638,9 +3650,9 @@ ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span cla
 <p>ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot:</p>
 <h4 id="supported-transmitters">Supported Transmitters<a class="headerlink" href="#supported-transmitters" title="Permanent link">¶</a></h4>
 <ul>
-<li><strong>FrSky Taranis Q-X7</strong> (USB connection)</li>
-<li><strong>RadioMaster TX16S</strong> (USB connection)</li>
-<li><strong>RadioMaster Boxer</strong> (USB connection)</li>
+<li><strong>FrSky Taranis Q-X7</strong></li>
+<li><strong>RadioMaster TX16S</strong></li>
+<li><strong>RadioMaster Boxer</strong></li>
 <li><strong>Xbox Controller</strong></li>
 <li><strong>RealFlight InterLink Controller</strong></li>
 </ul>
@@ -3781,10 +3793,10 @@ If your joystick does not work, and you write your own mapping, please contribut
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

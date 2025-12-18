@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3476,7 +3476,7 @@ ROSplane will most often be used in conjunction with the ROSflight firmware and 
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
 <p>You will need to install ROSplane on the companion computer.</p>
 <p>First, navigate to the src directory of the ROS2 workspace and clone the git repository:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/rosflight/rosplane.git
 </code></pre></div>
 <div class="admonition note">
@@ -3502,7 +3502,7 @@ If you already added the source command to your <code>.bashrc</code> from the <a
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
 
 <span class="c1"># add it to your .bashrc</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"source /path/to/rosflight_ws/install/setup.bash &gt;&gt; </span><span class="nv">$HOME</span><span class="s2">/.bashrc"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"source ~/rosflight_ws/install/setup.bash &gt;&gt; </span><span class="nv">$HOME</span><span class="s2">/.bashrc"</span>
 </code></pre></div>
 <p>Note that sourcing the <code>setup.bash</code> file in the <code>rosflight_ws</code> directory will install all ROS2 packages in any subdirectories.</p>
 <h2 id="running-rosplane-sil">Running ROSplane SIL<a class="headerlink" href="#running-rosplane-sil" title="Permanent link">¶</a></h2>
@@ -3514,11 +3514,11 @@ See the <code>README.md</code> file for the <code>rosflight_ros_pkgs</code> pack
 <p>A convenience bash script has been included that uses tmux to launch Gazebo, an instance of the ROSflight firmware, and ROSplane.
 Note that this requires tmux, so you may need to install it with <code>sudo apt install tmux</code>.
 Run
-</p><div class="highlight"><pre><span></span><code>./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh<span class="w"> </span>-s<span class="w"> </span>-r<span class="w"> </span>-a<span class="w"> </span>anaconda<span class="w"> </span>-b<span class="w"> </span>example_bag<span class="w"> </span>~/path/to/rosflight_ws
+</p><div class="highlight"><pre><span></span><code>./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh<span class="w"> </span>-s<span class="w"> </span>-r<span class="w"> </span>-a<span class="w"> </span>anaconda<span class="w"> </span>-b<span class="w"> </span>example_bag<span class="w"> </span>~/rosflight_ws
 </code></pre></div>
 from the <code>rosflight_ws</code> directory to run a simulation of ROSplane (<code>-s</code>) with a simulated RC transmitter (<code>-r</code>) and the Anaconda aerodynamic and control parameters (<code>-a anaconda</code>), and also to start recording a ROSbag of all the topics (<code>-b example_bag</code>).<p></p>
 <p>See the script or run 
-</p><div class="highlight"><pre><span></span><code>~/path/to/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh<span class="w"> </span>-h
+</p><div class="highlight"><pre><span></span><code>~/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh<span class="w"> </span>-h
 </code></pre></div>
 for more information.<p></p>
 <h4 id="alternative-method">Alternative Method<a class="headerlink" href="#alternative-method" title="Permanent link">¶</a></h4>
@@ -3544,7 +3544,7 @@ Remember to launch ROSplane if you use this method.<p></p>
 <h4 id="alternative-method_1">Alternative Method<a class="headerlink" href="#alternative-method_1" title="Permanent link">¶</a></h4>
 <p>Alternatively, you can run the following commands to initialize firmware parameters and calibrate the IMU.
 Firmware parameters should first be loaded using
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"filename: /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/fixedwing_firmware.yaml"</span>
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"filename: ~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/fixedwing_firmware.yaml"</span>
 </code></pre></div><p></p>
 <p>The IMU should then be calibrated to remove the random biases generated at startup.
 Note that the random number generator used to create these biases is seeded with a constant value, so this calibration should only need to be performed once.
@@ -3597,7 +3597,7 @@ See <a href="../../../developer-guide/rosplane/navigation/navigation-overview/">
 <h3 id="adding-waypoints">Adding waypoints<a class="headerlink" href="#adding-waypoints" title="Permanent link">¶</a></h3>
 <h4 id="recommended-method_2">Recommended Method<a class="headerlink" href="#recommended-method_2" title="Permanent link">¶</a></h4>
 <p>ROSplane initializes with no waypoints added to the <code>path_planner</code>.
-We recommend using a mission .yaml file (an example mission can be found in <code>rosplane/params/fixedwing_mission.yaml</code>).
+We recommend using a mission .yaml file (an example mission can be found in <code>rosplane/missions/fixedwing_mission.yaml</code>).
 Loading the mission can be done using </p>
 <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: &lt;FILENAME&gt;}"</span>
 </code></pre></div>
@@ -3702,10 +3702,10 @@ Note that the waypoint publisher from the <code>path_planner</code> node and the
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

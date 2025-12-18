@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3787,7 +3787,7 @@ ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span cla
 ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>multirotor_init_firmware.launch.py
 
 <span class="c1"># Terminal 3: Run ROScopter controller</span>
-<span class="nb">cd</span><span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params
+<span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src/roscopter/roscopter/params
 ros2<span class="w"> </span>run<span class="w"> </span>roscopter<span class="w"> </span>controller<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/multirotor.yaml
 
 <span class="c1"># Terminal 4: Run the sim state transcriber node</span>
@@ -3861,7 +3861,7 @@ We'll focus on the roll angle loop.</p>
 <span class="nt">PID_ROLL_ANG_D</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
 </code></pre></div><p></p>
 <p>These gains (with values similar to these) are already set, so you don't technically need to set them.</p>
-<p>These get loaded at launch time to the firmware from the <code>/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware/multirotor_commbined.yaml</code> file.
+<p>These get loaded at launch time to the firmware from the <code>~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware/multirotor_commbined.yaml</code> file.
 You can change them in the launch file and relaunch, but that is a pain.
 We'll use RQT and the ROS2 parameter system to dynamically reconfigure those parameters.</p>
 <p>To do this,</p>
@@ -4018,7 +4018,7 @@ ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> 
 There is a <code>ros2 param dump &lt;node_name&gt; &gt;&gt; &lt;file_name&gt;.txt</code> command, to dump the parameters of a node to a file, but it does not format them nicely.
 The alternative is to manually enter them in the YAML file.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Edit parameter file with final tuned values</span>
-vim<span class="w"> </span>/path/to/rosflight_ws/src/roscopter/roscopter/params/multirotor.yaml
+vim<span class="w"> </span>~/rosflight_ws/src/roscopter/roscopter/params/multirotor.yaml
 </code></pre></div>
 <h2 id="rosplane-tuning">ROSplane Tuning<a class="headerlink" href="#rosplane-tuning" title="Permanent link">¶</a></h2>
 <p>Tuning ROSplane follows a similar process with different control loops and gains.
@@ -4093,10 +4093,10 @@ You should now be able to:</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
