@@ -39,7 +39,7 @@ The ROSflight standalone simulator consists of several key components:
     ```bash
     # Replace <ros-distro> with your ROS 2 distro (e.g. "humble" or "jazzy")
     source /opt/ros/<ros-distro>/setup.bash
-    source /path/to/rosflight_ws/install/setup.bash
+    source ~/rosflight_ws/install/setup.bash
     ```
 
     !!! tip "Shell type"
@@ -60,12 +60,14 @@ The ROSflight standalone simulator consists of several key components:
     #### Multirotor Simulation
 
     ```bash
+    cd ~/rosflight_ws
     ros2 launch rosflight_sim multirotor_standalone.launch.py
     ```
 
     #### Fixed-Wing Simulation
 
     ```bash
+    cd ~/rosflight_ws
     ros2 launch rosflight_sim fixedwing_standalone.launch.py
     ```
 
@@ -75,11 +77,16 @@ The ROSflight standalone simulator consists of several key components:
 
     ```bash
     # Multirotor with keyboard control
+    cd ~/rosflight_ws
     ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
 
     # Fixed-wing with keyboard control
+    cd ~/rosflight_ws
     ros2 launch rosflight_sim fixedwing_standalone.launch.py use_vimfly:=true
     ```
+
+    You'll notice that we `cd` into the `rosflight_ws` before launching the sim.
+    This is important to deal with [parameter management that will be covered in the next tutorial](./manually-flying-rosflight-sim.md#saving-parameters-to-memory).
 
 ## Understanding the Simulation Environment
 
@@ -107,13 +114,20 @@ You can verify the simulation is running by checking the active nodes:
 ros2 node list
 ```
 
-You should see the following nodes:
+You should see the following output:
 
-- `/sil_board`
-- `/standalone_sensors`
-- `/standalone_dynamics`
-- `/multirotor_forces_and_moments` or `/fixedwing_forces_and_moments`
-- `/rosflight_io`
+```bash
+/rc
+/rosflight_sil_manager
+/sil_board
+/standalone_dynamics
+/standalone_sensors
+/standalone_viz_transcriber
+/static_transform_publisher_P4JOkDXVuy18dk2Z
+/static_transform_publisher_rJQeNeGn8gEepYGd
+/vimfly
+```
+Note that the `static_transform_publisher` nodes will have different hashes than what is shown above.
 
 Each of these nodes performs a different role in the sim.
 Detailed information about these nodes and what they do can be found in the [simulation architecture description](../concepts/simulator-architecture.md).

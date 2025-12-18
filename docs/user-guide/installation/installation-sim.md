@@ -37,17 +37,17 @@ In this section, when we refer to ROSflight we are referring to the `rosflight_r
 In the [hardware installation guide](./installation-hardware.md), each of these packages will be installed separately, or not at all.
 
 1. Create your ROSflight workspace:
-```bash
-mkdir -p /path/to/rosflight_ws/src
-```
+    ```bash
+    mkdir -p ~/rosflight_ws/src
+    ```
 
 1. Clone the `rosflight_ros_pkgs` repository, as well as `roscopter` and `rosplane`:
-```bash
-cd /path/to/rosflight_ws/src
-git clone https://github.com/rosflight/rosflight_ros_pkgs --recursive
-git clone https://github.com/rosflight/roscopter
-git clone https://github.com/rosflight/rosplane
-```
+    ```bash
+    cd ~/rosflight_ws/src
+    git clone https://github.com/rosflight/rosflight_ros_pkgs --recursive
+    git clone https://github.com/rosflight/roscopter
+    git clone https://github.com/rosflight/rosplane
+    ```
 
     !!! success "File structure"
         Your ROSflight workspace file structure should now look like
@@ -64,11 +64,12 @@ git clone https://github.com/rosflight/rosplane
     !!! warning
         Make sure you have properly sourced [the ROS2 environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html) in the terminal you are working in, or the `rosdep` and `colcon` commands will fail.
         ```bash
+        # Replace <ros-distro> with your ROS2 distro (probably 'humble' or 'jazzy')
         source /opt/ros/<ros-distro>/setup.bash
         ```
-    
+
     ```bash
-    cd /path/to/rosflight_ws
+    cd ~/rosflight_ws
     sudo rosdep init
     rosdep update
     rosdep install --from-path . -y --ignore-src
@@ -78,10 +79,23 @@ git clone https://github.com/rosflight/rosplane
     In most cases, you do not need to reinitialize.
 
 1. Build using the [colcon](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html) build tool:
-```bash
-cd /path/to/rosflight_ws
-colcon build
-```
+    ```bash
+    cd ~/rosflight_ws
+    colcon build
+    ```
+
+    After the build, you should see output similar to:
+    ```bash
+    ---
+    Finished <<< roscopter [1min 34s]
+    Finished <<< rosflight_sim [1min 35s]                                
+    Starting >>> rosflight_pkgs
+    Finished <<< rosflight_pkgs [0.42s]                        
+
+    Summary: 18 packages finished [1min 44s]
+    4 packages had stderr output: roscopter rosflight_io rosplane rosplane_extra
+    ```
+    There may be warnings or `stderr` output, but as long as each package says `Finished`, the build was successful.
 
     !!! warning "Resource Usage"
         Building the whole repository at once uses a lot of memory.
@@ -91,6 +105,7 @@ colcon build
         ```
 
     !!! success
+        The `colcon` build tool will create `build`, `log`, and `install` folders, even if the build fails.
         Your ROSflight workspace file structure should now look like
         ```bash
         rosflight_ws/
@@ -106,11 +121,14 @@ colcon build
 1. Add the source files to your `.bashrc` (so you don't have to source the files every time you open a terminal):
     ```bash
     # add the sourcing commands to your .bashrc. Replace bash with zsh if using zsh.
-    # Replace <ros-distro> with your ROS2 distribution
-    echo "source /opt/ros/<ros-distro>/setup.bash" >> $HOME/.bashrc
-    echo "source /path/to/rosflight_ws/install/setup.bash" >> $HOME/.bashrc
+    echo "source /opt/ros/humble/setup.bash" >> $HOME/.bashrc
+    echo "source $HOME/rosflight_ws/install/setup.bash" >> $HOME/.bashrc
+
+    source $HOME/.bashrc
     ```
-    Make sure to close your current terminal and open a new one after adding these commands to your `.bashrc` file.
+    If you are using a different ROS 2 distribution, replace `humble` with your distro name.
+
+    Make sure to reopen current terminals after adding these commands to your `.bashrc` file (or run `source $HOME/.bashrc` file in every open terminal).
 
 ## Next Steps
 

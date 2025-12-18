@@ -37,7 +37,7 @@ We will load parameters from a file.
 
 1. Navigate to the params directory:
   ```bash
-  cd /path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params
+  cd ~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params
   ```
 
 1. Load the multirotor or fixedwing parameter YAML files:
@@ -107,8 +107,18 @@ You should see something like:
     These steps are mandatory for every simulation session (if you don't write the params as described below).
 
 ## Saving parameters to memory
-The ROSflight sim tries to mimic hardware as much as possible.
+ROSflight sim tries to mimic hardware as much as possible.
 By default, parameters in the firmware are not saved to flash memory, so they do not persist across reboots of the sim.
+
+!!! tip "Parameter initialization when booting up the sim"
+
+    In hardware, when the flight control unit (FCU) boots up, it looks in the SD card to detect a parameter file.
+    If it doesn't find the file, then it initializes all firmware parameters to their default values.
+    Likewise, when `rosflight_sim` boots up, it looks for the `rosflight_memory` folder **in the location where `rosflight_sim` was booted**.
+    If it does not find the `rosflight_memory` folder, it creates one and initializes firmware parameters to the default values.
+
+    While it doesn't really matter where you launch `rosflight_sim` from, you probably will want to launch it from the same place each time (so you don't have to load parameters to the firmware every time you boot).
+    We recommend always launching `rosflight_sim` from the `rosflight_ws` directory for convenience.
 
 To save firmware parameters (including calibration values) to memory, use the `rosflight_io` service call:
 ```bash
@@ -116,7 +126,7 @@ ros2 service call /param_write std_srvs/srv/Trigger
 ```
 
 In hardware, this service call will write all the firmware's parameters to the SD card, where they will load on boot.
-In sim, however, it will generate a directory called `rosflight_memory` in the directory where the command to launch the sim occurred.
+In sim, however, it will generate a directory called `rosflight_memory` **in the directory where the command to launch the sim occurred** (not the directory where you ran the service call).
 
 To load those same parameters by default the next time that `rosflight_sim` is launched, just launch `rosflight_sim` from the directory that contains the `rosflight_memory` directory.
 
@@ -130,7 +140,10 @@ To load those same parameters by default the next time that `rosflight_sim` is l
     └── src
     ```
 
-    And I launch the simulation from this directory using `ros2 launch rosflight_sim multirotor_standalone.launch.py`.
+    And I launch the simulation from the `rosflight_ws` directory using
+    ```bash
+    ros2 launch rosflight_sim multirotor_standalone.launch.py
+    ```
     I then write the params with `ros2 service call /param_write std_srvs/srv/Trigger`.
 
     My new file structure will be:
@@ -184,6 +197,7 @@ VimFly provides keyboard-based control for manual flight operations. Launch your
 
 ```bash
 # Launch with VimFly keyboard control
+cd ~/rosflight_ws
 ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
 ```
 
@@ -191,18 +205,18 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
 
 | Key | Function | Description |
 |-----|----------|-------------|
-| `a` | Increase Thrust | Raises throttle in 10% increments |
-| `s` | Decrease Thrust | Lowers throttle in 10% increments |
-| `h` | Roll Left | Commands left roll input |
-| `l` | Roll Right | Commands right roll input |
-| `j` | Pitch Backward | Commands backward pitch input |
-| `k` | Pitch Forward | Commands forward pitch input |
-| `d` | Yaw Left (CCW) | Commands counter-clockwise yaw |
-| `f` | Yaw Right (CW) | Commands clockwise yaw |
+| `a` | Increase Thrust | Raises throttle increments |
+| `s` | Decrease Thrust | Lowers throttle increments |
+| `h` | Roll Left | Commands left roll stick input |
+| `l` | Roll Right | Commands right roll stick input |
+| `j` | Pitch Backward | Commands backward pitch stick input |
+| `k` | Pitch Forward | Commands forward pitch stick input |
+| `d` | Yaw Left (CCW) | Commands left yaw stick |
+| `f` | Yaw Right (CW) | Commands right yaw stick |
 | `t` | Arm/Disarm Toggle | Arms or disarms the aircraft |
 | `r` | RC Override Toggle | Toggles RC override mode |
 
-!!! tip "VimFly Window Focus"
+!!! warning "VimFly Window Focus"
     The VimFly window must be in focus to receive keyboard input. Click on the VimFly terminal window to ensure it's active before attempting to control the aircraft.
 
 ### RC Transmitter Control
@@ -210,9 +224,9 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
 ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot:
 
 #### Supported Transmitters
-- **FrSky Taranis Q-X7** (USB connection)
-- **RadioMaster TX16S** (USB connection)
-- **RadioMaster Boxer** (USB connection)
+- **FrSky Taranis Q-X7**
+- **RadioMaster TX16S**
+- **RadioMaster Boxer**
 - **Xbox Controller**
 - **RealFlight InterLink Controller**
 

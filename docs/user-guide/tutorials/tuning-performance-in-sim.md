@@ -88,7 +88,7 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
 ros2 launch rosflight_sim multirotor_init_firmware.launch.py
 
 # Terminal 3: Run ROScopter controller
-cd /path/to/rosflight_ws/src/roscopter/roscopter/params
+cd ~/rosflight_ws/src/roscopter/roscopter/params
 ros2 run roscopter controller --ros-args --params-file $(pwd)/multirotor.yaml
 
 # Terminal 4: Run the sim state transcriber node
@@ -185,7 +185,7 @@ PID_ROLL_ANG_D: 0.2
 
 These gains (with values similar to these) are already set, so you don't technically need to set them.
 
-These get loaded at launch time to the firmware from the `/path/to/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware/multirotor_commbined.yaml` file.
+These get loaded at launch time to the firmware from the `~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/multirotor_firmware/multirotor_commbined.yaml` file.
 You can change them in the launch file and relaunch, but that is a pain.
 We'll use RQT and the ROS2 parameter system to dynamically reconfigure those parameters.
 
@@ -386,7 +386,7 @@ The alternative is to manually enter them in the YAML file.
 
 ```bash
 # Edit parameter file with final tuned values
-vim /path/to/rosflight_ws/src/roscopter/roscopter/params/multirotor.yaml
+vim ~/rosflight_ws/src/roscopter/roscopter/params/multirotor.yaml
 ```
 
 ## ROSplane Tuning

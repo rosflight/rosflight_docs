@@ -38,6 +38,7 @@ Launch the fixed-wing simulation:
 
 ```bash
 # Start the standalone simulator with ROSflight firmware simulation
+cd ~/rosflight_ws
 ros2 launch rosflight_sim fixedwing_standalone.launch.py use_vimfly:=true
 ```
 
@@ -159,7 +160,7 @@ Waypoints can be loaded in batch manner from a file.
 Create or modify waypoint files:
 ```bash
 # Edit the default waypoint file
-vim /path/to/rosflight_ws/src/rosplane/rosplane/params/fixedwing_mission.yaml
+vim ~/rosflight_ws/src/rosplane/rosplane/missions/fixedwing_mission.yaml
 ```
 
 Example waypoint file structure:
@@ -191,7 +192,7 @@ Load waypoints from mission file using the service call:
 
 ```bash
 # Load waypoints from the default mission file
-cd /path/to/rosflight_ws/src/rosplane/rosplane/params
+cd ~/rosflight_ws/src/rosplane/rosplane/params
 ros2 service call /load_mission_from_file rosflight_msgs/srv/ParamFile \
   "{filename: $(pwd)/fixedwing_mission.yaml}"
 ```
