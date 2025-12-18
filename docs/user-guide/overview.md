@@ -9,10 +9,10 @@
 !!! tip "New to ROSflight?"
 
     If you are new to ROSflight, we recommend that you first start by setting up the simulation environment and learning to use the ROSflight ecosystem.
-    Do this by following the [installation for sim](./installation/installation-sim.md) guides, and then the [ROSflight tutorials](./tutorials/tutorial-overview.md).
+    Do this by following the [installation for sim](./installation/installation-sim.md) guides, and then the [ROSflight tutorials](./tutorials/index.md).
 
     After you do that, you should be ready to start using ROSflight in your own research!
-    We recommend you first read through the architecture documentation for [ROSplane](./rosplane/rosplane-overview.md) and [ROScopter](./roscopter/roscopter-overview.md).
+    We recommend you first read through the architecture documentation for [ROSplane](./rosplane/index.md) and [ROScopter](./roscopter/index.md).
 
     Then visit the [Customizing ROSflight page](./customizing-rosflight.md) for more specifics on how to customize ROSflight for your research.
 
@@ -48,7 +48,7 @@ Although higher level control is offloaded to the companion computer, enough con
 [ROSplane](https://github.com/rosflight/rosplane) and [ROScopter](https://github.com/rosflight/roscopter) are ROS2 based autonomy stacks that run on the companion computer and do most of the heavy computation of the autopilot. Each portion of their autonomy stacks are organized into highly modular ROS nodes that can be easily swapped out with custom nodes.
 
 ROSplane and ROScopter are not required for using ROSflight and you could choose to use an entirely different autonomy stack if you so desired.
-See the [ROSplane](./rosplane/rosplane-overview.md) and [ROScopter](./roscopter/roscopter-overview.md) documentation for a detailed description of the respective architectures and functionality.
+See the [ROSplane](./rosplane/index.md) and [ROScopter](./roscopter/index.md) documentation for a detailed description of the respective architectures and functionality.
 
 ### RC Safety Pilot
 

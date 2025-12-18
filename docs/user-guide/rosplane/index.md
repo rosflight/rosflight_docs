@@ -21,7 +21,15 @@ This can improve research productivity, decrease debugging time, and improve the
 ## Core Functionality
 
 The ROSplane autopilot allows users to fly waypoint missions with an RC safety pilot.
-The simplicity of this framework allows users to add their own autonomy stacks or mission requirements on top of the ROSplane stack.
+These waypoints are defined by a 3-D location and (optionally) a desired heading at that location.
+
+See [the ROSplane autonomy stack documentation pages](../../developer-guide/rosplane/rosplane-dev-overview.md) for a detailed description of each module and its default functionality.
+
+## Using ROSplane as-is
+The simplicity of the ROSplane framework allows users to add their own autonomy stacks or mission requirements on top of the ROSplane stack.
+
+
+## Customizing ROSplane
 
 For example, the `path_manager` node in the navigation stack in the core ROSplane package directs the `path_follower` node to follow either straight lines or circular arcs.
 However, if a project needed to follow B-splines instead, the `path_manager` and the `path_follower` nodes could easily be replaced to achieve that.

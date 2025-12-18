@@ -19,7 +19,7 @@ We also give some examples of how elements of ROSflight could be modified.
     Modules on the companion computer and modules on the FCU are designed differently, so the methods for customizing the ROSflight autonomy stacks and the ROSflight firmware are different.
 
 !!! warning "ROSflight architecture"
-    This page will not go over the [ROScopter](./roscopter/roscopter-overview.md)/[ROSplane](./rosplane/rosplane-overview.md)/[ROSflight firmware](rosflight-firmware/code-architecture.md) architecture, but we do reference it.
+    This page will not go over the [ROScopter](./roscopter/index.md)/[ROSplane](./rosplane/index.md)/[ROSflight firmware](rosflight-firmware/code-architecture.md) architecture, but we do reference it.
     Please see the respective documentation for a description of each module before reading through this page.
 
 ## Customizing ROSflight firmware

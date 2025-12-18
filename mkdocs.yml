@@ -13,6 +13,7 @@ theme:
   features:
     - content.action.edit
     - navigation.tabs
+    - navigation.indexes
   palette:
     primary: blue grey
     accent: red
@@ -26,7 +27,10 @@ extra:
     provider: mike
 
 extra_javascript:
-    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
+# extra_css:
+#   - stylesheets/extra.css
 
 markdown_extensions:
   - admonition
@@ -58,8 +62,8 @@ nav:
       - Installation for Sim: user-guide/installation/installation-sim.md
       - Installation on Hardware: user-guide/installation/installation-hardware.md
       - Using Docker with ROSflight: user-guide/installation/using-docker-with-rosflight.md
-    - Tutorials: 
-      - Tutorial overview: user-guide/tutorials/tutorial-overview.md
+    - Tutorials:
+      - user-guide/tutorials/index.md
       - Setting up ROSflight Sim: user-guide/tutorials/setting-up-rosflight-sim.md
       - Manually flying ROSflight Sim: user-guide/tutorials/manually-flying-rosflight-sim.md
       - Running ROScopter in Sim: user-guide/tutorials/setting-up-roscopter-in-sim.md
@@ -80,10 +84,10 @@ nav:
       - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
       - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
     - ROSplane:
-      - ROSplane Overview: user-guide/rosplane/rosplane-overview.md
+      - user-guide/rosplane/index.md
       - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
     - ROScopter:
-      - ROScopter Overview: user-guide/roscopter/roscopter-overview.md
+      - user-guide/roscopter/index.md
       - ROScopter Path Planner: user-guide/roscopter/roscopter-path-planner.md
       - ROScopter Path Manager: user-guide/roscopter/roscopter-path-manager.md
       - ROScopter Trajectory Follower: user-guide/roscopter/roscopter-trajectory-follower.md
