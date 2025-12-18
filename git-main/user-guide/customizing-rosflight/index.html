@@ -9,31 +9,31 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/concepts/rosplane-setup/">
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/customizing-rosflight/">
       
       
-        <link rel="prev" href="../rosplane-overview/">
+        <link rel="prev" href="../concepts/autonomous-flight/">
       
       
-        <link rel="next" href="../../roscopter/roscopter-overview/">
+        <link rel="next" href="../../developer-guide/contribution-guidelines/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/favicon.ico">
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>ROSplane Setup - ROSflight</title>
+        <title>Customizing ROSflight - ROSflight</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -52,13 +52,13 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rosplane-setup" class="md-skip">
+        <a href="#customizing-rosflight" class="md-skip">
           Skip to content
         </a>
       
@@ -100,12 +100,12 @@
             <div class="md-banner__inner md-grid md-typeset">
               
 You're not viewing the latest stable version.
-<a href="../../../..">
+<a href="../../..">
   <strong>Click here to go to latest.</strong>
 </a>
 
             </div>
-            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
           </aside>
         
       </div>
@@ -115,9 +115,9 @@ You're not viewing the latest stable version.
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="../../../assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -134,7 +134,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ROSplane Setup
+              Customizing ROSflight
             
           </span>
         </div>
@@ -207,7 +207,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -230,7 +230,7 @@ You're not viewing the latest stable version.
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../overview/" class="md-tabs__link">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -250,7 +250,7 @@ You're not viewing the latest stable version.
     
     
       <li class="md-tabs__item">
-        <a href="../../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+        <a href="../../developer-guide/contribution-guidelines/" class="md-tabs__link">
           
   
   
@@ -270,7 +270,7 @@ You're not viewing the latest stable version.
     
     
       <li class="md-tabs__item">
-        <a href="../../../publications/rosplane/" class="md-tabs__link">
+        <a href="../../publications/rosplane/" class="md-tabs__link">
           
   
   
@@ -304,9 +304,9 @@ You're not viewing the latest stable version.
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+    <a href="../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
       
-  <img src="../../../assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     ROSflight
@@ -321,7 +321,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -403,7 +403,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -481,7 +481,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../installation/installation-sim/" class="md-nav__link">
+      <a href="../installation/installation-sim/" class="md-nav__link">
         
   
   
@@ -509,7 +509,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../installation/installation-hardware/" class="md-nav__link">
+      <a href="../installation/installation-hardware/" class="md-nav__link">
         
   
   
@@ -537,7 +537,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../installation/using-docker-with-rosflight/" class="md-nav__link">
+      <a href="../installation/using-docker-with-rosflight/" class="md-nav__link">
         
   
   
@@ -623,7 +623,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/tutorial-overview/" class="md-nav__link">
+      <a href="../tutorials/tutorial-overview/" class="md-nav__link">
         
   
   
@@ -651,7 +651,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
+      <a href="../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
         
   
   
@@ -679,7 +679,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
+      <a href="../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
         
   
   
@@ -707,7 +707,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
+      <a href="../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
         
   
   
@@ -735,7 +735,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
+      <a href="../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
         
   
   
@@ -763,7 +763,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/tuning-performance-in-sim/" class="md-nav__link">
+      <a href="../tutorials/tuning-performance-in-sim/" class="md-nav__link">
         
   
   
@@ -841,7 +841,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
+      <a href="../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
         
   
   
@@ -869,7 +869,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/user-manual-xflr5/" class="md-nav__link">
+      <a href="../tutorials/user-manual-xflr5/" class="md-nav__link">
         
   
   
@@ -897,7 +897,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/user-manual-openvsp/" class="md-nav__link">
+      <a href="../tutorials/user-manual-openvsp/" class="md-nav__link">
         
   
   
@@ -925,7 +925,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
+      <a href="../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
         
   
   
@@ -953,7 +953,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/user-manual-appendix/" class="md-nav__link">
+      <a href="../tutorials/user-manual-appendix/" class="md-nav__link">
         
   
   
@@ -997,7 +997,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../rosflight-io/" class="md-nav__link">
+      <a href="../rosflight-io/" class="md-nav__link">
         
   
   
@@ -1075,7 +1075,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../running-simulations-with-rosflight/" class="md-nav__link">
+      <a href="../concepts/running-simulations-with-rosflight/" class="md-nav__link">
         
   
   
@@ -1103,7 +1103,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../detailed-launching-guide/" class="md-nav__link">
+      <a href="../concepts/detailed-launching-guide/" class="md-nav__link">
         
   
   
@@ -1131,7 +1131,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../simulator-architecture/" class="md-nav__link">
+      <a href="../concepts/simulator-architecture/" class="md-nav__link">
         
   
   
@@ -1164,8 +1164,6 @@ You're not viewing the latest stable version.
                 
   
   
-    
-  
   
   
     
@@ -1176,11 +1174,11 @@ You're not viewing the latest stable version.
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
         
           
           <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
@@ -1201,7 +1199,7 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1219,7 +1217,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../rosplane-overview/" class="md-nav__link">
+      <a href="../concepts/rosplane-overview/" class="md-nav__link">
         
   
   
@@ -1244,37 +1242,10 @@ You're not viewing the latest stable version.
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ROSplane Setup
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../concepts/rosplane-setup/" class="md-nav__link">
         
   
   
@@ -1290,271 +1261,6 @@ You're not viewing the latest stable version.
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Requirements
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-rosplane-sil" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running ROSplane SIL
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Running ROSplane SIL">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#launching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Launching
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Launching">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Additional Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flying-in-sim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying in Sim
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-rosplane-on-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running ROSplane on Hardware
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flying-waypoint-missions-in-sim-and-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying Waypoint Missions (in sim and hardware)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Flying Waypoint Missions (in sim and hardware)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#adding-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding waypoints
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adding waypoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#publishing-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Publishing Waypoints
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rosplane-gcs-visualization-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ROSplane GCS / Visualization Tools
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ROSplane GCS / Visualization Tools">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#plotjuggler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plotjuggler
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rviz-waypoint-plotter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RViz Waypoint Plotter
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1625,7 +1331,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-overview/" class="md-nav__link">
+      <a href="../roscopter/roscopter-overview/" class="md-nav__link">
         
   
   
@@ -1653,7 +1359,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-planner/" class="md-nav__link">
+      <a href="../roscopter/roscopter-path-planner/" class="md-nav__link">
         
   
   
@@ -1681,7 +1387,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-manager/" class="md-nav__link">
+      <a href="../roscopter/roscopter-path-manager/" class="md-nav__link">
         
   
   
@@ -1709,7 +1415,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
+      <a href="../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
         
   
   
@@ -1737,7 +1443,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-controller/" class="md-nav__link">
+      <a href="../roscopter/roscopter-controller/" class="md-nav__link">
         
   
   
@@ -1765,7 +1471,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-estimator/" class="md-nav__link">
+      <a href="../roscopter/roscopter-estimator/" class="md-nav__link">
         
   
   
@@ -1851,7 +1557,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/" class="md-nav__link">
+      <a href="../concepts/getting-started/" class="md-nav__link">
         
   
   
@@ -1879,7 +1585,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../hardware-setup/" class="md-nav__link">
+      <a href="../concepts/hardware-setup/" class="md-nav__link">
         
   
   
@@ -1907,7 +1613,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../flight-controller-setup/" class="md-nav__link">
+      <a href="../concepts/flight-controller-setup/" class="md-nav__link">
         
   
   
@@ -1935,7 +1641,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../rc-configuration/" class="md-nav__link">
+      <a href="../concepts/rc-configuration/" class="md-nav__link">
         
   
   
@@ -1963,7 +1669,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../parameter-configuration/" class="md-nav__link">
+      <a href="../concepts/parameter-configuration/" class="md-nav__link">
         
   
   
@@ -1991,7 +1697,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../preflight-checks/" class="md-nav__link">
+      <a href="../concepts/preflight-checks/" class="md-nav__link">
         
   
   
@@ -2019,7 +1725,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../improving-firmware-performance/" class="md-nav__link">
+      <a href="../concepts/improving-firmware-performance/" class="md-nav__link">
         
   
   
@@ -2047,7 +1753,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../autonomous-flight/" class="md-nav__link">
+      <a href="../concepts/autonomous-flight/" class="md-nav__link">
         
   
   
@@ -2080,10 +1786,37 @@ You're not viewing the latest stable version.
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../customizing-rosflight/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing ROSflight
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2099,6 +1832,115 @@ You're not viewing the latest stable version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-rosflight-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing ROSflight firmware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-autonomy-stacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing Autonomy Stacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing Autonomy Stacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-a-single-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying a single node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying a single node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-on-ros-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency on ROS 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inheritance pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-groups-of-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying groups of nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intended-workflow-for-the-core-rosflight-autonomy-stacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intended workflow for the core ROSflight autonomy stacks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2168,7 +2010,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/contribution-guidelines/" class="md-nav__link">
+      <a href="../../developer-guide/contribution-guidelines/" class="md-nav__link">
         
   
   
@@ -2196,7 +2038,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/style-guide/" class="md-nav__link">
+      <a href="../../developer-guide/style-guide/" class="md-nav__link">
         
   
   
@@ -2274,7 +2116,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/firmware/code-architecture/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/code-architecture/" class="md-nav__link">
         
   
   
@@ -2302,7 +2144,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/building-and-flashing/" class="md-nav__link">
         
   
   
@@ -2330,7 +2172,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/unit-tests/" class="md-nav__link">
         
   
   
@@ -2358,7 +2200,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/firmware/debugging/" class="md-nav__link">
+      <a href="../../developer-guide/firmware/debugging/" class="md-nav__link">
         
   
   
@@ -2444,7 +2286,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
         
   
   
@@ -2522,7 +2364,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
         
   
   
@@ -2550,7 +2392,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
         
   
   
@@ -2578,7 +2420,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
         
   
   
@@ -2606,7 +2448,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
         
   
   
@@ -2634,7 +2476,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
         
   
   
@@ -2662,7 +2504,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
         
   
   
@@ -2748,7 +2590,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
         
   
   
@@ -2776,7 +2618,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
         
   
   
@@ -2804,7 +2646,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
         
   
   
@@ -2840,7 +2682,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
         
   
   
@@ -2918,7 +2760,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
         
   
   
@@ -2946,7 +2788,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
         
   
   
@@ -2974,7 +2816,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
         
   
   
@@ -3002,7 +2844,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+      <a href="../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
         
   
   
@@ -3096,7 +2938,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
+      <a href="../../developer-guide/roscopter/roscopter-dev-overview/" class="md-nav__link">
         
   
   
@@ -3189,7 +3031,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../publications/rosplane/" class="md-nav__link">
+      <a href="../../publications/rosplane/" class="md-nav__link">
         
   
   
@@ -3217,7 +3059,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../../publications/rosflight/" class="md-nav__link">
+      <a href="../../publications/rosflight/" class="md-nav__link">
         
   
   
@@ -3272,10 +3114,10 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
+  <a href="#customizing-rosflight-firmware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Requirements
+        Customizing ROSflight firmware
       
     </span>
   </a>
@@ -3283,45 +3125,34 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#customizing-autonomy-stacks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Customizing Autonomy Stacks
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-rosplane-sil" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running ROSplane SIL
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Running ROSplane SIL">
+    <nav class="md-nav" aria-label="Customizing Autonomy Stacks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launching" class="md-nav__link">
+  <a href="#modifying-a-single-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launching
+        Modifying a single node
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Launching">
+    <nav class="md-nav" aria-label="Modifying a single node">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#recommended-method" class="md-nav__link">
+  <a href="#dependency-on-ros-2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recommended Method
+        Dependency on ROS 2
       
     </span>
   </a>
@@ -3329,10 +3160,10 @@ You're not viewing the latest stable version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-method" class="md-nav__link">
+  <a href="#inheritance-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternative Method
+        Inheritance pattern
       
     </span>
   </a>
@@ -3345,22 +3176,10 @@ You're not viewing the latest stable version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-setup" class="md-nav__link">
+  <a href="#modifying-groups-of-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
+        Modifying groups of nodes
       
     </span>
   </a>
@@ -3368,143 +3187,10 @@ You're not viewing the latest stable version.
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-method_1" class="md-nav__link">
+  <a href="#intended-workflow-for-the-core-rosflight-autonomy-stacks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flying-in-sim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying in Sim
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running-rosplane-on-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running ROSplane on Hardware
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flying-waypoint-missions-in-sim-and-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying Waypoint Missions (in sim and hardware)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Flying Waypoint Missions (in sim and hardware)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#adding-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding waypoints
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adding waypoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#publishing-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Publishing Waypoints
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rosplane-gcs-visualization-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ROSplane GCS / Visualization Tools
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ROSplane GCS / Visualization Tools">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#plotjuggler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plotjuggler
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rviz-waypoint-plotter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RViz Waypoint Plotter
+        Intended workflow for the core ROSflight autonomy stacks
       
     </span>
   </a>
@@ -3533,7 +3219,7 @@ You're not viewing the latest stable version.
 
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/concepts/rosplane-setup.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/customizing-rosflight.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3541,194 +3227,105 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="rosplane-setup">ROSplane Setup<a class="headerlink" href="#rosplane-setup" title="Permanent link">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>ROSplane v2.0.0-beta is now available! Check the <a href="https://github.com/rosflight/rosplane">github repo</a> for the latest code.</p>
+<h1 id="customizing-rosflight">Customizing ROSflight<a class="headerlink" href="#customizing-rosflight" title="Permanent link">¶</a></h1>
+<p>The ROSflight core functionality is intentionally lean, meaning the feature set is small.
+While this increases understandability and can improve research productivity, it also means that the core ROSflight functionality will not satisfy all researcher's needs.
+Additionally, research involves designing and testing <em>novel</em> features and algorithms, so no autopilot will have all the functionality desired by a researcher.</p>
+<p>Thus, to be useful to researchers, ROSflight has been designed to be as modular and extensible as possible.
+In other words, ROSflight has been <strong>designed to be modified, customized, and extended</strong>.
+This enables researchers to do research with minimal effort.</p>
+<p>This page describes how ROSflight is structured to allow researchers maximum flexibility.
+We also give some examples of how elements of ROSflight could be modified.</p>
+<div class="admonition tip">
+<p class="admonition-title">Customizing ROSflight firmware vs ROSflight autonomy stacks</p>
+<p>As described in <a href="../overview/">the overview page</a>, ROSflight is split into a companion computer and an embedded flight control unit (FCU).
+The companion computer has the ROSflight autonomy stacks while the FCU runs the ROSflight firmware and handles sensor and actuator I/O.</p>
+<p>Modules on the companion computer and modules on the FCU are designed differently, so the methods for customizing the ROSflight autonomy stacks and the ROSflight firmware are different.</p>
 </div>
-<p>ROSplane is a basic fixed-wing autopilot build around ROS2 for use with the ROSflight autopilot.
-It is built according to the methods published in <em>Small Unmanned Aircraft: Theory and Practice</em> by Dr. Randy Beard and Dr. Tim McLain.</p>
-<p>See <a href="../rosplane-overview/">ROSplane Overview</a> for more general information on ROSplane.</p>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¶</a></h2>
-<p>ROSplane requires a working ROS2 installation on a companion computer.
-ROSplane will most often be used in conjunction with the ROSflight firmware and the firmware interface (aka <code>rosflight_ros_pkgs</code>).</p>
-<p>Follow the instructions in <a href="../../installation/installation-sim/">the installation for sim guide</a> to install and set up ROS2 and <code>rosflight_ros_pkgs</code>.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
-<p>You will need to install ROSplane on the companion computer.</p>
-<p>First, navigate to the src directory of the ROS2 workspace and clone the git repository:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/rosflight/rosplane.git
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Your <code>rosflight_ws</code> file structure should now look like:
-</p><div class="highlight"><pre><span></span><code>rosflight_ws
-  └── src 
-    ├── rosflight_ros_pkgs
-    └── rosplane 
-</code></pre></div><p></p>
-</div>
-<p>Then navigate to the top of the <code>rosflight_ws</code> directory and build:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>..
-colcon<span class="w"> </span>build
-</code></pre></div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The build will fail if you have not built the <code>rosflight_msgs</code> previously or if you are not currently building it.</p>
+<p class="admonition-title">ROSflight architecture</p>
+<p>This page will not go over the <a href="../roscopter/roscopter-overview/">ROScopter</a>/<a href="../concepts/rosplane-overview/">ROSplane</a>/<a href="../../developer-guide/firmware/code-architecture/">ROSflight firmware</a> architecture, but we do reference it.
+Please see the respective documentation for a description of each module before reading through this page.</p>
 </div>
-<p>Next, source the <code>rosflight_ws</code> install files.
-If you already added the source command to your <code>.bashrc</code> from the <a href="../../installation/installation-sim/">ROS2 Setup</a> page, then you can skip this step.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># source the install file</span>
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
-
-<span class="c1"># add it to your .bashrc</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"source ~/rosflight_ws/install/setup.bash &gt;&gt; </span><span class="nv">$HOME</span><span class="s2">/.bashrc"</span>
-</code></pre></div>
-<p>Note that sourcing the <code>setup.bash</code> file in the <code>rosflight_ws</code> directory will install all ROS2 packages in any subdirectories.</p>
-<h2 id="running-rosplane-sil">Running ROSplane SIL<a class="headerlink" href="#running-rosplane-sil" title="Permanent link">¶</a></h2>
-<p>A controller or a simulated controller can be used to fly the aircraft in simulation.
-See the <code>README.md</code> file for the <code>rosflight_ros_pkgs</code> package for more information on RC control in simulation.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/ROSplane_sim.jpg" data-desc-position="bottom"><img alt="ROSplane SIL Demo" src="../../../assets/ROSplane_sim.jpg"></a></p>
-<h3 id="launching">Launching<a class="headerlink" href="#launching" title="Permanent link">¶</a></h3>
-<h4 id="recommended-method">Recommended Method<a class="headerlink" href="#recommended-method" title="Permanent link">¶</a></h4>
-<p>A convenience bash script has been included that uses tmux to launch Gazebo, an instance of the ROSflight firmware, and ROSplane.
-Note that this requires tmux, so you may need to install it with <code>sudo apt install tmux</code>.
-Run
-</p><div class="highlight"><pre><span></span><code>./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh<span class="w"> </span>-s<span class="w"> </span>-r<span class="w"> </span>-a<span class="w"> </span>anaconda<span class="w"> </span>-b<span class="w"> </span>example_bag<span class="w"> </span>~/rosflight_ws
-</code></pre></div>
-from the <code>rosflight_ws</code> directory to run a simulation of ROSplane (<code>-s</code>) with a simulated RC transmitter (<code>-r</code>) and the Anaconda aerodynamic and control parameters (<code>-a anaconda</code>), and also to start recording a ROSbag of all the topics (<code>-b example_bag</code>).<p></p>
-<p>See the script or run 
-</p><div class="highlight"><pre><span></span><code>~/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh<span class="w"> </span>-h
-</code></pre></div>
-for more information.<p></p>
-<h4 id="alternative-method">Alternative Method<a class="headerlink" href="#alternative-method" title="Permanent link">¶</a></h4>
-<p>Alternatively, you can run each of the commands in the bash script individually:
-</p><div class="highlight"><pre><span></span><code><span class="c1"># Terminal 1 - Launches Gazebo and a simulated instance of the firmware</span>
-ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing.launch.py
-
-<span class="c1"># Terminal 2 - Runs rosflight_io configured for SIL to interface with the firmware</span>
-ros2<span class="w"> </span>run<span class="w"> </span>rosflight_io<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>udp:<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># Terminal 3 - Launches rosplane with the Anaconda aerodynamic coefficients</span>
-ros2<span class="w"> </span>launch<span class="w"> </span>rosplane_sim<span class="w"> </span>sim.launch.py<span class="w"> </span>aircraft:<span class="o">=</span>anaconda
-</code></pre></div><p></p>
-<p>You can also replace the first two commands above with the convenience launch file that does both:
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing_sim_io_joy.launch.py<span class="w"> </span>aircraft:<span class="o">=</span>anaconda
-</code></pre></div>
-Remember to launch ROSplane if you use this method.<p></p>
-<h3 id="additional-setup">Additional Setup<a class="headerlink" href="#additional-setup" title="Permanent link">¶</a></h3>
-<h4 id="recommended-method_1">Recommended Method<a class="headerlink" href="#recommended-method_1" title="Permanent link">¶</a></h4>
-<p>If this is your first time launching ROSplane, make sure to run the convenience launch script to initialize the firmware parameters and calibrate the IMU.
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing_init_firmware.launch.py
-</code></pre></div><p></p>
-<h4 id="alternative-method_1">Alternative Method<a class="headerlink" href="#alternative-method_1" title="Permanent link">¶</a></h4>
-<p>Alternatively, you can run the following commands to initialize firmware parameters and calibrate the IMU.
-Firmware parameters should first be loaded using
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"filename: ~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/fixedwing_firmware.yaml"</span>
-</code></pre></div><p></p>
-<p>The IMU should then be calibrated to remove the random biases generated at startup.
-Note that the random number generator used to create these biases is seeded with a constant value, so this calibration should only need to be performed once.
-See the code to change the way these biases are calculated.
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/calibrate_imu<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div><p></p>
-<p>After calibrating, write the parameters to a file using:
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_write<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div>
-This command will create a directory named <code>rosflight_memory</code> where the parameters are written.
-The ROSflight firmware will automatically check if the <code>rosflight_memory</code> directory is present when launched and will use those parameters if available.<p></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The ROSflight firmware will only look for the <code>rosflight_memory</code> directory in the directory where the simulation launch command is run.
-You must launch <code>rosflight_sim</code> in the same directory to use the saved parameters; otherwise, reload and re-write the parameters.</p>
-</div>
-<h3 id="flying-in-sim">Flying in Sim<a class="headerlink" href="#flying-in-sim" title="Permanent link">¶</a></h3>
-<p>Once you have the simulation booted up, use channel 4 of a connected transmitter to arm.
-If you are using a simulated transmitter, use <code>ros2 service call /toggle_arm std_srvs/srv/Trigger</code> to toggle arm/disarm.</p>
-<p>After arming, the plane will operate under RC control.
-Verify that the commands are working and that the aircraft is responding as expected.</p>
-<p>To fly autonomously, use channel 5 to disable RC override.
-If using a simulated transmitter, use <code>ros2 service call /toggle_override std_srvs/srv/Trigger</code> to toggle RC override on/off.</p>
-<p>The plane should then take off or fly autonomously in the simulator!</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The ROSflight firmware requires that the vehicle is armed before disabling RC override.
-Make sure that the RC override is toggled off before arming.
-This can be done using the <code>ros2 service call</code> above or an RC switch, if you have one set up.</p>
-</div>
-<h2 id="running-rosplane-on-hardware">Running ROSplane on Hardware<a class="headerlink" href="#running-rosplane-on-hardware" title="Permanent link">¶</a></h2>
-<p>Ensure <code>rosflight_io</code> is running on the companion computer, and that the flight controller is connects to the companion computer.</p>
-<p>Launch ROSplane using
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosplane<span class="w"> </span>rosplane.launch.py
-</code></pre></div><p></p>
-<p>Arm the aircraft using channel 4 of the safety RC transmitter.
-When ready to let ROSplane take control, use channel 5 of the RC transmitter to disable RC override.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Disabling RC override on hardware will turn control over to ROSplane.
-A safety pilot should <strong><em>always</em></strong> be ready to take control, especially when running untested code.</p>
-</div>
-<h2 id="flying-waypoint-missions-in-sim-and-hardware">Flying Waypoint Missions (in sim and hardware)<a class="headerlink" href="#flying-waypoint-missions-in-sim-and-hardware" title="Permanent link">¶</a></h2>
-<p>Autonomous waypoint missions can easily be flown using ROSplane.
-The waypoints of a mission are controlled by the <code>path_planner</code> node.
-These waypoints are sent to the <code>path_manager</code> node.
-Low level path-following is done by the <code>path_follower</code> node.
-See "Small Unmanned Aircraft: Theory and Practice" by Dr. Randy Beard and Dr. Tim McLain for more information on the architecture.
-See <a href="../../../developer-guide/rosplane/navigation/navigation-overview/">Path Planning</a> for more information on how to use and tune the path planner, manager, and follower.</p>
-<h3 id="adding-waypoints">Adding waypoints<a class="headerlink" href="#adding-waypoints" title="Permanent link">¶</a></h3>
-<h4 id="recommended-method_2">Recommended Method<a class="headerlink" href="#recommended-method_2" title="Permanent link">¶</a></h4>
-<p>ROSplane initializes with no waypoints added to the <code>path_planner</code>.
-We recommend using a mission .yaml file (an example mission can be found in <code>rosplane/missions/fixedwing_mission.yaml</code>).
-Loading the mission can be done using </p>
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: &lt;FILENAME&gt;}"</span>
-</code></pre></div>
-<p>where <code>FILENAME</code> is the absolute path to the mission .yaml file.
-Note that the origin (0,0,0) is placed at the GNSS location where ROSplane was initialized.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>All waypoints must include a valid <code>[X, Y, Z]</code>, <code>va_d</code>, and <code>lla</code> values.</p>
-</div>
-<h4 id="alternative-method_2">Alternative Method<a class="headerlink" href="#alternative-method_2" title="Permanent link">¶</a></h4>
-<p>Alternatively, you can add a waypoint one at a time by calling the appropriate service</p>
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/add_waypoint<span class="w"> </span>rosplane_msgs/srv/AddWaypoint<span class="w"> </span><span class="s2">"{w: [X, Y, Z], chi_d: CHI_D, lla: USE_LLA, use_chi: USE_CHI, va_d: VA_D}"</span>
-</code></pre></div>
-<p>where <code>[X, Y, Z]</code> is the NED position of the waypoint from the origin (in meters) OR the GNSS location of the waypoint (LLA), <code>CHI_D</code> is the desired heading at the waypoint, and <code>VA_D</code> is the airspeed at the waypoint.
-Set the <code>lla</code> field to <code>true</code> if the waypoint <code>[X, Y, Z]</code> field is given in GNSS coordinates and <code>false</code> if given in NED coordinates.
-Corners in the path are controlled by <code>USE_CHI</code>, where a value of <code>True</code> will cause ROSplane to use a Dubins path planner and a value of <code>False</code> will cause a fillet path planner to be used.
-Adding waypoints can be done at any time, even after loading from a file.</p>
-<p>Clearing waypoints can be done using 
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/clear_waypoints<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div><p></p>
-<h3 id="publishing-waypoints">Publishing Waypoints<a class="headerlink" href="#publishing-waypoints" title="Permanent link">¶</a></h3>
-<p>The <code>path_planner</code> node automatically publishes a small number of waypoints (default is 3) at the beginning of this mission.
-This number is controlled by the <code>num_waypoints_to_publish_at_start</code> ROS2 parameter. </p>
-<p>Additional waypoints can be published using 
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/publish_next_waypoint<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div><p></p>
-<h2 id="rosplane-gcs-visualization-tools">ROSplane GCS / Visualization Tools<a class="headerlink" href="#rosplane-gcs-visualization-tools" title="Permanent link">¶</a></h2>
-<p>Running and tuning an autopilot requires good tools.
-These are the tools we use in our workflow to test and debug the performance of our autopilot.
-Let us know if you have better tools!</p>
-<h3 id="plotjuggler">Plotjuggler<a class="headerlink" href="#plotjuggler" title="Permanent link">¶</a></h3>
-<p><a href="https://github.com/facontidavide/PlotJuggler">Plotjuggler</a> is a tool to visualize data.
-It is versatile and powerful and can plot many different time series at the same time.
-It allows you to directly stream ROS2 topics, making it an ideal plotting utility in the field.
-We use Plotjuggler extensively to tune our control and estimation loops, and to monitor the status of the airplane.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/plotjuggler_demo.png" data-desc-position="bottom"><img alt="Plotjuggler Demo" src="../../../assets/plotjuggler_demo.png"></a></p>
-<p>While Plotjuggler is not a ROS application, Plotjuggler ROS packages have been created.
-See the <a href="https://github.com/facontidavide/PlotJuggler">Plotjuggler GitHub page</a> for more information or install the ROS2 packages with:
-</p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-<span class="nv">$ROS_DISTRO</span>-plotjuggler-ros
-</code></pre></div><p></p>
-<p>We also use a layout file to automatically open up the plots we are interested in.
-Use the <code>Import Layout</code> button on the Plotjuggler GUI to import the <code>plotjuggler_layout.xml</code> file.</p>
-<h3 id="rviz-waypoint-plotter">RViz Waypoint Plotter<a class="headerlink" href="#rviz-waypoint-plotter" title="Permanent link">¶</a></h3>
-<p>Rviz is a ROS2 tool that can visualize 3D information.
-We use Rviz to visualize waypoints and the aircraft's performance in achieving those waypoints.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/rviz_demo.png" data-desc-position="bottom"><img alt="Rviz Waypoint Demo" src="../../../assets/rviz_demo.png"></a></p>
-<p>Run the Rviz publisher and Rviz configuration file with
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosplane_gcs<span class="w"> </span>rosplane_gcs.launch.py
-</code></pre></div>
-to launch Rviz and the publisher node.
-Note that the waypoint publisher from the <code>path_planner</code> node and the subscriber in the publisher node have been set up to work like a "latched publisher/subscriber", so you should see the most recently published 20 waypoints, even if you launched RViz after publishing the waypoints.<p></p>
+<h2 id="customizing-rosflight-firmware">Customizing ROSflight firmware<a class="headerlink" href="#customizing-rosflight-firmware" title="Permanent link">¶</a></h2>
+<p>The core <a href="../overview/">ROSflight firmware</a> resides on an embedded microcontroller.
+Most users of ROSflight will not need to customize the ROSflight firmware, since the vast majority of the autonomy stack is on the companion computer.</p>
+<p>If you need to customize the ROSflight firmware, first consider if you can accomplish what you need on the companion computer.
+If you still need to customize the ROSflight firmware, make your changes and then follow the <a href="../../developer-guide/firmware/building-and-flashing/">building and flashing guide</a> to flash it on your board.</p>
+<p>However, since ROSflight currently supports only <a href="../concepts/flight-controller-setup/">limited hardware</a>, users may need to write a new board-specific support package for the ROSflight firmware.
+The ROSflight firmware depends on <a href="../../developer-guide/firmware/code-architecture/">an abstraction of a physical board</a>.
+This means that supporting ROSflight on a new board does not require users to change the core ROSflight firmware code.
+Instead, users only have to write drivers for sensors and implement the board-specific functions in the interface file.</p>
+<h2 id="customizing-autonomy-stacks">Customizing Autonomy Stacks<a class="headerlink" href="#customizing-autonomy-stacks" title="Permanent link">¶</a></h2>
+<p>The core ROSflight autonomy stacks, ROSplane and ROScopter, reside entirely on the companion computer and are comprised of groups of core modules.
+Customizing these autonomy stacks involves changing, removing, or replacing a single module or groups of modules.</p>
+<h3 id="modifying-a-single-node">Modifying a single node<a class="headerlink" href="#modifying-a-single-node" title="Permanent link">¶</a></h3>
+<h4 id="dependency-on-ros-2">Dependency on ROS 2<a class="headerlink" href="#dependency-on-ros-2" title="Permanent link">¶</a></h4>
+<p>Each module in ROScopter and ROSplane (e.g. <code>path_planner</code>, <code>path_manager</code>, <code>controller</code>) is implemented as a ROS 2 node.
+Each node has a clear interface with the rest of ROSflight defined by its ROS 2 interfaces (i.e. publishers, subscribers, service servers, etc.).
+Each module communicates with the rest of ROSflight only over these ROS 2 interfaces.</p>
+<p>This dependency on ROS 2 removes dependencies between the implementations of each module.
+For example, regardless of how the ROScopter <code>estimator</code> node is implemented (e.g. EKF vs invariant EKF vs any other estimator variant), as long as it has the same publishers and subscribers as the core ROScopter <code>estimator</code> node, then it will integrate seamlessly with the rest of ROScopter and ROSflight.</p>
+<p>Researchers can replace any node in ROSflight with their application code.
+All that is required for the new code is that it has the same ROS 2 interfaces as the core ROSflight node.</p>
+<details class="example">
+<summary>Replacing a core ROScopter node</summary>
+<p>A researcher studying model predictive control (MPC) wants to use ROSflight.
+The researcher has already implemented his controller as a separate C++ library, and it takes in reference trajectories and outputs low-level controller commands.</p>
+<p>Since the MPC controller takes in a trajectory and returns low-level control commands, the ideal node to replace would be the ROScopter <code>trajectory_follower</code>.
+The researcher has already implemented it as a C++ library, so all he needs to do is write a ROS 2 wrapper around his library to have the same ROS 2 interfaces as the ROSflight <code>trajectory_follower</code>.</p>
+<p>Another option would be to create a derived class from the ROScopter <code>trajectory_follower</code> interface class that forwards function calls to his library.</p>
+</details>
+<p>The dependency on ROS 2 also allows seamless cross-language support (for languages supported by ROS 2).
+For example, any C++ node could be replaced by a Python node---as long as the ROS 2 interfaces are the same, ROSflight will compile and run.</p>
+<details class="example">
+<summary>Replacing a core ROScopter node with a Python node</summary>
+<p>Another researcher is studying model predictive control (MPC) and wants to use ROSflight.
+The researcher has already implemented her controller in Python, and it takes in reference trajectories and outputs low-level controller commands.</p>
+<p>Since the MPC controller takes in a trajectory and returns low-level control commands, the ideal node to replace would be the <code>trajectory_follower</code>.
+The researcher has already implemented it in Python, so all she needs to do is write a ROS 2 wrapper around her library to have the same ROS 2 interfaces as the ROSflight <code>trajectory_follower</code>.</p>
+<p>The core ROSflight <code>trajectory_follower</code> is written in C++, so another option would be to rewrite the Python code in C++ and implement it as in the previous example.</p>
+</details>
+<p>Additionally, each module in ROScopter and ROSplane has a single responsibility, further removing dependencies between modules and functionality in ROSflight.</p>
+<details class="example">
+<summary>Replacing a core ROSplane node - Single responsibility principle</summary>
+<p>A researcher interested in state estimation wants to use ROSflight.</p>
+<p>Since the researcher only wants to test new state estimation algorithms, the ROSplane <code>controller</code>, <code>path_manager</code>, <code>path_planner</code>, or <code>path_follower</code> modules do not need to be modified.
+This is because all relevant code is in the <code>estimator</code> node, whose single responsibility is to perform state estimation.</p>
+</details>
+<h4 id="inheritance-pattern">Inheritance pattern<a class="headerlink" href="#inheritance-pattern" title="Permanent link">¶</a></h4>
+<p>Most of the modules in ROSflight have been designed with an inheritance pattern and are written in C++.
+The base class is an abstract class and defines the ROS 2 interfaces for the node and declares <em>work</em> functions for the node.
+These <em>work</em> functions are where the node does its job, like estimating the state for the <code>estimator</code> or creating a trajectory for the <code>path_manager</code>.
+They are declared as pure virtual functions and thus must be implemented by a derived class.</p>
+<p>This inheritance pattern reduces boilerplate code (i.e. rewriting the ROS 2 interfaces) for users.</p>
+<p>Implementing custom code in ROSflight can be done by subclassing/inheriting from the interface class and implementing the custom functionality.</p>
+<h3 id="modifying-groups-of-nodes">Modifying groups of nodes<a class="headerlink" href="#modifying-groups-of-nodes" title="Permanent link">¶</a></h3>
+<p>In some cases, application code can take the place of several core ROSflight nodes.
+The procedure for replacing groups of nodes in ROSflight is the same as it is to replace a single node.
+As long as the ROS 2 interfaces remain the same between the other core ROSflight nodes, the new node will interface seamlessly with the rest of ROSflight.</p>
+<p>The linear, cascaded flow of information through ROSflight makes this easy.
+Modules typically only depend on output from the module just above, so changes to upstream modules don't affect how downstream modules are implemented.</p>
+<details class="example">
+<summary>Replacing a group of nodes</summary>
+<p>A researcher studying spline-based path planning wants to use ROSplane.
+The new spline-based planning approach takes in information about the enviroment (i.e. obstacles, start and end locations, etc.) and outputs course, airspeed, and altitude commands.</p>
+<p>This new code replaces the functionality provided by the core ROSplane navigation stack (the <code>path_planner</code>, <code>path_manager</code>, and <code>path_follower</code>).
+The researcher can therefore replace all these nodes with the new spline-based controller.
+The new node just needs to output commands to the ROSplane <code>controller</code> as the ROSplane <code>path_follower</code> does.</p>
+</details>
+<h3 id="intended-workflow-for-the-core-rosflight-autonomy-stacks">Intended workflow for the core ROSflight autonomy stacks<a class="headerlink" href="#intended-workflow-for-the-core-rosflight-autonomy-stacks" title="Permanent link">¶</a></h3>
+<p>When using ROScopter or ROSplane, users should first determine which core ROSflight nodes will be replaced by the new application code.
+Depending on the application, a single node or a group of nodes may need to be modified as described above.
+Some applications may not need to modify any core ROSflight nodes.</p>
+<p>After determining which core nodes to modify/replace, the application code should be tested in ROSflight sim.
+Note that the simulation makes assumptions about the vehicle's mass, size, inertia matrix, etc.
+For ROScopter, these values are based off a real quadcopter (the Holybro x650 frame), so they are somewhat realistic.
+ROSplane's aerodynamic coefficients are based off of the <a href="../tutorials/transitioning-from-sim-to-hardware/">aerodynamic analysis</a> of a RMRC Anaconda.
+If you will not do hardware experiments, these parameters will likely work just fine.</p>
+<p>If hardware experiments will be performed, then users should set airframe-specific parameters appropriately in ROSflight sim and also in each of the ROSflight nodes (many ROSflight nodes need to know about the mass of the vehicle).
+This helps ease the transition from sim to real tests.</p>
+<p>Remember that ROScopter and ROSplane run entirely on the companion computer, so no software changes are necessary when transitioning from simulation to hardware.</p>
 
 
 
@@ -3782,10 +3379,10 @@ Note that the waypoint publisher from the <code>path_planner</code> node and the
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       

@@ -101,15 +101,19 @@
          <lastmod>2025-12-18</lastmod>
     </url>
     <url>
+         <loc>http://rosflight.org/git-main/user-guide/customizing-rosflight/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
          <loc>http://rosflight.org/git-main/user-guide/overview/</loc>
          <lastmod>2025-12-18</lastmod>
     </url>
     <url>
-         <loc>http://rosflight.org/git-main/user-guide/concepts/autonomous-flight/</loc>
+         <loc>http://rosflight.org/git-main/user-guide/rosflight-io/</loc>
          <lastmod>2025-12-18</lastmod>
     </url>
     <url>
-         <loc>http://rosflight.org/git-main/user-guide/concepts/customizing-roscopter/</loc>
+         <loc>http://rosflight.org/git-main/user-guide/concepts/autonomous-flight/</loc>
          <lastmod>2025-12-18</lastmod>
     </url>
     <url>
@@ -145,14 +149,6 @@
          <lastmod>2025-12-18</lastmod>
     </url>
     <url>
-         <loc>http://rosflight.org/git-main/user-guide/concepts/roscopter-architecture/</loc>
-         <lastmod>2025-12-18</lastmod>
-    </url>
-    <url>
-         <loc>http://rosflight.org/git-main/user-guide/concepts/roscopter-overview/</loc>
-         <lastmod>2025-12-18</lastmod>
-    </url>
-    <url>
          <loc>http://rosflight.org/git-main/user-guide/concepts/rosplane-overview/</loc>
          <lastmod>2025-12-18</lastmod>
     </url>
@@ -178,6 +174,30 @@
     </url>
     <url>
          <loc>http://rosflight.org/git-main/user-guide/installation/using-docker-with-rosflight/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter/roscopter-controller/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter/roscopter-estimator/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter/roscopter-overview/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter/roscopter-path-manager/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter/roscopter-path-planner/</loc>
+         <lastmod>2025-12-18</lastmod>
+    </url>
+    <url>
+         <loc>http://rosflight.org/git-main/user-guide/roscopter/roscopter-trajectory-follower/</loc>
          <lastmod>2025-12-18</lastmod>
     </url>
     <url>

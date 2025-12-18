@@ -9,13 +9,13 @@
         <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
       
       
-        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/concepts/rosplane-setup/">
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/roscopter/roscopter-path-manager/">
       
       
-        <link rel="prev" href="../rosplane-overview/">
+        <link rel="prev" href="../roscopter-path-planner/">
       
       
-        <link rel="next" href="../../roscopter/roscopter-overview/">
+        <link rel="next" href="../roscopter-trajectory-follower/">
       
       
         
@@ -26,7 +26,7 @@
     
     
       
-        <title>ROSplane Setup - ROSflight</title>
+        <title>ROScopter Path Manager - ROSflight</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rosplane-setup" class="md-skip">
+        <a href="#path-manager" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +134,7 @@ You're not viewing the latest stable version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ROSplane Setup
+              ROScopter Path Manager
             
           </span>
         </div>
@@ -1075,7 +1075,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../running-simulations-with-rosflight/" class="md-nav__link">
+      <a href="../../concepts/running-simulations-with-rosflight/" class="md-nav__link">
         
   
   
@@ -1103,7 +1103,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../detailed-launching-guide/" class="md-nav__link">
+      <a href="../../concepts/detailed-launching-guide/" class="md-nav__link">
         
   
   
@@ -1131,7 +1131,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../simulator-architecture/" class="md-nav__link">
+      <a href="../../concepts/simulator-architecture/" class="md-nav__link">
         
   
   
@@ -1139,6 +1139,120 @@ You're not viewing the latest stable version.
     
   
     Simulator Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSplane
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane Setup
   
 
     
@@ -1180,17 +1294,17 @@ You're not viewing the latest stable version.
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    ROSplane
+    ROScopter
   
 
     
@@ -1201,12 +1315,12 @@ You're not viewing the latest stable version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             
   
-    ROSplane
+    ROScopter
   
 
           </label>
@@ -1219,14 +1333,42 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../rosplane-overview/" class="md-nav__link">
+      <a href="../roscopter-overview/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    ROSplane Overview
+    ROScopter Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter-path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Path Planner
   
 
     
@@ -1263,7 +1405,7 @@ You're not viewing the latest stable version.
   <span class="md-ellipsis">
     
   
-    ROSplane Setup
+    ROScopter Path Manager
   
 
     
@@ -1281,7 +1423,7 @@ You're not viewing the latest stable version.
   <span class="md-ellipsis">
     
   
-    ROSplane Setup
+    ROScopter Path Manager
   
 
     
@@ -1307,10 +1449,10 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
+  <a href="#responsibility" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Requirements
+        Responsibility
       
     </span>
   </a>
@@ -1318,10 +1460,10 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#interface-with-roscopter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Interface with ROScopter
       
     </span>
   </a>
@@ -1329,100 +1471,22 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-rosplane-sil" class="md-nav__link">
+  <a href="#using-the-path_managerimplementation-details" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running ROSplane SIL
+        Using the path_manager/implementation details
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Running ROSplane SIL">
+    <nav class="md-nav" aria-label="Using the path_manager/implementation details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launching" class="md-nav__link">
+  <a href="#path-manager-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launching
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Launching">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Additional Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flying-in-sim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying in Sim
+        Path Manager Services
       
     </span>
   </a>
@@ -1435,119 +1499,13 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-rosplane-on-hardware" class="md-nav__link">
+  <a href="#parameters-and-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running ROSplane on Hardware
+        Parameters and configuration
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flying-waypoint-missions-in-sim-and-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying Waypoint Missions (in sim and hardware)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Flying Waypoint Missions (in sim and hardware)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#adding-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding waypoints
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adding waypoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#publishing-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Publishing Waypoints
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rosplane-gcs-visualization-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ROSplane GCS / Visualization Tools
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ROSplane GCS / Visualization Tools">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#plotjuggler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plotjuggler
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rviz-waypoint-plotter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RViz Waypoint Plotter
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1560,64 +1518,6 @@ You're not viewing the latest stable version.
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7">
-        
-          
-          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ROScopter
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_7">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    ROScopter
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
               
                 
   
@@ -1625,91 +1525,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ROScopter Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-planner/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ROScopter Path Planner
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-path-manager/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ROScopter Path Manager
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
+      <a href="../roscopter-trajectory-follower/" class="md-nav__link">
         
   
   
@@ -1737,7 +1553,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-controller/" class="md-nav__link">
+      <a href="../roscopter-controller/" class="md-nav__link">
         
   
   
@@ -1765,7 +1581,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../../roscopter/roscopter-estimator/" class="md-nav__link">
+      <a href="../roscopter-estimator/" class="md-nav__link">
         
   
   
@@ -1851,7 +1667,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/" class="md-nav__link">
+      <a href="../../concepts/getting-started/" class="md-nav__link">
         
   
   
@@ -1879,7 +1695,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../hardware-setup/" class="md-nav__link">
+      <a href="../../concepts/hardware-setup/" class="md-nav__link">
         
   
   
@@ -1907,7 +1723,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../flight-controller-setup/" class="md-nav__link">
+      <a href="../../concepts/flight-controller-setup/" class="md-nav__link">
         
   
   
@@ -1935,7 +1751,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../rc-configuration/" class="md-nav__link">
+      <a href="../../concepts/rc-configuration/" class="md-nav__link">
         
   
   
@@ -1963,7 +1779,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../parameter-configuration/" class="md-nav__link">
+      <a href="../../concepts/parameter-configuration/" class="md-nav__link">
         
   
   
@@ -1991,7 +1807,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../preflight-checks/" class="md-nav__link">
+      <a href="../../concepts/preflight-checks/" class="md-nav__link">
         
   
   
@@ -2019,7 +1835,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../improving-firmware-performance/" class="md-nav__link">
+      <a href="../../concepts/improving-firmware-performance/" class="md-nav__link">
         
   
   
@@ -2047,7 +1863,7 @@ You're not viewing the latest stable version.
   
   
     <li class="md-nav__item">
-      <a href="../autonomous-flight/" class="md-nav__link">
+      <a href="../../concepts/autonomous-flight/" class="md-nav__link">
         
   
   
@@ -3272,10 +3088,10 @@ You're not viewing the latest stable version.
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
+  <a href="#responsibility" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Requirements
+        Responsibility
       
     </span>
   </a>
@@ -3283,10 +3099,10 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#interface-with-roscopter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Interface with ROScopter
       
     </span>
   </a>
@@ -3294,100 +3110,22 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-rosplane-sil" class="md-nav__link">
+  <a href="#using-the-path_managerimplementation-details" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running ROSplane SIL
+        Using the path_manager/implementation details
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Running ROSplane SIL">
+    <nav class="md-nav" aria-label="Using the path_manager/implementation details">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launching" class="md-nav__link">
+  <a href="#path-manager-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Launching
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Launching">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Additional Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flying-in-sim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying in Sim
+        Path Manager Services
       
     </span>
   </a>
@@ -3400,119 +3138,13 @@ You're not viewing the latest stable version.
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-rosplane-on-hardware" class="md-nav__link">
+  <a href="#parameters-and-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Running ROSplane on Hardware
+        Parameters and configuration
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flying-waypoint-missions-in-sim-and-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flying Waypoint Missions (in sim and hardware)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Flying Waypoint Missions (in sim and hardware)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#adding-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding waypoints
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adding waypoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recommended-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-method_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Method
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#publishing-waypoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Publishing Waypoints
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rosplane-gcs-visualization-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ROSplane GCS / Visualization Tools
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ROSplane GCS / Visualization Tools">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#plotjuggler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plotjuggler
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rviz-waypoint-plotter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RViz Waypoint Plotter
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3533,7 +3165,7 @@ You're not viewing the latest stable version.
 
 
   
-    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/concepts/rosplane-setup.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/roscopter/roscopter-path-manager.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -3541,194 +3173,286 @@ You're not viewing the latest stable version.
   
 
 
-<h1 id="rosplane-setup">ROSplane Setup<a class="headerlink" href="#rosplane-setup" title="Permanent link">¶</a></h1>
+<h1 id="path-manager">Path Manager<a class="headerlink" href="#path-manager" title="Permanent link">¶</a></h1>
+<h2 id="responsibility">Responsibility<a class="headerlink" href="#responsibility" title="Permanent link">¶</a></h2>
+<p>The responsibility of the ROScopter <code>path_manager</code> is:</p>
+<ol>
+<li>Take waypoints published by the <a href="../roscopter-path-planner/"><code>path_planner</code></a> and produce a trajectory between waypoints, and</li>
+<li>Monitor waypoint completion/switching to the next leg. </li>
+</ol>
+<h2 id="interface-with-roscopter">Interface with ROScopter<a class="headerlink" href="#interface-with-roscopter" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/roscopter_architecture.svg" data-desc-position="bottom"><img alt="Diagram of ROScopter architecture" src="../../images/roscopter_architecture.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Reference diagram of the ROScopter architecture</em></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>path_manager</code> interfaces with the rest of ROScopter using publishers and subscribers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>estimated_state</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/State</code></td>
+<td style="text-align: left;">Estimated state for the vehicle (needs position and orientation)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>waypoints</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/Waypoint</code></td>
+<td style="text-align: left;">Waypoints to manage</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>trajectory_command</code></td>
+<td style="text-align: left;"><code>roscopter_msgs/TrajectoryCommand</code></td>
+<td style="text-align: left;">Output commanded trajectory</td>
+</tr>
+</tbody>
+</table>
+<p>To summarize, the <code>path_manager</code> takes in waypoints (from the <code>path_planner</code>) and the estimated state (from the <code>estimator</code>) and computes a desired trajectory, which it publishes on the <code>trajectory_command</code> topic.</p>
+<h2 id="using-the-path_managerimplementation-details">Using the <code>path_manager</code>/implementation details<a class="headerlink" href="#using-the-path_managerimplementation-details" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ROSplane v2.0.0-beta is now available! Check the <a href="https://github.com/rosflight/rosplane">github repo</a> for the latest code.</p>
+<p>In this section, we will refer to the path/trajectory between two waypoints as a "waypoint leg" of the mission</p>
 </div>
-<p>ROSplane is a basic fixed-wing autopilot build around ROS2 for use with the ROSflight autopilot.
-It is built according to the methods published in <em>Small Unmanned Aircraft: Theory and Practice</em> by Dr. Randy Beard and Dr. Tim McLain.</p>
-<p>See <a href="../rosplane-overview/">ROSplane Overview</a> for more general information on ROSplane.</p>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¶</a></h2>
-<p>ROSplane requires a working ROS2 installation on a companion computer.
-ROSplane will most often be used in conjunction with the ROSflight firmware and the firmware interface (aka <code>rosflight_ros_pkgs</code>).</p>
-<p>Follow the instructions in <a href="../../installation/installation-sim/">the installation for sim guide</a> to install and set up ROS2 and <code>rosflight_ros_pkgs</code>.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
-<p>You will need to install ROSplane on the companion computer.</p>
-<p>First, navigate to the src directory of the ROS2 workspace and clone the git repository:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/rosflight_ws/src
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/rosflight/rosplane.git
-</code></pre></div>
+<p>Given a set of waypoints and the position of the vehicle, the <code>path_manager</code> needs to compute a trajectory to get from one waypoint to the next.
+We would like trajectory setpoints <span class="arithmatex"><span class="MathJax_Preview">u_\text{traj}</span><script type="math/tex">u_\text{traj}</script></span> of the form
+$$
+    u_\text{traj} = [p, \dot{p}, \ddot{p}, \psi, \dot{\psi}, \ddot{\psi}]^T,
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span> is the 3-D position, and <span class="arithmatex"><span class="MathJax_Preview">\psi</span><script type="math/tex">\psi</script></span> is the desired heading.
+The velocity and acceleration parts are essentially feed-forward terms that can be used by the downstream <a href="../roscopter-trajectory-follower/">trajectory follower</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Your <code>rosflight_ws</code> file structure should now look like:
-</p><div class="highlight"><pre><span></span><code>rosflight_ws
-  └── src 
-    ├── rosflight_ros_pkgs
-    └── rosplane 
-</code></pre></div><p></p>
+<p>The following path derivation is very similar to the one in <a href="https://github.com/byu-magicc/mavsim_public"><em>Small Unmanned Aircraft: Theory and Practice</em></a>, Ch. 14 by Beard and McLain.</p>
 </div>
-<p>Then navigate to the top of the <code>rosflight_ws</code> directory and build:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>..
-colcon<span class="w"> </span>build
-</code></pre></div>
+<p>In the default implementation of ROScopter, the path the <code>path_manager</code> produces is simply a linear interpolation between waypoints, parametrized by the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span>.
+This results in a straight line in 3D space, as well as a straight "line" between desired headings at the waypoints.
+Thus, the commanded position, <span class="arithmatex"><span class="MathJax_Preview">p^c</span><script type="math/tex">p^c</script></span>, and heading, <span class="arithmatex"><span class="MathJax_Preview">\psi^c</span><script type="math/tex">\psi^c</script></span>, setpoints at the current time is computed as
+$$
+    p^c = \sigma(\tau) p_i + (1 - \sigma(\tau)) p_{i-1}
+$$
+$$
+    \psi^c = \sigma(\tau) \psi_i + (1 - \sigma(\tau)) \psi_{i-1}
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">p_i</span><script type="math/tex">p_i</script></span> is the waypoint at the end of the current leg, <span class="arithmatex"><span class="MathJax_Preview">p_{i-1}</span><script type="math/tex">p_{i-1}</script></span> is the waypoint at the start of the waypoint leg, <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau) \in [0,1]</span><script type="math/tex">\sigma(\tau) \in [0,1]</script></span> is a monotonically increasing function, and <span class="arithmatex"><span class="MathJax_Preview">\tau = \frac{t}{T} \in [0,1]</span><script type="math/tex">\tau = \frac{t}{T} \in [0,1]</script></span>.
+Here, <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> is the current time along the current waypoint leg, and <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> is the total time taken to travel the waypoint leg.</p>
+<p>We can then compute the commanded derivatives as
+$$
+    \dot{p}^c = \frac{1}{T}\dot{\sigma}(\tau)(p_i - p_{i-1})
+$$
+$$
+    \dot{\psi}^c = \frac{1}{T}\dot{\sigma}(\tau)(\psi_i - \psi_{i-1})
+$$
+$$
+    \ddot{p}^c = \frac{1}{T^2}\ddot{\sigma}(\tau)(p_i - p_{i-1})
+$$
+$$
+    \ddot{\psi}^c = \frac{1}{T^2}\ddot{\sigma}(\tau)(\psi_i - \psi_{i-1})
+$$
+Note that the <span class="arithmatex"><span class="MathJax_Preview">\frac{1}{T}</span><script type="math/tex">\frac{1}{T}</script></span> term shows up because <span class="arithmatex"><span class="MathJax_Preview">\tau = t/T</span><script type="math/tex">\tau = t/T</script></span>.</p>
+<p>To compute the desired output trajectory, we then need to define <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span>.
+We have some freedom to choose how <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> behaves.
+If we let <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau) = \tau = \frac{t}{T}</span><script type="math/tex">\sigma(\tau) = \tau = \frac{t}{T}</script></span>, then <span class="arithmatex"><span class="MathJax_Preview">p^c</span><script type="math/tex">p^c</script></span> would interpolate linearly in time from <span class="arithmatex"><span class="MathJax_Preview">p_{i-1}</span><script type="math/tex">p_{i-1}</script></span> to <span class="arithmatex"><span class="MathJax_Preview">p_i</span><script type="math/tex">p_i</script></span>.
+However, this would mean <span class="arithmatex"><span class="MathJax_Preview">\dot{p}^c</span><script type="math/tex">\dot{p}^c</script></span> (i.e. the velocity) would be constant, and the vehicle would have that same velocity at <span class="arithmatex"><span class="MathJax_Preview">p_i</span><script type="math/tex">p_i</script></span>, causing it to overshoot as it continued on to the next leg.</p>
+<!--TODO: This warrants a picture/gif.-->
+
+<p>Instead, we will define <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> to be a 5<sup>th</sup> order <a href="https://en.wikipedia.org/wiki/Smoothstep">smoothstep function</a>, which smoothly interpolates time from <span class="arithmatex"><span class="MathJax_Preview">0</span><script type="math/tex">0</script></span> to <span class="arithmatex"><span class="MathJax_Preview">1</span><script type="math/tex">1</script></span>.
+The smoothstep function guarantees that the velocity and acceleration are zero at <span class="arithmatex"><span class="MathJax_Preview">\tau=0</span><script type="math/tex">\tau=0</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\tau=1</span><script type="math/tex">\tau=1</script></span>, resulting in a smooth transition between waypoint legs.</p>
+<p>The 5<sup>th</sup> order smoothstep scaling function (and derivatives) are defined as
+$$
+ \sigma(\tau) = 6\tau^5 - 15\tau^4 + 10\tau^3
+$$
+$$
+ \dot{\sigma}(\tau) = 30\tau^4 - 60\tau^3 + 30\tau^2
+$$
+$$
+ \ddot{\sigma}(\tau) = 120\tau^3 - 180\tau^2 + 60\tau
+$$</p>
+<p>We can almost compute the desired trajectory setpoints.
+The last piece to consider is how to pick <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span>, the total time to travel a given waypoint path leg.
+The smaller <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> is, the faster the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> will transition, and the faster the vehicle will need to fly.
+For good performance, we would like to pick a <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> such that the vehicle can feasibly follow the path given some constraints.</p>
+<p>One way to do this is to pick <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> so that it is based off of some user-defined maximum velocity and acceleration parameters.
+To do this, let's first find where the maximums of <span class="arithmatex"><span class="MathJax_Preview">\dot{\sigma}(\tau)</span><script type="math/tex">\dot{\sigma}(\tau)</script></span> and <span class="arithmatex"><span class="MathJax_Preview">\ddot{\sigma}(\tau)</span><script type="math/tex">\ddot{\sigma}(\tau)</script></span> are by setting derivatives equal to zero and solving for <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span>
+$$
+\frac{\partial}{\partial \tau}\dot{\sigma}(\tau) = \ddot{\sigma}(\tau) = 120\tau^3 - 180\tau^2 + 60\tau = 0 \implies \tau = \frac{1}{2} = 0.5
+$$
+$$
+\frac{\partial}{\partial \tau}\ddot{\sigma}(\tau) = 360\tau^2 - 360\tau + 60 = 0 \implies \tau = \frac{3 - \sqrt{3}}{6} = 0.2113 
+$$</p>
+<p>Now let's compute the magnitude of the desired velocity and acceleration commands generated at these <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> points.
+$$
+    \lVert \dot{p}^c(\tau = 0.5) \rVert = \frac{1}{T_v}\dot{\sigma}(0.5) \lVert p_i - p_{i-1} \rVert = v_\text{max}
+$$
+$$
+    \lVert \ddot{p}^c(\tau = 0.2113) \rVert = \frac{1}{T^2_a}\ddot{\sigma}(0.2113) \lVert p_i - p_{i-1} \rVert = a_\text{max}
+$$</p>
+<p>Now we solve for <span class="arithmatex"><span class="MathJax_Preview">T_v</span><script type="math/tex">T_v</script></span> and <span class="arithmatex"><span class="MathJax_Preview">T_a</span><script type="math/tex">T_a</script></span> to get
+$$
+T_v = \dot{\sigma}(0.5) * \lVert p_i - p_{i-1} \rVert / v_\text{max}
+$$
+$$
+T_a = \sqrt{\ddot{\sigma}(0.2113) * \lVert p_i - p_{i-1} \rVert / a_\text{max}}
+$$
+Note that both <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span> are user-defined parameters.</p>
+<p>We can then choose the biggest <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span> so that both constraints are satisfied:
+$$
+T = \max (T_v, T_a)
+$$</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The build will fail if you have not built the <code>rosflight_msgs</code> previously or if you are not currently building it.</p>
+<p class="admonition-title">Tuning <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span></p>
+<p>The two parameters <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span> are highly vehicle-specific.
+The <code>path_manager</code> uses them to make sure that the commanded trajectory never produces velocity and acceleration commands higher than these parameters (as described above).</p>
+<p>If these parameters are set too high for downstream controllers to track, it will cause poor performance (especially when using a controller that uses the velocity and acceleration feed-forward commands in the trajectory command vector).</p>
+<p>For example, if these parameters are too high, then the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> will propagate faster than downstream controllers are able to track.
+As the vehicle falls behind the commanded trajectory setpoint, the feed-forward terms (velocity and acceleration commands) will get out-of-sync with the current position of the vehicle along the trajectory.</p>
+<p>This is especially noticeable when the setpoint reaches the end of the waypoint path.
+The feed-forward terms are designed to slow the vehicle as it reaches the end of the waypoint path (this is the purpose of the smoothstep function).
+If the vehicle is far behind the final position when the path parameter <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> reaches it, then those feed-forward terms will cause the vehicle to slow down, even though the vehicle is still somewhere in the middle of the waypoint path.
+This results in visually poor performance.
+<!-- TODO: This is an ideal spot for a graphic/GIF that shows this behavior. --></p>
+<p>The solution? Tune the <span class="arithmatex"><span class="MathJax_Preview">v_\text{max}</span><script type="math/tex">v_\text{max}</script></span> and <span class="arithmatex"><span class="MathJax_Preview">a_\text{max}</span><script type="math/tex">a_\text{max}</script></span> parameters appropriately.</p>
 </div>
-<p>Next, source the <code>rosflight_ws</code> install files.
-If you already added the source command to your <code>.bashrc</code> from the <a href="../../installation/installation-sim/">ROS2 Setup</a> page, then you can skip this step.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># source the install file</span>
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
+<p>We can now plug along and compute our desired trajectory commands at each leg.
+To set up each leg,</p>
+<ol>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">T</span><script type="math/tex">T</script></span></li>
+<li>Set <span class="arithmatex"><span class="MathJax_Preview">t = 0</span><script type="math/tex">t = 0</script></span></li>
+</ol>
+<p>For each waypoint leg in our path, we</p>
+<ol>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">\tau = t/T</span><script type="math/tex">\tau = t/T</script></span></li>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">\sigma(\tau)</span><script type="math/tex">\sigma(\tau)</script></span> and derivatives</li>
+<li>Compute <span class="arithmatex"><span class="MathJax_Preview">p^c</span><script type="math/tex">p^c</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\psi^c</span><script type="math/tex">\psi^c</script></span> and derivatives</li>
+<li>Publish trajectory command</li>
+</ol>
+<p>When the vehicle arrives at the next leg, simply set up the next leg and continue.</p>
+<p>Note that the <code>path_manager</code> publishes trajectory commands at the rate specified by the <code>path_update_frequency</code> ROS 2 parameter.</p>
+<!--TODO: Nice graphics and visuals of the path manager and trajectory follower would be nice here. Maybe that would be an interesting project for someone?-->
 
-<span class="c1"># add it to your .bashrc</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"source ~/rosflight_ws/install/setup.bash &gt;&gt; </span><span class="nv">$HOME</span><span class="s2">/.bashrc"</span>
-</code></pre></div>
-<p>Note that sourcing the <code>setup.bash</code> file in the <code>rosflight_ws</code> directory will install all ROS2 packages in any subdirectories.</p>
-<h2 id="running-rosplane-sil">Running ROSplane SIL<a class="headerlink" href="#running-rosplane-sil" title="Permanent link">¶</a></h2>
-<p>A controller or a simulated controller can be used to fly the aircraft in simulation.
-See the <code>README.md</code> file for the <code>rosflight_ros_pkgs</code> package for more information on RC control in simulation.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/ROSplane_sim.jpg" data-desc-position="bottom"><img alt="ROSplane SIL Demo" src="../../../assets/ROSplane_sim.jpg"></a></p>
-<h3 id="launching">Launching<a class="headerlink" href="#launching" title="Permanent link">¶</a></h3>
-<h4 id="recommended-method">Recommended Method<a class="headerlink" href="#recommended-method" title="Permanent link">¶</a></h4>
-<p>A convenience bash script has been included that uses tmux to launch Gazebo, an instance of the ROSflight firmware, and ROSplane.
-Note that this requires tmux, so you may need to install it with <code>sudo apt install tmux</code>.
-Run
-</p><div class="highlight"><pre><span></span><code>./src/rosplane/rosplane/scripts/rosplane_gcs_launch.sh<span class="w"> </span>-s<span class="w"> </span>-r<span class="w"> </span>-a<span class="w"> </span>anaconda<span class="w"> </span>-b<span class="w"> </span>example_bag<span class="w"> </span>~/rosflight_ws
-</code></pre></div>
-from the <code>rosflight_ws</code> directory to run a simulation of ROSplane (<code>-s</code>) with a simulated RC transmitter (<code>-r</code>) and the Anaconda aerodynamic and control parameters (<code>-a anaconda</code>), and also to start recording a ROSbag of all the topics (<code>-b example_bag</code>).<p></p>
-<p>See the script or run 
-</p><div class="highlight"><pre><span></span><code>~/rosflight_ws/src/rosplane/rosplane/scripts/rosplane_gcs.launch.sh<span class="w"> </span>-h
-</code></pre></div>
-for more information.<p></p>
-<h4 id="alternative-method">Alternative Method<a class="headerlink" href="#alternative-method" title="Permanent link">¶</a></h4>
-<p>Alternatively, you can run each of the commands in the bash script individually:
-</p><div class="highlight"><pre><span></span><code><span class="c1"># Terminal 1 - Launches Gazebo and a simulated instance of the firmware</span>
-ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing.launch.py
-
-<span class="c1"># Terminal 2 - Runs rosflight_io configured for SIL to interface with the firmware</span>
-ros2<span class="w"> </span>run<span class="w"> </span>rosflight_io<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>udp:<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># Terminal 3 - Launches rosplane with the Anaconda aerodynamic coefficients</span>
-ros2<span class="w"> </span>launch<span class="w"> </span>rosplane_sim<span class="w"> </span>sim.launch.py<span class="w"> </span>aircraft:<span class="o">=</span>anaconda
-</code></pre></div><p></p>
-<p>You can also replace the first two commands above with the convenience launch file that does both:
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing_sim_io_joy.launch.py<span class="w"> </span>aircraft:<span class="o">=</span>anaconda
-</code></pre></div>
-Remember to launch ROSplane if you use this method.<p></p>
-<h3 id="additional-setup">Additional Setup<a class="headerlink" href="#additional-setup" title="Permanent link">¶</a></h3>
-<h4 id="recommended-method_1">Recommended Method<a class="headerlink" href="#recommended-method_1" title="Permanent link">¶</a></h4>
-<p>If this is your first time launching ROSplane, make sure to run the convenience launch script to initialize the firmware parameters and calibrate the IMU.
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosflight_sim<span class="w"> </span>fixedwing_init_firmware.launch.py
-</code></pre></div><p></p>
-<h4 id="alternative-method_1">Alternative Method<a class="headerlink" href="#alternative-method_1" title="Permanent link">¶</a></h4>
-<p>Alternatively, you can run the following commands to initialize firmware parameters and calibrate the IMU.
-Firmware parameters should first be loaded using
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_load_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"filename: ~/rosflight_ws/src/rosflight_ros_pkgs/rosflight_sim/params/fixedwing_firmware.yaml"</span>
-</code></pre></div><p></p>
-<p>The IMU should then be calibrated to remove the random biases generated at startup.
-Note that the random number generator used to create these biases is seeded with a constant value, so this calibration should only need to be performed once.
-See the code to change the way these biases are calculated.
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/calibrate_imu<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div><p></p>
-<p>After calibrating, write the parameters to a file using:
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/param_write<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div>
-This command will create a directory named <code>rosflight_memory</code> where the parameters are written.
-The ROSflight firmware will automatically check if the <code>rosflight_memory</code> directory is present when launched and will use those parameters if available.<p></p>
+<h3 id="path-manager-services">Path Manager Services<a class="headerlink" href="#path-manager-services" title="Permanent link">¶</a></h3>
+<p>The <code>path_manager</code> offers the following service servers:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Service name</th>
+<th style="text-align: left;">Interface type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>clear_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Clears the waypoints internal to the <code>path_manager</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>print_waypoints</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Prints all waypoints received to the terminal</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The ROSflight firmware will only look for the <code>rosflight_memory</code> directory in the directory where the simulation launch command is run.
-You must launch <code>rosflight_sim</code> in the same directory to use the saved parameters; otherwise, reload and re-write the parameters.</p>
+<p class="admonition-title">Clearing waypoints</p>
+<p>As described in the <a href="../roscopter-path-planner/#clear-waypoints"><code>path_planner</code></a> section, when the <code>path_planner</code> publishes a message with the <code>clear_wp_list</code> set true, the <code>path_manager</code> internally clears its waypoints.
+This does the same thing as the <code>clear_waypoints</code> service call.</p>
+<p>Thus, there is <strong>no need</strong> to publish a waypoint with <code>clear_wp_list=true</code> and call the <code>clear_waypoints</code> service.</p>
 </div>
-<h3 id="flying-in-sim">Flying in Sim<a class="headerlink" href="#flying-in-sim" title="Permanent link">¶</a></h3>
-<p>Once you have the simulation booted up, use channel 4 of a connected transmitter to arm.
-If you are using a simulated transmitter, use <code>ros2 service call /toggle_arm std_srvs/srv/Trigger</code> to toggle arm/disarm.</p>
-<p>After arming, the plane will operate under RC control.
-Verify that the commands are working and that the aircraft is responding as expected.</p>
-<p>To fly autonomously, use channel 5 to disable RC override.
-If using a simulated transmitter, use <code>ros2 service call /toggle_override std_srvs/srv/Trigger</code> to toggle RC override on/off.</p>
-<p>The plane should then take off or fly autonomously in the simulator!</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The ROSflight firmware requires that the vehicle is armed before disabling RC override.
-Make sure that the RC override is toggled off before arming.
-This can be done using the <code>ros2 service call</code> above or an RC switch, if you have one set up.</p>
-</div>
-<h2 id="running-rosplane-on-hardware">Running ROSplane on Hardware<a class="headerlink" href="#running-rosplane-on-hardware" title="Permanent link">¶</a></h2>
-<p>Ensure <code>rosflight_io</code> is running on the companion computer, and that the flight controller is connects to the companion computer.</p>
-<p>Launch ROSplane using
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosplane<span class="w"> </span>rosplane.launch.py
-</code></pre></div><p></p>
-<p>Arm the aircraft using channel 4 of the safety RC transmitter.
-When ready to let ROSplane take control, use channel 5 of the RC transmitter to disable RC override.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Disabling RC override on hardware will turn control over to ROSplane.
-A safety pilot should <strong><em>always</em></strong> be ready to take control, especially when running untested code.</p>
-</div>
-<h2 id="flying-waypoint-missions-in-sim-and-hardware">Flying Waypoint Missions (in sim and hardware)<a class="headerlink" href="#flying-waypoint-missions-in-sim-and-hardware" title="Permanent link">¶</a></h2>
-<p>Autonomous waypoint missions can easily be flown using ROSplane.
-The waypoints of a mission are controlled by the <code>path_planner</code> node.
-These waypoints are sent to the <code>path_manager</code> node.
-Low level path-following is done by the <code>path_follower</code> node.
-See "Small Unmanned Aircraft: Theory and Practice" by Dr. Randy Beard and Dr. Tim McLain for more information on the architecture.
-See <a href="../../../developer-guide/rosplane/navigation/navigation-overview/">Path Planning</a> for more information on how to use and tune the path planner, manager, and follower.</p>
-<h3 id="adding-waypoints">Adding waypoints<a class="headerlink" href="#adding-waypoints" title="Permanent link">¶</a></h3>
-<h4 id="recommended-method_2">Recommended Method<a class="headerlink" href="#recommended-method_2" title="Permanent link">¶</a></h4>
-<p>ROSplane initializes with no waypoints added to the <code>path_planner</code>.
-We recommend using a mission .yaml file (an example mission can be found in <code>rosplane/missions/fixedwing_mission.yaml</code>).
-Loading the mission can be done using </p>
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/load_mission_from_file<span class="w"> </span>rosflight_msgs/srv/ParamFile<span class="w"> </span><span class="s2">"{filename: &lt;FILENAME&gt;}"</span>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>To avoid long descriptions, we omitted the namespace from the service calls in the documentation.
+All of the <code>path_manager</code> service servers are namespaced by <code>/path_manager</code>.</p>
+<p>In other words, to run the <code>clear_waypoints</code> service, you would run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/path_manager/clear_waypoints<span class="w"> </span>...
 </code></pre></div>
-<p>where <code>FILENAME</code> is the absolute path to the mission .yaml file.
-Note that the origin (0,0,0) is placed at the GNSS location where ROSplane was initialized.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>All waypoints must include a valid <code>[X, Y, Z]</code>, <code>va_d</code>, and <code>lla</code> values.</p>
+<strong>not</strong>
+<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/clear_waypoints<span class="w"> </span>...
+</code></pre></div><p></p>
 </div>
-<h4 id="alternative-method_2">Alternative Method<a class="headerlink" href="#alternative-method_2" title="Permanent link">¶</a></h4>
-<p>Alternatively, you can add a waypoint one at a time by calling the appropriate service</p>
-<div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/add_waypoint<span class="w"> </span>rosplane_msgs/srv/AddWaypoint<span class="w"> </span><span class="s2">"{w: [X, Y, Z], chi_d: CHI_D, lla: USE_LLA, use_chi: USE_CHI, va_d: VA_D}"</span>
-</code></pre></div>
-<p>where <code>[X, Y, Z]</code> is the NED position of the waypoint from the origin (in meters) OR the GNSS location of the waypoint (LLA), <code>CHI_D</code> is the desired heading at the waypoint, and <code>VA_D</code> is the airspeed at the waypoint.
-Set the <code>lla</code> field to <code>true</code> if the waypoint <code>[X, Y, Z]</code> field is given in GNSS coordinates and <code>false</code> if given in NED coordinates.
-Corners in the path are controlled by <code>USE_CHI</code>, where a value of <code>True</code> will cause ROSplane to use a Dubins path planner and a value of <code>False</code> will cause a fillet path planner to be used.
-Adding waypoints can be done at any time, even after loading from a file.</p>
-<p>Clearing waypoints can be done using 
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/clear_waypoints<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div><p></p>
-<h3 id="publishing-waypoints">Publishing Waypoints<a class="headerlink" href="#publishing-waypoints" title="Permanent link">¶</a></h3>
-<p>The <code>path_planner</code> node automatically publishes a small number of waypoints (default is 3) at the beginning of this mission.
-This number is controlled by the <code>num_waypoints_to_publish_at_start</code> ROS2 parameter. </p>
-<p>Additional waypoints can be published using 
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/publish_next_waypoint<span class="w"> </span>std_srvs/srv/Trigger
-</code></pre></div><p></p>
-<h2 id="rosplane-gcs-visualization-tools">ROSplane GCS / Visualization Tools<a class="headerlink" href="#rosplane-gcs-visualization-tools" title="Permanent link">¶</a></h2>
-<p>Running and tuning an autopilot requires good tools.
-These are the tools we use in our workflow to test and debug the performance of our autopilot.
-Let us know if you have better tools!</p>
-<h3 id="plotjuggler">Plotjuggler<a class="headerlink" href="#plotjuggler" title="Permanent link">¶</a></h3>
-<p><a href="https://github.com/facontidavide/PlotJuggler">Plotjuggler</a> is a tool to visualize data.
-It is versatile and powerful and can plot many different time series at the same time.
-It allows you to directly stream ROS2 topics, making it an ideal plotting utility in the field.
-We use Plotjuggler extensively to tune our control and estimation loops, and to monitor the status of the airplane.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/plotjuggler_demo.png" data-desc-position="bottom"><img alt="Plotjuggler Demo" src="../../../assets/plotjuggler_demo.png"></a></p>
-<p>While Plotjuggler is not a ROS application, Plotjuggler ROS packages have been created.
-See the <a href="https://github.com/facontidavide/PlotJuggler">Plotjuggler GitHub page</a> for more information or install the ROS2 packages with:
-</p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-<span class="nv">$ROS_DISTRO</span>-plotjuggler-ros
-</code></pre></div><p></p>
-<p>We also use a layout file to automatically open up the plots we are interested in.
-Use the <code>Import Layout</code> button on the Plotjuggler GUI to import the <code>plotjuggler_layout.xml</code> file.</p>
-<h3 id="rviz-waypoint-plotter">RViz Waypoint Plotter<a class="headerlink" href="#rviz-waypoint-plotter" title="Permanent link">¶</a></h3>
-<p>Rviz is a ROS2 tool that can visualize 3D information.
-We use Rviz to visualize waypoints and the aircraft's performance in achieving those waypoints.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/rviz_demo.png" data-desc-position="bottom"><img alt="Rviz Waypoint Demo" src="../../../assets/rviz_demo.png"></a></p>
-<p>Run the Rviz publisher and Rviz configuration file with
-</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>rosplane_gcs<span class="w"> </span>rosplane_gcs.launch.py
-</code></pre></div>
-to launch Rviz and the publisher node.
-Note that the waypoint publisher from the <code>path_planner</code> node and the subscriber in the publisher node have been set up to work like a "latched publisher/subscriber", so you should see the most recently published 20 waypoints, even if you launched RViz after publishing the waypoints.<p></p>
+<h2 id="parameters-and-configuration">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration" title="Permanent link">¶</a></h2>
+<p>The parameters associated with the <code>path_planner</code> are</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>default_altitude</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Altitude of the default waypoint (see note). Should be a positive number (not in NED frame)!</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hold_last</code></td>
+<td style="text-align: left;"><code>bool</code></td>
+<td style="text-align: left;">Determines if the <code>path_manager</code> will hold at the last waypoint or if it will cycle back to the first</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>path_update_frequency</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Rate (in Hz) at which to publish trajectory setpoints</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>waypoint_tolerance</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Distance (in m) from the target waypoint at which the waypoint is considered complete</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>do_linear_interpolation</code></td>
+<td style="text-align: left;"><code>bool</code></td>
+<td style="text-align: left;">Determines if a linear time scaling or a 5<sup>th</sup> order smoothstep time scaling will be used.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_acceleration</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Max acceleration value in m/s<span class="arithmatex"><span class="MathJax_Preview">^2</span><script type="math/tex">^2</script></span> (used when generating trajectory)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_velocity</code></td>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: left;">Max velocity value in m/s (used when generating trajectory)</td>
+</tr>
+</tbody>
+</table>
+<p>When no waypoints are provided to the <code>path_manager</code>, it will create a default waypoint to send to downstream tasks.
+This default waypoint is at the origin (i.e. where the vehicle was armed), with an altitude determined by the <code>default_altitude</code> parameter.</p>
+<p>The <code>hold_last</code> parameter determines whether or not the <code>path_manager</code> will hold the vehicle at the last waypoint.
+If this is set to <code>false</code>, then the <code>path_manager</code> will repeatedly cycle through the waypoints once it reaches the last one.</p>
+<p>The <code>path_update_frequency</code> parameter determines how often the <code>path_manager</code> publishes the trajectory commands.
+Setting this rate does <strong>not</strong> determine how fast the trajectory setpoints interpolate between waypoints (see the <a href="#using-the-path_managerimplementation-details">implementation details</a>).
+Settings this to a high value just increases the frequency commands are published.</p>
+<p>The last two parameters, <code>max_acceleration</code> and <code>max_velocity</code> are user-defined parameters that are <strong>highly vehicle-specific</strong>.
+These two parameters determine the total time a given waypoint leg will take.
+The <code>max_acceleration</code> parameter limits the acceleration computed by the <code>path_manager</code>.
+The <code>max_velocity</code> parameter limits the velocity computed by the <code>path_manager</code>.
+See the <a href="#using-the-path_managerimplementation-details">implementation details</a> for more information on how they are used/defined.</p>
 
 
 
