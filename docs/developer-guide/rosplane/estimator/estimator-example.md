@@ -1,355 +1,178 @@
-# Estimator Example
+# Estimator Continuous-Discrete
 
 <!-- TODO: rename this to continuous discrete once full state is integrated. -->
+<!-- TODO: Remove the cites and replace with something more appropriate -->
 
 ## Overview
 
-The `estimator_example` class implements a continuous-discrete Kalman filter as described in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public) or 8.6 and 8.7 of volume one of the same book.
-Specifically, this estimator uses algorithm 2 of chapter 8 in Volume 1.
-It utilizes a two stage estimation process along with low pass filtering the inversion of a few sensor models and direct measurements.
-The roll and pitch of the aircraft are estimated first.
-This is called the attitude estimation step though not all of the attitude is estimated here.
-The other states are then estimated as a all at once.
-This is called the position estimation step, though more than just position is estimated during this step.
+The `EstimatorContinuousDiscrete` class implements a continuous-discrete Kalman filter as described in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public) or 8.6 and 8.7 of volume one of the same book.
+Specifically, this estimator uses the filter described in 8.11.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
+It estimates the position, velocities, attitude and gyroscope biases.
 
-The estimator makes large use of something called a pseudo-measurement.
-These measures assume that the side slip angle is zero and the corresponding wind triangle solution.
-This allows us to take these measures and then find the wind in the north and east directions along with the yaw of the aircraft.
-They are more fully explored in section 8.11.4 of the UAV book.
+The state vector $\boldsymbol{x}$ is,
+\begin{equation}
+\boldsymbol{x} = 
+\begin{bmatrix}
+\boldsymbol{p} & \boldsymbol{v} & \boldsymbol{\theta} & \boldsymbol{b}_{gyro}
+\end{bmatrix}^\top.
+\end{equation}
 
-## Nomenclature
+The position of the body frame, $\boldsymbol{p}
+The velocity of the body frame, $\boldsymbol{v}$, is expressed in the inertial frame also using NED coordinates in meters per second.
+The attitude of the body frame, $\boldsymbol{\theta}$, relative to the inertial frame in radians using the Euler angles roll, pitch and yaw, $\phi,\,\theta,\,\psi$ respectively.
+These use the ZYX convention of application as in \cite{uavbook}.
+Finally, $\boldsymbol{b}_{gyro}$ is the bias in the gyroscope measurements expressed in the body frame in radians per second.
 
-| Symbol | Meaning | Range |
-|:------:|:-------:| :---: |
-|$\large{\chi}$| Course | $[-\pi,\pi)$ |
-|$\large{\phi}$| Roll | $[-\pi,\pi)$ |
-|$\large{\theta}$| Theta | $[-\pi,\pi)$ |
-|$\large{\psi}$| Yaw | $[-\pi,\pi)$ |
-|$\large{h}$| Altitude | - |
-|$\large{p}$| Roll Rate | - |
-|$\large{q}$| Pitch Rate | - |
-|$\large{r}$| Yaw Rate | - |
-|$\large{V_a}$| Airspeed | $\geq 0$ |
-|$\large{w_n}$| Wind North | - |
-|$\large{w_e}$| Wind East | - |
+The attitude is modeled using Euler angles rather than a quaternion or other Lie group is for ease of interpretibility.
+A major focus of ROScopter is understandability and extensibility and an Euler formulation helps facilitate the understandability of the estimator.
+In addition, the results show that the performance is still excellent and robust despite the suboptimality of an Euler angle formulation.
 
-## Sensor Model Inversion
+The covariance of the state estimate is given as,
+\begin{equation}
+    P = E[\boldsymbol{x}^\top\boldsymbol{x}]
+\end{equation}
 
-The roll, pitch and yaw rates are directly measured by the rate gyro and then low pass filtered.
-The low pass filter is a simple alpha filter described by:
+### State Propagation
+The state estimator for ROScopter is a continuous-discrete formulation as in \cite{uavbook}, meaning that the derivation and analysis utilizes the continuous time equations that are then developed into discrete time equations for use in the estimator.
+This has the advantage of having a direct connection to the familiar dynamical equations and a clear relationship to the discrete time formulation that follows.
 
-$$
-    a_{n} = a_{n-1} \alpha + (1 - \alpha) a_{measured}
-$$
-
-Where $a$ is the state.
-This filter technique is used on the measurements before they are used in an estimate throughout the estimator.
-
-The following are calculated directly from a model of the sensor:
-
-| State | Measured Value | Model Equation | Inversion Equation |
-|:--:|:--:|:--:|:--:|
-| $h$ - altitude | $P$ - absolute pressure (Pa) | $P = \rho_{air} gh$ | $h = \frac{\rho_{air} g}{P}$|
-| $V_a$ - airspeed | $\Delta P$ - differential pressure (Pa) | $\Delta P = \frac{1}{2} \rho_{air} V_a^2$ | $V_a = \sqrt{\frac{2}{\rho_{air} g} \Delta P}$|
-
-These values are then used in the first step of the estimator.
-
-## Attitude Estimation
-
-The first step in estimating the attitude is understanding how we propagate our guess between measurements.
-Our estimates are on roll angle, $\phi$, and on pitch angle, $\theta$.
-These estimates are part of the state $\hat{x}_a$, where the hat over the variable indicates an estimate.
-
-### Propagation
-
-At each call of the estimation algorithm, the estimate from the previous time step is propagated to the next time step.
-The propagation step is broken up into $N$ smaller steps to yield an estimate for the current time step.
-$N$ is typically 10, meaning that the previous estimate that was updated by a measurement is updated in 10 steps instead of a single step to calculate the estimate at the current time step.
-The length of each of the $N$ steps is 1/$N$ the original time step.
-
-The attitude estimation is propagated according to the model $f$:
+The dynamics of the aircraft state are modeled as a function of the state and the input to the system $\boldsymbol{u} = \begin{bmatrix} \boldsymbol{a} & \omega \end{bmatrix}$.
 
 \begin{equation}
-    f =
+    \boldsymbol{f}(\boldsymbol{x}, \boldsymbol{u}) = \dot{\boldsymbol{x}} =
     \begin{bmatrix}
-        \dot{\phi} = p + (q \sin{\phi} + r \cos{\phi}) \tan{\theta} \\
-        \dot{\theta} = q \cos{\phi} + r \sin{\phi})
+    R_b^i(\boldsymbol{\theta})\boldsymbol{v} \\ 
+    R_b^i(\boldsymbol{\theta})^\top[0 & 0 & g]^\top + \boldsymbol{a} + \boldsymbol{v}\times\boldsymbol{\omega} \\
+    S(\boldsymbol{\theta})\boldsymbol{\omega} \\
+    \boldsymbol{0}_{3\times1}
+    \end{bmatrix}.
+\end{equation}
+
+Since the actual inputs $\boldsymbol{a}$ and $\boldsymbol{\omega}$ are unavailable, we use the IMU to approximate these as $\boldsymbol{a} = \boldsymbol{y}_{accel}$ and $\boldsymbol{\omega} = \boldsymbol{y}_{gyro} - \boldsymbol{b}_{gyro}$.
+Note that these are not integrated angles, but assumed to be the instantaneous measurement of the acceleration and angular rates.
+The rotation matrix $R_b^i(\boldsymbol{\theta})$ expresses vectors in the body frame in inertial frame according to the current attitude estimate, $\boldsymbol{\theta}$.
+
+The Jacobian of the dynamics with respect to the states is,
+
+\begin{equation}
+    A(\boldsymbol{x}, \boldsymbol{u}) = \begin{bmatrix}
+        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta}) \boldsymbol{v}}{\partial \boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} \\
+        \boldsymbol{0}_{3\times3} & -[\boldsymbol{\omega}]_\times & \frac{\partial R_b^i(\boldsymbol{\theta})^\top \boldsymbol{g}}{\partial \boldsymbol{\theta}}  & \boldsymbol{0}_{3\times3} \\
+        \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \frac{\partial S(\boldsymbol{\theta})\boldsymbol{\omega}}{\partial \boldsymbol{\theta}} & -S(\boldsymbol{\theta}) \\
+        \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \boldsymbol{I}_{3\times3} \\
+    \end{bmatrix}.
+\end{equation}
+
+Note that this is the continuous time Jacobian not the discrete time Jacobian.
+To find the discrete time Jacobian so it can be used in the EKF's discrete updates, we use a second order approximation of the matrix exponential, $e^{AT_s}$, where $T_s$ is the period between state propagation updates in the EKF.
+It is given by, 
+
+\begin{equation}
+    A_d(\boldsymbol{x},\boldsymbol{u}) = I + A(\boldsymbol{x}, \boldsymbol{u})T_s + A(\boldsymbol{x}, \boldsymbol{u})^2\frac{T_s^2}{2}.
+\end{equation}
+
+The propagation step is split into $N$ updates.
+This reduces linearization errors that could be introduced.
+The state propagation step updates the following $N$ times,
+
+\begin{align}
+    \hat{\boldsymbol{x}}^-_{k+1,i} &= \hat{\boldsymbol{x}}_k + f(\hat{\boldsymbol{x}}, \boldsymbol{u}) \frac{T_s}{N}\\
+    P_{k+1}^- = A_d(\hat{\boldsymbol{x}}, \boldsymbol{u}) P_k &A_d(\hat{\boldsymbol{x}}, \boldsymbol{u})^\top + (Q + GQ_uG^\top)\big(\frac{T_s}{2}\big)^2,
+\end{align}
+
+and the most updated $\hat{\boldsymbol{x}}$ gets used in the calculation of $f$ and $A_d$.
+The process noise is denoted as $Q$, the uncertainty on the inputs is given as $Q_u$ and the Jacobian of $f$ with respect to the inputs is given as $G$.
+
+\subsubsection{Measurement Updates}
+
+Similarly to other EKFs, the general measurement update equation used in the ROScopter EKF is factored into Joseph's stabilized form to ensure that the covariance remains positive definite.
+It is calculated as,
+
+\begin{align}
+    S &= R + CP^-C^\top \\
+    K &= P^-C^\top S^{-1} \\
+    P^+ &= (I - KC)P(I-KC)^\top + LRL^\top, 
+\end{align}
+where $S$ denotes the uncertainty on the innovation, $K$ is the Kalman gain and $C$ is the Jacobian of the measurement model with respect to the state.
+
+In general, the covariance $S$ of the innovation $s = z-h$ may have more terms, if $z$ is a function of the states and the measurement.
+In which case,
+
+\begin{equation}
+    S = FRF^\top + GPG^\top + CP^-C^\top - 2GPC^\top,
+\end{equation}
+where $F$ is the Jacobian of $z$ with respect to the measurement, $G$ is the Jacobian of $z$ with respect to the estimated state.
+As will be seen later, this is useful when the measurement model would otherwise be complex.
+
+Beyond the IMU, the estimator utilizes the following sensors,
+- barometer,
+- magnetometer,
+- and GNSS.
+
+Each measurement model, $h$, and observation Jacobian, $C$, for each sensor are given below.
+
+#### Barometer
+The barometer measures the static atmospheric pressure and uses the model,
+
+\begin{equation}
+    h_{\text{baro}} = -\rho g p_d
+\end{equation}
+
+where $g$ is the acceleration due to gravity, $p_d$ is the estimated down position and $\rho$ is the air density calculated from the absolute altitude above sea level and the 1976 standard atmosphere model for the troposphere.
+This yields the expected sensor value for atmospheric pressure.
+Taking the derivative with respect to $\boldsymbol{x}$,
+
+\begin{equation}
+    C_{\text{baro}} =
+    \begin{bmatrix}
+        0 & 0 & -\rho g &
+        \boldsymbol{0}_{1\times3} &
+        \boldsymbol{0}_{1\times3} &
+        \boldsymbol{0}_{1\times3} &
     \end{bmatrix}
 \end{equation}
 
-This propagated estimate is then used in the calculation of the Jacobian $A$.
+#### Magnetometer
+The magnetometer measures the intensity of the magnetic field.
+This is used to create a measurement of the heading using a tilt-compensated magnetometer model.
 
 \begin{equation}
-    A =
+    z_{\text{mag}} = \text{atan2}(\begin{bmatrix} 0&1&0 \end{bmatrix}R_b^{v_1}\boldsymbol{m},\, \begin{bmatrix} 1&0&0 \end{bmatrix}R_b^{v_1}\boldsymbol{m}) .
+\end{equation}
+The magnetic field measurements need to be expressed in the $v1$ frame, in other words the inertial frame that is rotated by the yaw of the aircraft.
+This allows for the calculation of the angle of the north axis using $\text{atan2}$ which is the heading of the aircraft.
+
+This yields the simple measurement model,
+
+\begin{equation}
+    h_{mag} = \psi,
+\end{equation}
+
+where $\psi$ is the estimated yaw of the aircraft.
+
+The observation Jacobian is then,
+
+\begin{equation}
+    C_{\text{mag}} =
     \begin{bmatrix}
-        (q \cos{\phi} - r \sin{\phi})\tan{\theta} & \frac{q\sin{\phi} + r\cos{phi}}{\cos^2{\theta}} \\
-        0 & -q \sin{\phi} - r \cos{\phi} \\
-    \end{bmatrix}
+        \boldsymbol{0}_{1\times3} &
+        0 & 0 & 1 &
+        \boldsymbol{0}_{1\times3} &
+        \boldsymbol{0}_{1\times3} &
+    \end{bmatrix}.
 \end{equation}
 
-This Jacobian is then used to find a second-order approximation of the matrix exponential, $A_d$.
+However, the contribution of the uncertainty of the states used to calculate $z_{\text{mag}}$ must be appropriately accounted for as in equation for $S$ above.
 
-\begin{equation}
-    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
-\end{equation}
+#### GNSS
+The GNSS update includes measurements of the velocity of the aircraft in the inertial frame and the absolute position in latitude and longitude.
 
-Where $T_s$ is the length of a time step.
-$A_d$ is then used to propagate the actual covariance of the estimate.
-
-The process noise due to model uncertainty is defined in the matrix $Q$, but the process uncertainty due to the use of the rate gyro measurements $Q_g$, has not been adjusted for yet.
-This is done with the use of the matrix $G$ which takes into account the Coriolis effects of the gyro measurements.
-The measurement variance is transformed into process noise due to gyro measurements.
-All of these contribute into finding the current covariance of our estimate, $P$.
-This is done by the following equation:
-
-$$P_a = A_d P A_d^\top + (Q + G Q_g G^\top) \frac{T_s^2}{N^2}$$
-
-With this propagated estimate and covariance we are now ready for a measurement update.
-
-### Measurement Update
-
-A measurement update provides a check on our propagated estimate and we take this new information and fuse it into our estimate.
-The Kalman filter allows us to optimally adjust our estimate, our tuned process noises, and the noise characteristics of our sensor given the measurement.
-These noise characteristics are captured in a diagonal matrix, $R_{sensor}$.
-The entries are the variances and for the attitude step this is defined as:
-
-\begin{equation}
-    R_{accel} = 
-    \begin{bmatrix}
-        \sigma_{accel, x}^2 & 0 & 0 \\
-        0 & \sigma_{accel, y}^2 & 0 \\
-        0 & 0 & \sigma_{accel, z}^2 \\
-    \end{bmatrix}
-\end{equation}
-
-Using our estimate and a model set of equations $h$, we predict the measurements the accelerometer will produce.
-We will then compare the actual and predicted measurements and optimally adjust our estimate with the new information.
-Since measurements come in much faster than the model propagates the measurement step is run every time the propagated estimate is calculated.
-!!! note
-    The estimator asssumes that measurements come in faster than/as fast the estimation timer is calls for estimation updates.
-    If this is not the case performance can actually go down for the estimation if you increase the frequency of the estimation updates.
-The set of equations, $h$, that predict the 3 measurements of the accelerometer, $y$, is given by:
-
-\begin{equation}
-    h = 
-    \begin{bmatrix}
-        q V_a \sin{\theta} + g \sin{\theta} \\
-        r V_a \cos{\theta} - p V_a \sin{\theta} - g \cos{\theta} \sin{\phi} \\
-        -q V_a \cos{\theta} - g \cos{\theta} \cos{\phi} \\
-    \end{bmatrix}
-\end{equation}
-
-This yields a Jacobian $C$:
-
-\begin{equation}
-    C = 
-    \begin{bmatrix}
-        0 & q V_a \cos{\theta} + g \cos{\theta} \\
-        -g \cos{\phi}\cos{\theta} & -r V_a \sin{\theta} - p V_a \cos{\theta} + g \sin{\phi} \sin{theta} \\
-        g \sin{\phi}\cos{\theta} & (q V_a + g \cos{\phi}) \sin{\theta}
-    \end{bmatrix}
-\end{equation}
-
-Which is used in finding the Kalman gain $L$.
-An intermediate value is calculated called $S^{-1}$.
-This value is:
-
-\begin{equation}
-    S^{-1} = (R_{accel} + CPC^\top)^{-1}
-\end{equation}
-
-This intermediate value is then used to find $L$:
-
-\begin{equation}
-    L = PC^\top S^{-1}
-\end{equation}
-
-The optimal estimate is then found:
-
-\begin{equation}
-    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
-\end{equation}
-
-Finally, we update the covariance from our new estimate:
-
-\begin{equation}
-    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
-\end{equation}
-
-We repeat this cycle until termination of the program.
-This estimation scheme split into two parts allows for a clear set of equations and how the estimates affect one another.
-We will now move on to the next portion of the estimator that estimates the rest of the states.
-
-## Position Estimation
-
-The position estimation step follows the same algorithm as previous.
-Only new values are used for each of the matrices.
-Those new entries are shown here, but reference the previous section for details on implementation.
-
-### Propagation
-
-The attitude estimation is propagated according to the model $f$:
-
-\begin{equation}
-    f =
-    \begin{bmatrix}
-        V_g \cos{\chi} \\
-        V_g \sin{\chi} \\
-        \dot{V_g} \\
-        0 \\
-        0 \\
-        \dot{\psi} \\
-    \end{bmatrix}
-\end{equation}
-
-Where,
-
-\begin{equation}
-    \dot{\psi} = q \sin{\phi} + r \frac{\cos{\phi}}{\cos{\theta}} \\
-    \dot{V_g} = \frac{V_a}{V_g} \dot{\psi} (w_e \cos{\psi} - w_n \sin{\psi})
-\end{equation}
-
-This propagated estimate is then used in the calculation of the Jacobian $A$.
-
-\begin{equation}
-    A =
-    \begin{bmatrix}
-        0 & 0 & \cos{\chi} & -V_g \sin{\chi} & 0 & 0 & 0 \\
-        0 & 0 & \sin{\chi} & V_g \cos{\chi} & 0 & 0 & 0 \\
-        0 & 0 & -\frac{\dot{V_g}}{V_g} & 0 & -\dot{\psi} V_a \frac{\sin{\psi}}{V_g} & \dot{\psi} V_a \frac{\cos{\psi}}{V_g} & -\dot{\psi} V_a (w_n \cos{\psi} + w_e \sin{\psi}) \\
-        0 & 0 & -\frac{g}{V_g^2} \tan{\phi} & 0 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    \end{bmatrix}
-\end{equation}
-
-This Jacobian is then used to find a second-order approximation of the matrix exponential, $A_d$.
-
-\begin{equation}
-    A_d = I + \frac{T_s}{N} A + \frac{1}{2} \frac{T_s^2}{N^2} A^2
-\end{equation}
-
-Where $T_s$ is the length of a time step.
-$A_d$ is then used to propagate the actual covariance of the estimate.
-
-The process noise due to model uncertainty is defined in the matrix $Q$ and is fused into the covariance.
-This is done by the following equation:
-
-$$P_a = A_d P A_d^\top + Q \frac{T_s^2}{N^2}$$
-
-With this propagated estimate and covariance we are now ready for a measurement update.
-
-### Measurement Update
-
-<!-- TODO: update the documentation when the position step is refactored to happen all at once. -->
-
-Because the GPS measures come in slower than the model propagates, the measurement step is only run when there is new GPS information.
-This process is identical to the measurement update in the attitude step.
-This will likely change before release, but the only difference is that it is done one measurement at a time.
-This has advantages for querying the values while debugging, but is on the whole less clear and is more error prone.
-The math is the same but it is carried through, and expressed as the final sum and each row calculated separately.
-
-The measurement model, $h$ has only 6 entries instead of 7 since heading, $\psi$ is not measured.
-A digital compass could be added and $h$ and $C$ expanded if desired, but control is operated on course, $\chi$, so this proves largely unnecessary.
-
-\begin{equation}
-    h = 
-    \begin{bmatrix}
-        p_n \\
-        p_e \\
-        V_g \\
-        \chi \\
-        V_a \cos{\psi} + w_n - V_g \cos{\chi} \\
-        V_a \sin{\psi} + w_e - V_g \sin{\chi} \\
-    \end{bmatrix}
-\end{equation}
-
-This yields a Jacobian $C$:
-
-\begin{equation}
-    C = 
-    \begin{bmatrix}
-        1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-        0 & 0 & -\cos{\chi} & V_g\sin{\chi} & 1 & 0 & -V_a\sin{\psi} \\
-        0 & 0 & -\sin{\chi} & -V_g\cos{\chi} & 0 & 1 & V_a\cos{\psi} \\
-    \end{bmatrix}
-\end{equation}
-
-Which is used in finding the Kalman gain $L$.
-
-The measurement noise matrix, $R_{position}$, is defined as:
-
-\begin{equation}
-    R_{position} = 
-    \begin{bmatrix}
-        \sigma_{gps, n}^2 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        0 & \sigma_{gps, e}^2 & 0 & 0 & 0 & 0 & 0 \\
-        0 & 0 & \sigma_{gps, V_g}^2 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 0 & \sigma_{gps, \chi}^2 & 0 & 0 & 0 \\
-        0 & 0 & 0 & 0 & \sigma_{pseudo, w_n}^2 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 0 & \sigma_{pseudo, w_n}^2 & 0 \\
-        0 & 0 & 0 & 0 & 0 & 0 & \sigma_{pseudo, \psi}^2 \\
-    \end{bmatrix}
-\end{equation}
-
-An intermediate value is calculated called $S^{-1}$.
-This value is:
-
-\begin{equation}
-    S^{-1} = (R_{position} + CPC^\top)^{-1}
-\end{equation}
-
-This intermediate value is then used to find $L$:
-
-\begin{equation}
-    L = PC^\top S^{-1}
-\end{equation}
-
-The optimal estimate is then found:
-
-\begin{equation}
-    \hat{x}_a^+ =  \hat{x}_a^- + L (y - h)
-\end{equation}
-
-Finally, we update the covariance from our new estimate:
-
-\begin{equation}
-    P^+ = (I - LC) P^- (I - LC)^\top + LR_{accel}L^\top
-\end{equation}
-
-We repeat this cycle until termination of the program.
-
-## Software Architecture
-
-### Estimator implementation Specifics
-
-The estimator calls the update of the estimate on a timer.
-Between estimation updates, the measurements come in as they are published and are saved in the estimator.
-This allows asynchronous measurements and for only the most recent measurements to be used.
-It does mean however, that the propagation is reliant on the measurements being faster or as fast as the estimation updates.
-It also means that turning up the estimation frequency will not always have the anticipated effect.
-To increase estimator performance a combination of process noise tuning, sensor uncertainty characterization, sensor update speed increase estimate update speed increase will be needed.
-
-### Replacing the Estimator
-
-To replace the estimator all that needs to be done is inherit from the `estimator_base` class and override the `estimate` method, as described in the .hpp file.
-
-| ![Estimator Override Function](../../../assets/estimator_assets/estimator_override_function.png "Estimator Override Function") |
-|:--:|
-|*Figure 1: The member method that must be overriden to use a new estimator.*|
-
-Next, replace `estimator_example.cpp` in the `CMakeLists.txt` with the newly created estimator file.
-
-| ![Estimator CMake Change Location](../../../assets/estimator_assets/estimator_cmake.png "Estimator CMake Change Location") |
-|:--:|
-|*Figure 2: The location to replace the file for the new estimator file.*|
+FINISH
 
 ## Parameters
+
+<!-- TODO: update this -->
 
 | **Parameter** | **Explanation** | **Type** | **Range** |
 | :---: | :---: | :---: | :---: |
