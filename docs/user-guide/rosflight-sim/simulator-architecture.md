@@ -254,7 +254,7 @@ If you are adding a new sensor (e.g. camera), you could either change the `senso
 The `rc` module is responsible for publishing RC commands to the `sil_board`.
 It takes the place of the physical RC receiver in hardware that typically communicates with the flight controller over SBUS or PPM.
 
-As described in the [ROSflight tutorials](../tutorials/manually-flying-rosflight-sim.md#rc-transmitter-control) and [hardware concept pages](./hardware-setup.md#joystick) pages, the `rc` node supports using a physical joystick or a simulated joystick like VimFly.
+As described in the [ROSflight tutorials](../tutorials/manually-flying-rosflight-sim.md#rc-transmitter-control) and [hardware concept pages](../hardware-and-rosflight/hardware-setup.md#joystick) pages, the `rc` node supports using a physical joystick or a simulated joystick like VimFly.
 See the linked documents for more information.
 
 If VimFly is not specified and a physical transmitter is not connected when the simulation is launched, it will default to **no direct RC control**.

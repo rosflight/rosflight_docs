@@ -155,7 +155,7 @@ Do the following on your companion computer.
 ROS2 will not be installed on the flight controller unit (FCU).
 We will only need to build and flash the FCU with the `rosflight_firmware`.
 
-See the [flight controller guide](../concepts/flight-controller-setup.md) for instructions on how to do this.
+See the [flight controller guide](../hardware-and-rosflight/flight-controller-setup.md) for instructions on how to do this.
 
 ## Next Steps
 

@@ -73,12 +73,12 @@ nav:
         - Appendix: user-guide/tutorials/user-manual-appendix.md
     - ROSflightIO: user-guide/rosflight-io.md
     - ROSflight Sim:
-      - ROSflight Sim Overview: user-guide/concepts/running-simulations-with-rosflight.md
-      - Detailed Launching Guide: user-guide/concepts/detailed-launching-guide.md
-      - Simulator Architecture: user-guide/concepts/simulator-architecture.md
+      - ROSflight Sim Overview: user-guide/rosflight-sim/running-simulations-with-rosflight.md
+      - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
+      - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
     - ROSplane:
-      - ROSplane Overview: user-guide/concepts/rosplane-overview.md
-      - ROSplane Setup: user-guide/concepts/rosplane-setup.md
+      - ROSplane Overview: user-guide/rosplane/rosplane-overview.md
+      - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
     - ROScopter:
       - ROScopter Overview: user-guide/roscopter/roscopter-overview.md
       - ROScopter Path Planner: user-guide/roscopter/roscopter-path-planner.md
@@ -87,14 +87,14 @@ nav:
       - ROScopter Controller: user-guide/roscopter/roscopter-controller.md
       - ROScopter Estimator: user-guide/roscopter/roscopter-estimator.md
     - Hardware and ROSflight:
-      - Getting Started: user-guide/concepts/getting-started.md
-      - Hardware Setup: user-guide/concepts/hardware-setup.md
-      - Flight Controller Setup: user-guide/concepts/flight-controller-setup.md
-      - RC Configuration: user-guide/concepts/rc-configuration.md
-      - Parameter Configuration: user-guide/concepts/parameter-configuration.md
-      - Pre-Flight Checks: user-guide/concepts/preflight-checks.md
-      - Improving Firmware Performance: user-guide/concepts/improving-firmware-performance.md
-      - Autonomous Flight: user-guide/concepts/autonomous-flight.md
+      - Getting Started: user-guide/hardware-and-rosflight/getting-started.md
+      - Hardware Setup: user-guide/hardware-and-rosflight/hardware-setup.md
+      - Flight Controller Setup: user-guide/hardware-and-rosflight/flight-controller-setup.md
+      - RC Configuration: user-guide/hardware-and-rosflight/rc-configuration.md
+      - Parameter Configuration: user-guide/hardware-and-rosflight/parameter-configuration.md
+      - Pre-Flight Checks: user-guide/hardware-and-rosflight/preflight-checks.md
+      - Improving Firmware Performance: user-guide/hardware-and-rosflight/improving-firmware-performance.md
+      - Autonomous Flight: user-guide/hardware-and-rosflight/autonomous-flight.md
     - Customizing ROSflight: user-guide/customizing-rosflight.md
   - Developer Guide:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
@@ -123,11 +123,6 @@ nav:
         - Path Planner: developer-guide/rosplane/navigation/path-planner.md
         - Path Manager: developer-guide/rosplane/navigation/path-manager.md
         - Path Follower: developer-guide/rosplane/navigation/path-follower.md
-    - ROScopter:
-      - Developer Guide Overview: developer-guide/roscopter/roscopter-dev-overview.md
   - Publications:
     - ROSplane: publications/rosplane.md
     - ROSflight: publications/rosflight.md
-#    - ROS Packages:
-#    - ROSplane:
-#    - ROScopter:

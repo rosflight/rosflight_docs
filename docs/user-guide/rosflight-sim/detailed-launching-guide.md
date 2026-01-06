@@ -173,7 +173,7 @@ These command line arguments should be passed using the `<argument>:=<value>` sy
 ## Joysticks
 ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot.
 If one of the supported transmitters is connected via USB at launch time, then the sim will default to using that controller instead of the default, **which is no RC connection**.
-See the [Hardware Setup](./hardware-setup.md#joystick) guide for more information on joysticks.
+See the [Hardware Setup](../hardware-and-rosflight/hardware-setup.md#joystick) guide for more information on joysticks.
 
 !!! note
     It is much easier to fly with a real transmitter than with an Xbox-type controller.
@@ -196,7 +196,7 @@ Remember that the SIL tries its best to replicate hardware.
 That means you have to calibrate and set parameters in the same way you do in hardware.
 If you need a reminder, please follow the [configuration and manual flight tutorial](../tutorials/manually-flying-rosflight-sim.md).
 
-See the [Parameter Configuration](./parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
+See the [Parameter Configuration](../hardware-and-rosflight/parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
 
 You can also run 
 ```bash

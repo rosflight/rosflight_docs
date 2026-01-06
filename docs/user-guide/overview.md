@@ -12,7 +12,7 @@
     Do this by following the [installation for sim](./installation/installation-sim.md) guides, and then the [ROSflight tutorials](./tutorials/tutorial-overview.md).
 
     After you do that, you should be ready to start using ROSflight in your own research!
-    We recommend you first read through the architecture documentation for [ROSplane](./concepts/rosplane-overview.md) and [ROScopter](./roscopter/roscopter-overview.md).
+    We recommend you first read through the architecture documentation for [ROSplane](./rosplane/rosplane-overview.md) and [ROScopter](./roscopter/roscopter-overview.md).
 
     Then visit the [Customizing ROSflight page](./customizing-rosflight.md) for more specifics on how to customize ROSflight for your research.
 
@@ -48,16 +48,16 @@ Although higher level control is offloaded to the companion computer, enough con
 [ROSplane](https://github.com/rosflight/rosplane) and [ROScopter](https://github.com/rosflight/roscopter) are ROS2 based autonomy stacks that run on the companion computer and do most of the heavy computation of the autopilot. Each portion of their autonomy stacks are organized into highly modular ROS nodes that can be easily swapped out with custom nodes.
 
 ROSplane and ROScopter are not required for using ROSflight and you could choose to use an entirely different autonomy stack if you so desired.
-See the [ROSplane](./concepts/rosplane-overview.md) and [ROScopter](./roscopter/roscopter-overview.md) documentation for a detailed description of the respective architectures and functionality.
+See the [ROSplane](./rosplane/rosplane-overview.md) and [ROScopter](./roscopter/roscopter-overview.md) documentation for a detailed description of the respective architectures and functionality.
 
 ### RC Safety Pilot
 
 ROSflight is designed for use with offboard control from experimental and research code.
 As such, it provides several mechanisms for an RC safety pilot to intervene if something goes wrong with the control setpoints coming from the companion computer.
-See the [RC Setup](./concepts/rc-configuration.md) page for more information.
+See the [RC Setup](./hardware-and-rosflight/rc-configuration.md) page for more information.
 
 ## Where do I start?
 
 To get started with ROSflight, we recommend you first set up the simulation environment and walk through the tutorials to get familiar with the ROSflight ecosystem.
 
-If you are ready to start with hardware experiments, first [install the required software](./installation/installation-hardware.md) and then follow the [hardware setup guide](./concepts/getting-started.md) to configure your vehicle for successful flight tests.
+If you are ready to start with hardware experiments, first [install the required software](./installation/installation-hardware.md) and then follow the [hardware setup guide](./hardware-and-rosflight/getting-started.md) to configure your vehicle for successful flight tests.

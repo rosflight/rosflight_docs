@@ -19,7 +19,7 @@ We also give some examples of how elements of ROSflight could be modified.
     Modules on the companion computer and modules on the FCU are designed differently, so the methods for customizing the ROSflight autonomy stacks and the ROSflight firmware are different.
 
 !!! warning "ROSflight architecture"
-    This page will not go over the [ROScopter](./roscopter/roscopter-overview.md)/[ROSplane](./concepts/rosplane-overview.md)/[ROSflight firmware](../developer-guide/firmware/code-architecture.md) architecture, but we do reference it.
+    This page will not go over the [ROScopter](./roscopter/roscopter-overview.md)/[ROSplane](./rosplane/rosplane-overview.md)/[ROSflight firmware](../developer-guide/firmware/code-architecture.md) architecture, but we do reference it.
     Please see the respective documentation for a description of each module before reading through this page.
 
 ## Customizing ROSflight firmware
@@ -29,7 +29,7 @@ Most users of ROSflight will not need to customize the ROSflight firmware, since
 If you need to customize the ROSflight firmware, first consider if you can accomplish what you need on the companion computer.
 If you still need to customize the ROSflight firmware, make your changes and then follow the [building and flashing guide](../developer-guide/firmware/building-and-flashing.md) to flash it on your board.
 
-However, since ROSflight currently supports only [limited hardware](./concepts/flight-controller-setup.md), users may need to write a new board-specific support package for the ROSflight firmware.
+However, since ROSflight currently supports only [limited hardware](./hardware-and-rosflight/flight-controller-setup.md), users may need to write a new board-specific support package for the ROSflight firmware.
 The ROSflight firmware depends on [an abstraction of a physical board](../developer-guide/firmware/code-architecture.md).
 This means that supporting ROSflight on a new board does not require users to change the core ROSflight firmware code.
 Instead, users only have to write drivers for sensors and implement the board-specific functions in the interface file.

@@ -130,7 +130,7 @@ You should see the following output:
 Note that the `static_transform_publisher` nodes will have different hashes than what is shown above.
 
 Each of these nodes performs a different role in the sim.
-Detailed information about these nodes and what they do can be found in the [simulation architecture description](../concepts/simulator-architecture.md).
+Detailed information about these nodes and what they do can be found in the [simulation architecture description](../rosflight-sim/simulator-architecture.md).
 
 You can also see a representation of the data flow by running `rqt_graph` in a new terminal.
 If you don't see a similar view to what is below, click the refresh icon in the upper left.
@@ -152,7 +152,7 @@ The `/dynamics` node handles gravity and other collision forces.
 
 This concludes a simulation "tick", and the simulation starts again with the `/sil_board`.
 
-For more information, see the [detailed simulation architecture description](../concepts/simulator-architecture.md).
+For more information, see the [detailed simulation architecture description](../rosflight-sim/simulator-architecture.md).
 
 ### Topics
 
