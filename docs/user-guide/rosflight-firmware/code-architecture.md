@@ -4,7 +4,7 @@ The firmware is divided into two main components: the _core library_, and a coll
 This division is intended to allow the same core flight code to run on any processor or platform, either an embedded flight controller or a desktop environment for a software-in-the-loop (SIL) simulation. The interface between these two components is called the _hardware abstraction layer_ (HAL).
 This architecture is illustrated in the following diagram:
 
-![hardware abstraction layer](images/HAL.svg)
+![hardware abstraction layer](../images/HAL.svg)
 
 ## Firmware Core Library
 
@@ -42,7 +42,7 @@ Each of these modules is implemented as a C++ class, and encapsulates a cohesive
 The following diagram illustrates these modules and the data flow between them.
 Rectangular blocks represent modules in the flight stack, and ellipses represent hardware functionality implemented in the board support layer:
 
-![flight stack](images/flight_stack.svg)
+![flight stack](../images/flight_stack.svg)
 
 We'll describe each of these modules in the following sections:
 
@@ -52,7 +52,7 @@ While only the comm manager data flow is illustrated on the diagram, all other m
 
 The operation of the state manager is defined by the following finite state machine:
 
-![state manager FSM](images/arming-fsm.svg)
+![state manager FSM](../images/arming-fsm.svg)
 
 The state manager also includes functionality for recovering from hard faults. In the case of a hard fault, the firmware writes a small amount of data to backup memory then reboots. This backup memory location is checked and then cleared after every reboot. The backup memory includes the armed state of the flight controller. On reboot, the firmware will initialize then, if this armed-state flag is set, immediately transition back into the armed state. This functionality allows for continued RC control in the case of a hard fault. Hard faults are not expected with the stable firmware code base, but this feature adds an additional layer of safety if experimental changes are being made to the firmware itself.
 

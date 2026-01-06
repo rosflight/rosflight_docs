@@ -72,6 +72,9 @@ nav:
         - ROSflight Integration: user-guide/tutorials/user-manual-ROSflight-integration.md
         - Appendix: user-guide/tutorials/user-manual-appendix.md
     - ROSflightIO: user-guide/rosflight-io.md
+    - ROSflight Firmware:
+      - Code Architecture: user-guide/rosflight-firmware/code-architecture.md
+      - Building and Flashing: user-guide/rosflight-firmware/building-and-flashing.md
     - ROSflight Sim:
       - ROSflight Sim Overview: user-guide/rosflight-sim/running-simulations-with-rosflight.md
       - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
@@ -100,8 +103,6 @@ nav:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
     - Style Guide: developer-guide/style-guide.md
     - Firmware:
-      - Code Architecture: developer-guide/firmware/code-architecture.md
-      - Building and Flashing: developer-guide/firmware/building-and-flashing.md
       - Unit Tests: developer-guide/firmware/unit-tests.md
       - Debugging: developer-guide/firmware/debugging.md
     - ROSplane:

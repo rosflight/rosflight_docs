@@ -51,26 +51,26 @@ We use the STM32CubeProgrammer to flash the flight controller.
         The Varmint has 2 6-pin connectors.
         **Do not** connect the ribbon cable to the port closest to the power wires.
 
-    ![Varmint 6-pin cable](images/varmint_flash_instructions.png)
+    ![Varmint 6-pin cable](../images/varmint_flash_instructions.png)
 
 1. Power on the Varmint by connecting a battery to the board.
 
 1. Open STM32CubeProgrammer.
 
 1. Plug in the USB connector from the ST-Link to the computer. Select "Connect" in the STM32CubeProgrammer. This should detect the ST-Link and connect automatically.
-    ![Select "Connect"](images/stm_programmer_connect.png)
+    ![Select "Connect"](../images/stm_programmer_connect.png)
 
 1. Navigate to the programming page.
-    ![Navigate to programming page](images/stm32_programming_page.png)
+    ![Navigate to programming page](../images/stm32_programming_page.png)
 
 1. Select the hex file that was just built and click "Open".
     ```
     /path/to/rosflight_firmware/build/boards/varmint_h7/varmint_10X/varmint10X.hex
     ```
-    ![Select the previously built hex file](images/stm32_select_hex.png)
+    ![Select the previously built hex file](../images/stm32_select_hex.png)
 
 1. Select the appropriate options and press "Start Programming"
-    ![Select options and start programming](images/stm32_select_options.png)
+    ![Select options and start programming](../images/stm32_select_options.png)
 
 ### Flashing the Pixracer Pro
 
@@ -87,7 +87,7 @@ Flashing the Pixracer Pro is a very similar process to flashing the Varmint.
         2. [Programming cable](https://www.tag-connect.com/product/tc2030-idc-nl) that connects to the adapter board
         3. [TC2030 clip](https://www.tag-connect.com/product/tc2030-retaining-clip-board-3-pack) to attach the programming cable to the board
 
-    ![Connectors for the Pixracer Pro](./images/pixracer_pro_flash_instructions.jpeg)
+    ![Connectors for the Pixracer Pro](./../images/pixracer_pro_flash_instructions.jpeg)
 
 1. Power on the Pixracer Pro using a USB-C port.
 

@@ -2,7 +2,7 @@
 
 !!! Note
     This page contains instructions for flashing pre-built firmware binaries.
-    For instructions on building and flashing from source, see [Building and Flashing](../../developer-guide/firmware/building-and-flashing.md) in the Developer Guide.
+    For instructions on building and flashing from source, see [Building and Flashing](../rosflight-firmware/building-and-flashing.md) in the Developer Guide.
 
 ## Compatible Hardware
 
@@ -55,7 +55,7 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0664"
 
 ## Building and Flashing the Firmware
 
-Follow the [building and flashing firmware guide](../../developer-guide/firmware/building-and-flashing.md) to build the ROSflight firmware and flash it to your flight controller.
+Follow the [building and flashing firmware guide](../rosflight-firmware/building-and-flashing.md) to build the ROSflight firmware and flash it to your flight controller.
 
 ## LEDs
 
