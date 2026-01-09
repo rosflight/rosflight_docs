@@ -127,16 +127,16 @@ This is a list of all ROSflight parameters, including their types, default value
 | PROP_CQ | Torque coefficient of the propeller | float |  0.0045f | 0 | 100.0 |
 | VOLT_MAX | Maximum voltage of the battery (V) | float |  25.0f | 0 | 100.0 |
 | USE_MOTOR_PARAM | Flag to use motor parameters in the mixer | int |  false | 0 | 1 |
-| PRI_MIXER_OUT_0 | Output type of mixer output 0. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_1 | Output type of mixer output 1. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_2 | Output type of mixer output 2. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_3 | Output type of mixer output 3. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_4 | Output type of mixer output 4. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_5 | Output type of mixer output 5. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_6 | Output type of mixer output 6. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_7 | Output type of mixer output 7. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_8 | Output type of mixer output 8. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_9 | Output type of mixer output 9. | int |  0 | 0 | 1 |
+| PRI_MIXER_OUT_0 | Output type of mixer output 0. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_1 | Output type of mixer output 1. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_2 | Output type of mixer output 2. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_3 | Output type of mixer output 3. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_4 | Output type of mixer output 4. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_5 | Output type of mixer output 5. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_6 | Output type of mixer output 6. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_7 | Output type of mixer output 7. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_8 | Output type of mixer output 8. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_9 | Output type of mixer output 9. | int |  0 | 0 | 3 |
 | PRI_MIXER_PWM_0 | PWM frequenct output for mixer output 0 | float |  0 | 0 | 490 |
 | PRI_MIXER_PWM_1 | PWM frequenct output for mixer output 1 | float |  0 | 0 | 490 |
 | PRI_MIXER_PWM_2 | PWM frequenct output for mixer output 2 | float |  0 | 0 | 490 |

@@ -37,9 +37,9 @@ Thus, the ROSflight mixing matrix is a 6x10 matrix.
 In addition to storing these 60 values, each ROSflight mixer has a header with the following information:
 
 - PWM rate (in Hz) for each output channel
-- Output type (motor, servo, GPIO, or auxiliary)
+- [Output type](#defining-a-custom-mixer) (auxiliary, motor, servo, GPIO)
 
-Users usually won't have to adjust these header values, unless they [define a custom mixer](#defining-a-custom-mixer) as described below.
+Users usually won't have to adjust these header values, unless you [define a custom mixer](#defining-a-custom-mixer) as described below.
 
 ## Selecting a primary mixer
 
@@ -181,6 +181,21 @@ For a standard quadrotor, however, most of these would be zero, since only the f
 
 In addition to the parameters associated with the 6x10 mixing matrix, the [mixer header values](#rosflight-mixer-implementation-details) need to be specified.
 Specifically, make sure to define and load the `PRI_MIXER_OUT_i` and the `PRI_MIXER_PWM_i` parameters, which define the output type and the default PWM rate, respectively, for each `i`th output.
+
+The `PRI_MIXER_OUT_i` values should be set to one of the following values:
+
+| `PRI_MIXER_OUT_i` value | How channel is interpreted by mixer |
+| :--- | :--- |
+| 0 | Auxiliary |
+| 1 | Servo |
+| 2 | Motor |
+| 3 | GPIO |
+
+This designation is important since in ROSflight, motor PWM commands are one-sided (ranging from zero to 1) where servos are two-sided (ranging from -1 to 1).
+The mixer uses the output channel type designation from the above table to know how to scale an output value to a standard PWM command (between 1000 and 2000).
+
+The auxiliary command types are [described below](#auxiliary-inputs).
+
 See the [Parameter Configuration Page](../hardware-and-rosflight/parameter-configuration.md) for more information on these parameters.
 
 !!! note
@@ -212,3 +227,15 @@ Once the parameters are saved to a file, load them with the ROS2 service call (m
 
 Also make sure to save those parameters to memory with the ROS2 service call:
 ```ros2 service call /param_write std_srvs/srv/Trigger```
+
+## Auxiliary inputs
+
+ROSflight supports auxiliary inputs, which are defined as inputs that bypass the mixer.
+Thus, any output channel in the mixer labeled as `AUX` will not use the mixer.
+This can be useful for sending servo commands to landing gears, grasping mechanisms, or other more complicated scenarios.
+
+!!! tip
+
+    To set a channel in a custom mixer as an `AUX` channel (bypassing the mixer), set the `PRI_MIXER_OUT_i` parameter to 0, where `i` is the number of the channel (zero indexed).
+
+    These values are hard-coded for the canned mixers.
