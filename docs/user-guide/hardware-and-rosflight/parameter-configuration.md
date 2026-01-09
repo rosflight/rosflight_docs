@@ -102,11 +102,11 @@ Because ROSflight ships with default parameters for multirotors, you will probab
 | MOTOR_IDLE_THR | min throttle command sent to motors when armed (Set above 0.1 to spin when armed) | float |  0.1 |
 | ARM_CHANNEL | RC switch channel mapped to arming [0 indexed, -1 to disable] | int |  4 |
 | FIXED_WING | switches on passthrough commands for fixed-wing operation | int |  true |
-| MIXER | Which mixer to choose - See [Mixer documentation](hardware-setup.md#motor-layouts-and-mixer) | int | 10  |
-| ELEVATOR_REV | reverses elevator servo output | int |  0/1 |
-| AIL_REV | reverses aileron servo output | int |  0/1 |
-| RUDDER_REV | reverses rudder servo output | int |  0/1 |
-| CAL_GYRO_ARM | Calibrate gyros when arming - generally only for multirotors | int |  false | 0 | 1 |
+| PRIMARY_MIXER | Which primary mixer to choose - See [Mixer documentation](../rosflight-firmware/mixer.md) | int | 9 or 10  |
+| ELEVATOR_REV | reverses elevator servo output | int |  0 or 1 |
+| AIL_REV | reverses aileron servo output | int |  0 or 1 |
+| RUDDER_REV | reverses rudder servo output | int |  0 or 1 |
+| CAL_GYRO_ARM | Calibrate gyros when arming - generally only for multirotors | int |  false |
 
 
 ## Description of all Parameters

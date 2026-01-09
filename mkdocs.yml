@@ -46,6 +46,8 @@ markdown_extensions:
   - pymdownx.smartsymbols
   - pymdownx.superfences
   - pymdownx.tasklist
+  - md_in_html
+  - attr_list
   - toc:
       permalink: true
 
@@ -78,6 +80,7 @@ nav:
     - ROSflightIO: user-guide/rosflight-io.md
     - ROSflight Firmware:
       - Code Architecture: user-guide/rosflight-firmware/code-architecture.md
+      - Mixer: user-guide/rosflight-firmware/mixer.md
       - Building and Flashing: user-guide/rosflight-firmware/building-and-flashing.md
     - ROSflight Sim:
       - ROSflight Sim Overview: user-guide/rosflight-sim/running-simulations-with-rosflight.md

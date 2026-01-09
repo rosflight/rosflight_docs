@@ -47,7 +47,7 @@ The following checklists should help you get a new vehicle set up for the first 
           3. Connect power to the motors
           4. Drop the throttle to minimum
 
-      5. Set the `PRIMARY_MIXER` parameter back to the appropriate value for your vehicle (see the [Hardware Setup](hardware-setup.md#motor-layouts-and-mixer) page)
+      5. Set the `PRIMARY_MIXER` parameter back to the appropriate value for your vehicle (see the [Hardware Setup](../rosflight-firmware/mixer.md) page)
       6. Set `ARM_SPIN_MOTORS` back to `1`
 
   2. The `ARM_SPIN_MOTORS` parameter should be set to `1` so the motors spin slowly when armed. The idle throttle setting can be adjusted with the `MOTOR_IDLE_THR` parameter.
