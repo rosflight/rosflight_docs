@@ -62,6 +62,8 @@ It supports the getting and setting of integer and floating-point parameters, an
 Setting and getting of parameters from the companion computer is done through the serial communication interface.
 While no other data flow lines are shown on the diagram, all of the other modules interact with the parameter server.
 
+See the [parameter configuration](../hardware-and-rosflight/parameter-configuration.md) page for more information on each of the ROSflight parameters and how to get and set parameters.
+
 ### Comm Manager
 This module handles all serial communication between the flight controller and companion computer.
 This includes streaming data and receiving offboard control setpoints and other commands from the computer.
@@ -76,12 +78,25 @@ The implementation is found in [comms/mavlink/mavlink.h](https://github.com/rosf
 This module is in charge of managing the various sensors (IMU, magnetometer, barometer, differential pressure sensor, sonar altimeter, etc.).
 Its responsibilities include updating sensor data at appropriate rates, and computing and applying calibration parameters.
 
+For some sensors, the orientation is critical.
+For example, the IMU and magnetometer sensor data must be oriented in the correct frame to be interpreted correctly.
+The ROSflight firmware expects that the [board implementation](#board-abstraction) handles rotating the sensor data into a board-aligned NED frame.
+
+In some cases, the magnetometer is mounted to a different board then the main flight controller (e.g. the mRo M10034D GPS/mag board).
+In this case, the ROSflight sensor driver does not orient the magnetometer data into the main autopilot-board frame (since it has no idea how the mag board is oriented relative to the autopilot board).
+
+ROSflight also aligns IMU and magnetometer data with the vehicle NED frame before [streaming the data](#comm-manager) to the companion computer.
+This is done using a rotation from the board frame to the vehicle frame.
+This rotation from board to vehicle frame can be configured via [parameters](#parameter-server).
+
 ### Estimator
 This module is responsible for estimating the attitude and attitude rates of the vehicle from the sensor data.
 
 ### RC
 The RC module is responsible for interpreting the RC signals coming from the transmitter via the receiver.
 This includes mapping channels to their appropriate functions and reversing directions if necessary.
+
+See the [RC configuration](../hardware-and-rosflight/rc-configuration.md) page for more information on configuring the RC transmitter and parameters.
 
 ### Command Manager
 The command manager combines inputs from the RC and comm manager modules to produce a control setpoint.
@@ -93,3 +108,5 @@ This control output is computed in a generic form (\(Q_x\), \(Q_y\), and \(Q_z\)
 
 ### Mixer
 The mixer takes the outputs computed by the controller and maps them to actual motor commands depending on the configuration of the vehicle.
+
+See the [Mixer](./mixer.md) documentation page for more information on the details of the mixer and how to configure it.
