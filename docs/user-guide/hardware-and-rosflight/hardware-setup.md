@@ -88,7 +88,7 @@ You will need a laptop which can run ROS2 to communicate with the MAV over the g
 
 ### Joystick
 
-A joystick is used for [software-in-the-loop (SIL) simulations](../rosflight-sim/running-simulations-with-rosflight.md). The joystick is not technically a required component because it is possible to control your MAV from the command line, but it makes things much easier. Our first recommendation is to use the same transmitter you use for hardware as a joystick by plugging it into the computer via USB. We support Taranis QX7 transmitters, Radiomaster TX16s transmitters, RealFlight controllers, and XBOX controllers. Other joysticks can be used, but you may need to create custom axis and button mappings within the ROSflight joystick utility.
+A joystick is used for [software-in-the-loop (SIL) simulations](../rosflight-sim/index.md). The joystick is not technically a required component because it is possible to control your MAV from the command line, but it makes things much easier. Our first recommendation is to use the same transmitter you use for hardware as a joystick by plugging it into the computer via USB. We support Taranis QX7 transmitters, Radiomaster TX16s transmitters, RealFlight controllers, and XBOX controllers. Other joysticks can be used, but you may need to create custom axis and button mappings within the ROSflight joystick utility.
 
 !!! note "Physical vs firmware channels"
     If you do write your own mapping, remember that the channel numbers need to be configured properly on both the firmware and the transmitter.

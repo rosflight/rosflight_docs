@@ -83,7 +83,7 @@ nav:
       - Mixer: user-guide/rosflight-firmware/mixer.md
       - Building and Flashing: user-guide/rosflight-firmware/building-and-flashing.md
     - ROSflight Sim:
-      - ROSflight Sim Overview: user-guide/rosflight-sim/running-simulations-with-rosflight.md
+      - user-guide/rosflight-sim/index.md
       - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
       - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
     - ROSplane:
