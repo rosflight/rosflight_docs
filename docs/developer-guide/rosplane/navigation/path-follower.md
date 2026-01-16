@@ -6,12 +6,12 @@ The role of the path follower is to generate the correct airspeed, course, and a
 
 More information on the `path_follower` can be found in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randal Beard and Dr. Tim McLain.
 
-## Path Follower Base
-The path follower base contains all the ROS2 interfaces required for the path follower.
+## Path Follower ROS
+The path follower ROS class contains all the ROS2 interfaces required for the path follower.
 A list of these interfaces is below.
 
-The `path_follower_base::follow` method is a virtual method that should be implemented by a derived class.
-The `path_follower_base` publishes the controller commands calculated by the implementation of `path_follower_base::follow`.
+The `path_follower_ros::follow` method is a virtual method that should be implemented by a derived class.
+The `path_follower_ros` publishes the controller commands calculated by the implementation of `path_follower_ros::follow`.
 
 ### List of ROS2 Interfaces
 
@@ -34,8 +34,8 @@ The `/controller_commands` topic contains the following information calculated b
 | `chi_c` | Commanded course | `double`, rad | Yes |
 | `phi_ff` | Feedforward command (for orbits) | `double`, rad | No |
 
-## Path Follower Example
-The `path_follower_example` class contains the implementation of the `path_follower_base::follow` method.
+## Path Follower Lines Orbits
+The `path_follower_lines_orbits` class contains the implementation of the `path_follower_ros::follow` method.
 This method contains the control command computations for straight line and orbit-type paths as outlined in *Small Unmanned Aircraft: Theory and Practice*.
 
 ## Parameters
@@ -75,6 +75,6 @@ The `k_orbit` parameter is similar to the `k_path` parameter in that it determin
 
 
 ## Modifying the Path Follower
-Changes to any of the ROS2 interface should be done in the `path_follower_base`.
+Changes to any of the ROS2 interface should be done in the `path_follower_ros`.
 
-Changes to how `path_follower` computes control commands to follow paths given by the `path_manager` should be done in the `path_manager_example`.
+Changes to how `path_follower` computes control commands to follow paths given by the `path_manager` should be done in the `path_follower_lines_orbits`.

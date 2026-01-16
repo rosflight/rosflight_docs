@@ -2,18 +2,18 @@
 
 ## Overview
 The path manager is responsible for calculating and publishing the current path to the path follower. 
-It is split into a base class and an inherited class.
-The base class handles the ROS2 interfaces (publishing and subscribing) while the inherited class manages the path, i.e., calculates the parameters for the current path.
+It is split into a ROS class and an inherited class.
+The ROS class handles the ROS2 interfaces (publishing and subscribing) while the inherited class manages the path, i.e., calculates the parameters for the current path.
 
 The path manager is designed this way so that the inherited class (how the paths are managed) can be replaced or rewritten without affecting the overlying ROS2 interface.
 
-Both the `path_manager_base` and the `path_manager_example` are included in the same ROS2 node when compiled, called `path_manager`.
-Parameters associated with the `path_manager_base` or the `path_manager_example` will therefore be visible under the `path_manager` ROS2 node.
+Both the `path_manager_ros` and the `path_manager_dubins_fillets` are included in the same ROS2 node when compiled, called `path_manager`.
+Parameters associated with the `path_manager_ros` or the `path_manager_dubins_fillets` will therefore be visible under the `path_manager` ROS2 node.
 
 More details about the path manager can be found in *Small Unmanned Aircraft: Theory and Practice* by Dr. Randal Beard and Dr. Tim McLain.
 
-## Path Manager Base
-The path manager base contains all the ROS2 interfaces required for the path manager.
+## Path Manager ROS
+The path manager ROS class contains all the ROS2 interfaces required for the path manager.
 A list of these interfaces is below.
 
 ### List of ROS2 Interfaces
@@ -34,13 +34,13 @@ Depending on how the `path_manager` is set up to manage the waypoints, this may 
 See "Modifying the Path Manager" for more information.
 For more information on the path follower, see the [Path Follwer](./path-follower.md) documentation.
 
-## Path Manager Example
-The `path_manager_example` class inherits from the `path_manager_base` class.
-Specifically, the `path_manager_example` overrides the `path_manager_base::manage` method to determine how the path is managed.
+## Path Manager Dubins Fillets
+The `path_manager_dubins_fillets` class inherits from the `path_manager_ros` class.
+Specifically, the `path_manager_dubins_fillets` overrides the `path_manager_ros::manage` method to determine how the path is managed.
 
-In the current implementation, `path_manager_example` decides to manage a waypoint using straight lines and fillets, orbits, or Dubins paths based on the current state of the aircraft, the values of the current ROS2 parameters, and the waypoints given.
-For example, if the `use_chi` field on a Waypoint object (see [Path Planner](./path-planner.md) for more information) is set to `true`, then `path_manager_example` will use a Dubins path to navigate to the next waypoint.
-If `use_chi` is set to `false`, then `path_manager_example` will use straight lines when navigating in between waypoints and a fillet to manage the corners.
+In the current implementation, `path_manager_dubins_fillets` decides to manage a waypoint using straight lines and fillets, orbits, or Dubins paths based on the current state of the aircraft, the values of the current ROS2 parameters, and the waypoints given.
+For example, if the `use_chi` field on a Waypoint object (see [Path Planner](./path-planner.md) for more information) is set to `true`, then `path_manager_dubins_fillets` will use a Dubins path to navigate to the next waypoint.
+If `use_chi` is set to `false`, then `path_manager_dubins_fillets` will use straight lines when navigating in between waypoints and a fillet to manage the corners.
 See Figure 1 for an example of a real flight path flown using ROSplane with `chi_d` set to `false`.
 
 
@@ -72,7 +72,7 @@ In other words, if the aircraft is angled slightly left as it approaches the way
 If the aircraft is pointing slightly right as it approaches the waypoint, it will orbit the waypoint clockwise (from a top-down perspective).
 
 ## Modifying the Path Manager
-Changes or additions to any ROS2 interfaces should be done in the `path_manager_base` field.
+Changes or additions to any ROS2 interfaces should be done in the `path_manager_ros` field.
 
-Changes to how `path_manager` "manages" the waypoints should be done by overriding the `path_manager_base::manage` method.
+Changes to how `path_manager` "manages" the waypoints should be done by overriding the `path_manager_ros::manage` method.
 If you wish to change the way paths are defined, make sure that the `/current_path` topic is rewritten to contain the required information, and then make sure the `path_follower` knows how to handle the new definition.

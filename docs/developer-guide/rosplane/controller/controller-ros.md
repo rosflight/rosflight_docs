@@ -1,14 +1,14 @@
-# Controller Base
+# Controller ROS
 
 ## Overview
 
-The controller base implements the basic ROS interfaces for the controller.
+The controller ROS class implements the basic ROS interfaces for the controller.
 This includes setting up subscribers, publishers and initializing parameter management.
-The idea of the base class, is that all interfacing with ROS and shared resources across all inheritance levels happens or are contained in this class.
+The idea of the ROS class, is that all interfacing with ROS and shared resources across all inheritance levels happens or are contained in this class.
 
 ## ROS interfaces
 
-The controller base has the following ROS interactions.
+The controller ROS class has the following ROS interactions.
 
 | ![Diagram of Controller ROS Interactions](../../../assets/controller_assets/Controller_ROS.png "Controller ROS Interactions") |
 |:--:|
@@ -16,7 +16,7 @@ The controller base has the following ROS interactions.
 
 The controller has four ROS interfaces that are tracked as member variables of the class.
 These interfaces are the only points of contact that influence the every layer of the controller along side the node parameters.
-Each of the callbacks for the subscribers are also contained in `controller_base`.
+Each of the callbacks for the subscribers are also contained in `controller_ros`.
 
 | ROS Interface | Topic | Explanation | Message Type |
 |:------:|:-------:| :---: | :---: |
@@ -41,13 +41,12 @@ See the [Parameter Management](../parameter-management.md) page for more details
 | pwm_rad_r | Radian to PWM conversion for the rudder. | $\geq 1.0$ (double) |
 | frequency | Frequency of the timer, effective control loop closure frequency. | $\geq 100$ (hertz, int) |
 
-## Modifying Controller Base
+## Modifying Controller ROS
 
-The `controller_base` class should only contain things that are necessary for each layer of the controller.
+The `controller_ros` class should only contain things that are necessary for each layer of the controller.
 If you are considering adding something to the controller, but it only applies to one layer, perhaps reconsider.
 All ROS related items should also be stored here.
-For example, if you needed to use another topic subscription, the new subscriber should be created and stored in `controller_base`.
+For example, if you needed to use another topic subscription, the new subscriber should be created and stored in `controller_ros`.
 
-As shown in the [Controller Software Architecture](./controller-software-architecture.md) page, you may need to modify the `main` function in `controller_base.cpp` to use a newly implemented controller.
-
+As shown in the [Controller Software Architecture](./controller-software-architecture.md) page, you may need to modify the `main` function in `controller_ros.cpp` to use a newly implemented controller.
 

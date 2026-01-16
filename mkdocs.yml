@@ -120,14 +120,14 @@ nav:
       - Controller:
         - General Controller Overview: developer-guide/rosplane/controller/controller-general-overview.md
         - Controller Software Architecture: developer-guide/rosplane/controller/controller-software-architecture.md
-        - Controller Base: developer-guide/rosplane/controller/controller-base.md
+        - Controller ROS: developer-guide/rosplane/controller/controller-ros.md
         - Controller State Machine: developer-guide/rosplane/controller/controller-state-machine.md
         - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller/controller-outline.md
         - Total Energy Controller: developer-guide/rosplane/controller/controller-total-energy.md
       - Estimator:
         - Estimator Overview: developer-guide/rosplane/estimator/estimator-overview.md
-        - Estimator Base: developer-guide/rosplane/estimator/estimator-base.md
-        - Estimator Example: developer-guide/rosplane/estimator/estimator-example.md
+        - Estimator ROS: developer-guide/rosplane/estimator/estimator-ros.md
+        - Estimator Continuous-Discrete: developer-guide/rosplane/estimator/estimator-continuous-discrete.md
       - Parameter Management: developer-guide/rosplane/parameter-management.md
       - Navigation: 
         - Navigation Overview: developer-guide/rosplane/navigation/navigation-overview.md

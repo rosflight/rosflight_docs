@@ -2,14 +2,14 @@
 
 ## Overview
 
-The estimator base implements the basic ROS interfaces for the estimator.
+The estimator ROS class implements the basic ROS interfaces for the estimator.
 This includes setting up subscribers, publishers and initializing parameter management.
-The idea of the base class, is that all interfacing with ROS and shared resources across all inheritance levels happens or are contained in this class.
+The idea of the ROS class, is that all interfacing with ROS and shared resources across all inheritance levels happens or are contained in this class.
 
 ## ROS Interfaces
 
 The estimator has the following ROS interfaces.
-The estimator has several ROS interfaces that are tracked as member variables of the `estimator_base` class.
+The estimator has several ROS interfaces that are tracked as member variables of the `estimator_ros` class.
 They are summarized in the table below:
 
 | ROS Interface | Topic | Explanation | Message Type |
@@ -29,17 +29,24 @@ They are summarized in the table below:
 
 | **Parameter** | **Explanation** | **Type** | **Range** |
 | :---: | :---: | :---: | :---: |
-| `rho` | The density of the air. Optional, will calculate using the 1976 Atmospheric model using alt otherwise. | double | ~1.225 $\frac{kg}{m^3}$ |
-| `gravity` | The acceleration due to gravity. | double | ~9.81 $\frac{m}{s^2}$ |
-| `estimator_update_frequency` | The frequency that the estimator will run estimations. | double | $\geq 100$ Hz |
-| `gps_ground_speed_threshold` | This determines when the aircraft is moving fast enough to use GNSS velocity measurements to calculate a course angle. | double | $\geq$ 0.3 $\frac{m}{s}$ |
-| `baro_measurement_gate` | The maximum allowable instantaneous change in barometer pressure measurement. | double | ~1 meter |
-| `airspeed_measurement_gate` | The maximum allowable instantaneous change in differential pressure measurement. | double | ~5 $\frac{m}{s}$ |
-| `baro_calibration_count` | The number of barometer measurements used to do calibration. This number is more or less arbitrary. | int | $\geq 100$ |
+| `estimator_update_frequency` | The frequency that the estimator will run estimations. | double | 390.0 |
+| `rho` | The density of the air. Typically calculated via the 1976 Standard atmosphere model using the GNSS altitude when `NOT_IN_USE`. | double | NOT_IN_USE $\frac{kg}{m^3}$ |
+| `gravity` | The acceleration due to gravity. | double | 9.81 $\frac{m}{s^2}$ |
+| `gps_ground_speed_threshold` | Minimum velocity to consider course calculation to be valid. | double | 0.3 $\frac{m}{s}$ |
+| `baro_measurement_gate` | Maximum altitude that can be added in a single barometer update. | double | 1.35 |
+| `airspeed_measurement_gate` | Maximum jump in pascal difference we can tolerate. | double | 5.0 |
+| `baro_calibration_count` | Num samples to use in calibration calculation. | int | 100 |
+| `max_imu_sensor_silence_duration_ms` | Max IMU sensor silence duration. | int | 4 |
+| `max_mag_sensor_silence_duration_ms` | Max magnetometer sensor silence duration. | int | 25 |
+| `max_baro_sensor_silence_duration_ms` | Max barometer sensor silence duration. | int | 15 |
+| `max_gnss_sensor_silence_duration_ms` | Max GNSS sensor silence duration. | int | 110 |
+| `max_diff_sensor_silence_duration_ms` | Max differential pressure sensor silence duration. | int | 110 |
+| `min_gnss_fix_type` | Minimum GNSS fix type (float). | int | 3 |
+| `hotstart_estimator` | Whether the estimator should use preset hotstart values. | bool | false |
 
 ## Modifying the Estimator
 
-The base class can be preempted in two basic was,
+The ROS class can be preempted in two basic was,
 
 1. Complete removal,
 2. Inheritance from `EstimatorROS`,
@@ -63,4 +70,3 @@ It could also be a good option if the estimator was developed in a completely di
 Inheriting from `EstimatorROS` takes care of all the ROS interfacing for you.
 This option would likely be the most attractive to those who do not mind adapting their existing estimator to interface correctly with ROSplane, or those developing the estimator directly using ROSplane but not using an EKF.
 The inheritance can be done further down the inheritance chain, see the Estimator EKF page for details.
-

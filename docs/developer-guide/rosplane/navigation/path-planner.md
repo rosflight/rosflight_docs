@@ -2,7 +2,9 @@
 
 ## Overview
 The path planner is responsible for creating, managing, and publishing waypoints.
-In the current implementation, the path planner simply maintains a list of user-defined waypoints that the user can add to or clear.
+
+## Path Planner Waypoints
+The `path_planner_waypoints` implementation maintains a list of user-defined waypoints that the user can add to or clear.
 The path planner then controls when waypoints are published to the path manager.
 
 Another implementation of the path planner (as described in [the overview](./navigation-overview.md)) could include a visual-based path planner.

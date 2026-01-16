@@ -11,7 +11,7 @@ The aim of this architecture is to make the developer's job easier.
 
 ## Inheritance Scheme
 
-The controller starts off with the `controller_base` class.
+The controller starts off with the `controller_ros` class.
 This contains all of the interface with ROS.
 The next layer, `controller_state_machine`, implements a basic state machine for the controller.
 These states control which commands are happening at what time.
@@ -65,13 +65,13 @@ These edits are as follows:
 
 </center>
 
-* First import the new controller by adding its header file to `controller_base.cpp`.
+* First import the new controller by adding its header file to `controller_ros.cpp`.
 
 <center>
 
-| ![Controller Base Include](../../../assets/controller_assets/controller_base_include.png "Include in Controller Base") |
+| ![Controller ROS Include](../../../assets/controller_assets/controller_base_include.png "Include in Controller ROS") |
 |:--:|
-|*Figure 4: Location in `controller_base.cpp` to import new controller's header file.*|
+|*Figure 4: Location in `controller_ros.cpp` to import new controller's header file.*|
 
 </center>
 
@@ -79,9 +79,9 @@ These edits are as follows:
 
 <center>
 
-| ![Controller Base Main](../../../assets/controller_assets/controller_base_main.png "Main in Controller Base") |
+| ![Controller ROS Main](../../../assets/controller_assets/controller_base_main.png "Main in Controller ROS") |
 |:--:|
-|*Figure 5: Location in `controller_base.cpp` to add option to select control type.*|
+|*Figure 5: Location in `controller_ros.cpp` to add option to select control type.*|
 
 </center>
 
@@ -89,4 +89,3 @@ These edits are as follows:
 
 If this is done correctly, then you should be able to simply change between control schemes with only an argument to a launch file.
 This will allow for easier testing where you can use a more tested controller initially and but swap to a new controller when convenient.
-
