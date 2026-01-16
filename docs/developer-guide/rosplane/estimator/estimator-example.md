@@ -19,7 +19,7 @@ The state vector $\boldsymbol{x}$ is,
 \end{equation}
 
 The position of the body frame, $\boldsymbol{p}
-The velocity of the body frame, $\boldsymbol{v}$, is expressed in the inertial frame also using NED coordinates in meters per second.
+The velocity of the body frame, $\boldsymbol{v}$, is expressed in the body frame in meters per second.
 The attitude of the body frame, $\boldsymbol{\theta}$, relative to the inertial frame in radians using the Euler angles roll, pitch and yaw, $\phi,\,\theta,\,\psi$ respectively.
 These use the ZYX convention of application as in \cite{uavbook}.
 Finally, $\boldsymbol{b}_{gyro}$ is the bias in the gyroscope measurements expressed in the body frame in radians per second.
@@ -167,8 +167,44 @@ However, the contribution of the uncertainty of the states used to calculate $z_
 
 #### GNSS
 The GNSS update includes measurements of the velocity of the aircraft in the inertial frame and the absolute position in latitude and longitude.
+These are collated into one update where,
 
-FINISH
+\begin{equation}
+    z_{\text{gnss}} = \begin{bmatrix}
+        p_{n,gnss} \\
+        p_{e,gnss} \\
+        v_{n,gnss} \\
+        v_{e,gnss} \\
+        v_{d,gnss} \\
+    \end{bmatrix}
+\end{equation}
+
+The GNSS altitude measurement is omitted since single band commercial antennas have large drifts in altitude \cite{drifty_alt_gps}.
+The raw latitude and longitude of the GNSS is converted to a local north and down position relative to a initial latitude and longitude recorded on start up.
+This is done by making a spherical earth assumption,
+
+\begin{align}
+    p_{n,gnss} &= r_{\text{earth}}(d_{\text{lat}}-d_{\text{init, lat}}) \\
+    p_{e,gnss} &= r_{\text{earth}}\cos(d_{\text{lat}})(d_{\text{lon}}-d_{\text{init, lat}}).\\
+\end{align}
+
+The measurement model used for GNSS is,
+\begin{equation}
+    h_{\text{gnss}} = \begin{bmatrix}
+        p_n \\
+        p_e \\
+        R_b^i(\boldsymbol{\theta}) \boldsymbol{v}
+    \end{bmatrix}.
+\end{equation}
+
+This yields the obersvation Jacobian,
+
+\begin{equation}
+    C_{\text{gnss}} = \begin{bmatrix}
+        \boldsymbol{I}_{2\times2} & \boldsymbol{0}_{2\times4} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3}  \\
+        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta})\boldsymbol{v}}{\partial\boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} \\
+    \end{bmatrix}
+\end{equation}
 
 ## Parameters
 
