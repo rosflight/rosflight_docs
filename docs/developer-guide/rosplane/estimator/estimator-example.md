@@ -210,33 +210,52 @@ This yields the obersvation Jacobian,
 
 <!-- TODO: update this -->
 
-| **Parameter** | **Explanation** | **Type** | **Range** |
+| **Parameter** | **Explanation** | **Type** | **Default Value** |
 | :---: | :---: | :---: | :---: |
-| `sigma_n_gps` | The standard deviation of gps measurements in the north axis. | double | ~0.01 meters |
-| `sigma_e_gps` | The standard deviation of gps measurements in the east axis. | double | ~0.01 meters |
-| `sigma_Vg_gps` | The standard deviation of gps ground speed measurements. | double | ~0.005 $\frac{m}{s}$ |
-| `sigma_course_gps` | The standard deviation of gps ground course measurements. | double | ~0.00025 radians |
+| `sigma_n_gps` | The standard deviation of gps measurements in the north axis. | double | ~0.1 meters |
+| `sigma_e_gps` | The standard deviation of gps measurements in the east axis. | double | ~0.1 meters |
+| `sigma_vn_gps` | The standard deviation of gps velocity measurements in the north axis | double | ~0.01 $\frac{m}{s}$ |
+| `sigma_ve_gps` | The standard deviation of gps velocity measurements in the east axis | double | ~0.01 $\frac{m}{s}$|
+| `sigma_vd_gps` | The standard deviation of gps velocity measurements in the down axis | double | ~0.1 $\frac{m}{s}$|
 | `sigma_accel` | The standard deviation of accelerometer measurements. | double | ~0.025 $\frac{m}{s^2}$ |
-| `sigma_pseudo_wind_n` | The standard deviation of pseudo-measurement along the north axis. | double | ~0.01 |
-| `sigma_pseudo_wind_e` | The standard deviation of pseudo-measurement along the east axis. | double | ~0.01 |
-| `sigma_heading` | The standard deviation of heading measurement. | double | ~0.01 radians |
-| `lpf_a` | The lowpass filter cutoff frequency for the gyro and accelerometers. | double | ~50.0 Hz |
-| `lpf_a1` | The lowpass filter cutoff frequency for the pressure sensors. | double | ~8.0 Hz |
+| `sigma_static_press` | The measurement noise on barometer. | double | ~1.0 Pa |
+| `sigma_diff` | The measurement noise on differential pressure readings. (ROSplane only) | double | ~4.0 Pa  |
+| `sigma_beta` | The standard deviation of pseudo-measurement of side slip angle. (ROSplane only)| double | ~0.01 |
+| `sigma_mag` | The measurement noise on magnetometer readings when normalized. | double | ~0.004 |
+| `sigma_tilt_mag` | The measurement noise on tilt comensated heading readings. | double | ~0.02 radians |
+| `gyro_cutoff_freq` | The lowpass filter cutoff frequency for the gyro. | double | ~20.0 Hz |
+| `airspeed_cutoff_freq` | The lowpass filter cutoff frequency for the airspeed mesurement. | double | ~10.0 Hz |
+| `min_airspeed_estimation` | The minimum airspeed to report sideslip, course, and angle of attack. | double | ~3.0 $\frac{m}{s} |
+| `diff_pressure_minimum_airspeed` | The minimum airspeed to start fusing differential pressure measurements. | double | ~3.0 $\frac{m}{s} |
 | `gps_n_lim` | The limit of GPS measurements in the north direction. | double | $\geq 10000$ meters |
 | `gps_e_lim` | The limit of GPS measurements in the east direction. | double | $\geq 10000$ meters |
-| `roll_process_noise` | The process noise on the roll propagation. | double | ~0.0001 |
-| `pitch_process_noise` | The process noise on the pitch propagation. | double | ~0.0000001 |
-| `gyro_process_noise` | The process noise on the gyro inversion. | double |  ~0.13 |
-| `pos_process_noise` | The process noise on the position propagation. | double | 0.1 |
-| `attitude_initial_cov` | Initial covariance entry for attitude. | double | 5.0 |
-| `pos_n_initial_cov` | Initial covariance entry for position north. | double | 0.03 |
-| `pos_e_initial_cov` | Initial covariance entry for position east. | double | 0.03 |
-| `vg_initial_cov` | Initial covariance entry for groundspeed. | double | 0.01 |
-| `chi_initial_cov` | Initial covariance entry for course. | double | 5.0 Degrees |
-| `wind_n_initial_cov` | Initial covariance entry for wind north. | double | 0.04 |
-| `wind_e_initial_cov` | Initial covariance entry for wind east. | double | 0.04 |
-| `psi_initial_cov` | Initial covariance entry for heading. | double | 5.0 |
-| `num_propagation_steps` | Number of propagation steps to run between measurements. | int | 10 |
-| `max_estimated_phi` | The maximum roll estimate before estimator saturation. | double | ~90.0 degrees |
-| `max_estimated_theta` | The maximum pitch estimate before estimator saturation. | double | ~80.0 degrees |
-| `estimator_max_buffer` | The buffer that the esimator returns the estimate to after saturation. | double | ~3.0 degrees |
+| `inclination` | The inclination of the magnetic field. By default this is calculated usin WMM. | double | NOT_IN_USE degrees |
+| `declination` | The declination of the magnetic field. By default this is calculated usin WMM. | double | NOT_IN_USE degrees|
+| `convert_to_gauss` | Flag to indicate if the magnetometer measurements should be converted from nanoTesla to Gauss. | bool | True |
+| `gyro_process_noise` | The measurement noise on the gyro. | double | 0.13 $\frac{rad}{s}$ |
+| `accel_process_noise` | The measurement noise on the accel. | double | 0.24525 $\frac{m}{s^2}$ |
+| `pos_process_noise` | The process noise on the position propagation. | double | 0.0000009 |
+| `alt_process_noise` | The process noise on the altitude propagation. | double | 0.01 |
+| `vel_x_process_noise` | The process noise on the body x velocity propagation. | double | 0.0001 |
+| `vel_y_process_noise` | The process noise on the body y velocity propagation. | double | 0.0000001 |
+| `vel_z_process_noise` | The process noise on the body z velocity propagation. | double | 0.0001 |
+| `roll_process_noise` | The process noise on the roll propagation. | double | ~0.00000001 |
+| `pitch_process_noise` | The process noise on the pitch propagation. | double | ~0.00000001 |
+| `yaw_process_noise` | The process noise on the yaw propagation. | double | ~0.00000001 |
+| `bias_process_noise` | The process noise on the gyro bias propagation. | double | ~0.000000001 |
+| `wind_process_noise` | The process noise on the wind propagation. | double | ~0.25 |
+| `pos_n_initial_cov` | Initial covariance entry for position north. | double | 0.0001 |
+| `pos_e_initial_cov` | Initial covariance entry for position east. | double | 0.0001 |
+| `pos_d_initial_cov` | Initial covariance entry for position down. | double | 0.0001 |
+| `vx_initial_cov` | Initial covariance entry for body x velocity. | double | 0.0001 |
+| `vy_initial_cov` | Initial covariance entry for body y velocity. | double | 0.0001 |
+| `vz_initial_cov` | Initial covariance entry for body z velocity. | double | 0.0001 |
+| `phi_initial_cov` | Initial covariance entry for roll. | double | 0.017*0.017 |
+| `theta_initial_cov` | Initial covariance entry for pitch. | double | 0.017*0.017 |
+| `psi_initial_cov` | Initial covariance entry for yaw (4 deg std dev). | double | 4*0.017*0.017 |
+| `bias_x_initial_cov` | Initial covariance entry for gyro bias x. | double | 0.000001 |
+| `bias_y_initial_cov` | Initial covariance entry for gyro bias y. | double | 0.000001 |
+| `bias_z_initial_cov` | Initial covariance entry for gyro bias z. | double | 0.000001 |
+| `wn_initial_cov` | Initial covariance entry for wind north. | double | 1.0 |
+| `we_initial_cov` | Initial covariance entry for wind east. | double | 1.0 |
+| `num_propagation_steps` | Number of segments propagation step is split into to reduce linearization errors. | int | 10 |
