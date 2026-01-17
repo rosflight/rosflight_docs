@@ -45,6 +45,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist
   - md_in_html
   - attr_list
@@ -80,12 +82,9 @@ nav:
     - ROSflightIO: user-guide/rosflight-io.md
     - ROSflight Firmware:
       - Code Architecture: user-guide/rosflight-firmware/code-architecture.md
+      - Parameter Configuration: user-guide/rosflight-firmware/parameter-configuration.md
       - Mixer: user-guide/rosflight-firmware/mixer.md
-      - Building and Flashing: user-guide/rosflight-firmware/building-and-flashing.md
-    - ROSflight Sim:
-      - user-guide/rosflight-sim/index.md
-      - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
-      - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
+      - Autonomous Flight: user-guide/rosflight-firmware/autonomous-flight.md
     - ROSplane:
       - user-guide/rosplane/index.md
       - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
@@ -96,15 +95,17 @@ nav:
       - ROScopter Trajectory Follower: user-guide/roscopter/roscopter-trajectory-follower.md
       - ROScopter Controller: user-guide/roscopter/roscopter-controller.md
       - ROScopter Estimator: user-guide/roscopter/roscopter-estimator.md
-    - Hardware and ROSflight:
+    - ROSflight Sim:
+      - user-guide/rosflight-sim/index.md
+      - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
+      - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
+    - ROSflight in Hardware:
       - Getting Started: user-guide/hardware-and-rosflight/getting-started.md
       - Hardware Setup: user-guide/hardware-and-rosflight/hardware-setup.md
       - Flight Controller Setup: user-guide/hardware-and-rosflight/flight-controller-setup.md
       - RC Configuration: user-guide/hardware-and-rosflight/rc-configuration.md
-      - Parameter Configuration: user-guide/hardware-and-rosflight/parameter-configuration.md
       - Pre-Flight Checks: user-guide/hardware-and-rosflight/preflight-checks.md
       - Improving Firmware Performance: user-guide/hardware-and-rosflight/improving-firmware-performance.md
-      - Autonomous Flight: user-guide/hardware-and-rosflight/autonomous-flight.md
     - Customizing ROSflight: user-guide/customizing-rosflight.md
   - Developer Guide:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md

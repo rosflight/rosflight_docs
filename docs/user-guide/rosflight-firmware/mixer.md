@@ -51,7 +51,7 @@ As described in the [ROSflight 2.0 paper](https://arxiv.org/abs/2510.00995), ROS
 These mixers do not take into account all the parameters of your system (i.e. motor and propeller parameters), but instead are based solely on the geometry of the airframe.
 If you want a more accurate mixer, or have easy access to the motor and prop parameters of your system, then we recommend using a [custom mixer](#defining-a-custom-mixer).
 
-The desired mixer must be chosen by [setting the `PRIMARY_MIXER` parameter](../hardware-and-rosflight/parameter-configuration.md) to one of the following valid values.
+The desired mixer must be chosen by [setting the `PRIMARY_MIXER` parameter](../rosflight-firmware/parameter-configuration.md) to one of the following valid values.
 
 
 | # | Mixer |
@@ -196,7 +196,7 @@ The mixer uses the output channel type designation from the above table to know 
 
 The auxiliary command types are [described below](#auxiliary-inputs).
 
-See the [Parameter Configuration Page](../hardware-and-rosflight/parameter-configuration.md) for more information on these parameters.
+See the [Parameter Configuration Page](../rosflight-firmware/parameter-configuration.md) for more information on these parameters.
 
 !!! note
 
@@ -217,7 +217,7 @@ See the [Parameter Configuration Page](../hardware-and-rosflight/parameter-confi
 
 The recommended way to load a custom mixer is to first compute all the required parameters and save them to a file on the companion computer.
 The parameters are named `PRI_MIXER_i_j` or `SEC_MIXER_i_j`, where `(i,j)` is the index of the parameter in the 6x10 mixing matrix.
-See the [Parameter Configuration Page](../hardware-and-rosflight/parameter-configuration.md) for more information on these parameters.
+See the [Parameter Configuration Page](../rosflight-firmware/parameter-configuration.md) for more information on these parameters.
 
 A convenience script is available in the `roscopter` ROS2 package that will compute the custom mixer and save the parameter values in a format ready to load.
 The convenience script is found [here](https://github.com/rosflight/roscopter/blob/main/roscopter/scripts/compute_multirotor_mixing_matrix.py) with the configuration file found [here](https://github.com/rosflight/roscopter/blob/main/roscopter/config/multirotor_frame_config.yaml).

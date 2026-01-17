@@ -27,7 +27,7 @@ The core [ROSflight firmware](./overview.md) resides on an embedded microcontrol
 Most users of ROSflight will not need to customize the ROSflight firmware, since the vast majority of the autonomy stack is on the companion computer.
 
 If you need to customize the ROSflight firmware, first consider if you can accomplish what you need on the companion computer.
-If you still need to customize the ROSflight firmware, make your changes and then follow the [building and flashing guide](rosflight-firmware/building-and-flashing.md) to flash it on your board.
+If you still need to customize the ROSflight firmware, make your changes and then follow the [building and flashing guide](hardware-and-rosflight/flight-controller-setup.md#building-and-flashing-the-firmware) to flash it on your board.
 
 However, since ROSflight currently supports only [limited hardware](./hardware-and-rosflight/flight-controller-setup.md), users may need to write a new board-specific support package for the ROSflight firmware.
 The ROSflight firmware depends on [an abstraction of a physical board](rosflight-firmware/code-architecture.md).

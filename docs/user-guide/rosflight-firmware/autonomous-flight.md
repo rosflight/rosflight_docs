@@ -68,35 +68,38 @@ The `ignore` field is a bitmask that can be populated by combining the values in
     ignore = IGNORE_QX | IGNORE_QY | IGNORE_FZ
     ```
 
-The best practice is to use enum names rather than the actual numeric values for the `mode` and `ignore` fields. For example, to specify a multirotor attitude angle command in C++ I might have:
-```cpp
-#include <rclcpp/rclcpp.hpp>
-#include <rosflight_msgs/msg/command.hpp>
+The best practice is to use enum names rather than the actual numeric values for the `mode` and `ignore` fields. For example, to specify a multirotor attitude angle command I might have:
 
-rosflight_msgs::msg::Command msg;
-msg.header.stamp = node->get_clock()->now();
-msg.mode = rosflight_msgs::msg::Command::MODE_ROLL_PITCH_YAWRATE_THROTTLE;
-msg.ignore = rosflight_msgs::msg::Command::IGNORE_NONE;
-msg.qx = 0.0;
-msg.qy = 0.0;
-msg.qz = 0.0;
-msg.fz = 0.6;
-```
+=== "C++"
+    ```cpp
+    #include <rclcpp/rclcpp.hpp>
+    #include <rosflight_msgs/msg/command.hpp>
 
-In Python I might have:
-```python
-import rclpy
-from rosflight_msgs.msg import Command
+    rosflight_msgs::msg::Command msg;
+    msg.header.stamp = node->get_clock()->now();
+    msg.mode = rosflight_msgs::msg::Command::MODE_ROLL_PITCH_YAWRATE_THROTTLE;
+    msg.ignore = rosflight_msgs::msg::Command::IGNORE_NONE;
+    msg.qx = 0.0;
+    msg.qy = 0.0;
+    msg.qz = 0.0;
+    msg.fz = 0.6;
+    ```
 
-msg = Command()
-msg.header.stamp = node.get_clock().now().to_msg()
-msg.mode = Command.MODE_ROLL_PITCH_YAWRATE_THROTTLE
-msg.ignore = Command.IGNORE_NONE
-msg.qx = 0.0
-msg.qy = 0.0
-msg.qz = 0.0
-msg.fz = 0.6
-```
+=== "Python"
+    ```python
+    import rclpy
+    from rosflight_msgs.msg import Command
+
+    msg = Command()
+    msg.header.stamp = node.get_clock().now().to_msg()
+    msg.mode = Command.MODE_ROLL_PITCH_YAWRATE_THROTTLE
+    msg.ignore = Command.IGNORE_NONE
+    msg.qx = 0.0
+    msg.qy = 0.0
+    msg.qz = 0.0
+    msg.fz = 0.6
+    ```
+
 I would then publish this message to the `/command` topic to forward it to the embedded flight controller.
 
 !!! note

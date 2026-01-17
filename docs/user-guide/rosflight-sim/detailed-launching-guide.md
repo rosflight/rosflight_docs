@@ -196,7 +196,7 @@ Remember that the SIL tries its best to replicate hardware.
 That means you have to calibrate and set parameters in the same way you do in hardware.
 If you need a reminder, please follow the [configuration and manual flight tutorial](../tutorials/manually-flying-rosflight-sim.md).
 
-See the [Parameter Configuration](../hardware-and-rosflight/parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
+See the [Parameter Configuration](../rosflight-firmware/parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
 
 You can also run 
 ```bash

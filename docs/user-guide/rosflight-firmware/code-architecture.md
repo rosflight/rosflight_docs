@@ -62,7 +62,7 @@ It supports the getting and setting of integer and floating-point parameters, an
 Setting and getting of parameters from the companion computer is done through the serial communication interface.
 While no other data flow lines are shown on the diagram, all of the other modules interact with the parameter server.
 
-See the [parameter configuration](../hardware-and-rosflight/parameter-configuration.md) page for more information on each of the ROSflight parameters and how to get and set parameters.
+See the [parameter configuration](../rosflight-firmware/parameter-configuration.md) page for more information on each of the ROSflight parameters and how to get and set parameters.
 
 ### Comm Manager
 This module handles all serial communication between the flight controller and companion computer.

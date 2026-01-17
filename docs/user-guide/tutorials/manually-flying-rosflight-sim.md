@@ -32,7 +32,7 @@ ros2 node list
 and verifying that the `rosflight_io` and `sil_board` nodes are included in the list.
 
 ### Loading parameters manually
-You can load parameters one-by-one or with a YAML file, as described in the [parameter configuration guide](../hardware-and-rosflight/parameter-configuration.md).
+You can load parameters one-by-one or with a YAML file, as described in the [parameter configuration guide](../rosflight-firmware/parameter-configuration.md).
 We will load parameters from a file.
 
 1. Navigate to the params directory:
@@ -53,7 +53,7 @@ Note that we first navigated to the directory so we could use the built-in `pwd`
 It just saves time instead of having to type the full path to the file.
 
 Here are some of the parameters you just loaded.
-For a full list of the firmware's parameters, see [the parameter list](../hardware-and-rosflight/parameter-configuration.md).
+For a full list of the firmware's parameters, see [the parameter list](../rosflight-firmware/parameter-configuration.md).
 
 - **Aircraft configuration**: Sets `FIXED_WING: 0` for multirotor operation
 - **RC channels**: configures 8 RC channels with appropriate mappings
@@ -315,5 +315,5 @@ Once you have the simulator running, you can:
 
 ### Additional Resources
 
-- [ROSflight Parameter Reference](../hardware-and-rosflight/parameter-configuration.md): Detailed parameter descriptions
+- [ROSflight Parameter Reference](../rosflight-firmware/parameter-configuration.md): Detailed parameter descriptions
 - [Hardware Setup Guide](../hardware-and-rosflight/hardware-setup.md): Preparing real hardware for flight

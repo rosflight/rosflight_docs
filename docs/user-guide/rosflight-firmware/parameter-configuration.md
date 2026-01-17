@@ -8,7 +8,8 @@ The ROSflight firmware has several dozen parameters which it uses to customize p
 * IMU low-pass filter constant
 * RC receiver type (PPM or SBUS)
 
-and so on. Access to all parameters is enabled via ROS2 services advertised by `rosflight_io` while the flight controller is connected.
+and so on.
+Access to all parameters is enabled via ROS2 services advertised by `rosflight_io` while the flight controller is connected (either in sim or in hardware).
 
 ## Parameter Interface
 
@@ -45,7 +46,7 @@ Notice that the parameters have been set, but not saved. Parameter changes take 
 
 #### Changing Parameters via `rosflight_io` ROS2 params
 
-The `rosflight_io` node has some firmware parameters exposed via the ROS2 parameter interface, enabling quick configuration of *some* of the firmware's parameters.
+The [`rosflight_io` node](../rosflight-io.md#convenience-parameters) has some firmware parameters exposed via the ROS2 parameter interface, enabling quick configuration of *some* of the firmware's parameters.
 This means that changing these `rosflight_io` parameters via the standard ROS2 parameter configuration will automatically change them in the firmware.
 
 Currently, only the controller gains have been exposed to `rosflight_io`'s parameters.

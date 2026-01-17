@@ -6,10 +6,10 @@ Reading through the pages in this user guide in order should provide you with th
   2. [Flight controller setup](flight-controller-setup.md): Flash your flight controller with the latest ROSflight firmware.
   3. [RC Configuration](rc-configuration.md): Set up your RC transmitter.
   4. [ROS2 setup](../installation/installation-hardware.md): Set up ROS2 on your companion computer.
-  5. [Parameter configuration](parameter-configuration.md): Configure the flight controller for your setup. The configuration checklists below should help guide you through this process.
+  5. [Parameter configuration](../rosflight-firmware/parameter-configuration.md): Configure the flight controller for your setup. The configuration checklists below should help guide you through this process.
   6. [Preflight checks](preflight-checks.md): Run through your preflight checks
   7. [Improving firmware performance](improving-firmware-performance.md) (multirotors only): Tune the firmware attitude controller gains
-  8. [Autonomous flight](autonomous-flight.md) (optional): Set up autonomous flight via offboard control
+  8. [Autonomous flight](../rosflight-firmware/autonomous-flight.md) (optional): Set up autonomous flight via offboard control
 
 ## Configuration Checklist
 

@@ -196,7 +196,7 @@ To do this,
 
 You should see the gains show up on the right as shown below.
 These are the firmware gains that we have exposed to `rosflight_io`.
-This means that when we change the `rosflight_io` ROS2 parameters (which have the same name as the firmware parameters), the `rosflight_io` node will essentially call the `param_set` service as described in the [parameter configuration guide](../hardware-and-rosflight/parameter-configuration.md).
+This means that when we change the `rosflight_io` ROS2 parameters (which have the same name as the firmware parameters), the `rosflight_io` node will essentially call the `param_set` service as described in the [parameter configuration guide](../rosflight-firmware/parameter-configuration.md).
 
 ![ROSflightIO gains on RQT](../images/rosflight_io_rqt.png)
 
@@ -409,5 +409,5 @@ You should now be able to:
 
 ### Additional Resources
 
-- [Parameter Reference](../hardware-and-rosflight/parameter-configuration.md): Complete parameter documentation
+- [Parameter Reference](../rosflight-firmware/parameter-configuration.md): Complete parameter documentation
 - [Hardware Tuning Guide](../hardware-and-rosflight/improving-firmware-performance.md): Considerations for real hardware
