@@ -23,6 +23,10 @@ Note that $n$ denotes the number of possible output commands and $m$ denotes the
 Note that $m=6$ was arbitrarily chosen, but conveniently corresponds to the number of forces and torques for a 6-DoF body.
 The number of possible output commands is dependent on the number of PWM hardware outputs.
 
+Running the mixer equations results in the vector $\tau$ of motor commands.
+The elements of $\tau$ are defined to be in the range $[0,1]$ for motor commands and $[-1,1]$ for servo commands.
+After computing these values, ROSflight then maps them up to the standard PWM range, that is $[1000\mu s, 2000 \mu s]$.
+
 !!! note
 
     The rest of this guide focuses on **using** the ROSflight mixer.
@@ -191,8 +195,8 @@ The `PRI_MIXER_OUT_i` values should be set to one of the following values:
 | 2 | Motor |
 | 3 | GPIO |
 
-This designation is important since in ROSflight, motor PWM commands are one-sided (ranging from zero to 1) where servos are two-sided (ranging from -1 to 1).
-The mixer uses the output channel type designation from the above table to know how to scale an output value to a standard PWM command (between 1000 and 2000).
+This designation is important since in ROSflight, motor output commands are one-sided (ranging from zero to 1) where servos are two-sided (ranging from -1 to 1).
+The mixer uses the output channel type designation from the above table to know how to scale an output value (from the output vector $\tau$) to a standard PWM command (between 1000 and 2000$\mu s$).
 
 The auxiliary command types are [described below](#auxiliary-inputs).
 
@@ -227,6 +231,36 @@ Once the parameters are saved to a file, load them with the ROS2 service call (m
 
 Also make sure to save those parameters to memory with the ROS2 service call:
 ```ros2 service call /param_write std_srvs/srv/Trigger```
+
+## Saturation
+There are often aggressive maneuvers which may cause multiple motor outputs to become saturated.
+This is of particular concern in multirotors.
+
+!!! example
+
+    Consider the case of commanding maximum roll while at full throttle in a quadcopter.
+    Full throttle, with no other command, would normally cause all four motors to saturate at a maximum PWM command of 2000$\mu$s.
+    Mixing in a maximum roll command would cause two of the motors to reduce to 1500$\mu$s, while the other two would go to 2500$\mu$s.
+
+    Because 2500$\mu$s is beyond the maximum limit, the maximum roll command would actually be interpreted as a half-roll command as the difference between the motors on opposite sides of the MAV would be halved.
+
+To increase controllability in these sorts of situations, we take the motor control value from the mixer, before it is shifted up to the standard PWM range, and find the scaling factor which would reduce the maximum motor command to 2000$\mu$s.
+We then apply this scaling factor to all other motors, and then shift them up to the standard PWM range of 1000$\mu$s to 2000$\mu$s.
+
+This does not completely solve the problem, because the maximum roll command is still reduced somewhat, but it trades off maximum thrust for some additional controllability.
+
+!!! example
+    In the case of a simultaneous maximum roll and maximum throttle, two of the motors will receive a command of 2000$\mu$s, while the other two will receive a command of 1333$\mu$s, as opposed to the 1500$\mu$s without the saturation, and maintains controllability even at high levels of throttle.
+
+!!! warning
+
+    ROSflight expects the elements of $\tau$ to be in the range $[0,1]$ for motors and $[-1,1]$ for servos.
+    However, if the mixer values or controller gains have not been set properly, it is possible that the elements of $\tau$ are much larger than 1.
+
+    If you consistently get outputs from the mixer greater than 1, then the saturation methods discussed above **will effectively limit the expressiveness of your control**.
+
+    If ROSflight detects an output element of $\tau$ greater than 2 (before scaling), then it will print a warning message to the screen.
+    The number 2 is arbitrary. However, take it as a sign that your mixer or controller gains need to be adjusted to avoid excessive scaling/saturation.
 
 ## Auxiliary inputs
 
