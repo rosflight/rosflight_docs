@@ -231,7 +231,7 @@ ROSflight supports several types of transmitters or controllers that you can use
 - **RealFlight InterLink Controller**
 
 If one of the supported transmitters is connected via USB **at launch time**, then the sim will default to using that controller instead of the default, **which is no RC connection**.
-See the [Hardware Setup](../hardware-and-rosflight/hardware-setup.md#joystick) guide for more information on joysticks.
+See the [Hardware Setup](../hardware-and-rosflight/hardware-setup.md#joystick) guide for more information on supported joysticks.
 
 !!! note "Have a joystick not on the list?"
     Joysticks not on the above list may have incorrect mappings.

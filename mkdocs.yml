@@ -98,7 +98,6 @@ nav:
     - ROSflight Sim:
       - user-guide/rosflight-sim/index.md
       - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
-      - Detailed Launching Guide: user-guide/rosflight-sim/detailed-launching-guide.md
       - Standalone Sim: user-guide/rosflight-sim/standalone-sim.md
       - Gazebo Sim: user-guide/rosflight-sim/gazebo-sim.md
       - HoloOcean Sim: user-guide/rosflight-sim/holoocean-sim.md

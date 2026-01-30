@@ -254,8 +254,25 @@ If you are adding a new sensor (e.g. camera), you could either change the `senso
 The `rc` module is responsible for publishing RC commands to the `sil_board`.
 It takes the place of the physical RC receiver in hardware that typically communicates with the flight controller over SBUS or PPM.
 
-As described in the [ROSflight tutorials](../tutorials/manually-flying-rosflight-sim.md#rc-transmitter-control) and [hardware concept pages](../hardware-and-rosflight/hardware-setup.md#joystick) pages, the `rc` node supports using a physical joystick or a simulated joystick like VimFly.
-See the linked documents for more information.
+#### Joysticks
+As described in the [ROSflight tutorials](../tutorials/manually-flying-rosflight-sim.md#rc-transmitter-control) and [hardware concept pages](../hardware-and-rosflight/hardware-setup.md#joystick) pages, ROSflight supports several types of transmitters or controllers that you can use to fly around in the sim as the RC safety pilot.
+If one of the supported transmitters is connected via USB at launch time, then the sim will default to using that controller instead of the default, **which is no RC connection**.
+See the [Hardware Setup](../hardware-and-rosflight/hardware-setup.md#joystick) guide for more information on supported joysticks.
+
+!!! note
+    It is much easier to fly with a real transmitter than with an Xbox-type controller.
+    FrSky Taranis QX7 transmitters, Radiomaster TX16s transmitters, and RealFlight controllers are also supported.
+    Non-Xbox joysticks may have incorrect mappings.
+    If your joystick does not work, and you write your own mapping, please contribute back your new joystick mapping!
+
+!!! tip "Flying with VimFly"
+    If you want to fly around in the sim and you don't have access to a transmitter, we recommend using **VimFly**, which allows you to fly around in the sim with your keyboard.
+    To use VimFly, just add the `use_vimfly:=true` string to the end of the launch command.
+
+    To launch the multirotor sim using the standalone simulator with VimFly, run
+    ```bash
+    ros2 launch rosflight_sim multirotor_standalone.launch.py use_vimfly:=true
+    ```
 
 If VimFly is not specified and a physical transmitter is not connected when the simulation is launched, it will default to **no direct RC control**.
 This means that the arming and RC override functionality (usually performed by switches on the transmitter) need to be done using the below ROS2 service calls:
@@ -267,8 +284,7 @@ ros2 service call /toggle_arm std_srvs/srv/Trigger
 ros2 service call /toggle_override std_srvs/srv/Trigger
 ```
 
-!!! note
-
+!!! warning
     These service calls are only available when neither VimFly nor a physical transmitter are used.
 
 Regardless of whether or not a transmitter is connected, the `rc` node publishes RC data to the `/rc` topic.
@@ -422,7 +438,7 @@ These functions are the functionality that you would be required to implement if
 This section describes how each visualizer natively supported by ROSflight uses the different modules described above.
 
 ### Standalone Sim
-The "standalone sim" is a lightweight version of the simulator that uses ROS2 RViz as the visualization engine (i.e. to visualize the 3D flight path of the vehicle).
+The "standalone" sim is a lightweight version of the simulator that uses ROS2 RViz as the visualization engine (i.e. to visualize the 3D flight path of the vehicle).
 
 | ![Standalone sim software modules](../images/simulator_architecture_standalone_sim.svg) |
 | :--: |
@@ -451,7 +467,7 @@ Thus, **we recommend not setting the [`use_sim_time`](#time-manager) parameter t
 ### HoloOcean
 [HoloOcean](https://robots.et.byu.edu/holoocean/) is a photorealistic simulator built off of Unreal Engine 5.
 
-| ![HoloOcean sim software modules](../images/simulator_architecture_holoocean_sim.svg) | 
+| ![HoloOcean sim software modules](../images/simulator_architecture_holoocean_sim.svg) |
 | :--: |
 | Fig 6: Standalone sim software modules |
 

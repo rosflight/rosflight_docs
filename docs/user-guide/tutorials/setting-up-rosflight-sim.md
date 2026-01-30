@@ -2,6 +2,11 @@
 
 The purpose of this tutorial is to walk users through launching the default ROSflight simulator.
 
+<figure markdown="span">
+    ![Image of the RViz multirotor sim](../images/rviz-multirotor-launch.png){ width="1200" loading=lazy }
+    <figcaption>Image of the standalone simulator (using ROS2 RViz).</figcaption>
+</figure>
+
 ## Prerequisites
 
 * Install the ROSflight software (`rosflight_ros_pkgs`) by following the [Installation for sim](../installation/installation-sim.md) guide.

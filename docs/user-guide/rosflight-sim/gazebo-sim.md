@@ -56,7 +56,6 @@ Installing Gazebo is done automatically for supported distros (i.e. `humble`) by
 
 ## Launching Instructions 
 
-* Set up ROSflight by following the [installation for sim guide](../installation/installation-sim.md)
 * Source the Gazebo Classic setup file if you haven't added it to `~/.bashrc`:
 ```bash
 source /usr/share/gazebo/setup.sh
@@ -78,8 +77,6 @@ ros2 launch rosflight_sim multirotor_gazebo.launch.py
 !!! Tip
     Run `rqt_graph` with the command `rqt_graph` in a new terminal, assuming the `-desktop` version of ROS2 was installed.
 
-
-## Explanation 
 The launch file manages launching several nodes all at once, as shown in the `rqt_graph` image:
 
 - `/rosflight_io`: Handles the communication between the companion computer and the flight controller
@@ -92,9 +89,8 @@ The launch file manages launching several nodes all at once, as shown in the `rq
 
 For more information on each of these nodes, see the [simulator architecture](./simulator-architecture.md) page.
 
-### Running nodes individually
-The same file structure was used for the Gazebo launch files as for the standalone launch files.
-If you want to run nodes individually, see the [explanation above](./detailed-launching-guide.md#running-nodes-individually).
+!!! info "Running nodes individually"
+    As described in the [`standalone_sim` page](./standalone-sim.md#running-nodes-individually), you can run each of the simulator modules individually.
 
 ## Configuring the Gazebo sim
 !!! Tip
@@ -111,7 +107,7 @@ Here are some important ones:
 For Gazebo Classic, it is recommended to **leave this as false**, since Gazebo Classic publishes a `/clock` topic at 10Hz, which is too slow for most modules. If using the standalone sim, this parameter will allow you to speed up, slow down, or pause time. See the [simulation architecture](./simulator-architecture.md) page for more information.
 - `use_vimfly`: Node that changes the default RC behavior to use VimFly, a program that lets you use Vim commands to fly around in the sim!
 Vim, of course, is recommended for everyone, but VimFly especially if you don't have access to RC transmitter connected over USB.
-See the [joystick](#joysticks) section for more information on what joysticks are supported.
+See the [joystick](./simulator-architecture.md#joysticks) section for more information on what joysticks are supported.
 
 These command line arguments should be passed using the `<argument>:=<value>` syntax.
 For example,
@@ -119,3 +115,25 @@ For example,
 ros2 launch rosflight_sim multirotor_gazebo.launch.py aircraft:=anaconda
 ```
 would launch the Gazebo multirotor sim, but would use the fixedwing STL file.
+
+## After launching
+
+Remember that the SIL tries its best to replicate hardware.
+That means you have to calibrate and set parameters in the same way you do in hardware.
+If you need a reminder, please follow the [configuration and manual flight tutorial](../tutorials/manually-flying-rosflight-sim.md).
+
+See the [Parameter Configuration](../rosflight-firmware/parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
+
+You can also run 
+```bash
+ros2 launch rosflight_sim multirotor_init_firmware.launch.py
+```
+to load all required parameters and perform initial calibrations for a quick simulation setup.
+
+!!! warning
+
+    Remember to verify that all parameters are set to the value that you would expect.
+    Otherwise, the vehicle will behave erratically.
+
+After loading parameters, you can fly autonomously by launching your GNC stack.
+See the [ROScopter](../tutorials/setting-up-roscopter-in-sim.md) or [ROSplane](../tutorials/setting-up-rosplane-in-sim.md) tutorials for a reminder on how to run ROScopter or ROSplane.

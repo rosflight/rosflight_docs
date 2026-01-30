@@ -9,8 +9,11 @@
 
 ROSflight is a modular simulation package allowing it to perform software-in-the-loop (SIL) simulations of the ROSflight firmware.
 
-!!! TODO
-    add a good image of the sim here.
+
+<figure markdown="span">
+    ![Image of the HoloOcean multirotor sim](../images/holoocean-multirotor-forest.png){ width="1200" loading=lazy }
+    <figcaption>Image of the HoloOcean multirotor simulator in the "forest" environment.</figcaption>
+</figure>
 
 ## Motivation
 The goals of the ROSflight simulation module (called `rosflight_sim`) are to
@@ -23,7 +26,6 @@ The goals of the ROSflight simulation module (called `rosflight_sim`) are to
 See the [simulator architecture](simulator-architecture.md) description page for more information on adding your own simulator to `rosflight_sim`.
 This page also has more information on the modular structure of `rosflight_sim`.
 
-The [detailed launching guide](./detailed-launching-guide.md) contains information on how to launch the simulation environment, more detailed than what is available in the [simulation tutorials](../tutorials/setting-up-rosflight-sim.md).
 
 ## A note on sims and viz
 A _simulator_ includes many different modules, such as dynamic propagation, sensor creation, forces and moments computation, etc.
@@ -44,6 +46,8 @@ Currently, we support 3 visualizers out-of-the-box:
 - A "standalone" visualizer using [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz) tool (**recommended**)
 - [Gazebo Classic](https://classic.gazebosim.org/)
 - [HoloOcean](https://robots.et.byu.edu/holoocean) - a photorealistic simulator based on UE5.
+
+The [standalone sim](./standalone-sim.md), [Gazebo sim](./gazebo-sim.md), and [HoloOcean sim](./holoocean-sim.md) guides describe each simulator in a little more detail and how to do simulator-specific configuration.
 
 Adding your own visualizer is part of what `rosflight_sim` was designed for.
 See the [instructions on adding your own visualizer](./simulator-architecture.md#adding-your-own-visualizer) page for more information on plugging in your simulator into `rosflight_sim`.

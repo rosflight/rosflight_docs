@@ -25,19 +25,19 @@ This guide contains detailed information on the "standalone simulator", which is
     <figcaption>Modules used by the standalone simulator and how they interact. See the [simulator architecture](./simulator-architecture.md) page for more information.</figcaption>
 </figure>
 
-The standalone simulator uses every module described above and optionally uses the `standalone_time_manager` to manage the simulation time.
+The standalone simulator uses every module in the above figure and optionally uses the `standalone_time_manager` to manage the simulation time.
 See the [simulator architecture](./simulator-architecture.md) page for more information on each module.
 
 ## Installation
 
 The standalone simulator depends on [ROS2 RViz](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-Main.html#rviz).
 RViz and its dependencies are installed when the `ros-<ros-distro>-desktop` version of ROS2 is installed.
+Set up ROSflight with the [software installation for sim guide](../installation/installation-sim.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
 
-Otherwise, the standalone simulator only depends on the code in `rosflight_ros_pkgs`.
+Other than RViz, the standalone simulator only depends on the code in `rosflight_ros_pkgs`.
 Check the [installation for sim](../installation/installation-sim.md) guide for more information.
 
 ## Launching instructions
-- Set up ROSflight with the [software installation for sim guide](../installation/installation-sim.md) guide, making sure to install the `-desktop` package of ROS2, not the `-ros-base`.
 
 - The standalone sim for ROSflight SIL is usually launched using this launch file:
 ```bash
@@ -69,7 +69,7 @@ This includes the ROSflight sim nodes
 - `/sil_board`: Instantiation of the firmware
 - `/standalone_dynamics`: Dynamics node for keeping track of the true robot state
 - `/multirotor_forces_and_moments`: Computes aerodynamic forces and moments based on motor commands
-- `/standalone_time_manager`: Only appears if `use_sim_time` [launch argument](#launch-arguments) is set true, and publishes to the `/clock` topic.
+- `/standalone_time_manager`: Only appears if [`use_sim_time` launch argument](./simulator-architecture.md#time-manager) is set true, and publishes to the `/clock` topic.
 
 As well as some nodes specific to the `standalone_sim`:
 
@@ -109,6 +109,7 @@ ros2 launch rosflight_sim multirotor_standalone.launch.py --show-args
 | :--- | :--- |
 | `rviz2_config_file` | Configuration file loaded into RViz at launch. Helps automatically set up subscriptions, cameras, etc. |
 | `sim_aircraft_file` | Path to the mesh file that will be used to visualize the vehicle. |
+| `use_sim_time` | When set `true`, sets the same parameter to `true` on all launched nodes. |
 
 To change one of these arguments, specify the argument and its value with the `<argument>:=<value>` syntax.
 For example,
@@ -116,3 +117,25 @@ For example,
 ros2 launch rosflight_sim multirotor_standalone.launch.py rviz2_config_file:=$(pwd)/my_config_file.rviz
 ```
 would launch RViz with the `my_config_file.rviz` configuration file.
+
+## After launching
+
+Remember that the SIL tries its best to replicate hardware.
+That means you have to calibrate and set parameters in the same way you do in hardware.
+If you need a reminder, please follow the [configuration and manual flight tutorial](../tutorials/manually-flying-rosflight-sim.md).
+
+See the [Parameter Configuration](../rosflight-firmware/parameter-configuration.md) pages in this documentation for instructions on how to perform all preflight configuration before the aircraft will arm.
+
+You can also run 
+```bash
+ros2 launch rosflight_sim multirotor_init_firmware.launch.py
+```
+to load all required parameters and perform initial calibrations for a quick simulation setup.
+
+!!! warning
+
+    Remember to verify that all parameters are set to the value that you would expect.
+    Otherwise, the vehicle will behave erratically.
+
+After loading parameters, you can fly autonomously by launching your GNC stack.
+See the [ROScopter](../tutorials/setting-up-roscopter-in-sim.md) or [ROSplane](../tutorials/setting-up-rosplane-in-sim.md) tutorials for a reminder on how to run ROScopter or ROSplane.
