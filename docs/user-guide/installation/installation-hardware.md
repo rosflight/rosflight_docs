@@ -92,6 +92,11 @@ Do the following on your companion computer.
     ```bash
     cd ~/rosflight_ws
     sudo rosdep init
+
+    # Update and upgrade
+    sudo apt update
+    sudo apt upgrade
+
     rosdep update
     rosdep install --from-path . -y --ignore-src
     ```
