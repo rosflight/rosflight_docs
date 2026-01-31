@@ -19,14 +19,6 @@ $$
 $$
 where $\tau \in \mathbb{R}^n$ is the vector of individual motor commands, $M \in \mathbb{R}^{m\times n}$ is the mixing matrix, and $(\cdot)^\dagger$ is the Moore-Penrose pseudoinverse.
 
-Note that $n$ denotes the number of possible output commands and $m$ denotes the size of the input commands, which for ROSflight is 6.
-Note that $m=6$ was arbitrarily chosen, but conveniently corresponds to the number of forces and torques for a 6-DoF body.
-The number of possible output commands is dependent on the number of PWM hardware outputs.
-
-Running the mixer equations results in the vector $\tau$ of motor commands.
-The elements of $\tau$ are defined to be in the range $[0,1]$ for motor commands and $[-1,1]$ for servo commands.
-After computing these values, ROSflight then maps them up to the standard PWM range, that is $[1000\mu s, 2000 \mu s]$.
-
 !!! note
 
     The rest of this guide focuses on **using** the ROSflight mixer.
@@ -36,14 +28,39 @@ After computing these values, ROSflight then maps them up to the standard PWM ra
 
 ## ROSflight mixer implementation details
 Currently supported hardware for the ROSflight firmware has a maximum of 10 output channels.
-Thus, the ROSflight mixing matrix is a 6x10 matrix.
+Thus, the ROSflight mixing matrix is a 10x10 matrix.
 
-In addition to storing these 60 values, each ROSflight mixer has a header with the following information:
+In addition to storing these 100 values, each ROSflight mixer has a header with the following information:
 
 - PWM rate (in Hz) for each output channel
 - [Output type](#defining-a-custom-mixer) (auxiliary, motor, servo, GPIO)
 
 Users usually won't have to adjust these header values, unless you [define a custom mixer](#defining-a-custom-mixer) as described below.
+
+### Size of the mixer matrix, input, and output vectors
+Note that $n$ denotes the number of possible output commands and $m$ denotes the size of the input commands, which for ROSflight is 10.
+Setting $m=10$ was chosen as the maximum number of mixer channels available in ROSflight.
+However, the actual number of possible output commands is dependent on the number of PWM hardware outputs, which is board-specific.
+
+### Mapping RC inputs to the $u$-vector
+The input command vector, $u$, in ROSflight is a 10x1 vector.
+However, only 4 commands get sent by an RC pilot.
+In general, these 4 commands deal with roll, pitch, yaw, and throttle commands.
+
+In ROSflight, we need to know how to map these 4 values to appropriate channels in the $u$ vector.
+Additionally, this mapping *must* match the order that these values are expected to be in in the mixer.
+
+Thus, ROSflight makes some assumptions about the channels that the $u$-vector contains.
+ROSflight assumes that the first 3 channels of the $u$ vector correspond to the $[F_x, F_y, F_z]$ force commands (or similar--for a fixedwing these would be $[\text{throttle}, 0, 0]$).
+Channels 3-6 corespond to $[Q_x, Q_y, Q_z]$ torque commands (corresponding to angular movement commands).
+
+The remaining 4 channels are never muxed by the [command mananger](./code-architecture.md#command-manager) and are interpreted as passthrough commands.
+
+### Mapping motor commands to PWMs
+Running the mixer equations results in the vector $\tau$ of motor commands.
+The elements of $\tau$ are defined to be in the range $[0,1]$ for motor commands and $[-1,1]$ for servo commands.
+After computing these values, ROSflight then maps them up to the standard PWM range, that is $[1000\mu s, 2000 \mu s]$.
+
 
 ## Selecting a primary mixer
 
@@ -180,10 +197,10 @@ A custom mixer can be defined by:
 2. Load the mixing matrix parameters for either/both the primary or the secondary mixer
 
 The firmware loads a custom mixer by loading all mixing matrix values from parameters.
-Since there are 6 inputs to the mixer (\(F_x,F_y,F_z,Q_x,Q_y,Q_z\)) and 10 possible outputs, the mixer is a 6x10 matrix and there are 60 parameters associated with each custom mixer.
+Since there are 10 inputs to the mixer and 10 possible outputs, the mixer is a 10x10 matrix and there are 100 parameters associated with each custom mixer.
 For a standard quadrotor, however, most of these would be zero, since only the first 4 outputs (columns of the mixer matrix) would be used.
 
-In addition to the parameters associated with the 6x10 mixing matrix, the [mixer header values](#rosflight-mixer-implementation-details) need to be specified.
+In addition to the parameters associated with the 10x10 mixing matrix, the [mixer header values](#rosflight-mixer-implementation-details) need to be specified.
 Specifically, make sure to define and load the `PRI_MIXER_OUT_i` and the `PRI_MIXER_PWM_i` parameters, which define the output type and the default PWM rate, respectively, for each `i`th output.
 
 The `PRI_MIXER_OUT_i` values should be set to one of the following values:
@@ -220,7 +237,7 @@ See the [Parameter Configuration Page](../rosflight-firmware/parameter-configura
     If you don't want to worry about it, just set all the `PRI_MIXER_PWM_i` to the same value, if possible.
 
 The recommended way to load a custom mixer is to first compute all the required parameters and save them to a file on the companion computer.
-The parameters are named `PRI_MIXER_i_j` or `SEC_MIXER_i_j`, where `(i,j)` is the index of the parameter in the 6x10 mixing matrix.
+The parameters are named `PRI_MIXER_i_j` or `SEC_MIXER_i_j`, where `(i,j)` is the index of the parameter in the 10x10 mixing matrix.
 See the [Parameter Configuration Page](../rosflight-firmware/parameter-configuration.md) for more information on these parameters.
 
 A convenience script is available in the `roscopter` ROS2 package that will compute the custom mixer and save the parameter values in a format ready to load.
