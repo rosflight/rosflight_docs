@@ -1,0 +1,3823 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/git-main/user-guide/rosflight-firmware/mixer/">
+      
+      
+        <link rel="prev" href="../parameter-configuration/">
+      
+      
+        <link rel="next" href="../autonomous-flight/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Mixer - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mixer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Mixer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../publications/rosplane/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Publications
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation for Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installation-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation on Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/using-docker-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Docker with ROSflight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorials/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting up ROSflight Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manually flying ROSflight Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running ROScopter in Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running ROSplane in Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/tuning-performance-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuning performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transitioning from Sim to Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transitioning from Sim to Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-xflr5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Xflr5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-openvsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVSP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/user-manual-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosflight-io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflightIO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSflight Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mixer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mixer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rosflight-mixer-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROSflight mixer implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROSflight mixer implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#size-of-the-mixer-matrix-input-and-output-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Size of the mixer matrix, input, and output vectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-rc-inputs-to-the-uu-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping RC inputs to the uu-vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-motor-commands-to-pwms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping motor commands to PWMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-a-primary-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selecting a primary mixer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-a-secondary-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selecting a secondary mixer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixing-the-primary-and-secondary-mixers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixing the primary and secondary mixers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-motor-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Motor Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Motor Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-a-custom-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defining a Custom Mixer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saturation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auxiliary-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auxiliary inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autonomous-flight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autonomous Flight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../rosplane/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSplane
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosplane/rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../roscopter/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROScopter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roscopter/roscopter-path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Path Planner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roscopter/roscopter-path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Path Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Trajectory Follower
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roscopter/roscopter-controller/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Controller
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roscopter/roscopter-estimator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROScopter Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../rosflight-sim/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight Sim
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSflight Sim
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosflight-sim/simulator-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosflight-sim/standalone-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standalone Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosflight-sim/gazebo-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gazebo Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rosflight-sim/holoocean-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HoloOcean Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9">
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight in Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSflight in Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware-and-rosflight/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware-and-rosflight/hardware-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware-and-rosflight/flight-controller-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Controller Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware-and-rosflight/rc-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RC Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware-and-rosflight/preflight-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-Flight Checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware-and-rosflight/improving-firmware-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Improving Firmware Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customizing-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing ROSflight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/contribution-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Style Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/firmware/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ROSplane
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Controller
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General Controller Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller Software Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller State Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Successive Loop Closure Controller Outline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Total Energy Controller
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Estimator
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimator Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Navigation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigation Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Planner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Follower
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Publications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosplane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSplane
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../publications/rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROSflight
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rosflight-mixer-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROSflight mixer implementation details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROSflight mixer implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#size-of-the-mixer-matrix-input-and-output-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Size of the mixer matrix, input, and output vectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-rc-inputs-to-the-uu-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping RC inputs to the uu-vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-motor-commands-to-pwms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping motor commands to PWMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-a-primary-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selecting a primary mixer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-a-secondary-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selecting a secondary mixer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixing-the-primary-and-secondary-mixers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixing the primary and secondary mixers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-motor-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Motor Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Motor Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-a-custom-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defining a Custom Mixer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saturation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auxiliary-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auxiliary inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/rosflight-firmware/mixer.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="mixer">Mixer<a class="headerlink" href="#mixer" title="Permanent link">¶</a></h1>
+<p>A controller is responsible for computing commands that drive a system to a given reference.
+However, in general the output of a controller is not raw motor commands.
+For example, given a quadrotor vehicle, the <a href="../code-architecture/#controller">ROSflight firmware rate controller</a> takes in desired angular rates and outputs desired forces and torques that will achieve those rates.
+These desired forces and torques are not individual actuator commands.
+Thus, these desired forces and torques must be correctly <em>mapped</em> to each individual actuator.</p>
+<p>The <em>mixer</em> is responsible for mapping, or mixing, the output of a controller to the individual actuator commands of a MAV.
+The mixer is highly frame-specific: a quadrotor mixer will be different than a hexarotor mixer since the hexarotor has 2 additional rotors and all six rotors are in physically different locations relative to the vehicle center of mass.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>If the mixer is not set correctly, it will lead to a crash.
+Make sure it is set properly for your airframe!</p>
+</div>
+<p>In ROSflight, the mixer is a matrix and operates on the inputs <span class="arithmatex"><span class="MathJax_Preview">u \in \mathbb{R}^m</span><script type="math/tex">u \in \mathbb{R}^m</script></span> as
+$$
+\tau = M^\dagger u
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">\tau \in \mathbb{R}^n</span><script type="math/tex">\tau \in \mathbb{R}^n</script></span> is the vector of individual motor commands, <span class="arithmatex"><span class="MathJax_Preview">M \in \mathbb{R}^{m\times n}</span><script type="math/tex">M \in \mathbb{R}^{m\times n}</script></span> is the mixing matrix, and <span class="arithmatex"><span class="MathJax_Preview">(\cdot)^\dagger</span><script type="math/tex">(\cdot)^\dagger</script></span> is the Moore-Penrose pseudoinverse.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The rest of this guide focuses on <strong>using</strong> the ROSflight mixer.
+Please see the <a href="https://arxiv.org/abs/2510.00995">ROSflight 2.0 paper</a> for more information on the derivation and details of the ROSflight mixer.</p>
+<p>Additionally, this guide tries not to repeat information found in the paper, so we recommend reading through that paper to get an overview of the ROSflight mixer.</p>
+</div>
+<h2 id="rosflight-mixer-implementation-details">ROSflight mixer implementation details<a class="headerlink" href="#rosflight-mixer-implementation-details" title="Permanent link">¶</a></h2>
+<p>Currently supported hardware for the ROSflight firmware has a maximum of 10 output channels.
+Thus, the ROSflight mixing matrix is a 10x10 matrix.</p>
+<p>In addition to storing these 100 values, each ROSflight mixer has a header with the following information:</p>
+<ul>
+<li>PWM rate (in Hz) for each output channel</li>
+<li><a href="#defining-a-custom-mixer">Output type</a> (auxiliary, motor, servo, GPIO)</li>
+</ul>
+<p>Users usually won't have to adjust these header values, unless you <a href="#defining-a-custom-mixer">define a custom mixer</a> as described below.</p>
+<h3 id="size-of-the-mixer-matrix-input-and-output-vectors">Size of the mixer matrix, input, and output vectors<a class="headerlink" href="#size-of-the-mixer-matrix-input-and-output-vectors" title="Permanent link">¶</a></h3>
+<p>Note that <span class="arithmatex"><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> denotes the number of possible output commands and <span class="arithmatex"><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> denotes the size of the input commands, which for ROSflight is 10.
+Setting <span class="arithmatex"><span class="MathJax_Preview">m=10</span><script type="math/tex">m=10</script></span> was chosen as the maximum number of mixer channels available in ROSflight.
+However, the actual number of possible output commands is dependent on the number of PWM hardware outputs, which is board-specific.</p>
+<h3 id="mapping-rc-inputs-to-the-uu-vector">Mapping RC inputs to the <span class="arithmatex"><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>-vector<a class="headerlink" href="#mapping-rc-inputs-to-the-uu-vector" title="Permanent link">¶</a></h3>
+<p>The input command vector, <span class="arithmatex"><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>, in ROSflight is a 10x1 vector.
+However, only 4 commands get sent by an RC pilot.
+In general, these 4 commands deal with roll, pitch, yaw, and throttle commands.</p>
+<p>In ROSflight, we need to know how to map these 4 values to appropriate channels in the <span class="arithmatex"><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span> vector.
+Additionally, this mapping <em>must</em> match the order that these values are expected to be in in the mixer.</p>
+<p>Thus, ROSflight makes some assumptions about the channels that the <span class="arithmatex"><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span>-vector contains.
+ROSflight assumes that the first 3 channels of the <span class="arithmatex"><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span> vector correspond to the <span class="arithmatex"><span class="MathJax_Preview">[F_x, F_y, F_z]</span><script type="math/tex">[F_x, F_y, F_z]</script></span> force commands (or similar--for a fixedwing these would be <span class="arithmatex"><span class="MathJax_Preview">[\text{throttle}, 0, 0]</span><script type="math/tex">[\text{throttle}, 0, 0]</script></span>).
+Channels 3-6 corespond to <span class="arithmatex"><span class="MathJax_Preview">[Q_x, Q_y, Q_z]</span><script type="math/tex">[Q_x, Q_y, Q_z]</script></span> torque commands (corresponding to angular movement commands).</p>
+<p>The remaining 4 channels are never muxed by the <a href="../code-architecture/#command-manager">command mananger</a> and are interpreted as passthrough commands.</p>
+<h3 id="mapping-motor-commands-to-pwms">Mapping motor commands to PWMs<a class="headerlink" href="#mapping-motor-commands-to-pwms" title="Permanent link">¶</a></h3>
+<p>Running the mixer equations results in the vector <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> of motor commands.
+The elements of <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> are defined to be in the range <span class="arithmatex"><span class="MathJax_Preview">[0,1]</span><script type="math/tex">[0,1]</script></span> for motor commands and <span class="arithmatex"><span class="MathJax_Preview">[-1,1]</span><script type="math/tex">[-1,1]</script></span> for servo commands.
+After computing these values, ROSflight then maps them up to the standard PWM range, that is <span class="arithmatex"><span class="MathJax_Preview">[1000\mu s, 2000 \mu s]</span><script type="math/tex">[1000\mu s, 2000 \mu s]</script></span>.</p>
+<h2 id="selecting-a-primary-mixer">Selecting a primary mixer<a class="headerlink" href="#selecting-a-primary-mixer" title="Permanent link">¶</a></h2>
+<p>A primary mixer must be selected before the firmware will allow arming of the vehicle.
+The primary mixer is used by the RC safety pilot and thus must be a mixer that allows the RC safety pilot to control the vehicle.
+Specifically, the <code>PRIMARY_MIXER</code> parameter must be set to a valid value.</p>
+<p>As described in the <a href="https://arxiv.org/abs/2510.00995">ROSflight 2.0 paper</a>, ROSflight offers some pre-computed, "canned" mixers that can be used off the shelf for a variety of common multirotor and fixedwing airframes.
+These mixers do not take into account all the parameters of your system (i.e. motor and propeller parameters), but instead are based solely on the geometry of the airframe.
+If you want a more accurate mixer, or have easy access to the motor and prop parameters of your system, then we recommend using a <a href="#defining-a-custom-mixer">custom mixer</a>.</p>
+<p>The desired mixer must be chosen by <a href="../parameter-configuration/">setting the <code>PRIMARY_MIXER</code> parameter</a> to one of the following valid values.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Mixer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>ESC calibration</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Quad +</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Quad X</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hex +</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Hex X</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Octo +</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Octo X</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Y6</td>
+</tr>
+<tr>
+<td>8</td>
+<td>X8</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Fixed-wing (traditional AETR)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Inverted V-tail fixedwing (like the RMRC Anaconda frame)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Custom mixer</td>
+</tr>
+</tbody>
+</table>
+<p>The associated motor layouts are shown below for each mixer.
+The <strong>ESC calibration</strong> mixer directly outputs the throttle command equally to each motor, and can be used for calibrating the ESCs.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/mixers_1.png" data-desc-position="bottom"><img alt="Mixer_1" src="../../images/mixers_1.png"></a></p>
+<h2 id="selecting-a-secondary-mixer">Selecting a secondary mixer<a class="headerlink" href="#selecting-a-secondary-mixer" title="Permanent link">¶</a></h2>
+<p>As described in the <a href="https://arxiv.org/abs/2510.00995">ROSflight 2.0 paper</a>, the secondary mixer is used by offboard control setpoints (sent by the companion computer).
+The secondary mixer can be selected by setting the <code>SECONDARY_MIXER</code> parameter to one of the valid values in the previous table.</p>
+<p>The secondary mixer allows flexibility for more advanced mixing schemes while still having a functional mixer available to a safety pilot.
+For example, a secondary mixer on a quadrotor could be configured as an identity matrix.
+This would allow motor commands to be sent directly from the offboard computer to the motors.
+In this case, the primary mixer could be set to mixer 2 so that the RC safety pilot can use the ROSflight angle/rate controllers, whose output is properly mixed to actuator commands by the mixer 2.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the secondary mixer is not specified (or set to an invalid value), then it will default to the primary mixer.
+If you don't need a distinction between the mixer used by the RC safety pilot and the onboard computer, then you do not need to set the secondary mixer parameter.</p>
+</div>
+<h2 id="mixing-the-primary-and-secondary-mixers">Mixing the primary and secondary mixers<a class="headerlink" href="#mixing-the-primary-and-secondary-mixers" title="Permanent link">¶</a></h2>
+<p>In ROSflight, the RC safety pilot has the ability to independently override the attitude commands, the throttle commands, or both.
+See the <a href="../../hardware-and-rosflight/rc-configuration/">RC configuration page</a> for more information.</p>
+<p>Remember that the RC commands use the primary mixer and offboard control commands use the secondary mixer.
+Thus, when only RC attitude override is active (or conversely only RC throttle override) the mixer actually used by ROSflight to mix controller commands is a combination of the primary and secondary mixers.</p>
+<p>When this happens, the primary and secondary mixers are "mixed" as shown in the following image.</p>
+<figure>
+    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/primary_secondary_mixer_mixing.svg" data-desc-position="bottom"><img alt="RC Mixer Configuration" loading="lazy" src="../../images/primary_secondary_mixer_mixing.svg" width="1200"></a>
+    <figcaption>Diagram of how the actual mixer used by ROSflight, <span class="arithmatex"><span class="MathJax_Preview">M</span><script type="math/tex">M</script></span>, is "mixed" with the primary and secondary mixers, depending on the status of RC override.</figcaption>
+</figure>
+<p>The <code>mixer_to_use_</code> structure represents the mixer that is actually used when computing the output.
+When just RC throttle override is active (i.e. RC pilot controls the throttle while companion computer controls attitude), the <span class="arithmatex"><span class="MathJax_Preview">F</span><script type="math/tex">F</script></span> rows of the <code>mixer_to_use_</code> are mapped to the <span class="arithmatex"><span class="MathJax_Preview">F</span><script type="math/tex">F</script></span> rows of the primary mixer.
+When just RC attitude override is active (i.e. RC pilot controls attitude while companion computer controls throttle), the <span class="arithmatex"><span class="MathJax_Preview">Q</span><script type="math/tex">Q</script></span> rows of the <code>mixer_to_use_</code> are mapped to the <span class="arithmatex"><span class="MathJax_Preview">Q</span><script type="math/tex">Q</script></span> rows of the primary mixer.</p>
+<p>The header, which includes the default PWM rate and the output type for each output channel, is always set to the header of the primary mixer.</p>
+<h2 id="using-motor-parameters">Using Motor Parameters<a class="headerlink" href="#using-motor-parameters" title="Permanent link">¶</a></h2>
+<p>This section gives some background for the <code>USE_MOTOR_PARAM</code> firmware parameter and when it should be set.</p>
+<p>As described in <em>Small Unmanned Aircraft: Theory and Practice</em> by Beard and McLain, the mixing matrix is formed using equations from propeller theory, resulting in a set of equations that set the desired forces and torques equal to the square of the angular speeds of the propellers.</p>
+<p>This results in equations of the form
+$$
+M^\dagger u = \tau \propto 
+\begin{bmatrix}
+\Omega_1^2 &amp; \Omega_2^2 &amp; \dots &amp; \Omega_{10}^2
+\end{bmatrix}^T
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">\Omega_i^2</span><script type="math/tex">\Omega_i^2</script></span> is the squared angular speed of motor <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span>.
+Note that constant factors were omitted in the above equation for simplicity, resulting in the proportionality.</p>
+<p>If the motor and propeller parameters are known, then the desired voltage setting can be computed from these squared angular speeds.
+The PWM motor output for each motor can be computed from these desired voltage settings.</p>
+<p>If the <code>USE_MOTOR_PARAM=1</code>, then the firmware will assume that the mixed output (<span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span>) is a vector of squared angular speeds (<span class="arithmatex"><span class="MathJax_Preview">\Omega^2</span><script type="math/tex">\Omega^2</script></span>), and will use the stored motor and propeller parameters to compute motor commands (<span class="arithmatex"><span class="MathJax_Preview">\delta</span><script type="math/tex">\delta</script></span>).</p>
+<p>If the motor and propeller parameters are not known, then some simplifying assumptions are made to compute the desired throttle settings for each motor from the desired forces and torques.
+In other words, these assumptions result in equations that look like
+$$
+M^\dagger u = \tau =
+\begin{bmatrix}
+\delta_1 &amp; \delta_2 &amp; \dots &amp; \delta_{10}
+\end{bmatrix}^T
+$$
+where <span class="arithmatex"><span class="MathJax_Preview">\delta_i</span><script type="math/tex">\delta_i</script></span> is the <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span>th PWM motor output.
+<strong>This is the form for all precomputed ("canned") mixers.</strong></p>
+<p>Therefore, if using a canned mixer, set <code>USE_MOTOR_PARAM=0</code> so that the firmware interprets the output of the mixer as <span class="arithmatex"><span class="MathJax_Preview">\delta</span><script type="math/tex">\delta</script></span> commands, not <span class="arithmatex"><span class="MathJax_Preview">\Omega^2</span><script type="math/tex">\Omega^2</script></span> commands.</p>
+<p>See <a href="https://arxiv.org/abs/2510.00995">the ROSflight 2.0 publication</a> for more information on the specific assumptions and more information on the above topics.</p>
+<p>The canned mixing matrices assume that <code>USE_MOTOR_PARAM=0</code>.
+Using a canned mixer matrix and setting <code>USE_MOTOR_PARAM=1</code> (i.e. specifying that you want to mix with motor and propeller parameters) will cause the outputs to be scaled incorrectly.
+It is not required to use motor and propeller parameters when using a custom mixing matrix, but make sure your custom mixer makes sense.</p>
+<p>Also, if you selected a custom mixer and used the motor parameters to generate the mixer, make sure you set <code>USE_MOTOR_PARAM=1</code>. Otherwise, the outputs will likely be scaled incorrectly.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Summary</p>
+<p>If using a canned mixer, set <code>USE_MOTOR_PARAM=0</code>.</p>
+<p>If using a custom mixer, set <code>USE_MOTOR_PARAM=1</code> <strong>only</strong> if the mixer was designed with motor parameters.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>We recommend flying your firmware in simulation <em>before</em> loading the firmware onto real hardware to make sure everything is working.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is not recommended to use a <em>canned mixer for the primary mixer</em> and a <em>custom mixer for the secondary mixer</em> <strong>when the secondary mixer needs <code>USE_MOTOR_PARAM=1</code>.</strong>
+In other words, both <code>PRIMARY_MIXER</code> and <code>SECONDARY_MIXER</code> should use motor parameters, or neither should.</p>
+<p>This is important because the canned mixers make assumptions that affect the gains of the controller on the aircraft.
+This means that a canned mixer will require slightly different tuning than a custom mixer might.</p>
+</div>
+<h3 id="defining-a-custom-mixer">Defining a Custom Mixer<a class="headerlink" href="#defining-a-custom-mixer" title="Permanent link">¶</a></h3>
+<p>A custom mixer can be defined by:</p>
+<ol>
+<li>Set <code>PRIMARY_MIXER</code> (required) and/or <code>SECONDARY_MIXER</code> (optional) to the custom mixer value in the mixer table</li>
+<li>Load the mixing matrix parameters for either/both the primary or the secondary mixer</li>
+</ol>
+<p>The firmware loads a custom mixer by loading all mixing matrix values from parameters.
+Since there are 10 inputs to the mixer and 10 possible outputs, the mixer is a 10x10 matrix and there are 100 parameters associated with each custom mixer.
+For a standard quadrotor, however, most of these would be zero, since only the first 4 outputs (columns of the mixer matrix) would be used.</p>
+<p>In addition to the parameters associated with the 10x10 mixing matrix, the <a href="#rosflight-mixer-implementation-details">mixer header values</a> need to be specified.
+Specifically, make sure to define and load the <code>PRI_MIXER_OUT_i</code> and the <code>PRI_MIXER_PWM_i</code> parameters, which define the output type and the default PWM rate, respectively, for each <code>i</code>th output.</p>
+<p>The <code>PRI_MIXER_OUT_i</code> values should be set to one of the following values:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><code>PRI_MIXER_OUT_i</code> value</th>
+<th style="text-align: left;">How channel is interpreted by mixer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Auxiliary</td>
+</tr>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Servo</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Motor</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">GPIO</td>
+</tr>
+</tbody>
+</table>
+<p>This designation is important since in ROSflight, motor output commands are one-sided (ranging from zero to 1) where servos are two-sided (ranging from -1 to 1).
+The mixer uses the output channel type designation from the above table to know how to scale an output value (from the output vector <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span>) to a standard PWM command (between 1000 and 2000<span class="arithmatex"><span class="MathJax_Preview">\mu s</span><script type="math/tex">\mu s</script></span>).</p>
+<p>The auxiliary command types are <a href="#auxiliary-inputs">described below</a>.</p>
+<p>See the <a href="../parameter-configuration/">Parameter Configuration Page</a> for more information on these parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The PWM rate is typically 490 or 50 Hz.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Mixing Matrix PWM Header</p>
+<p>PWM outputs are run off of hardware timers, which are often tied to particular clocks.
+Since there are typically more PWM channels than clocks (and therefore hardware timers), the PWM rate cannot be set individually for each channel.
+Instead, there are groups of PWM channels that must all be configured to the same rate.</p>
+<p>This is usually only an issue when dealing with multiple types of actuators (e.g. servos and brushless motors) on a given airframe where the actuators require different PWM rates.
+In many cases, servos and motors can be configured to have the same 50Hz rate.
+This is how the ROSflight fixedwing canned mixers do it.</p>
+<p>The number of timers varies based on hardware, so double check your board documentation when creating the custom mixer PWM header.
+If you don't want to worry about it, just set all the <code>PRI_MIXER_PWM_i</code> to the same value, if possible.</p>
+</div>
+<p>The recommended way to load a custom mixer is to first compute all the required parameters and save them to a file on the companion computer.
+The parameters are named <code>PRI_MIXER_i_j</code> or <code>SEC_MIXER_i_j</code>, where <code>(i,j)</code> is the index of the parameter in the 10x10 mixing matrix.
+See the <a href="../parameter-configuration/">Parameter Configuration Page</a> for more information on these parameters.</p>
+<p>A convenience script is available in the <code>roscopter</code> ROS2 package that will compute the custom mixer and save the parameter values in a format ready to load.
+The convenience script is found <a href="https://github.com/rosflight/roscopter/blob/main/roscopter/scripts/compute_multirotor_mixing_matrix.py">here</a> with the configuration file found <a href="https://github.com/rosflight/roscopter/blob/main/roscopter/config/multirotor_frame_config.yaml">here</a>.</p>
+<p>Once the parameters are saved to a file, load them with the ROS2 service call (make sure <code>rosflight_io</code> is running):
+<code>ros2 service call /param_load_from_file rosflight_msgs/srv/ParamFile "{file: absolute/or/relative/path/to/saved/param/file.yaml}"</code></p>
+<p>Also make sure to save those parameters to memory with the ROS2 service call:
+<code>ros2 service call /param_write std_srvs/srv/Trigger</code></p>
+<h2 id="saturation">Saturation<a class="headerlink" href="#saturation" title="Permanent link">¶</a></h2>
+<p>There are often aggressive maneuvers which may cause multiple motor outputs to become saturated.
+This is of particular concern in multirotors.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Consider the case of commanding maximum roll while at full throttle in a quadcopter.
+Full throttle, with no other command, would normally cause all four motors to saturate at a maximum PWM command of 2000<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s.
+Mixing in a maximum roll command would cause two of the motors to reduce to 1500<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s, while the other two would go to 2500<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s.</p>
+<p>Because 2500<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s is beyond the maximum limit, the maximum roll command would actually be interpreted as a half-roll command as the difference between the motors on opposite sides of the MAV would be halved.</p>
+</div>
+<p>To increase controllability in these sorts of situations, we take the motor control value from the mixer, before it is shifted up to the standard PWM range, and find the scaling factor which would reduce the maximum motor command to 2000<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s.
+We then apply this scaling factor to all other motors, and then shift them up to the standard PWM range of 1000<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s to 2000<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s.</p>
+<p>This does not completely solve the problem, because the maximum roll command is still reduced somewhat, but it trades off maximum thrust for some additional controllability.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>In the case of a simultaneous maximum roll and maximum throttle, two of the motors will receive a command of 2000<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s, while the other two will receive a command of 1333<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s, as opposed to the 1500<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>s without the saturation, and maintains controllability even at high levels of throttle.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>ROSflight expects the elements of <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> to be in the range <span class="arithmatex"><span class="MathJax_Preview">[0,1]</span><script type="math/tex">[0,1]</script></span> for motors and <span class="arithmatex"><span class="MathJax_Preview">[-1,1]</span><script type="math/tex">[-1,1]</script></span> for servos.
+However, if the mixer values or controller gains have not been set properly, it is possible that the elements of <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> are much larger than 1.</p>
+<p>If you consistently get outputs from the mixer greater than 1, then the saturation methods discussed above <strong>will effectively limit the expressiveness of your control</strong>.</p>
+<p>If ROSflight detects an output element of <span class="arithmatex"><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> greater than 2 (before scaling), then it will print a warning message to the screen.
+The number 2 is arbitrary. However, take it as a sign that your mixer or controller gains need to be adjusted to avoid excessive scaling/saturation.</p>
+</div>
+<h2 id="auxiliary-inputs">Auxiliary inputs<a class="headerlink" href="#auxiliary-inputs" title="Permanent link">¶</a></h2>
+<p>ROSflight supports auxiliary inputs, which are defined as inputs that bypass the mixer.
+Thus, any output channel in the mixer labeled as <code>AUX</code> will not use the mixer.
+This can be useful for sending servo commands to landing gears, grasping mechanisms, or other more complicated scenarios.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To set a channel in a custom mixer as an <code>AUX</code> channel (bypassing the mixer), set the <code>PRI_MIXER_OUT_i</code> parameter to 0, where <code>i</code> is the number of the channel (zero indexed).</p>
+<p>These values are hard-coded for the canned mixers.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2019-2025, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.edit", "navigation.tabs", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
