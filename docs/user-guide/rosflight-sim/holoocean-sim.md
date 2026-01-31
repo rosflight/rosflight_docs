@@ -63,7 +63,7 @@ The HoloOcean simulator uses many of the standalone simulator modules (as shown 
 
     Or as a console command:
     ```bash
-    python -c `import holoocean; holoocean.install("Land")`
+    python -c "import holoocean; holoocean.install('Land')"
     ```
 
 ROSflight should now be ready to be used with HoloOcean!

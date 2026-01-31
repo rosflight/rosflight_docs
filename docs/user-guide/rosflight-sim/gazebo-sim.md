@@ -8,7 +8,7 @@ This guide contains detailed information on using [Gazebo Classic](https://class
 
 Gazebo Classic is a (now EOL'd) robotic simulator.
 It was previously supported by ROSflight, so it is supported now.
-However, it currently does not work on versions of above ROS2 Humble, and should be replaced with Gazebo (the currently maintained version of Gazebo).
+However, it currently does not work on versions newer than ROS2 Humble, and should be replaced with Gazebo (the currently maintained version of Gazebo).
 In this guide, we often refer to "Gazebo Classic" as Gazebo.
 
 !!! tip "Launch parameters"
@@ -25,7 +25,7 @@ In this guide, we often refer to "Gazebo Classic" as Gazebo.
 
 !!! danger
     Gazebo Classic is officially EOL as of January 2025, and **does not work with ROS2 Jazzy**.
-    If you are using ROS2 Jazzy, please only use the standalond sim.
+    If you are using ROS2 Jazzy, please only use the standalone sim or HoloOcean sim.
     The following instructions assume you are using ROS2 Humble.
 
     We have not yet upgraded to Gazebo, which is not EOL and better.

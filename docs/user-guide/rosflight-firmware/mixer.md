@@ -2,7 +2,7 @@
 
 A controller is responsible for computing commands that drive a system to a given reference.
 However, in general the output of a controller is not raw motor commands.
-For example, given a quadrotor vehicle, the [ROSflight firmware rate controller](TODO:insertlinkhere) takes in desired angular rates and outputs desired forces and torques that will achieve those rates.
+For example, given a quadrotor vehicle, the [ROSflight firmware rate controller](../rosflight-firmware/code-architecture.md#controller) takes in desired angular rates and outputs desired forces and torques that will achieve those rates.
 These desired forces and torques are not individual actuator commands.
 Thus, these desired forces and torques must be correctly *mapped* to each individual actuator.
 
