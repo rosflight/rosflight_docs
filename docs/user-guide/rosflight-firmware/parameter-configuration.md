@@ -8,7 +8,8 @@ The ROSflight firmware has several dozen parameters which it uses to customize p
 * IMU low-pass filter constant
 * RC receiver type (PPM or SBUS)
 
-and so on. Access to all parameters is enabled via ROS2 services advertised by `rosflight_io` while the flight controller is connected.
+and so on.
+Access to all parameters is enabled via ROS2 services advertised by `rosflight_io` while the flight controller is connected (either in sim or in hardware).
 
 ## Parameter Interface
 
@@ -45,7 +46,7 @@ Notice that the parameters have been set, but not saved. Parameter changes take 
 
 #### Changing Parameters via `rosflight_io` ROS2 params
 
-The `rosflight_io` node has some firmware parameters exposed via the ROS2 parameter interface, enabling quick configuration of *some* of the firmware's parameters.
+The [`rosflight_io` node](../rosflight-io.md#convenience-parameters) has some firmware parameters exposed via the ROS2 parameter interface, enabling quick configuration of *some* of the firmware's parameters.
 This means that changing these `rosflight_io` parameters via the standard ROS2 parameter configuration will automatically change them in the firmware.
 
 Currently, only the controller gains have been exposed to `rosflight_io`'s parameters.
@@ -102,11 +103,11 @@ Because ROSflight ships with default parameters for multirotors, you will probab
 | MOTOR_IDLE_THR | min throttle command sent to motors when armed (Set above 0.1 to spin when armed) | float |  0.1 |
 | ARM_CHANNEL | RC switch channel mapped to arming [0 indexed, -1 to disable] | int |  4 |
 | FIXED_WING | switches on passthrough commands for fixed-wing operation | int |  true |
-| MIXER | Which mixer to choose - See [Mixer documentation](hardware-setup.md#motor-layouts-and-mixer) | int | 10  |
-| ELEVATOR_REV | reverses elevator servo output | int |  0/1 |
-| AIL_REV | reverses aileron servo output | int |  0/1 |
-| RUDDER_REV | reverses rudder servo output | int |  0/1 |
-| CAL_GYRO_ARM | Calibrate gyros when arming - generally only for multirotors | int |  false | 0 | 1 |
+| PRIMARY_MIXER | Which primary mixer to choose - See [Mixer documentation](../rosflight-firmware/mixer.md) | int | 9 or 10  |
+| ELEVATOR_REV | reverses elevator servo output | int |  0 or 1 |
+| AIL_REV | reverses aileron servo output | int |  0 or 1 |
+| RUDDER_REV | reverses rudder servo output | int |  0 or 1 |
+| CAL_GYRO_ARM | Calibrate gyros when arming - generally only for multirotors | int |  false |
 
 
 ## Description of all Parameters
@@ -127,16 +128,16 @@ This is a list of all ROSflight parameters, including their types, default value
 | PROP_CQ | Torque coefficient of the propeller | float |  0.0045f | 0 | 100.0 |
 | VOLT_MAX | Maximum voltage of the battery (V) | float |  25.0f | 0 | 100.0 |
 | USE_MOTOR_PARAM | Flag to use motor parameters in the mixer | int |  false | 0 | 1 |
-| PRI_MIXER_OUT_0 | Output type of mixer output 0. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_1 | Output type of mixer output 1. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_2 | Output type of mixer output 2. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_3 | Output type of mixer output 3. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_4 | Output type of mixer output 4. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_5 | Output type of mixer output 5. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_6 | Output type of mixer output 6. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_7 | Output type of mixer output 7. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_8 | Output type of mixer output 8. | int |  0 | 0 | 1 |
-| PRI_MIXER_OUT_9 | Output type of mixer output 9. | int |  0 | 0 | 1 |
+| PRI_MIXER_OUT_0 | Output type of mixer output 0. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_1 | Output type of mixer output 1. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_2 | Output type of mixer output 2. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_3 | Output type of mixer output 3. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_4 | Output type of mixer output 4. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_5 | Output type of mixer output 5. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_6 | Output type of mixer output 6. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_7 | Output type of mixer output 7. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_8 | Output type of mixer output 8. | int |  0 | 0 | 3 |
+| PRI_MIXER_OUT_9 | Output type of mixer output 9. | int |  0 | 0 | 3 |
 | PRI_MIXER_PWM_0 | PWM frequenct output for mixer output 0 | float |  0 | 0 | 490 |
 | PRI_MIXER_PWM_1 | PWM frequenct output for mixer output 1 | float |  0 | 0 | 490 |
 | PRI_MIXER_PWM_2 | PWM frequenct output for mixer output 2 | float |  0 | 0 | 490 |

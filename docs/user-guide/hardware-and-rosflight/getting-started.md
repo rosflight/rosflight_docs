@@ -6,10 +6,10 @@ Reading through the pages in this user guide in order should provide you with th
   2. [Flight controller setup](flight-controller-setup.md): Flash your flight controller with the latest ROSflight firmware.
   3. [RC Configuration](rc-configuration.md): Set up your RC transmitter.
   4. [ROS2 setup](../installation/installation-hardware.md): Set up ROS2 on your companion computer.
-  5. [Parameter configuration](parameter-configuration.md): Configure the flight controller for your setup. The configuration checklists below should help guide you through this process.
+  5. [Parameter configuration](../rosflight-firmware/parameter-configuration.md): Configure the flight controller for your setup. The configuration checklists below should help guide you through this process.
   6. [Preflight checks](preflight-checks.md): Run through your preflight checks
   7. [Improving firmware performance](improving-firmware-performance.md) (multirotors only): Tune the firmware attitude controller gains
-  8. [Autonomous flight](autonomous-flight.md) (optional): Set up autonomous flight via offboard control
+  8. [Autonomous flight](../rosflight-firmware/autonomous-flight.md) (optional): Set up autonomous flight via offboard control
 
 ## Configuration Checklist
 
@@ -25,7 +25,7 @@ The following checklists should help you get a new vehicle set up for the first 
   6. Set up your RC switches
       * If you want to arm/disarm using a switch, set the `ARM_CHANNEL` parameter to the appropriate channel (0-indexed)
       * If you want to use a switch to enable RC override, set the `RC_ATT_OVRD_CHN` and `RC_THR_OVRD_CHN` parameters to the appropriate channel(s) (0-indexed). If you want complete control (attitude and throttle) when you flip the switch, set both these parameters to the same channel.
-  7. Calibrate your IMU: start `rosflight_io`, then run `ros2 service call /calibrate_imu std_srvs/srv/Trigger`
+  7. Calibrate your IMU: Start [`rosflight_io`](../rosflight-io.md), then run `ros2 service call /calibrate_imu std_srvs/srv/Trigger`
   8. Complete the multirotor-specific or fixed-wing-specific checklist below
   9. Save the parameters (`ros2 service call /param_write std_srvs/srv/Trigger`)
   10. You'll probably want to save a backup of your parameters (call `ros2 service call /param_save_to_file rosflight_msgs/srv/ParamFile "{filename: "params.yml"}"`)
@@ -47,7 +47,7 @@ The following checklists should help you get a new vehicle set up for the first 
           3. Connect power to the motors
           4. Drop the throttle to minimum
 
-      5. Set the `PRIMARY_MIXER` parameter back to the appropriate value for your vehicle (see the [Hardware Setup](hardware-setup.md#motor-layouts-and-mixer) page)
+      5. Set the `PRIMARY_MIXER` parameter back to the appropriate value for your vehicle (see the [Hardware Setup](../rosflight-firmware/mixer.md) page)
       6. Set `ARM_SPIN_MOTORS` back to `1`
 
   2. The `ARM_SPIN_MOTORS` parameter should be set to `1` so the motors spin slowly when armed. The idle throttle setting can be adjusted with the `MOTOR_IDLE_THR` parameter.

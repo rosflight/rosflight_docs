@@ -8,11 +8,11 @@ Although we strive for complete in-code documentation, in practice this sometime
 
 Here is a summary of the key goals and philosophies behind ROSflight. As you look to make contributions to the project, keep these in mind.
 
-- Only include the things that most people will need. The goal of this would be to do most of the work so people can get a MAV in the air quickly and easily, but not overcomplicate the code with features that only a small portion of users would need.
+- **Only include the things that most people will need.** The goal of this would be to do most of the work so people can get a MAV in the air quickly and easily, but not overcomplicate the code with features that only a small portion of users would need.
 
-- Be modular and adaptable for many research-centric use cases. This will be accomplished by putting the majority of the autopilot in a well-designed ROS2 framework. That which needs to be on the microcontroller will need to be done so carefully with good coding practices. Additionally, microcontroller code that is the most likely to be expanded upon should include clear interfaces and instructions for doing so.
+- **Be modular and adaptable for many research-centric use cases.** This will be accomplished by putting the majority of the autopilot in a well-designed ROS2 framework. That which needs to be on the microcontroller will need to be done so carefully with good coding practices. Additionally, microcontroller code that is the most likely to be expanded upon should include clear interfaces and instructions for doing so.
 
-- Keep everything simple and well documented. The key goal here is to minimize the amount of time and effort it takes someone to go from knowing nothing about ROSflight to being able to implement their own features and making meaningful progress with their research.
+- **Keep everything simple and well documented.** The key goal here is to minimize the amount of time and effort it takes someone to go from knowing nothing about ROSflight to being able to implement their own features and making meaningful progress with their research.
 
 ## Communication
 

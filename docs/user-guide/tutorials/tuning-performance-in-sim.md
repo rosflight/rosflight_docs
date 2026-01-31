@@ -21,7 +21,7 @@ This tutorial will walk you through:
     - **Introduce the tools** that we use when flying with ROSflight, and
     - Help you get a feel for an **autonomy stack architecture**
 
-    See the [improving firmware performance](../concepts/improving-firmware-performance.md) guide for more information on tuning the firmware controller and firmware estimator.
+    See the [improving firmware performance](../hardware-and-rosflight/improving-firmware-performance.md) guide for more information on tuning the firmware controller and firmware estimator.
 
 ## Prerequisites
 
@@ -196,7 +196,7 @@ To do this,
 
 You should see the gains show up on the right as shown below.
 These are the firmware gains that we have exposed to `rosflight_io`.
-This means that when we change the `rosflight_io` ROS2 parameters (which have the same name as the firmware parameters), the `rosflight_io` node will essentially call the `param_set` service as described in the [parameter configuration guide](../concepts/parameter-configuration.md).
+This means that when we change the `rosflight_io` ROS2 parameters (which have the same name as the firmware parameters), the `rosflight_io` node will essentially call the `param_set` service as described in the [parameter configuration guide](../rosflight-firmware/parameter-configuration.md).
 
 ![ROSflightIO gains on RQT](../images/rosflight_io_rqt.png)
 
@@ -272,7 +272,7 @@ Here's an example of a somewhat-tuned response:
 Note that I also added the estimated state to the plot as well.
 The orange line is the firmware's estimated roll angle, and it tracks the command decently.
 However, it has a noticeable difference between truth.
-This means we should either [tune the firmware response](../concepts/improving-firmware-performance.md), or publish ROScopter's estimated state to the `external_attitude` topic.
+This means we should either [tune the firmware response](../hardware-and-rosflight/improving-firmware-performance.md), or publish ROScopter's estimated state to the `external_attitude` topic.
 
 !!! tip "External Attitude"
 
@@ -409,5 +409,5 @@ You should now be able to:
 
 ### Additional Resources
 
-- [Parameter Reference](../concepts/parameter-configuration.md): Complete parameter documentation
-- [Hardware Tuning Guide](../concepts/improving-firmware-performance.md): Considerations for real hardware
+- [Parameter Reference](../rosflight-firmware/parameter-configuration.md): Complete parameter documentation
+- [Hardware Tuning Guide](../hardware-and-rosflight/improving-firmware-performance.md): Considerations for real hardware

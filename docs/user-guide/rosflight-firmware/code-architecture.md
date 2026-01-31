@@ -4,7 +4,7 @@ The firmware is divided into two main components: the _core library_, and a coll
 This division is intended to allow the same core flight code to run on any processor or platform, either an embedded flight controller or a desktop environment for a software-in-the-loop (SIL) simulation. The interface between these two components is called the _hardware abstraction layer_ (HAL).
 This architecture is illustrated in the following diagram:
 
-![hardware abstraction layer](images/HAL.svg)
+![hardware abstraction layer](../images/HAL.svg)
 
 ## Firmware Core Library
 
@@ -42,7 +42,7 @@ Each of these modules is implemented as a C++ class, and encapsulates a cohesive
 The following diagram illustrates these modules and the data flow between them.
 Rectangular blocks represent modules in the flight stack, and ellipses represent hardware functionality implemented in the board support layer:
 
-![flight stack](images/flight_stack.svg)
+![flight stack](../images/flight_stack.svg)
 
 We'll describe each of these modules in the following sections:
 
@@ -52,7 +52,7 @@ While only the comm manager data flow is illustrated on the diagram, all other m
 
 The operation of the state manager is defined by the following finite state machine:
 
-![state manager FSM](images/arming-fsm.svg)
+![state manager FSM](../images/arming-fsm.svg)
 
 The state manager also includes functionality for recovering from hard faults. In the case of a hard fault, the firmware writes a small amount of data to backup memory then reboots. This backup memory location is checked and then cleared after every reboot. The backup memory includes the armed state of the flight controller. On reboot, the firmware will initialize then, if this armed-state flag is set, immediately transition back into the armed state. This functionality allows for continued RC control in the case of a hard fault. Hard faults are not expected with the stable firmware code base, but this feature adds an additional layer of safety if experimental changes are being made to the firmware itself.
 
@@ -61,6 +61,8 @@ This module handles all parameters for the flight stack.
 It supports the getting and setting of integer and floating-point parameters, and the saving of these parameters to non-volatile memory.
 Setting and getting of parameters from the companion computer is done through the serial communication interface.
 While no other data flow lines are shown on the diagram, all of the other modules interact with the parameter server.
+
+See the [parameter configuration](../rosflight-firmware/parameter-configuration.md) page for more information on each of the ROSflight parameters and how to get and set parameters.
 
 ### Comm Manager
 This module handles all serial communication between the flight controller and companion computer.
@@ -76,12 +78,25 @@ The implementation is found in [comms/mavlink/mavlink.h](https://github.com/rosf
 This module is in charge of managing the various sensors (IMU, magnetometer, barometer, differential pressure sensor, sonar altimeter, etc.).
 Its responsibilities include updating sensor data at appropriate rates, and computing and applying calibration parameters.
 
+For some sensors, the orientation is critical.
+For example, the IMU and magnetometer sensor data must be oriented in the correct frame to be interpreted correctly.
+The ROSflight firmware expects that the [board implementation](#board-abstraction) handles rotating the sensor data into a board-aligned NED frame.
+
+In some cases, the magnetometer is mounted to a different board then the main flight controller (e.g. the mRo M10034D GPS/mag board).
+In this case, the ROSflight sensor driver does not orient the magnetometer data into the main autopilot-board frame (since it has no idea how the mag board is oriented relative to the autopilot board).
+
+ROSflight also aligns IMU and magnetometer data with the vehicle NED frame before [streaming the data](#comm-manager) to the companion computer.
+This is done using a rotation from the board frame to the vehicle frame.
+This rotation from board to vehicle frame can be configured via [parameters](#parameter-server).
+
 ### Estimator
 This module is responsible for estimating the attitude and attitude rates of the vehicle from the sensor data.
 
 ### RC
 The RC module is responsible for interpreting the RC signals coming from the transmitter via the receiver.
 This includes mapping channels to their appropriate functions and reversing directions if necessary.
+
+See the [RC configuration](../hardware-and-rosflight/rc-configuration.md) page for more information on configuring the RC transmitter and parameters.
 
 ### Command Manager
 The command manager combines inputs from the RC and comm manager modules to produce a control setpoint.
@@ -93,3 +108,5 @@ This control output is computed in a generic form (\(Q_x\), \(Q_y\), and \(Q_z\)
 
 ### Mixer
 The mixer takes the outputs computed by the controller and maps them to actual motor commands depending on the configuration of the vehicle.
+
+See the [Mixer](./mixer.md) documentation page for more information on the details of the mixer and how to configure it.

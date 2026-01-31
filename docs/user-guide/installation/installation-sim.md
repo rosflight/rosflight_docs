@@ -71,6 +71,12 @@ In the [hardware installation guide](./installation-hardware.md), each of these 
     ```bash
     cd ~/rosflight_ws
     sudo rosdep init
+
+    # Update and upgrade
+    sudo apt update
+    sudo apt upgrade
+
+    # ROSdep install
     rosdep update
     rosdep install --from-path . -y --ignore-src
     ```

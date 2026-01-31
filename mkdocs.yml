@@ -13,6 +13,7 @@ theme:
   features:
     - content.action.edit
     - navigation.tabs
+    - navigation.indexes
   palette:
     primary: blue grey
     accent: red
@@ -26,7 +27,10 @@ extra:
     provider: mike
 
 extra_javascript:
-    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
+# extra_css:
+#   - stylesheets/extra.css
 
 markdown_extensions:
   - admonition
@@ -41,7 +45,11 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist
+  - md_in_html
+  - attr_list
   - toc:
       permalink: true
 
@@ -58,8 +66,8 @@ nav:
       - Installation for Sim: user-guide/installation/installation-sim.md
       - Installation on Hardware: user-guide/installation/installation-hardware.md
       - Using Docker with ROSflight: user-guide/installation/using-docker-with-rosflight.md
-    - Tutorials: 
-      - Tutorial overview: user-guide/tutorials/tutorial-overview.md
+    - Tutorials:
+      - user-guide/tutorials/index.md
       - Setting up ROSflight Sim: user-guide/tutorials/setting-up-rosflight-sim.md
       - Manually flying ROSflight Sim: user-guide/tutorials/manually-flying-rosflight-sim.md
       - Running ROScopter in Sim: user-guide/tutorials/setting-up-roscopter-in-sim.md
@@ -72,36 +80,39 @@ nav:
         - ROSflight Integration: user-guide/tutorials/user-manual-ROSflight-integration.md
         - Appendix: user-guide/tutorials/user-manual-appendix.md
     - ROSflightIO: user-guide/rosflight-io.md
-    - ROSflight Sim:
-      - ROSflight Sim Overview: user-guide/concepts/running-simulations-with-rosflight.md
-      - Detailed Launching Guide: user-guide/concepts/detailed-launching-guide.md
-      - Simulator Architecture: user-guide/concepts/simulator-architecture.md
+    - ROSflight Firmware:
+      - Code Architecture: user-guide/rosflight-firmware/code-architecture.md
+      - Parameter Configuration: user-guide/rosflight-firmware/parameter-configuration.md
+      - Mixer: user-guide/rosflight-firmware/mixer.md
+      - Autonomous Flight: user-guide/rosflight-firmware/autonomous-flight.md
     - ROSplane:
-      - ROSplane Overview: user-guide/concepts/rosplane-overview.md
-      - ROSplane Setup: user-guide/concepts/rosplane-setup.md
+      - user-guide/rosplane/index.md
+      - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
     - ROScopter:
-      - ROScopter Overview: user-guide/roscopter/roscopter-overview.md
+      - user-guide/roscopter/index.md
       - ROScopter Path Planner: user-guide/roscopter/roscopter-path-planner.md
       - ROScopter Path Manager: user-guide/roscopter/roscopter-path-manager.md
       - ROScopter Trajectory Follower: user-guide/roscopter/roscopter-trajectory-follower.md
       - ROScopter Controller: user-guide/roscopter/roscopter-controller.md
       - ROScopter Estimator: user-guide/roscopter/roscopter-estimator.md
-    - Hardware and ROSflight:
-      - Getting Started: user-guide/concepts/getting-started.md
-      - Hardware Setup: user-guide/concepts/hardware-setup.md
-      - Flight Controller Setup: user-guide/concepts/flight-controller-setup.md
-      - RC Configuration: user-guide/concepts/rc-configuration.md
-      - Parameter Configuration: user-guide/concepts/parameter-configuration.md
-      - Pre-Flight Checks: user-guide/concepts/preflight-checks.md
-      - Improving Firmware Performance: user-guide/concepts/improving-firmware-performance.md
-      - Autonomous Flight: user-guide/concepts/autonomous-flight.md
+    - ROSflight Sim:
+      - user-guide/rosflight-sim/index.md
+      - Simulator Architecture: user-guide/rosflight-sim/simulator-architecture.md
+      - Standalone Sim: user-guide/rosflight-sim/standalone-sim.md
+      - Gazebo Sim: user-guide/rosflight-sim/gazebo-sim.md
+      - HoloOcean Sim: user-guide/rosflight-sim/holoocean-sim.md
+    - ROSflight in Hardware:
+      - Getting Started: user-guide/hardware-and-rosflight/getting-started.md
+      - Hardware Setup: user-guide/hardware-and-rosflight/hardware-setup.md
+      - Flight Controller Setup: user-guide/hardware-and-rosflight/flight-controller-setup.md
+      - RC Configuration: user-guide/hardware-and-rosflight/rc-configuration.md
+      - Pre-Flight Checks: user-guide/hardware-and-rosflight/preflight-checks.md
+      - Improving Firmware Performance: user-guide/hardware-and-rosflight/improving-firmware-performance.md
     - Customizing ROSflight: user-guide/customizing-rosflight.md
   - Developer Guide:
     - Contribution Guidelines: developer-guide/contribution-guidelines.md
     - Style Guide: developer-guide/style-guide.md
     - Firmware:
-      - Code Architecture: developer-guide/firmware/code-architecture.md
-      - Building and Flashing: developer-guide/firmware/building-and-flashing.md
       - Unit Tests: developer-guide/firmware/unit-tests.md
       - Debugging: developer-guide/firmware/debugging.md
     - ROSplane:
@@ -123,11 +134,6 @@ nav:
         - Path Planner: developer-guide/rosplane/navigation/path-planner.md
         - Path Manager: developer-guide/rosplane/navigation/path-manager.md
         - Path Follower: developer-guide/rosplane/navigation/path-follower.md
-    - ROScopter:
-      - Developer Guide Overview: developer-guide/roscopter/roscopter-dev-overview.md
   - Publications:
     - ROSplane: publications/rosplane.md
     - ROSflight: publications/rosflight.md
-#    - ROS Packages:
-#    - ROSplane:
-#    - ROScopter:

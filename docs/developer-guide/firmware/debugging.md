@@ -12,9 +12,9 @@ This guide assumes you are running Ubuntu 22.04 LTS, which is the currently supp
 
 ## General Setup
 
-Follow the guide in [Building and Flashing](building-and-flashing.md) to install the compiler toolchain.
+Follow the guide in [Building and Flashing](../../user-guide/hardware-and-rosflight/flight-controller-setup.md#building-and-flashing-the-firmware) to install the compiler toolchain.
 
-Also make sure you have configured your computer as described in the [Serial Port Configuration](../../user-guide/concepts/flight-controller-setup.md#serial-port-configuration) section of the user guide.
+Also make sure you have configured your computer as described in the [Serial Port Configuration](../../user-guide/hardware-and-rosflight/flight-controller-setup.md#serial-port-configuration) section of the user guide.
 
 ### Connect debugger to flight controller
 

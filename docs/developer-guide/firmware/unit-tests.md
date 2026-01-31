@@ -41,7 +41,7 @@ If you want to manually build and run the unit tests, first build them with the 
 cd <firmware_directory>
 mkdir build
 cd build
-cmake .. -DBUILD_TEST=TRUE
+cmake .. -DBOARD_TO_BUILD=test
 make
 ```
 
