@@ -86,6 +86,24 @@ nav:
       - Mixer: user-guide/rosflight-firmware/mixer.md
       - Autonomous Flight: user-guide/rosflight-firmware/autonomous-flight.md
     - ROSplane:
+      - User Guide Overview: user-guide/rosplane/rosplane-user-overview.md
+      - Controller:
+        - General Controller Overview: user-guide/rosplane/controller/controller-general-overview.md
+        - Controller Software Architecture: user-guide/rosplane/controller/controller-software-architecture.md
+        - Controller ROS: user-guide/rosplane/controller/controller-ros.md
+        - Controller State Machine: user-guide/rosplane/controller/controller-state-machine.md
+        - Successive Loop Closure Controller Outline: user-guide/rosplane/controller/controller-outline.md
+        - Total Energy Controller: user-guide/rosplane/controller/controller-total-energy.md
+      - Estimator:
+        - Estimator Overview: user-guide/rosplane/estimator/estimator-overview.md
+        - Estimator ROS: user-guide/rosplane/estimator/estimator-ros.md
+        - Estimator Continuous-Discrete: user-guide/rosplane/estimator/estimator-continuous-discrete.md
+      - Parameter Management: user-guide/rosplane/parameter-management.md
+      - Navigation: 
+        - Navigation Overview: user-guide/rosplane/navigation/navigation-overview.md
+        - Path Planner: user-guide/rosplane/navigation/path-planner.md
+        - Path Manager: user-guide/rosplane/navigation/path-manager.md
+        - Path Follower: user-guide/rosplane/navigation/path-follower.md
       - user-guide/rosplane/index.md
       - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
     - ROScopter:
@@ -115,25 +133,6 @@ nav:
     - Firmware:
       - Unit Tests: developer-guide/firmware/unit-tests.md
       - Debugging: developer-guide/firmware/debugging.md
-    - ROSplane:
-      - Developer Guide Overview: developer-guide/rosplane/rosplane-dev-overview.md
-      - Controller:
-        - General Controller Overview: developer-guide/rosplane/controller/controller-general-overview.md
-        - Controller Software Architecture: developer-guide/rosplane/controller/controller-software-architecture.md
-        - Controller ROS: developer-guide/rosplane/controller/controller-ros.md
-        - Controller State Machine: developer-guide/rosplane/controller/controller-state-machine.md
-        - Successive Loop Closure Controller Outline: developer-guide/rosplane/controller/controller-outline.md
-        - Total Energy Controller: developer-guide/rosplane/controller/controller-total-energy.md
-      - Estimator:
-        - Estimator Overview: developer-guide/rosplane/estimator/estimator-overview.md
-        - Estimator ROS: developer-guide/rosplane/estimator/estimator-ros.md
-        - Estimator Continuous-Discrete: developer-guide/rosplane/estimator/estimator-continuous-discrete.md
-      - Parameter Management: developer-guide/rosplane/parameter-management.md
-      - Navigation: 
-        - Navigation Overview: developer-guide/rosplane/navigation/navigation-overview.md
-        - Path Planner: developer-guide/rosplane/navigation/path-planner.md
-        - Path Manager: developer-guide/rosplane/navigation/path-manager.md
-        - Path Follower: developer-guide/rosplane/navigation/path-follower.md
   - Publications:
     - ROSplane: publications/rosplane.md
     - ROSflight: publications/rosflight.md

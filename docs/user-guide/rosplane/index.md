@@ -23,7 +23,7 @@ This can improve research productivity, decrease debugging time, and improve the
 The ROSplane autopilot allows users to fly waypoint missions with an RC safety pilot.
 These waypoints are defined by a 3-D location and (optionally) a desired heading at that location.
 
-See [the ROSplane autonomy stack documentation pages](../../developer-guide/rosplane/rosplane-dev-overview.md) for a detailed description of each module and its default functionality.
+See [the ROSplane autonomy stack documentation pages](../rosplane/rosplane-user-overview.md) for a detailed description of each module and its default functionality.
 
 ## Using ROSplane as-is
 The simplicity of the ROSplane framework allows users to add their own autonomy stacks or mission requirements on top of the ROSplane stack.
@@ -40,5 +40,5 @@ Instead of loading a predetermined number of waypoints, higher levels of autonom
 For detailed instructions on how to use the core ROSplane package to fly autonomous waypoint missions, see the [ROSplane Setup](./rosplane-setup.md) page. 
 This page can be used as a guide to building and running ROSplane before you start making your own changes to the autonomy stack.
 
-For detailed instructions on each of the components of ROSplane, see the [ROSplane Developer Guide](../../developer-guide/rosplane/rosplane-dev-overview.md).
+For detailed instructions on each of the components of ROSplane, see the [ROSplane Developer Guide](../rosplane/rosplane-user-overview.md).
 This page provides detailed instructions on how to use and change the code for each component of the ROSplane stack.

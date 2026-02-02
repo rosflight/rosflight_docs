@@ -8,21 +8,26 @@
 The `EstimatorContinuousDiscrete` class implements a continuous-discrete Kalman filter as described in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public) or 8.6 and 8.7 of volume one of the same book.
 Specifically, this estimator uses the filter described in 8.11.
 The estimator runs on a set timer with a configurable frequency (see Parameters section for details).
-It estimates the position, velocities, attitude and gyroscope biases.
+It estimates the position, velocities, attitude, gyroscope biases, and horizontal wind.
 
 The state vector $\boldsymbol{x}$ is,
 \begin{equation}
 \boldsymbol{x} = 
 \begin{bmatrix}
-\boldsymbol{p} & \boldsymbol{v} & \boldsymbol{\theta} & \boldsymbol{b}_{gyro}
+\boldsymbol{p} & \boldsymbol{v} & \boldsymbol{\theta} & \boldsymbol{b}_{gyro} & \boldsymbol{w}
 \end{bmatrix}^\top.
 \end{equation}
 
-The position of the body frame, $\boldsymbol{p}
+The position of the body frame, $\boldsymbol{p}$.
 The velocity of the body frame, $\boldsymbol{v}$, is expressed in the body frame in meters per second.
 The attitude of the body frame, $\boldsymbol{\theta}$, relative to the inertial frame in radians using the Euler angles roll, pitch and yaw, $\phi,\,\theta,\,\psi$ respectively.
 These use the ZYX convention of application as in \cite{uavbook}.
 Finally, $\boldsymbol{b}_{gyro}$ is the bias in the gyroscope measurements expressed in the body frame in radians per second.
+The wind state, $\boldsymbol{w}$, contains the inertial north and east components of wind (the vertical component is assumed zero).
+
+!!! warning
+    ROScopter uses a reduced estimator that does not include wind and does not fuse the differential pressure or beta pseudo-measurements described below.
+    The last two rows/columns of each of the following should be omitted to reflect the difference in states.
 
 The attitude is modeled using Euler angles rather than a quaternion or other Lie group is for ease of interpretibility.
 A major focus of ROScopter is understandability and extensibility and an Euler formulation helps facilitate the understandability of the estimator.
@@ -45,7 +50,8 @@ The dynamics of the aircraft state are modeled as a function of the state and th
     R_b^i(\boldsymbol{\theta})\boldsymbol{v} \\ 
     R_b^i(\boldsymbol{\theta})^\top[0 & 0 & g]^\top + \boldsymbol{a} + \boldsymbol{v}\times\boldsymbol{\omega} \\
     S(\boldsymbol{\theta})\boldsymbol{\omega} \\
-    \boldsymbol{0}_{3\times1}
+    \boldsymbol{0}_{3\times1} \\
+    \boldsymbol{0}_{2\times1}
     \end{bmatrix}.
 \end{equation}
 
@@ -57,10 +63,11 @@ The Jacobian of the dynamics with respect to the states is,
 
 \begin{equation}
     A(\boldsymbol{x}, \boldsymbol{u}) = \begin{bmatrix}
-        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta}) \boldsymbol{v}}{\partial \boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} \\
-        \boldsymbol{0}_{3\times3} & -[\boldsymbol{\omega}]_\times & \frac{\partial R_b^i(\boldsymbol{\theta})^\top \boldsymbol{g}}{\partial \boldsymbol{\theta}}  & \boldsymbol{0}_{3\times3} \\
-        \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \frac{\partial S(\boldsymbol{\theta})\boldsymbol{\omega}}{\partial \boldsymbol{\theta}} & -S(\boldsymbol{\theta}) \\
-        \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \boldsymbol{I}_{3\times3} \\
+        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta}) \boldsymbol{v}}{\partial \boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times2} \\
+        \boldsymbol{0}_{3\times3} & -[\boldsymbol{\omega}]_\times & \frac{\partial R_b^i(\boldsymbol{\theta})^\top \boldsymbol{g}}{\partial \boldsymbol{\theta}}  & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times2} \\
+        \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \frac{\partial S(\boldsymbol{\theta})\boldsymbol{\omega}}{\partial \boldsymbol{\theta}} & -S(\boldsymbol{\theta}) & \boldsymbol{0}_{3\times2} \\
+        \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times3} & \boldsymbol{I}_{3\times3} & \boldsymbol{0}_{3\times2} \\
+        \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times2} \\
     \end{bmatrix}.
 \end{equation}
 
@@ -130,6 +137,7 @@ Taking the derivative with respect to $\boldsymbol{x}$,
         \boldsymbol{0}_{1\times3} &
         \boldsymbol{0}_{1\times3} &
         \boldsymbol{0}_{1\times3} &
+        \boldsymbol{0}_{1\times2}
     \end{bmatrix}
 \end{equation}
 
@@ -160,6 +168,7 @@ The observation Jacobian is then,
         0 & 0 & 1 &
         \boldsymbol{0}_{1\times3} &
         \boldsymbol{0}_{1\times3} &
+        \boldsymbol{0}_{1\times2}
     \end{bmatrix}.
 \end{equation}
 
@@ -179,7 +188,7 @@ These are collated into one update where,
     \end{bmatrix}
 \end{equation}
 
-The GNSS altitude measurement is omitted since single band commercial antennas have large drifts in altitude \cite{drifty_alt_gps}.
+The GNSS altitude measurement is omitted since single band commercial antennas have large drifts in altitude.
 The raw latitude and longitude of the GNSS is converted to a local north and down position relative to a initial latitude and longitude recorded on start up.
 This is done by making a spherical earth assumption,
 
@@ -201,9 +210,73 @@ This yields the obersvation Jacobian,
 
 \begin{equation}
     C_{\text{gnss}} = \begin{bmatrix}
-        \boldsymbol{I}_{2\times2} & \boldsymbol{0}_{2\times4} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3}  \\
-        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta})\boldsymbol{v}}{\partial\boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} \\
+        \boldsymbol{I}_{2\times2} & \boldsymbol{0}_{2\times1} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times2}  \\
+        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta})\boldsymbol{v}}{\partial\boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times2} \\
     \end{bmatrix}
+\end{equation}
+
+#### Differential Air Pressure (Pitot)
+The pitot tube measures differential (dynamic) pressure.
+The estimator uses the model,
+
+\begin{equation}
+    h_{\text{diff}} = \frac{1}{2}\rho V_{a,x}^2,
+\end{equation}
+
+where the forward airspeed component is computed from the body $x$ velocity and the estimated wind,
+
+\begin{equation}
+    V_{a,x} = u - (R_b^i(\boldsymbol{\theta})^\top\boldsymbol{w})_x
+    = u - \cos\theta(\cos\psi\,w_n + \sin\psi\,w_e).
+\end{equation}
+
+This yields the observation Jacobian,
+
+\begin{equation}
+    C_{\text{diff}} =
+    \begin{bmatrix}
+        \boldsymbol{0}_{1\times3} &
+        \rho V_{a,x} & 0 & 0 &
+        0 &
+        \rho\sin\theta(\sin\psi\,w_e + \cos\psi\,w_n)V_{a,x} &
+        -\rho\cos\theta(\cos\psi\,w_e + \sin\psi\,w_n)V_{a,x} &
+        \boldsymbol{0}_{1\times3} &
+        -\rho\cos\theta\cos\psi\,V_{a,x} &
+        -\rho\cos\theta\sin\psi\,V_{a,x}
+    \end{bmatrix}.
+\end{equation}
+
+In implementation, the raw differential pressure is converted to a low-pass filtered airspeed estimate and the update is only applied when this filtered airspeed exceeds `diff_pressure_minimum_airspeed`.
+
+#### Beta Pseudo-Measurement (Sideslip of zero)
+To help constrain lateral velocity and wind, ROSplane applies a pseudo-measurement that assumes zero sideslip when the pitot update is accepted.
+The pseudo-measurement is,
+
+\begin{equation}
+    z_{\beta} = 0,
+\end{equation}
+
+with measurement model,
+
+\begin{equation}
+    h_{\beta} = v_{a,y} = v_y - (R_b^i(\boldsymbol{\theta})^\top\boldsymbol{w})_y
+    = v_y - \big((\sin\phi\sin\theta\cos\psi - \cos\phi\sin\psi)w_n + (\sin\phi\sin\theta\sin\psi + \cos\phi\cos\psi)w_e\big).
+\end{equation}
+
+The observation Jacobian is then,
+
+\begin{equation}
+    C_{\beta} =
+    \begin{bmatrix}
+        \boldsymbol{0}_{1\times3} &
+        0 & 1 & 0 &
+        w_e(\sin\phi\cos\psi - \sin\psi\sin\theta\cos\phi) - w_n(\sin\phi\sin\psi - \cos\psi\sin\theta\cos\phi) &
+        -(w_e\sin\psi + w_n\cos\psi)\cos\theta\sin\phi &
+        -w_e(\sin\phi\sin\theta\cos\psi - \sin\psi\cos\phi) + w_n(\sin\phi\sin\psi\sin\theta - \cos\psi\cos\phi) &
+        \boldsymbol{0}_{1\times3} &
+        -\sin\phi\sin\theta\cos\psi + \sin\psi\cos\phi &
+        -\sin\phi\sin\theta\sin\psi - \cos\psi\cos\phi
+    \end{bmatrix}.
 \end{equation}
 
 ## Parameters

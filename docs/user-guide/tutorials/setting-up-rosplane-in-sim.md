@@ -326,5 +326,5 @@ Once you have ROSplane running autonomously, you can:
 
 - [ROSflight Parameter Reference](../rosflight-firmware/parameter-configuration.md): Detailed firmware parameter descriptions
 - [Hardware Setup Guide](../hardware-and-rosflight/hardware-setup.md): Preparing real hardware for flight
-- [ROSplane Architecture Documentation](../../developer-guide/rosplane/rosplane-dev-overview.md): In-depth system design and implementation details
+- [ROSplane Architecture Documentation](../../user-guide/rosplane/rosplane-user-overview.md): In-depth system design and implementation details
 
