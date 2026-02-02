@@ -14,16 +14,16 @@ They are summarized in the table below:
 
 | ROS Interface | Topic | Explanation | Message Type |
 |:------:|:-------:| :---: | :---: |
-| <div style="white-space: nowrap;">`vehicle_state_pub_`<div> | `/estimated_state` | Publishes the estimated state of the vehicle. | State.msg |
-| <div style="white-space: nowrap;">`gnss_fix_sub_`<div> | `/navsat_compat/fix` | Subcribes to the GNSS position information. | NavSatFix.msg |
-| <div style="white-space: nowrap;">`gnss_vel_sub_`<div> | `/navsat_compat/vel` | Subcribes to the GNSS velocity information. | TwistStamped.msg |
-| <div style="white-space: nowrap;">`imu_sub_`<div> | `/imu/data` | Subcribes to the IMU data (both Gyro and Accel). | Imu.msg |
-| <div style="white-space: nowrap;">`baro_sub_`<div> | `/baro` | Subcribes to the barometer pressure information. | Barometer.msg |
-| <div style="white-space: nowrap;">`airspeed_sub_`<div> | `/airspeed` | Subcribes to the differential pressure information. | Airspeed.msg |
-| <div style="white-space: nowrap;">`status_sub_`<div> | `/status` | Subcribes to the aircraft status information. | Status.msg |
+| <div style="white-space: nowrap;">`vehicle_state_pub_`<div> | `/estimated_state` | Publishes the estimated state of the vehicle. | rosplane_msgs/msg/State |
+| <div style="white-space: nowrap;">`gnss_sub_`<div> | `/gnss` | Subcribes to GNSS position and velocity. | rosflight_msgs/msg/GNSS |
+| <div style="white-space: nowrap;">`imu_sub_`<div> | `/imu/data` | Subcribes to the IMU data (both gyro and accel). | sensor_msgs/msg/Imu |
+| <div style="white-space: nowrap;">`baro_sub_`<div> | `/baro` | Subcribes to the barometer pressure information. | rosflight_msgs/msg/Barometer |
+| <div style="white-space: nowrap;">`airspeed_sub_`<div> | `/airspeed` | Subcribes to the differential pressure information. | rosflight_msgs/msg/Airspeed |
+| <div style="white-space: nowrap;">`status_sub_`<div> | `/status` | Subcribes to the aircraft status information. | rosflight_msgs/msg/Status |
+| <div style="white-space: nowrap;">`magnetometer_sub_`<div> | `/magnetometer` | Subcribes to the magnetometer field vector. | sensor_msgs/msg/MagneticField |
 
 !!! note 
-    The Imu message is from standard ROS message packages. Barometer, Airspeed and Status messages are from `rosflight_msgs`.
+    The IMU and magnetometer messages are from standard ROS message packages. GNSS, barometer, airspeed, and status messages are from `rosflight_msgs`.
 
 ## Parameters
 

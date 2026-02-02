@@ -34,6 +34,12 @@ Depending on how the `path_manager` is set up to manage the waypoints, this may 
 See "Modifying the Path Manager" for more information.
 For more information on the path follower, see the [Path Follwer](./path-follower.md) documentation.
 
+## Default Behaviors
+The path manager commands an orbit centered at the origin with radius `R_min` at `default_altitude` and `default_airspeed` if no valid waypoint has been received.
+If a single waypoint is received, the manager commands an orbit around that waypoint with radius `R_min`. The orbit direction (CW/CCW) is chosen to minimize the turn from the current course.
+When a new set of waypoints is received, the manager uses a temporary waypoint inserted at the current vehicle position to define the initial path to the desired mission.
+This waypoint is removed once real waypoints advance.
+
 ## Path Manager Dubins Fillets
 The `path_manager_dubins_fillets` class inherits from the `path_manager_ros` class.
 Specifically, the `path_manager_dubins_fillets` overrides the `path_manager_ros::manage` method to determine how the path is managed.
@@ -61,11 +67,13 @@ See the [Parameter Management](../parameter-management.md) page for more details
 | :---: | :---: | :---: | :---: |
 | `R_min` | Minimum radius for orbit, fillet, and Dubins paths | double | $\geq$ 0.0 |
 | `orbit_last` | Specifies whether or not to orbit the last waypoint. If false, `param_manager` will fly a circuit | bool | `true` or `false` |
+| `current_path_pub_frequency` | Publish rate for `/current_path` | double | $> 0.0$ |
+| `default_altitude` | Default altitude for fallback orbits | double | $> 0.0$ |
+| `default_airspeed` | Default airspeed for fallback orbits | double | $> 0.0$ |
 
 ### The `orbit_last` Parameter
-The `path_manager` node has a parameter named `orbit_last`.
 This parameter controls what happens as the aircraft is approaching the last waypoint in the set of waypoints published to the `path_manager`.
-If `orbit_last` is set to `true`, then `path_manager` will follow an orbit around the last waypoint.
+If `orbit_last` is set to `true`, then `path_manager` will follow an orbit around the last waypoint instead of cycilig to the first waypoint again.
 
 The direction of this waypoint (clockwise or counterclockwise) will be chosen based on which direction requires the least amount of turning.
 In other words, if the aircraft is angled slightly left as it approaches the waypoint, `path_manager` will choose to orbit the last waypoint counterclockwise (from a top-down perspective).

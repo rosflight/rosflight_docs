@@ -17,7 +17,7 @@ To gain the best understanding of the Controller and its role, read chapter 1 of
 
 ### Input
 
-The controller receives controller commands using the ControllerCommands message on the `\controller_commands` topic from the `path_follower` node. 
+The controller receives controller commands using the ControllerCommands message on the `/controller_command` topic from the `path_follower` node. 
 This set of commands are outlined below, along with a short explanation of each.
 
 | Message Field | Explanation | Units |
@@ -41,24 +41,33 @@ See the Successive Loop Closure Controller Outline for more information on how t
 ### Output
 
 The controller calculates the control surface outputs in percent deflection (based around zero) and throttle.
-It formats and the publishes these outputs in the Command message on the `/command` topic.
-There are a further four auxiliary channels that can be used in the Command message, however they are unused typically.
+It formats and publishes these outputs in the Command message on the `/command` topic.
+The Command message includes force channels `fx`, `fy`, and `fz`; ROSplane uses `fx` for throttle by default.
 A summary of the parts of the command message are as follows.
 
 | Message Field | Explanation | Units |
 |:------:|:-------:| :---: |
 | header | This contains time stamp information. | Time in Seconds and Nanoseconds (int) |
-| mode | The control mode (used in multi-rotors) | None (int) |
+| mode | The control mode (used in multi-rotors) | 0 (int) |
 | ignore | A bitmask to ignore particular values. | None (int) |
-| x | Aileron Command | Percent deflection in direction [-1.0, 1.0] (float) |
-| y | Elevator Command | Percent deflection in direction [-1.0, 1.0] (float) |
-| z | Rudder Command | Percent deflection in direction [-1.0, 1.0] (float) |
-| f | Throttle Command | Percent of full throttle [0.0, 1.0] (float) |
+| u[0] | Throttle Command | Percent of full throttle [0.0, 1.0] (float) |
+| u[3] | Aileron Command | Percent deflection in direction [-1.0, 1.0] (float) |
+| u[4] | Elevator Command | Percent deflection in direction [-1.0, 1.0] (float) |
+| u[5]   | Rudder Command | Percent deflection in direction [-1.0, 1.0] (float) |
 
 These are passed to `rosflight_io`, which formats them into MAVLink messages and forwards them onto the FCU.
 !!! note 
     For this to work the parameters on the `rosflight_firmware` must be set to work for an airplane.
     See the User Guide on first time start up or README.md for the repository for more details on firmware setup.
+
+## Parameters
+
+| **Parameter** | **Explanation** | **Type** | **Range** |
+| :---: | :---: | :---: | :---: |
+| `controller_output_frequency` | Publish rate for `/command` | double | $> 0.0$ |
+| `pwm_rad_a` | Aileron scaling from radians to PWM command | double | $> 0.0$ |
+| `pwm_rad_e` | Elevator scaling from radians to PWM command | double | $> 0.0$ |
+| `pwm_rad_r` | Rudder scaling from radians to PWM command | double | $> 0.0$ |
 
 ## Running the Controller
 

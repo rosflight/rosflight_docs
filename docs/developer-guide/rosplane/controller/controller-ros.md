@@ -20,10 +20,10 @@ Each of the callbacks for the subscribers are also contained in `controller_ros`
 
 | ROS Interface | Topic | Explanation | Message Type |
 |:------:|:-------:| :---: | :---: |
-| <div style="white-space: nowrap;">`actuators_pub_`<div> | `/command` | Publishes the acutator commands for the aircraft. The publishing rate is controller by the `timer_` object. | Command.msg |
-| <div style="white-space: nowrap;">`internals_pub_`<div> | `/controller_inners_debug` | Publishes the intermediate values created by the outer control loops. Published simultaneously as the commands when there is at least one subscriber to the topic. | ControllerInnersDebug.msg |
-| <div style="white-space: nowrap;">`controller_commands_sub_`<div> | `/controller_commands` | Subscribes to the commands for the controller. | ControllerCommands.msg |
-| <div style="white-space: nowrap;">`vehicle_state_sub_`<div> | `/estimated_state` | Subscribes to the estimated state of the aircraft. | State.msg |
+| <div style="white-space: nowrap;">`actuators_pub_`<div> | `/command` | Publishes the actuator commands for the aircraft. The publishing rate is controlled by the `timer_` object. | rosflight_msgs/msg/Command |
+| <div style="white-space: nowrap;">`internals_pub_`<div> | `/controller_internals` | Publishes the intermediate values created by the outer control loops. Published simultaneously as the commands when there is at least one subscriber to the topic. | rosplane_msgs/msg/ControllerInternals |
+| <div style="white-space: nowrap;">`controller_commands_sub_`<div> | `/controller_command` | Subscribes to the commands for the controller. | rosplane_msgs/msg/ControllerCommands |
+| <div style="white-space: nowrap;">`vehicle_state_sub_`<div> | `/estimated_state` | Subscribes to the estimated state of the aircraft. | rosplane_msgs/msg/State |
 
 !!! note 
     The command message is from the `rosflight_msgs` package not the `rosplane_msgs` package.
@@ -39,7 +39,7 @@ See the [Parameter Management](../parameter-management.md) page for more details
 | pwm_rad_e | Radian to PWM conversion for the elevator. | $\geq 1.0$ (double) |
 | pwm_rad_a | Radian to PWM conversion for the ailerons. | $\geq 1.0$ (double) |
 | pwm_rad_r | Radian to PWM conversion for the rudder. | $\geq 1.0$ (double) |
-| frequency | Frequency of the timer, effective control loop closure frequency. | $\geq 100$ (hertz, int) |
+| controller_output_frequency | Frequency of the timer, effective control loop closure frequency. | $> 0.0$ (hertz, double) |
 
 ## Modifying Controller ROS
 
@@ -49,4 +49,3 @@ All ROS related items should also be stored here.
 For example, if you needed to use another topic subscription, the new subscriber should be created and stored in `controller_ros`.
 
 As shown in the [Controller Software Architecture](./controller-software-architecture.md) page, you may need to modify the `main` function in `controller_ros.cpp` to use a newly implemented controller.
-

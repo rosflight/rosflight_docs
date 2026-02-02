@@ -34,6 +34,12 @@ The table with the topic for each of the measures is below.
 
 These topics provide the measures that are fused to create a state estimate.
 
+## Out-of-Box Behavior Notes
+- The estimator does not begin updating until the vehicle is armed (the `status` message is used to check for armed state).
+- Barometer calibration is performed on first arm using `baro_calibration_count` samples, and will reattempt if the sample set looks inconsistent.
+- If `hotstart_estimator` is enabled, initial conditions are loaded from the `rosplane/params/hotstart` file.
+- The estimator logs warnings if expected sensor topics are silent longer than their configured thresholds.
+
 ## Output
 
 Below is a table of the `/estimated_state` message and what each of the fields represents.
