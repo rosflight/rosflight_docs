@@ -100,7 +100,7 @@ Because ROSflight ships with default parameters for multirotors, you will probab
 |-----------|-------------|------|---------------|
 | ARM_SPIN_MOTORS | Enforce MOTOR_IDLE_PWM | int |  false |
 | MOTOR_IDLE_THR | min throttle command sent to motors when armed (Set above 0.1 to spin when armed) | float |  0.1 |
-| ARM_CHN | RC switch channel mapped to arming [0 indexed, -1 to disable] | int |  4 |
+| RC_ARM_CHN | RC switch channel mapped to arming [0 indexed, -1 to disable] | int |  4 |
 | FIXED_WING | switches on passthrough commands for fixed-wing operation | int |  true |
 | PRIMARY_MIXER | Which primary mixer to choose - See [Mixer documentation](../rosflight-firmware/mixer.md) | int | 9 or 10  |
 | USE_MOTOR_PARAM | Flag to use motor parameters in the mixer | int | 0 |
@@ -191,7 +191,7 @@ This is a list of all ROSflight parameters, including their types, default value
 | RC_ATT_OVRD_CHN | RC switch mapped to attitude override [0 indexed, -1 to disable] | int |  4 | 4 | 7 |
 | RC_THR_OVRD_CHN | RC switch channel mapped to throttle override [0 indexed, -1 to disable] | int |  4 | 4 | 7 |
 | RC_ATT_CTRL_CHN | RC switch channel mapped to attitude control type [0 indexed, -1 to disable] | int | -1 | 4 | 7 |
-| ARM_CHN | RC switch channel mapped to arming (only if PARAM_ARM_STICKS is false) [0 indexed, -1 to disable] | int | -1 | 4 | 7 |
+| RC_ARM_CHN | RC switch channel mapped to arming (only if PARAM_ARM_STICKS is false) [0 indexed, -1 to disable] | int | -1 | 4 | 7 |
 | RC_NUM_CHN | number of RC input channels | int |  6 | 1 | 8 |
 | SWITCH_5_DIR | RC switch 5 toggle direction | int |  1 | -1 | 1 |
 | SWITCH_6_DIR | RC switch 6 toggle direction | int |  1 | -1 | 1 |
