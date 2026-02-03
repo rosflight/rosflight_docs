@@ -1,8 +1,5 @@
 # Estimator Continuous-Discrete
 
-<!-- TODO: rename this to continuous discrete once full state is integrated. -->
-<!-- TODO: Remove the cites and replace with something more appropriate -->
-
 ## Overview
 
 The `EstimatorContinuousDiscrete` class implements a continuous-discrete Kalman filter as described in section 8.5 of the [UAV book](https://github.com/randybeard/mavsim_public) or 8.6 and 8.7 of volume one of the same book.
@@ -21,7 +18,7 @@ The state vector $\boldsymbol{x}$ is,
 The position of the body frame, $\boldsymbol{p}$.
 The velocity of the body frame, $\boldsymbol{v}$, is expressed in the body frame in meters per second.
 The attitude of the body frame, $\boldsymbol{\theta}$, relative to the inertial frame in radians using the Euler angles roll, pitch and yaw, $\phi,\,\theta,\,\psi$ respectively.
-These use the ZYX convention of application as in \cite{uavbook}.
+These use the ZYX convention of application as in the UAV book.
 Finally, $\boldsymbol{b}_{gyro}$ is the bias in the gyroscope measurements expressed in the body frame in radians per second.
 The wind state, $\boldsymbol{w}$, contains the inertial north and east components of wind (the vertical component is assumed zero).
 
@@ -39,7 +36,7 @@ The covariance of the state estimate is given as,
 \end{equation}
 
 ### State Propagation
-The state estimator for ROScopter is a continuous-discrete formulation as in \cite{uavbook}, meaning that the derivation and analysis utilizes the continuous time equations that are then developed into discrete time equations for use in the estimator.
+The state estimator for ROScopter is a continuous-discrete formulation as in the UAV book, meaning that the derivation and analysis utilizes the continuous time equations that are then developed into discrete time equations for use in the estimator.
 This has the advantage of having a direct connection to the familiar dynamical equations and a clear relationship to the discrete time formulation that follows.
 
 The dynamics of the aircraft state are modeled as a function of the state and the input to the system $\boldsymbol{u} = \begin{bmatrix} \boldsymbol{a} & \omega \end{bmatrix}$.
@@ -91,7 +88,7 @@ The state propagation step updates the following $N$ times,
 and the most updated $\hat{\boldsymbol{x}}$ gets used in the calculation of $f$ and $A_d$.
 The process noise is denoted as $Q$, the uncertainty on the inputs is given as $Q_u$ and the Jacobian of $f$ with respect to the inputs is given as $G$.
 
-\subsubsection{Measurement Updates}
+### Measurement Updates
 
 Similarly to other EKFs, the general measurement update equation used in the ROScopter EKF is factored into Joseph's stabilized form to ensure that the covariance remains positive definite.
 It is calculated as,
@@ -101,6 +98,7 @@ It is calculated as,
     K &= P^-C^\top S^{-1} \\
     P^+ &= (I - KC)P(I-KC)^\top + LRL^\top, 
 \end{align}
+
 where $S$ denotes the uncertainty on the innovation, $K$ is the Kalman gain and $C$ is the Jacobian of the measurement model with respect to the state.
 
 In general, the covariance $S$ of the innovation $s = z-h$ may have more terms, if $z$ is a function of the states and the measurement.
@@ -113,9 +111,12 @@ where $F$ is the Jacobian of $z$ with respect to the measurement, $G$ is the Jac
 As will be seen later, this is useful when the measurement model would otherwise be complex.
 
 Beyond the IMU, the estimator utilizes the following sensors,
+
 - barometer,
 - magnetometer,
-- and GNSS.
+- GNSS,
+- differential pressure,
+- and sideslip pseudo measurement.
 
 Each measurement model, $h$, and observation Jacobian, $C$, for each sensor are given below.
 
@@ -184,7 +185,7 @@ These are collated into one update where,
         p_{e,gnss} \\
         v_{n,gnss} \\
         v_{e,gnss} \\
-        v_{d,gnss} \\
+        v_{d,gnss}
     \end{bmatrix}
 \end{equation}
 
@@ -211,7 +212,7 @@ This yields the obersvation Jacobian,
 \begin{equation}
     C_{\text{gnss}} = \begin{bmatrix}
         \boldsymbol{I}_{2\times2} & \boldsymbol{0}_{2\times1} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times3} & \boldsymbol{0}_{2\times2}  \\
-        \boldsymbol{0}_{3\times3} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta})\boldsymbol{v}}{\partial\boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times2} \\
+        \boldsymbol{0}_{3\times2} & \boldsymbol{0}_{3\times1} & R_b^i(\boldsymbol{\theta}) & \frac{\partial R_b^i(\boldsymbol{\theta})\boldsymbol{v}}{\partial\boldsymbol{\theta}} & \boldsymbol{0}_{3\times3} & \boldsymbol{0}_{3\times2} \\
     \end{bmatrix}
 \end{equation}
 

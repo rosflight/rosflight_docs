@@ -46,7 +46,7 @@ They are summarized in the table below:
 
 ## Modifying the Estimator
 
-The ROS class can be preempted in two basic was,
+The ROS class can be overridden in two basic ways,
 
 1. Complete removal,
 2. Inheritance from `EstimatorROS`,

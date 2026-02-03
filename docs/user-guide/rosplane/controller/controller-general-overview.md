@@ -42,7 +42,8 @@ See the Successive Loop Closure Controller Outline for more information on how t
 
 The controller calculates the control surface outputs in percent deflection (based around zero) and throttle.
 It formats and publishes these outputs in the Command message on the `/command` topic.
-The Command message includes force channels `fx`, `fy`, and `fz`; ROSplane uses `fx` for throttle by default.
+The Command message includes a vector of inputs `u`.
+ROSplane uses `u[0]` for throttle by default.
 A summary of the parts of the command message are as follows.
 
 | Message Field | Explanation | Units |
@@ -56,18 +57,10 @@ A summary of the parts of the command message are as follows.
 | u[5]   | Rudder Command | Percent deflection in direction [-1.0, 1.0] (float) |
 
 These are passed to `rosflight_io`, which formats them into MAVLink messages and forwards them onto the FCU.
+
 !!! note 
     For this to work the parameters on the `rosflight_firmware` must be set to work for an airplane.
-    See the User Guide on first time start up or README.md for the repository for more details on firmware setup.
-
-## Parameters
-
-| **Parameter** | **Explanation** | **Type** | **Range** |
-| :---: | :---: | :---: | :---: |
-| `controller_output_frequency` | Publish rate for `/command` | double | $> 0.0$ |
-| `pwm_rad_a` | Aileron scaling from radians to PWM command | double | $> 0.0$ |
-| `pwm_rad_e` | Elevator scaling from radians to PWM command | double | $> 0.0$ |
-| `pwm_rad_r` | Rudder scaling from radians to PWM command | double | $> 0.0$ |
+    See [Parameter Congfiguration](../../rosflight-firmware/parameter-configuration.md) for more details on firmware setup for fixed wings.
 
 ## Running the Controller
 

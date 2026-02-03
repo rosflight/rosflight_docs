@@ -73,7 +73,7 @@ See the [Parameter Management](../parameter-management.md) page for more details
 
 ### The `orbit_last` Parameter
 This parameter controls what happens as the aircraft is approaching the last waypoint in the set of waypoints published to the `path_manager`.
-If `orbit_last` is set to `true`, then `path_manager` will follow an orbit around the last waypoint instead of cycilig to the first waypoint again.
+If `orbit_last` is set to `true`, then `path_manager` will follow an orbit around the last waypoint instead of cycling to the first waypoint again.
 
 The direction of this waypoint (clockwise or counterclockwise) will be chosen based on which direction requires the least amount of turning.
 In other words, if the aircraft is angled slightly left as it approaches the waypoint, `path_manager` will choose to orbit the last waypoint counterclockwise (from a top-down perspective).
