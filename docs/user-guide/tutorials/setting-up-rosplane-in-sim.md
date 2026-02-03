@@ -19,7 +19,7 @@ ROSplane is a ROS2-based autopilot system designed for fixed-wing vehicles.
 
 ### Major System Components
 
-- **Estimator**: EKF for state estimation from IMU, GPS, and barometer data
+- **Estimator**: EKF for state estimation from IMU, GPS, differential pressure, magnetometer and barometer data
 - **Controller**: Multiple control algorithms (successive loop control, total energy control)
 - **Path Follower**: Tracks commanded paths and generates control setpoints
 - **Path Manager**: Converts waypoints into smooth flyable paths using fillets or Dubins curves
@@ -326,5 +326,5 @@ Once you have ROSplane running autonomously, you can:
 
 - [ROSflight Parameter Reference](../rosflight-firmware/parameter-configuration.md): Detailed firmware parameter descriptions
 - [Hardware Setup Guide](../hardware-and-rosflight/hardware-setup.md): Preparing real hardware for flight
-- [ROSplane Architecture Documentation](../../developer-guide/rosplane/rosplane-dev-overview.md): In-depth system design and implementation details
+- [ROSplane Architecture Documentation](../../user-guide/rosplane/rosplane-user-overview.md): In-depth system design and implementation details
 

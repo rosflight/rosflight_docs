@@ -1,4 +1,3 @@
 # ROScopter Estimator
 
-!!! warning
-    This  section is still under development. Please check back soon!
+The ROScopter estimator is the same as the ROSplane estimator with a few exceptions. See [ROSplane Estimator](../rosplane/estimator/estimator-continuous-discrete.md) for more details.
