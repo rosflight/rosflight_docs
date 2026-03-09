@@ -1,0 +1,3355 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lean, open-source autopilot system built by researchers, for researchers">
+      
+      
+        <meta name="author" content="James Jackson, Daniel Koch, Ian Reid, Brandon Sutherland, Jacob Moore">
+      
+      
+        <link rel="canonical" href="http://rosflight.org/v2.0/user-guide/rosflight-io/">
+      
+      
+        <link rel="prev" href="../tutorials/user-manual-appendix/">
+      
+      
+        <link rel="next" href="../rosflight-firmware/code-architecture/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>ROSflightIO - ROSflight</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rosflight-io" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest stable version.
+<a href="../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ROSflight" class="md-header__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ROSflight
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ROSflightIO
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../developer-guide/contribution-guidelines/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../publications/rosplane/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Publications
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ROSflight" class="md-nav__button md-logo" aria-label="ROSflight" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    ROSflight
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/installation-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation for Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/installation-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation on Hardware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/using-docker-with-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using Docker with ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../tutorials/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/setting-up-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setting up ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/manually-flying-rosflight-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manually flying ROSflight Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/setting-up-roscopter-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROScopter in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/setting-up-rosplane-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running ROSplane in Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tuning-performance-in-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tuning performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_7">
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_7" id="__nav_2_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transitioning from Sim to Hardware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Transitioning from Sim to Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/transitioning-from-sim-to-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/user-manual-xflr5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xflr5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/user-manual-openvsp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OpenVSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/user-manual-ROSflight-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/user-manual-appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    ROSflightIO
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflightIO
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-rosflight_io" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running rosflight_io
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serial-communication-between-the-fcu-and-the-companion-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serial communication between the FCU and the companion computer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-rosflight_ioimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using rosflight_io/implementation details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using rosflight_io/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service servers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters and configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters and configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convenience-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convenience parameters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5">
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Firmware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight Firmware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-firmware/code-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-firmware/parameter-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-firmware/mixer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mixer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-firmware/autonomous-flight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Autonomous Flight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../rosplane/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosplane/rosplane-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../roscopter/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ROScopter
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            ROScopter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter/roscopter-path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Path Planner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter/roscopter-path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Path Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter/roscopter-trajectory-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Trajectory Follower
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter/roscopter-controller/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Controller
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roscopter/roscopter-estimator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROScopter Estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../rosflight-sim/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ROSflight Sim
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight Sim
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-sim/simulator-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulator Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-sim/standalone-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Standalone Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-sim/gazebo-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gazebo Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rosflight-sim/holoocean-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HoloOcean Sim
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9">
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSflight in Hardware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            ROSflight in Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-and-rosflight/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-and-rosflight/hardware-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hardware Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-and-rosflight/flight-controller-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flight Controller Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-and-rosflight/rc-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RC Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-and-rosflight/preflight-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-Flight Checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-and-rosflight/improving-firmware-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Improving Firmware Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customizing-rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/contribution-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Style Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Firmware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/firmware/unit-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Unit Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/firmware/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            ROSplane
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/rosplane-dev-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Controller
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Controller
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/controller/controller-general-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General Controller Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/controller/controller-software-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Software Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/controller/controller-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/controller/controller-state-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Controller State Machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/controller/controller-outline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Successive Loop Closure Controller Outline
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/controller/controller-total-energy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Total Energy Controller
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Estimator
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Estimator
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/estimator/estimator-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/estimator/estimator-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/estimator/estimator-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estimator Example
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/parameter-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/navigation/navigation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/navigation/path-planner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Planner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/navigation/path-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer-guide/rosplane/navigation/path-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Path Follower
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Publications
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Publications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publications/rosplane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSplane
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publications/rosflight/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ROSflight
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#responsibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-rosflight_io" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running rosflight_io
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serial-communication-between-the-fcu-and-the-companion-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serial communication between the FCU and the companion computer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-rosflight_ioimplementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using rosflight_io/implementation details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using rosflight_io/implementation details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service servers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters and configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters and configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convenience-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convenience parameters
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/rosflight/rosflight_docs/edit/main/docs/user-guide/rosflight-io.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="rosflight-io">ROSflight IO<a class="headerlink" href="#rosflight-io" title="Permanent link">¶</a></h1>
+<p>As seen in the diagram below, the <code>rosflight_io</code> node is one of the major components in the ROSflight ecosystem.
+This document describes the responsibilities of the <code>rosflight_io</code> node and how users should expect to interact with the node.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/components.svg" data-desc-position="bottom"><img alt="System Components" src="../images/components.svg"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Diagram of the major system components in ROSflight</em></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>rosflight_io</code> node is a ROS 2 node that runs on the companion computer.
+Code for this node is located in the <a href="https://github.com/rosflight/rosflight_ros_pkgs.git"><code>rosflight_ros_pkgs</code></a> repository on GitHub.
+This code can be installed and run following the <a href="../installation/installation-sim/">installation</a> and <a href="../tutorials/manually-flying-rosflight-sim/">tutorial</a> guides.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>rosflight_io</code> node is technically needed only if communication between the companion computer and the FCU is needed.
+In nearly all cases, however, communication is needed.</p>
+<p>The <code>rosflight_io</code> node provides telemetry and status updates, even when only flying manually (no companion computer control).</p>
+</div>
+<h2 id="responsibility">Responsibility<a class="headerlink" href="#responsibility" title="Permanent link">¶</a></h2>
+<p>The responsibility of the <code>rosflight_io</code> node is to handle communication between the companion computer and the flight control unit (FCU), which runs the ROSflight firmware.
+This includes</p>
+<ul>
+<li>Sensor information (FCU → companion computer)</li>
+<li>Status and log messages (FCU → companion computer)</li>
+<li>Actuator or controller commands (companion computer → FCU)</li>
+</ul>
+<h2 id="running-rosflight_io">Running <code>rosflight_io</code><a class="headerlink" href="#running-rosflight_io" title="Permanent link">¶</a></h2>
+<p>The <code>rosflight_io</code> node is one of the few nodes in the ROSflight ecosystem that "knows" if it is simulation or hardware.
+It needs to know this because it manages the serial connection between the FCU and the companion computer.</p>
+<p>To run <code>rosflight_io</code> when physically connected via serial to the FCU, run
+</p><div class="highlight"><pre><span></span><code><span class="c1"># Replace /dev/ttyACM0 with the location of the serial device on your machine</span>
+ros2<span class="w"> </span>run<span class="w"> </span>rosflight_io<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>port:<span class="o">=</span>/dev/ttyACM0
+</code></pre></div><p></p>
+<p>When running in simulation, the <code>rosflight_io</code> bounces the communication against a UDP connection, thus simulating the serial connection between the FCU and companion computer.
+Thus, to run <code>rosflight_io</code> in simulation run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>run<span class="w"> </span>rosflight_io<span class="w"> </span>rosflight_io<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>udp:<span class="o">=</span><span class="nb">true</span>
+</code></pre></div><p></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both the UDP and the serial connection parameters can be configured as described in the <a href="#parameters-and-configuration">Parameters and Configuration</a> section below.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>rosflight_io</code> node prints all the logging messages it receives to the terminal where it was launched.
+It can be very useful to keep an eye on these messages---this is often the first indication of when something goes wrong.</p>
+</div>
+<p>When <code>rosflight_io</code> is launched, it</p>
+<ol>
+<li>Initializes connection with the FCU (simulated or not)</li>
+<li>Requests all parameters from the FCU</li>
+<li>Requests the ROSflight version number from the FCU</li>
+<li>Starts sending heartbeat messages to the FCU</li>
+</ol>
+<p>On a successful connection in simulation, <code>rosflight_io</code> should output something like
+</p><div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.320478247<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Connecting<span class="w"> </span>over<span class="w"> </span>UDP<span class="w"> </span>to<span class="w"> </span><span class="s2">"localhost:14525"</span>,<span class="w"> </span>from<span class="w"> </span><span class="s2">"localhost:14520"</span>
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.340941543<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>RC<span class="w"> </span>override<span class="w"> </span>active
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.341085537<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Autopilot<span class="w"> </span>now<span class="w"> </span><span class="k">in</span><span class="w"> </span>ANGLE<span class="w"> </span>mode
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.346737624<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>ROSflight<span class="w"> </span>version<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>match<span class="w"> </span>firmware<span class="w"> </span>version.<span class="w"> </span>Errors<span class="w"> </span>or<span class="w"> </span>missing<span class="w"> </span>features<span class="w"> </span>may<span class="w"> </span>result
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.346814941<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>ROSflight<span class="w"> </span>version:<span class="w"> </span><span class="m">2</span>.0
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.346847340<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Firmware<span class="w"> </span>version:<span class="w"> </span>undefined
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.441092908<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Got<span class="w"> </span>HEARTBEAT,<span class="w"> </span>connected.
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001828</span>.443783649<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Detected<span class="w"> </span><span class="nb">time</span><span class="w"> </span>offset<span class="w"> </span>of<span class="w"> </span><span class="m">1766001772</span>.428<span class="w"> </span>s.
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.353758804<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>Loading<span class="w"> </span>saved<span class="w"> </span>custom<span class="w"> </span>values<span class="w"> </span>to<span class="w"> </span>primary<span class="w"> </span>mixer...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.356130174<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>Invalid<span class="w"> </span>mixer<span class="w"> </span>selected<span class="w"> </span><span class="k">for</span><span class="w"> </span>secondary<span class="w"> </span>mixer!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.356228048<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>Secondary<span class="w"> </span>mixer<span class="w"> </span>defaulting<span class="w"> </span>to<span class="w"> </span>primary!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.358746094<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>ARM<span class="w"> </span>switch<span class="w"> </span>mapped<span class="w"> </span>to<span class="w"> </span>RC<span class="w"> </span>channel<span class="w"> </span><span class="m">4</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.358793040<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>ATTITUDE<span class="w"> </span>OVERRIDE<span class="w"> </span>switch<span class="w"> </span>mapped<span class="w"> </span>to<span class="w"> </span>RC<span class="w"> </span>channel<span class="w"> </span><span class="m">5</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.361003054<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>THROTTLE<span class="w"> </span>OVERRIDE<span class="w"> </span>switch<span class="w"> </span>mapped<span class="w"> </span>to<span class="w"> </span>RC<span class="w"> </span>channel<span class="w"> </span><span class="m">5</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001829</span>.361065877<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>ATTITUDE<span class="w"> </span>TYPE<span class="w"> </span>switch<span class="w"> </span>mapped<span class="w"> </span>to<span class="w"> </span>RC<span class="w"> </span>channel<span class="w"> </span><span class="m">6</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001831</span>.321671676<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Received<span class="w"> </span>all<span class="w"> </span>parameters
+</code></pre></div><p></p>
+<p>Most of these messages are status or logging messages sent from the FCU to <code>rosflight_io</code> for various startup checks inside the firmware.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The key message in the above output is the line
+</p><div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766001831</span>.321671676<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Received<span class="w"> </span>all<span class="w"> </span>parameters
+</code></pre></div>
+This typically means that <code>rosflight_io</code> and the FCU booted up and are communicating correctly.<p></p>
+</div>
+<h2 id="serial-communication-between-the-fcu-and-the-companion-computer">Serial communication between the FCU and the companion computer<a class="headerlink" href="#serial-communication-between-the-fcu-and-the-companion-computer" title="Permanent link">¶</a></h2>
+<p>The FCU and <code>rosflight_io</code> need to be able to communicate over the serial connection.
+This serial communication is currently implemented using <a href="https://mavlink.io/en/">MAVlink</a>.
+Thus, one of the core responsibilities of the <code>rosflight_io</code> node is to convert ROS 2 messages to MAVlink messages and vice versa.</p>
+<p>Note that other serial communication protocols could be implemented, or even a system such as <a href="https://micro.ros.org/">microROS</a> could be used.</p>
+<h2 id="using-rosflight_ioimplementation-details">Using <code>rosflight_io</code>/implementation details<a class="headerlink" href="#using-rosflight_ioimplementation-details" title="Permanent link">¶</a></h2>
+<p>Users interact with the <code>rosflight_io</code> node using ROS 2 interfaces, namely publishers, subscribers, and services.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Subscriber name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>aux_command</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/AuxCommand</code></td>
+<td style="text-align: left;">Auxiliary commands to send to the FCU (aux commands are not routed through the firmware's mixer)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>command</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Command</code></td>
+<td style="text-align: left;">Command setpoints from the companion computer to send to the FCU (command setpoints are routed through the firmware's mixer)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>external_attitude</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Attitude</code></td>
+<td style="text-align: left;">Attitude estimates derived from some onboard estimator that are used to supplement the FCU's complementary filter</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Publisher name</th>
+<th style="text-align: left;">Message type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>airspeed</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Airspeed</code></td>
+<td style="text-align: left;">Airspeed sensor data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>attitude</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Attitude</code></td>
+<td style="text-align: left;">FCU complementary filter attitude estimate</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>attitude/euler</code></td>
+<td style="text-align: left;"><code>geometry_msgs/Vector3Stamped</code></td>
+<td style="text-align: left;">FCU complementary filter attitude estimate (using Euler angles)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>baro</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Barometer</code></td>
+<td style="text-align: left;">Barometer sensor data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>battery</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/BatteryStatus</code></td>
+<td style="text-align: left;">Battery sensor data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gnss</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/GNSS</code></td>
+<td style="text-align: left;">GNSS sensor data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>imu/data</code></td>
+<td style="text-align: left;"><code>sensor_msgs/Imu</code></td>
+<td style="text-align: left;">IMU sensor data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>imu/temperature</code></td>
+<td style="text-align: left;"><code>sensor_msgs/Temperature</code></td>
+<td style="text-align: left;">IMU temperature data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>magnetometer</code></td>
+<td style="text-align: left;"><code>sensor_msgs/MagneticField</code></td>
+<td style="text-align: left;">Magnetometer data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>output_raw</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/OutputRaw</code></td>
+<td style="text-align: left;">Raw FCU PWM output</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rc_raw</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/RCRaw</code></td>
+<td style="text-align: left;">Raw RC input received by the FCU</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sonar</code></td>
+<td style="text-align: left;"><code>sensor_msgs/Range</code></td>
+<td style="text-align: left;">Range sensor data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Status</code></td>
+<td style="text-align: left;">FCU status messages</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status/params_changed</code></td>
+<td style="text-align: left;"><code>std_msgs/Bool</code></td>
+<td style="text-align: left;">Flag indicating that the FCU's parameters have changed</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status/rosflight_errors</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/Error</code></td>
+<td style="text-align: left;">Bitfield indicating the FCU's error status</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status/unsaved_params</code></td>
+<td style="text-align: left;"><code>std_msgs/Bool</code></td>
+<td style="text-align: left;">Flag indicating if the FCU has unsaved parameters</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>version</code></td>
+<td style="text-align: left;"><code>std_msgs/String</code></td>
+<td style="text-align: left;">FCU's firmware version number</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>rosflight_io</code> node creates sensor publishers when the sensor message is first received from the firmware.
+If you don't see a particular sensor publisher, it means that the firmware is not correctly sending that sensor information over the serial connection.</p>
+</div>
+<h3 id="service-servers">Service servers<a class="headerlink" href="#service-servers" title="Permanent link">¶</a></h3>
+<p>The main way to interact with the FCU (running the ROSflight firmware) is through the service servers advertised by <code>rosflight_io</code>.</p>
+<p>The <code>rosflight_io</code> node offers the following service servers:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Service name</th>
+<th style="text-align: left;">Interface type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>all_params_received</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Returns true if all parameters have been received by <code>rosflight_io</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>calibrate_airspeed</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to calibrate the airspeed sensor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>calibrate_baro</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to calibrate the barometer</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>calibrate_imu</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to calibrate the IMU</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>calibrate_mag</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to calibrate the magnetometer</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>calibrate_rc_trim</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to calibrate the RC trim values</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>param_get</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/ParamGet</code></td>
+<td style="text-align: left;">Gets a parameter from the firmware</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>param_load_from_file</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/ParamFile</code></td>
+<td style="text-align: left;">Sequentially loads each parameter in a parameter file to the firmware</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>param_save_to_file</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/ParamFile</code></td>
+<td style="text-align: left;">Saves the current firmware parameters to a file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>param_set</code></td>
+<td style="text-align: left;"><code>rosflight_msgs/ParamSet</code></td>
+<td style="text-align: left;">Sets an individual parameter in the firmware</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>param_write</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to write all parameters to memory</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>reboot</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to reboot</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>reboot_to_bootloader</code></td>
+<td style="text-align: left;"><code>std_srvs/Trigger</code></td>
+<td style="text-align: left;">Instructs the firmware to reboot to bootloader</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>Example - Calibrating the IMU</summary>
+<p>To calibrate the IMU, run
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/calibrate_imu<span class="w"> </span>std_srvs/srv/Trigger
+</code></pre></div><p></p>
+<p>And after a bit you should see output like
+</p><div class="highlight"><pre><span></span><code><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090247047<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>GYRO_X_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090315867<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>There<span class="w"> </span>are<span class="w"> </span>unsaved<span class="w"> </span>changes<span class="w"> </span>to<span class="w"> </span>onboard<span class="w"> </span>parameters
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090336231<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>GYRO_Y_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090360339<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>GYRO_Z_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090381384<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_X_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090402445<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_Y_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004526</span>.090431170<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_Z_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.592684699<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_X_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span>-0.0493735
+<span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.592814409<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>There<span class="w"> </span>are<span class="w"> </span>unsaved<span class="w"> </span>changes<span class="w"> </span>to<span class="w"> </span>onboard<span class="w"> </span>parameters
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.592847257<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_Y_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>.214831
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.592960904<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>ACC_Z_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>.0190079
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.592987462<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span><span class="o">[</span>Autopilot<span class="o">]</span>:<span class="w"> </span>IMU<span class="w"> </span>offsets<span class="w"> </span>captured
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.593018820<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>GYRO_X_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span>-0.181556
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.593048466<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>GYRO_Y_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span>-0.142443
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1766004528</span>.593073161<span class="o">]</span><span class="w"> </span><span class="o">[</span>rosflight_io<span class="o">]</span>:<span class="w"> </span>Parameter<span class="w"> </span>GYRO_Z_BIAS<span class="w"> </span>has<span class="w"> </span>new<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>.218234
+</code></pre></div><p></p>
+</details>
+<h2 id="parameters-and-configuration">Parameters and configuration<a class="headerlink" href="#parameters-and-configuration" title="Permanent link">¶</a></h2>
+<p>The <code>rosflight_io</code> node has the following parameters associated with it</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter name</th>
+<th style="text-align: left;">Parameter type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>udp</code></td>
+<td style="text-align: left;"><code>bool</code></td>
+<td style="text-align: left;">Whether or not to use a UDP connection instead of the serial device</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bind_host</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">IP address of the host computer (the one running <code>rosflight_io</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bind_port</code></td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">Port on the host computer (the one running <code>rosflight_io</code>) to use</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>remote_host</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">IP address of the remote computer (the one running the simulated board)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>remote_port</code></td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">Port on the remote computer (the one running the simulated board) to use</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>port</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">Location of the serial device (e.g. <code>/dev/ttyACM0</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>baud_rate</code></td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">Baud rate for the serial connection</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>frame_id</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">Frame ID for sensor messages (like IMU/magnetometer, etc.)</td>
+</tr>
+</tbody>
+</table>
+<p>Note that if <code>udp=true</code>, then <code>rosflight_io</code> will default to a UDP connection and will not connect to a serial device located at the value of the <code>port</code> parameter.</p>
+<h3 id="convenience-parameters">Convenience parameters<a class="headerlink" href="#convenience-parameters" title="Permanent link">¶</a></h3>
+<p>Changing the FCU's parameters via the <code>param_get</code> and <code>param_set</code> service calls is slow, and can be annoying if you are trying to tune firmware parameters rapidly.
+To help with this, <code>rosflight_io</code> exposes some parameters to the ROS 2 parameter system and manages setting and syncing the values of those parameters with the firmware's values.</p>
+<p>By default, only the firmware controller's PID gains are exposed, but others could be exposed as well.
+See the <a href="https://github.com/rosflight/rosflight_ros_pkgs"><code>rosflight_io</code> code</a> for details.</p>
+<p>These parameters can be set using the ROS 2 parameter tools via the command line using 
+</p><div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/rosflight_io<span class="w"> </span>&lt;PARAM_NAME&gt;
+</code></pre></div>
+or by using RQT's dynamics reconfigure plugin with
+<div class="highlight"><pre><span></span><code>rqt<span class="w"> </span>--standalone<span class="w"> </span>rqt_reconfigure
+</code></pre></div><p></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2019-2025, BYU MAGICC Lab
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.indexes"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
