@@ -1,4 +1,4 @@
-# ROSplane Developer Guide Overview
+# ROSplane User Guide Overview
 
 The purpose of the this section is to provide detailed information on each of the components of ROSplane, as shown in the below figure.
 It is written with the intent that a user might know how to change each component of ROSplane, not only how to use it.

@@ -16,9 +16,9 @@ Specifically, a `param_manager` object handles the declaration and updates of pa
 Since a base class publicly owns the `param_manager`, derived classes will have access to any parent class's parameters, if needed.
 This also allows derived classes to define parameters close to where they will be used in the derived class, helping with readability.
 
-For example, the `controller_base` class declares a `frequency` variable, which defines the rate of the control loops.
+For example, the `controller_ros` class declares a `frequency` variable, which defines the rate of the control loops.
 This same parameter is needed in other derived classes, like the `controller_successive_loop` class.
-Since we declare the parameter in the `controller_base` class, the `controller_successive_loop` class will have access to the `frequency` parameter without having to redefine it.
+Since we declare the parameter in the `controller_ros` class, the `controller_successive_loop` class will have access to the `frequency` parameter without having to redefine it.
 
 ## Usage
 
@@ -66,4 +66,4 @@ See the [ROS2 parameter CLI tools](https://docs.ros.org/en/humble/Tutorials/Begi
     Be sure to create a callback for your parameter changes, especially if you use a `param_manager` object.
     ROS2 will send a list of changed parameters to this callback when the parameters are changed, allowing you to update the internally stored value in the `param_manager`.
     Otherwise, your internally stored values will be out of sync with the ROS2 parameters, and it will likely not function correctly.
-    See the `controller_base` or `estimator_base` or `path_planner` code for an example of the callbacks.
+    See the `controller_ros` or `estimator_ros` or `path_planner` code for an example of the callbacks.

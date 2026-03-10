@@ -2,7 +2,9 @@
 
 ## Overview
 The path planner is responsible for creating, managing, and publishing waypoints.
-In the current implementation, the path planner simply maintains a list of user-defined waypoints that the user can add to or clear.
+
+## Path Planner Waypoints
+The `path_planner_waypoints` implementation maintains a list of user-defined waypoints that the user can add to or clear.
 The path planner then controls when waypoints are published to the path manager.
 
 Another implementation of the path planner (as described in [the overview](./navigation-overview.md)) could include a visual-based path planner.
@@ -16,6 +18,11 @@ This node subscribes to the topics it needs, provides services available to the 
 
 The interface between `path_planner` and `path_manager` is the `/waypoint_path` topic,  which publishes messages with the `rosplane_msgs::msg::Waypoint` type.
 This message contains information about the waypoint's location in NED (from the origin) or GNSS (LLA) coordinates, the desired airspeed at the waypoint, and the desired heading of the aircraft at the waypoint.
+
+!!! note
+    `path_planner` converts LLA coordinates into NED using the initial latitude/longitude/altitude fields from `/estimated_state`.
+    If those initial values are unset (often 0.0 before GNSS is initialized), LLA waypoints will be converted incorrectly.
+    Use NED waypoints or wait for a valid GNSS fix before loading LLA missions.
 
 ### About Waypoints
 The following table contains the data members of the `rosplane_msgs::msg::Waypoint` objects and a brief description.
