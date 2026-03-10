@@ -75,7 +75,7 @@ ros2 node list
 You should see the following output:
 ```bash
 ➜  ~ ros2 node list
-/autopilot
+/controller
 /estimator
 /path_follower
 /path_manager
@@ -84,7 +84,7 @@ You should see the following output:
 ```
 
 ??? info "**Node Descriptions**"
-    - **`/autopilot`**: Main control node that implements multiple control algorithms (successive loop control, total energy control) and manages flight modes
+    - **`/controller`**: Main control node that implements multiple control algorithms (successive loop control, total energy control) and manages flight modes
     - **`/estimator`**: EKF that fuses IMU, GPS, and barometer data to provide state estimation (position, velocity, attitude, airspeed)
     - **`/path_follower`**: Tracks commanded paths and generates control setpoints for the controller
     - **`/path_manager`**: Converts waypoints into smooth flyable paths using fillets or Dubins curves
@@ -110,9 +110,11 @@ You should see the following output (note that these are topics from only the `r
 /estimated_state
 /gnss
 /imu/data
+/magnetometer
 /parameter_events
 /rosout
 /sim/rosplane/state
+/sim/truth_imu_bias
 /sim/truth_state
 /sim/truth_wind
 /status
@@ -131,10 +133,11 @@ You should see the following output (note that these are topics from only the `r
     - **`/current_path`**: Active path segment being followed by the path follower
     - **`/estimated_state`**: Complete vehicle state from EKF (position, velocity, attitude, airspeed, wind estimation)
     - **`/sim/rosplane/state`**: ROSplane-formatted state message from simulation truth
+    - `/sim/truth_*`: Truth values for the IMU biases, wind, and state.
     - **`/waypoint_path`**: Current mission waypoints and path information
 
 When we fly waypoint missions, we will load waypoints to the `path_planner` using a service call.
-The chain of information flows from the `path_planner` to the `path_manager`, `path_follower`, `autopilot`, and finally on to the firmware.
+The chain of information flows from the `path_planner` to the `path_manager`, `path_follower`, `controller`, and finally on to the firmware.
 
 ### Launch Ground Control Station
 

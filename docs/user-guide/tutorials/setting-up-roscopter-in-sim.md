@@ -26,7 +26,7 @@ ROScopter is a ROS2-based autopilot system designed for multirotor vehicles.
 - **Path Planner**: High-level mission planning and execution
 
 ### Control Hierarchy
-The ROScopter controller is designed so that uses can interface with it at a variety of levels.
+The ROScopter controller is designed so that users can interface with it at a variety of levels.
 See the `roscopter_msgs/msg/ControllerCommand` message definition for more information.
 
 ??? tip
@@ -78,23 +78,23 @@ ros2 node list
 You should see the following output:
 ```bash
 ➜  ~ ros2 node list
-/autopilot
+/controller
 /estimator
-/external_attitude_transcriber
 /path_manager
 /path_planner
 /roscopter_truth
+/rviz_waypoint_publisher
 /trajectory_follower
 ```
 
 ??? info "**Node Descriptions**"
-    - **`/autopilot`**: Main controller node that implements cascading PID control loops (position → velocity → attitude → rate) and manages flight modes
+    - **`/controller`**: Main controller node that implements cascading PID control loops (position → velocity → attitude → rate) and manages flight modes
     - **`/estimator`**: EKF that fuses IMU, GPS, and barometer data to provide state estimation (position, velocity, attitude)
-    - **`/external_attitude_transcriber`**: Converts external attitude references from the estimator to `external_attitude` messages that are sent to the firmware estimator (helps the firmware estimator not drift)
     - **`/path_manager`**: Manages waypoint sequences and generates smooth trajectory segments between waypoints
     - **`/path_planner`**: High-level mission planning node that handles waypoint loading
     - **`/roscopter_truth`**: Simulation truth state publisher that provides ground truth data for comparison with estimated state
-    - **`/trajectory_follower`**: Tracks generated trajectory segments and outputs position/velocity commands to the autopilot
+    - `/rviz_waypoint_publisher`: Publishes waypoints to the standalone (RViz) simulator for visualization.
+    - **`/trajectory_follower`: Tracks generated trajectory segments and outputs position/velocity commands to the autopilot
 
 Let's now take a look at the topics specific to `roscopter`:
 ```bash
@@ -108,7 +108,6 @@ You should see the following output (note that these are topics from only the `r
 /baro
 /command
 /estimated_state
-/external_attitude
 /gnss
 /high_level_command
 /imu/data
@@ -131,7 +130,6 @@ You should see the following output (note that these are topics from only the `r
         - **`/magnetometer`**: Magnetometer readings for heading estimation
     - **`/command`**: Commands sent to ROSflight firmware (see rosflight_msgs/msg/Command for details)
     - **`/estimated_state`**: Complete vehicle state from EKF (position, velocity, attitude, angular rates)
-    - **`/external_attitude`**: External attitude reference sent to firmware estimator to prevent drift
     - **`/high_level_command`**: High-level control commands from `trajectory_follower` to `autopilot`
     - **`/sim/roscopter/state`**: ROScopter-formatted state message from simulation truth
     - **`/trajectory_command`**: Trajectory commands from path manager to trajectory follower
@@ -145,16 +143,16 @@ You can see this in the `rqt_graph` image (by running `rqt_graph` in a new termi
 
 ### Publish waypoints to RViz
 
+Any waypoints that we send to ROScopter will be re-published by the `/rviz_waypoint_publisher` node [that was launched](#understanding-the-roscopter-stack).
+This node will subscribe to all of the waypoints published by the ROScopter `path_planner`, and will publish them to RViz.
+In other words, when the `/rviz_waypoint_publisher` node is running, the waypoints will appear on the RViz sim screen automatically.
+
+In hardware flights, we don't typically need RViz open, but sometimes it is helpful to see what the vehicle is doing.
 The ROScopter ground control station package (`roscopter_gcs`) has some useful executables to visualize waypoints in RViz.
 The `roscopter_gcs` package was designed so that it can be used out in the field (in other words, it doesn't depend on `rosflight_sim`).
-It can be helpful to run this so we can see if ROScopter is actually doing what we want it to do.
 
-```bash
-# In a new terminal (source workspace first)
-ros2 run roscopter_gcs rviz_waypoint_publisher
-```
-
-This node will subscribe to all of the waypoints published by the ROScopter `path_planner`, and will publish them to RViz.
+So, if you're out in the field, you can run the `rviz_waypoint_publisher` and `rviz_aircraft_publisher` nodes, as well as `standalone_sim.launch.py` to visualize what the vehicle is doing.
+This is not needed if you're just in sim.
 
 ## Loading Missions
 
@@ -320,7 +318,7 @@ ros2 topic echo /command
 
 ### Tuning Flight Performance
 
-It is possible that the flight performance is unstable due to the `autopilot`'s gains not being set correctly.
+It is possible that the flight performance is unstable due to the `controller`'s gains not being set correctly.
 See [the tuning guide](./tuning-performance-in-sim.md) for more information.
 
 ## Helpful Tips
