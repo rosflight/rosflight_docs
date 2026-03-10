@@ -44,6 +44,9 @@ They are summarized in the table below:
 | `min_gnss_fix_type` | Minimum GNSS fix type (float). | int | 3 |
 | `hotstart_estimator` | Whether the estimator should use preset hotstart values. | bool | false |
 
+!!! note 
+    The indicator `NOT_IN_USE` indicates that the value is calculated internally in the node by default. If the parameter is set to something other than `NOT_IN_USE`, that value will be used in lieu of calculating internally.
+
 ## Modifying the Estimator
 
 The ROS class can be overridden in two basic ways,

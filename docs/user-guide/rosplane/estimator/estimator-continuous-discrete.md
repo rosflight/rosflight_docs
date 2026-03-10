@@ -333,3 +333,6 @@ The observation Jacobian is then,
 | `wn_initial_cov` | Initial covariance entry for wind north. | double | 1.0 |
 | `we_initial_cov` | Initial covariance entry for wind east. | double | 1.0 |
 | `num_propagation_steps` | Number of segments propagation step is split into to reduce linearization errors. | int | 10 |
+
+!!! note 
+    The indicator `NOT_IN_USE` indicates that the value is calculated internally in the node by default. If the parameter is set to something other than `NOT_IN_USE`, that value will be used in lieu of calculating internally.
