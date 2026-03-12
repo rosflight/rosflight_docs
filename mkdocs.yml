@@ -104,7 +104,6 @@ nav:
         - Path Planner: user-guide/rosplane/navigation/path-planner.md
         - Path Manager: user-guide/rosplane/navigation/path-manager.md
         - Path Follower: user-guide/rosplane/navigation/path-follower.md
-      - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
     - ROScopter:
       - user-guide/roscopter/index.md
       - ROScopter Path Planner: user-guide/roscopter/roscopter-path-planner.md
