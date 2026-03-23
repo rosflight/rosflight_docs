@@ -33,7 +33,7 @@ The simplicity of the ROSplane framework allows users to add their own autonomy 
 The [ROSflight tutorials](../tutorials/index.md) walk users through setting up ROSflight and ROSplane in sim, all the way through flying waypoint missions.
 Follow those tutorials first to get a feel for the default ROSplane behavior and workflow before you start making your own changes to the autonomy stack.
 
-The following pages for a detailed description of each ROSplane module and its default functionality.
+The following pages have a detailed description of each ROSplane module and its default functionality.
 
 ## Using ROSplane as-is
 ROSplane's default waypoint-following functionality may be useful to some users.

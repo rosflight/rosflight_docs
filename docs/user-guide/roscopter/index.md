@@ -81,5 +81,5 @@ Each module is described in detail in the following sections.
     ```bash
     ros2 interface show roscopter_msgs/msg/TrajectoryCommand
     ```
-    will print to the screen what is contained each `TrajectoryCommand` message that is published.
+    will print to the screen what is contained in each `TrajectoryCommand` message that is published.
     You can also find this same information by going and looking at the `*.msg` or `*.srv` files in the `roscopter_msgs` package.
