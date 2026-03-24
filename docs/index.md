@@ -1,7 +1,5 @@
 # Welcome to ROSflight
 
-***The ROS2 updates for ROSflight are still under development. Please use with discretion.***
-
 ## What is ROSflight?
 
 ROSflight is a lean and adaptable autopilot system designed from the ground up with researchers in mind.
