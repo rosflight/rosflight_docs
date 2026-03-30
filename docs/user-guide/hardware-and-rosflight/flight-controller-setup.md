@@ -1,5 +1,14 @@
 # Flight Controller Setup
 
+The ROSflight flight controller unit (FCU) is an embedded computer that runs [ROSflight firmware](https://github.com/rosflight/rosflight_firmware).
+It is responsible for
+
+1. Interfacing with sensors (drivers) and streaming sensor data to the companion computer
+2. Controlling the actuators (via PWM).
+
+The FCU accomplishes both of these using a high-speed serial connection with the companion computer.
+
+This guide explains how to set up and configure an FCU with ROSflight firmware.
 
 ## Compatible Hardware
 
@@ -7,24 +16,30 @@ Currently, the ROSflight firmware supports:
 
 1. An in-development board from AeroVironment, the **Varmint**.
 This board has an integrated Jetson Orin, but is not yet commercially available.
-1. **[MRO's Pixracer Pro](https://store.3dr.com/pixracer-pro/)**, which has the same H7 processor.
+1. **[MRO's Pixracer Pro](https://store.3dr.com/pixracer-pro/)**, which has the same H7 processor as the Varmint.
+
+You will need one of these boards to run ROSflight.
 
 !!! note "Supporting your own board"
 
-    It is possible to write your own board support package (BSP).
-    If you do create your own support package for the ROSflight firmware, please contribute back!
+    The ROSflight firmware has been designed to be abstracted from a physical board.
+    Thus, if you need to port ROSflight firmware to a different board, you only need to create a new board support package (BSP), which handles board-specific functionality like reading from sensor drivers, writing PWM outputs, and getting the clock time.
+
+    If you do create your own support package for the ROSflight firmware for a new board, please contribute back by letting us know!
 
 ## Serial Port Configuration
 
-!!! tip
-    You can see which groups you are a member of by running `groups $USER` on the command line.
+First, we'll need to configure the serial port on the companion computer.
 
 The following bullet point is necessary:
 
-* Be sure your user is in the `dialout` and `plugdev` groups so you have access to the serial ports. You will need to log out and back in for these changes to take effect.
+* Be sure your user on your companion computer is in the `dialout` and `plugdev` groups so you have access to the serial ports. You will need to log out and back in for these changes to take effect.
 ``` bash
 sudo usermod -aG dialout,plugdev $USER
 ```
+
+    !!! tip
+        You can see which groups you are a member of by running `groups $USER` on the command line.
 
 If you experience issues, you may need one or both of the next two bullet points:
 
@@ -33,22 +48,22 @@ If you experience issues, you may need one or both of the next two bullet points
 sudo systemctl stop ModemManager.service
 ```
 
+    ??? Tip "Permanently disabling ModemManager"
+        You can permanently disable the ModemManager if you do not need it, then you won't have to disable it every time you reboot:
+        ```
+        sudo systemctl disable ModemManager.service
+        ```
+        Replace `disable` with `enable` to revert (i.e. if you find some other program you use needs access to it).
+        Or you can uninstall it entirely from your system:
+        ```
+        sudo apt purge modemmanager
+        ```
+
 * Add the custom udev rule so Linux handles the flight controller properly (copy the following as `/etc/udev/rules.d/45-stm32dfu.rules`)
 ``` bash
 # DFU (Internal bootloader for STM32 MCUs)
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0664", GROUP="plugdev"
 ```
-
-!!! Tip
-    You can permanently disable the ModemManager if you do not need it, then you won't have to disable it every time you reboot:
-    ```
-    sudo systemctl disable ModemManager.service
-    ```
-    Replace `disable` with `enable` to revert (i.e. if you find some other program you use needs access to it).
-    Or you can uninstall it entirely from your system:
-    ```
-    sudo apt purge modemmanager
-    ```
 
 ## Building and Flashing the Firmware
 
