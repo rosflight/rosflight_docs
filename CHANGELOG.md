@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.0-beta.1](https://github.com/rosflight/rosflight_docs/compare/v2.0.0-beta...v2.0.0-beta.1) (2026-07-02)
+
+
+### Features
+
+* abstracted the customizing rosflight page to be general to ROSflight ([4a31a2b](https://github.com/rosflight/rosflight_docs/commit/4a31a2b730bca5514fc9e2b0eb15ec1d9bf24b32))
+* HoloOcean documentation ([1405a0d](https://github.com/rosflight/rosflight_docs/commit/1405a0d6325330692a6cdca7351eaa014b0d987c))
+* improve documentation on saving parameters to memory ([b01af37](https://github.com/rosflight/rosflight_docs/commit/b01af37fa3a8caaf0551b375bdd8c21f46e5f1b3))
+* rosflight_io documentation ([4a31a2b](https://github.com/rosflight/rosflight_docs/commit/4a31a2b730bca5514fc9e2b0eb15ec1d9bf24b32))
+* rosplane estimator documentation update ([#56](https://github.com/rosflight/rosflight_docs/issues/56)) ([cad1e91](https://github.com/rosflight/rosflight_docs/commit/cad1e912062122452079aa908bf80e3bc3da0def))
+* update parameter table ([#54](https://github.com/rosflight/rosflight_docs/issues/54)) ([e2d8694](https://github.com/rosflight/rosflight_docs/commit/e2d8694a5d6129a0b9aba3c524bbd165d9b1e05e))
+
+
+### Bug Fixes
+
+* fix some filepath errors in the tutorials ([#49](https://github.com/rosflight/rosflight_docs/issues/49)) ([b01af37](https://github.com/rosflight/rosflight_docs/commit/b01af37fa3a8caaf0551b375bdd8c21f46e5f1b3))
+* update node names in node list commands in tutorials ([cc5f6c5](https://github.com/rosflight/rosflight_docs/commit/cc5f6c5ba4aba32f0e4b353ac66777a575323a77))
+
 ## [2.0.0-beta](https://github.com/rosflight/rosflight_docs/compare/v1.3.0...v2.0.0-beta) (2025-12-15)
 
 
