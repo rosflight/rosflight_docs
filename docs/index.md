@@ -2,6 +2,11 @@
 
 ***The ROS2 updates for ROSflight are still under development. Please use with discretion.***
 
+!!! tip "Veloxity Firmware"
+
+    Check out the latest addition to the ROSflight ecosystem: [Veloxity](Link Here)! Veloxity is a fully intercompatible 
+    adaptation of the ROSflight firmware written in Rust and optimized for high speed saftey-oriented UAV research.
+
 ## What is ROSflight?
 
 ROSflight is a lean and adaptable autopilot system designed from the ground up with researchers in mind.
