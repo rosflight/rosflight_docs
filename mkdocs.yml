@@ -86,7 +86,7 @@ nav:
       - Mixer: user-guide/rosflight-firmware/mixer.md
       - Autonomous Flight: user-guide/rosflight-firmware/autonomous-flight.md
     - ROSplane:
-      - User Guide Overview: user-guide/rosplane/rosplane-user-overview.md
+      - user-guide/rosplane/index.md
       - Controller:
         - General Controller Overview: user-guide/rosplane/controller/controller-general-overview.md
         - Controller Software Architecture: user-guide/rosplane/controller/controller-software-architecture.md
@@ -104,8 +104,6 @@ nav:
         - Path Planner: user-guide/rosplane/navigation/path-planner.md
         - Path Manager: user-guide/rosplane/navigation/path-manager.md
         - Path Follower: user-guide/rosplane/navigation/path-follower.md
-      - user-guide/rosplane/index.md
-      - ROSplane Setup: user-guide/rosplane/rosplane-setup.md
     - ROScopter:
       - user-guide/roscopter/index.md
       - ROScopter Path Planner: user-guide/roscopter/roscopter-path-planner.md

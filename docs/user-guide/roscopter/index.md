@@ -31,17 +31,18 @@ The ROScopter autopilot allows users to fly waypoint missions with an RC safety 
 These waypoints are defined by desired 3-D locations and a desired heading.
 The simplicity of this framework allows users to add their own autonomy stacks or mission requirements on top of the ROScopter stack.
 
-For example, the `path_planner` module in the ROScopter navigation stack is responsible for compiling high-level waypoints and sending them to the `path_manager`.
-The `path_planner` by default just takes in user-defined waypoints.
-Instead of loading these user-defined waypoints, higher levels of autonomy (i.e., vision-based guidance, etc.) could be accommodated by building on top of the ROScopter stack by dynamically feeding the `path_planner` waypoints.
+The [ROSflight tutorials](../tutorials/index.md) walk users through setting up ROSflight and ROScopter in sim, all the way through flying waypoint missions.
+Follow those tutorials first to get a feel for the default ROScopter behavior and workflow before you start making your own changes to the autonomy stack.
 
 See [the ROScopter autonomy stack documentation pages](./roscopter-path-planner.md) for a detailed description of the default functionality and description of each module.
 
 ## Using ROScopter as-is
 
 ROScopter's default waypoint-following functionality may be useful to some users.
-The [ROSflight tutorials](../tutorials/index.md) walk users through setting up ROSflight and ROScopter in sim, all the way through flying waypoint missions.
-Follow those tutorials first to get a feel for the default ROScopter behavior and workflow before you start making your own changes to the autonomy stack.
+For example, the `path_planner` module in the ROScopter navigation stack is responsible for compiling high-level waypoints and sending them to the `path_manager`.
+The `path_planner` by default just takes in user-defined waypoints.
+Instead of loading these user-defined waypoints, higher levels of autonomy (i.e., vision-based guidance, etc.) could be accommodated by building on top of the ROScopter stack by dynamically feeding the `path_planner` waypoints.
+
 
 A detailed description of the ROScopter autonomy stack and each module is found in [the ROScopter architecture pages](./roscopter-path-planner.md).
 
@@ -74,3 +75,11 @@ Each module is described in detail in the following sections.
     ```bash
     ros2 interface show <interface type>
     ```
+
+    This command will show you what is contained in each message/service type.
+    For example, running
+    ```bash
+    ros2 interface show roscopter_msgs/msg/TrajectoryCommand
+    ```
+    will print to the screen what is contained in each `TrajectoryCommand` message that is published.
+    You can also find this same information by going and looking at the `*.msg` or `*.srv` files in the `roscopter_msgs` package.

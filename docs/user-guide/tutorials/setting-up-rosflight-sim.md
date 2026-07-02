@@ -1,6 +1,12 @@
 # Setting Up ROSflight Sim
 
-The purpose of this tutorial is to walk users through launching the default ROSflight simulator.
+This tutorial will walk users through launching the default ROSflight simulator.
+
+!!! note
+
+    You won't actually fly anything or make a vehicle do anything in this tutorial.
+
+    This tutorial is all about just launching the simulator, and a little about the simulator architecture.
 
 <figure markdown="span">
     ![Image of the RViz multirotor sim](../images/rviz-multirotor-launch.png){ width="1200" loading=lazy }
@@ -77,6 +83,10 @@ The ROSflight standalone simulator consists of several key components:
     ```
 
     #### With Keyboard Control (VimFly)
+
+    The ROSflight sim simulates RC input.
+    To do this, you can either connect a transmitter or simulate a transmitter using VimFly.
+    We'll cover more about this in the next tutorial.
 
     For manual control using keyboard input, add the `use_vimfly:=true` parameter:
 
